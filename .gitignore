@@ -1,0 +1,16 @@
+#################
+## Mod Ignores
+#################
+
+## Gradle
+/.gradle
+/build
+
+## Intellij
+/out
+/*.iml
+/*.ipr
+/*.iws
+
+## Misc
+/run
