@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 
 public class EntityMankiniCapsule extends EntityThrowable {
 
+    ItemStack foundMankini;
 
     public EntityMankiniCapsule(World par1World) {
 
@@ -24,9 +25,10 @@ public class EntityMankiniCapsule extends EntityThrowable {
 
     }
 
-    public EntityMankiniCapsule(World par1World, EntityLivingBase par2EntityLivingBase) {
+    public EntityMankiniCapsule(World par1World, EntityLivingBase par2EntityLivingBase, ItemStack foundMankini) {
 
         super(par1World, par2EntityLivingBase);
+        this.foundMankini = foundMankini;
 
     }
 
@@ -43,23 +45,21 @@ public class EntityMankiniCapsule extends EntityThrowable {
 
             Entity hit = mop.entityHit;
 
-            if(getThrower() instanceof EntityPlayer && hit instanceof EntityPlayer) {
+            if(hit instanceof EntityPlayer) {
 
                 EntityPlayer hitPlayer = (EntityPlayer)hit;
 
-                ItemStack toPlace = getFirstFoundMankini((EntityPlayer)getThrower());
-
                 if(!this.worldObj.isRemote) {
 
-                    if(hitPlayer.getCurrentArmor(2) != null) {
+                    if(hitPlayer.inventory.armorItemInSlot(1) != null) {
 
-                        ItemStack toSpawn = hitPlayer.getCurrentArmor(2).copy();
+                        ItemStack toSpawn = hitPlayer.inventory.armorItemInSlot(1);
                         EntityItem spawned = new EntityItem(this.worldObj, hitPlayer.posX, hitPlayer.posY, hitPlayer.posZ, toSpawn);
                         worldObj.spawnEntityInWorld(spawned);
 
                     }
 
-                    hitPlayer.setCurrentItemOrArmor(2, toPlace);
+                    hitPlayer.setCurrentItemOrArmor(2, foundMankini);
 
                     setDead();
 
@@ -71,21 +71,4 @@ public class EntityMankiniCapsule extends EntityThrowable {
 
     }
 
-    public ItemStack getFirstFoundMankini(EntityPlayer thrower) {
-
-        for(int i = 0; i < thrower.inventory.getSizeInventory(); i++) {
-
-            if(thrower.inventory.getStackInSlot(i).getItem() instanceof IMankini) {
-
-                ItemStack foundMankini =  thrower.inventory.getStackInSlot(i).copy();
-                --thrower.inventory.getStackInSlot(i).stackSize;
-                return foundMankini;
-
-            }
-
-        }
-
-        return new ItemStack(ModItems.itemDyeableMankini);
-
-    }
 }

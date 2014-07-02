@@ -4,6 +4,7 @@ import matgm50.mankini.Mankini;
 import matgm50.mankini.entity.EntityMankiniCapsule;
 import matgm50.mankini.lib.ItemLib;
 import matgm50.mankini.lib.ModLib;
+import matgm50.mankini.util.MankiniHelper;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -31,9 +32,12 @@ public class ItemMankiniCannon extends Item {
 
         if (!par2World.isRemote) {
 
-            par2World.spawnEntityInWorld(new EntityMankiniCapsule(par2World, par3EntityPlayer));
+            par2World.spawnEntityInWorld(new EntityMankiniCapsule(par2World, par3EntityPlayer, MankiniHelper.getFirstFoundMankini(par3EntityPlayer)));
 
         }
+
+        par3EntityPlayer.inventory.consumeInventoryItem(MankiniHelper.getFirstFoundMankini(par3EntityPlayer).getItem());
+        par3EntityPlayer.inventory.markDirty();
 
         return par1ItemStack;
 
