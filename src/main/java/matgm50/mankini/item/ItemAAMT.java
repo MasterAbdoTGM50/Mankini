@@ -19,7 +19,7 @@ import net.minecraft.item.ItemStack;
  * Created by MasterAbdoTGM50 on 5/30/2014.
  */
 
-public class ItemAAMT extends ItemArmor {
+public class ItemAAMT extends ItemArmor implements IMankini {
 
 
     public ItemAAMT() {

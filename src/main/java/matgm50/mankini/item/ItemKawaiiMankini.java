@@ -14,7 +14,7 @@ import net.minecraft.world.World;
  * Created by MasterAbdoTGM50 on 5/28/2014.
  */
 
-public class ItemKawaiiMankini extends ItemArmor {
+public class ItemKawaiiMankini extends ItemArmor implements IMankini {
 
     public ItemKawaiiMankini() {
 

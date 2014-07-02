@@ -16,7 +16,7 @@ import net.minecraft.util.IIcon;
  * Created by MasterAbdoTGM50 on 5/26/2014.
  */
 
-public class ItemDyeableMankini extends ItemArmor {
+public class ItemDyeableMankini extends ItemArmor implements IMankini {
 
     private IIcon iconNormal;
     private IIcon iconOverlay;

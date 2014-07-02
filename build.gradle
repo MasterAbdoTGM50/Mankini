@@ -22,7 +22,7 @@ group= "matgm50.mankini" // http://maven.apache.org/guides/mini/guide-naming-con
 archivesBaseName = "Mankini"
 
 minecraft {
-    version = "1.7.2-10.12.1.1098"
+    version = "1.7.2-10.12.2.1121"
     assetDir = "run/assets"
 }
 

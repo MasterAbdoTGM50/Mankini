@@ -8,6 +8,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import matgm50.mankini.crafting.ModRecipes;
+import matgm50.mankini.entity.ModEntities;
 import matgm50.mankini.item.ModItems;
 import matgm50.mankini.lib.ModLib;
 import matgm50.mankini.proxy.CommonProxy;
@@ -37,7 +38,11 @@ public class Mankini {
         ModItems.init();
         ModRecipes.init();
 
+        ModEntities.init();
+
         TickHandler.init();
+
+        proxy.initRenderers();
 
     }
 
