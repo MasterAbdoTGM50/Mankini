@@ -39,24 +39,27 @@ public class EntityMankiniCapsule extends EntityThrowable {
     @Override
     protected void onImpact(MovingObjectPosition mop) {
 
-        if(mop.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
+        if(mop.typeOfHit != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
 
             Entity hit = mop.entityHit;
 
-            if(hit instanceof EntityPlayer) {
+            if(getThrower() instanceof EntityPlayer && hit instanceof EntityPlayer) {
 
                 EntityPlayer hitPlayer = (EntityPlayer)hit;
 
-                ItemStack toPlace = getFirstFoundMankini(getThrower());
-                ItemStack toReplace = hitPlayer.getCurrentArmor(2);
-
-                EntityItem replaced = new EntityItem(this.worldObj, hitPlayer.posX, hitPlayer.posY, hitPlayer.posZ, toReplace);
+                ItemStack toPlace = getFirstFoundMankini((EntityPlayer)getThrower());
 
                 if(!this.worldObj.isRemote) {
 
-                    hitPlayer.setCurrentItemOrArmor(2, toPlace);
+                    if(hitPlayer.getCurrentArmor(2) != null) {
 
-                    worldObj.spawnEntityInWorld(replaced);
+                        ItemStack toSpawn = hitPlayer.getCurrentArmor(2).copy();
+                        EntityItem spawned = new EntityItem(this.worldObj, hitPlayer.posX, hitPlayer.posY, hitPlayer.posZ, toSpawn);
+                        worldObj.spawnEntityInWorld(spawned);
+
+                    }
+
+                    hitPlayer.setCurrentItemOrArmor(2, toPlace);
 
                     setDead();
 
@@ -68,21 +71,15 @@ public class EntityMankiniCapsule extends EntityThrowable {
 
     }
 
-    public ItemStack getFirstFoundMankini(EntityLivingBase thrower) {
+    public ItemStack getFirstFoundMankini(EntityPlayer thrower) {
 
-        if(thrower instanceof EntityPlayer) {
+        for(int i = 0; i < thrower.inventory.getSizeInventory(); i++) {
 
-            EntityPlayer player = (EntityPlayer)thrower;
+            if(thrower.inventory.getStackInSlot(i).getItem() instanceof IMankini) {
 
-            for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
-
-                if(player.inventory.getStackInSlot(i).getItem() instanceof IMankini) {
-
-                    ItemStack foundMankini =  player.inventory.getStackInSlot(i).copy();
-                    player.inventory.getStackInSlot(i).stackSize = 0;
-                    return foundMankini;
-
-                }
+                ItemStack foundMankini =  thrower.inventory.getStackInSlot(i).copy();
+                --thrower.inventory.getStackInSlot(i).stackSize;
+                return foundMankini;
 
             }
 
