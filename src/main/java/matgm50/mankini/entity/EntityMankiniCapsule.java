@@ -51,15 +51,15 @@ public class EntityMankiniCapsule extends EntityThrowable {
 
                 if(!this.worldObj.isRemote) {
 
-                    if(hitPlayer.inventory.armorItemInSlot(1) != null) {
+                    if(hitPlayer.inventory.armorItemInSlot(2) != null) {
 
-                        ItemStack toSpawn = hitPlayer.inventory.armorItemInSlot(1);
+                        ItemStack toSpawn = hitPlayer.inventory.armorItemInSlot(2);
                         EntityItem spawned = new EntityItem(this.worldObj, hitPlayer.posX, hitPlayer.posY, hitPlayer.posZ, toSpawn);
                         worldObj.spawnEntityInWorld(spawned);
 
                     }
 
-                    hitPlayer.setCurrentItemOrArmor(2, foundMankini);
+                    hitPlayer.setCurrentItemOrArmor(3, foundMankini);
 
                     setDead();
 
