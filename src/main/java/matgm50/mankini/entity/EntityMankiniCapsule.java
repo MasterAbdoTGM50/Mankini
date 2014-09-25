@@ -48,15 +48,32 @@ public class EntityMankiniCapsule extends EntityThrowable {
             if(hit instanceof EntityPlayer) {
 
                 EntityPlayer hitPlayer = (EntityPlayer)hit;
+                Boolean full;
+                
+                    for (int i=0; i<=hitPlayer.inventory.getSizeInventory()-5; i++) {
+                         if (hitPlayer.inventory.mainInventory[i] != null) {
+                             full = false;
+                         }
+                    }
+                    full = true;
+                
 
                 if(!this.worldObj.isRemote) {
 
                     if(hitPlayer.inventory.armorItemInSlot(2) != null) {
+                    	
+                    	 if(full = false) {
 
-                        ItemStack toSpawn = hitPlayer.inventory.armorItemInSlot(2);
-                        EntityItem spawned = new EntityItem(this.worldObj, hitPlayer.posX, hitPlayer.posY, hitPlayer.posZ, toSpawn);
-                        worldObj.spawnEntityInWorld(spawned);
+                        ItemStack currentChest = hitPlayer.inventory.armorItemInSlot(2);
+                        hitPlayer.inventory.addItemStackToInventory(currentChest);
+                        
 
+                    	 }
+                    	 else if(full = true){
+                    		 ItemStack toSpawn = foundMankini;
+                             EntityItem spawned = new EntityItem(this.worldObj, hitPlayer.posX, hitPlayer.posY, hitPlayer.posZ, toSpawn);
+                             worldObj.spawnEntityInWorld(spawned);
+                    	 }
                     }
 
                     hitPlayer.setCurrentItemOrArmor(3, foundMankini);
@@ -64,11 +81,13 @@ public class EntityMankiniCapsule extends EntityThrowable {
                     setDead();
 
                 }
+                
 
             }
 
         }
 
     }
+    
 
 }
