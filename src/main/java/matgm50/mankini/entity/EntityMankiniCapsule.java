@@ -64,7 +64,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
                     	
                     	 if(full = false) {
 
-                        ItemStack currentChest = hitPlayer.inventory.armorItemInSlot(2);
+                        ItemStack currentChest = hitPlayer.inventory.armorItemInSlot(3);
                         hitPlayer.inventory.addItemStackToInventory(currentChest);
                         
 
