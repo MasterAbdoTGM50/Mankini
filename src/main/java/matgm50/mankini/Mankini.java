@@ -1,5 +1,7 @@
 package matgm50.mankini;
 
+import java.util.Random;
+
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -7,6 +9,7 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import matgm50.mankini.crafting.ModRecipes;
 import matgm50.mankini.entity.ModEntities;
 import matgm50.mankini.item.ModItems;
@@ -31,6 +34,8 @@ public class Mankini {
     public static CommonProxy proxy;
 
     public static CreativeTabs tabMankini = new TabMankini(ModLib.ID);
+    
+    
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {

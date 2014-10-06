@@ -1,8 +1,11 @@
 package matgm50.mankini.proxy;
 
+import net.minecraft.client.model.ModelCreeper;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import matgm50.mankini.client.renderer.RendererMankiniCapsule;
+import matgm50.mankini.client.renderer.RendererMankiniCreeper;
 import matgm50.mankini.entity.EntityMankiniCapsule;
+import matgm50.mankini.entity.EntityMankiniCreeper;
 import matgm50.mankini.item.ModItems;
 
 /**
@@ -15,6 +18,8 @@ public class ClientProxy extends CommonProxy {
     public void initRenderers() {
 
         RenderingRegistry.registerEntityRenderingHandler(EntityMankiniCapsule.class, new RendererMankiniCapsule(ModItems.itemMankiniCapsule));
+        RenderingRegistry.registerEntityRenderingHandler(EntityMankiniCreeper.class, new RendererMankiniCreeper(new ModelCreeper(), 0.5F));
+
 
     }
 
