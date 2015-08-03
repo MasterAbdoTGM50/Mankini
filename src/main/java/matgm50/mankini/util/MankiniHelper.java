@@ -28,4 +28,21 @@ public class MankiniHelper {
 
     }
 
+    public static Boolean mankiniinInventory(EntityPlayer thrower) {
+
+        for(int i = 0; i < thrower.inventory.getSizeInventory(); i++) {
+
+            if(thrower.inventory.getStackInSlot(i) != null && thrower.inventory.getStackInSlot(i).getItem() instanceof IMankini) {
+
+ 
+                return true;
+
+            }
+
+        }
+
+        return false;
+
+    }
+
 }

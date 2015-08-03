@@ -1,7 +1,5 @@
 package matgm50.mankini;
 
-import java.util.Random;
-
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -9,15 +7,19 @@ import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
-import cpw.mods.fml.common.registry.EntityRegistry;
 import matgm50.mankini.crafting.ModRecipes;
 import matgm50.mankini.entity.ModEntities;
+import matgm50.mankini.item.ItemBatMankini;
 import matgm50.mankini.item.ModItems;
 import matgm50.mankini.lib.ModLib;
 import matgm50.mankini.proxy.CommonProxy;
+import matgm50.mankini.util.BatHandler;
 import matgm50.mankini.util.TabMankini;
 import matgm50.mankini.util.TickHandler;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 
 /**
  * Created by MasterAbdoTGM50 on 4/23/2014.
@@ -35,7 +37,8 @@ public class Mankini {
 
     public static CreativeTabs tabMankini = new TabMankini(ModLib.ID);
     
-    
+   
+   
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
@@ -48,7 +51,12 @@ public class Mankini {
         TickHandler.init();
 
         proxy.initRenderers();
-
+        
+        BatHandler.init();
+        
+        ItemBatMankini.init();       
+        
+      
     }
 
     @EventHandler
@@ -60,5 +68,6 @@ public class Mankini {
     public void postInit(FMLPostInitializationEvent event) {
 
     }
+
 
 }

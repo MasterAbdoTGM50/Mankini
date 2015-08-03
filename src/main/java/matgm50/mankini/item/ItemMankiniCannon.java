@@ -2,6 +2,7 @@ package matgm50.mankini.item;
 
 import matgm50.mankini.Mankini;
 import matgm50.mankini.entity.EntityMankiniCapsule;
+//import matgm50.mankini.entity.EntityMankiniWither;
 import matgm50.mankini.lib.ItemLib;
 import matgm50.mankini.lib.ModLib;
 import matgm50.mankini.util.MankiniHelper;
@@ -31,8 +32,11 @@ public class ItemMankiniCannon extends Item {
     public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
 
         if (!par2World.isRemote) {
+        	if(MankiniHelper.mankiniinInventory(par3EntityPlayer) == true){
+        		
 
             par2World.spawnEntityInWorld(new EntityMankiniCapsule(par2World, par3EntityPlayer, MankiniHelper.getFirstFoundMankini(par3EntityPlayer)));
+        	}
 
         }
 
