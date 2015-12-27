@@ -1,14 +1,10 @@
 package matgm50.mankini.util;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
-import matgm50.mankini.item.ItemBatMankini;
 import matgm50.mankini.item.ModItems;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.ChatComponentText;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.EntityInteractEvent;
 

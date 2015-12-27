@@ -9,17 +9,14 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import matgm50.mankini.crafting.ModRecipes;
 import matgm50.mankini.entity.ModEntities;
-import matgm50.mankini.item.ItemBatMankini;
 import matgm50.mankini.item.ModItems;
 import matgm50.mankini.lib.ModLib;
 import matgm50.mankini.proxy.CommonProxy;
 import matgm50.mankini.util.BatHandler;
+import matgm50.mankini.util.BatMankiniJump;
 import matgm50.mankini.util.TabMankini;
 import matgm50.mankini.util.TickHandler;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 
 /**
  * Created by MasterAbdoTGM50 on 4/23/2014.
@@ -54,7 +51,7 @@ public class Mankini {
         
         BatHandler.init();
         
-        ItemBatMankini.init();       
+        BatMankiniJump.init();       
         
       
     }
