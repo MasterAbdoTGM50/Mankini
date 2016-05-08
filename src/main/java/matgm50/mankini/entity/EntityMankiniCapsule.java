@@ -48,7 +48,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
                 EntityPlayer hitPlayer = (EntityPlayer)hit;
                 Boolean full;
                 
-                    for (int i=0; i<=hitPlayer.inventory.getSizeInventory()-5; i++) {
+                    for (int i=0; i<=hitPlayer.inventory.getSizeInventory(); i++) {
                          if (hitPlayer.inventory.mainInventory[i] != null) {
                              full = false;
                          }
