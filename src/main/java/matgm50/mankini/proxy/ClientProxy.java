@@ -11,6 +11,10 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends CommonProxy {
 
+	@Override
+	public void RegisterRenders(){
+		ModItems.registerRenders();
+	}
     @Override
     public void initRenderers() {
 
