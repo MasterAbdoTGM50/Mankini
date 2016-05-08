@@ -1,5 +1,7 @@
 package matgm50.mankini.client.renderer;
 
+import net.minecraft.client.renderer.RenderItem;
+import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.item.Item;
 
@@ -9,16 +11,12 @@ import net.minecraft.item.Item;
 
 public class RendererMankiniCapsule extends RenderSnowball {
 
-    public RendererMankiniCapsule(Item par1Item) {
+    public RendererMankiniCapsule(RenderManager renderManager, Item par1Item, RenderItem itemRender) {
 
-        super(par1Item);
-
-    }
-
-    public RendererMankiniCapsule(Item par1Item, int par2) {
-
-        super(par1Item, par2);
+        super(renderManager, par1Item, itemRender);
 
     }
+
+ 
 
 }

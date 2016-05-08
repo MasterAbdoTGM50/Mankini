@@ -1,14 +1,12 @@
 package matgm50.mankini.entity;
 
-import matgm50.mankini.item.IMankini;
-import matgm50.mankini.item.ModItems;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
 /**
@@ -38,10 +36,10 @@ public class EntityMankiniCapsule extends EntityThrowable {
 
     }
 
-    @Override
-    protected void onImpact(MovingObjectPosition mop) {
+   @Override
+    protected void onImpact(RayTraceResult mop) {
 
-        if(mop.typeOfHit != null && mop.typeOfHit == MovingObjectPosition.MovingObjectType.ENTITY) {
+        if(mop.typeOfHit != null && mop.typeOfHit == RayTraceResult.Type.ENTITY) {
 
             Entity hit = mop.entityHit;
 
@@ -76,7 +74,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
                     	 }
                     }
 
-                    hitPlayer.setCurrentItemOrArmor(3, foundMankini);
+                    hitPlayer.inventory.setInventorySlotContents(3, foundMankini);
 
                     setDead();
 
@@ -88,6 +86,8 @@ public class EntityMankiniCapsule extends EntityThrowable {
         }
 
     }
+
+
     
 
 }

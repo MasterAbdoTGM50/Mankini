@@ -1,9 +1,17 @@
 package matgm50.mankini.item;
 
-import cpw.mods.fml.common.registry.GameRegistry;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
+
 import matgm50.mankini.lib.ItemLib;
-import net.minecraft.block.Block;
+import matgm50.mankini.lib.ModLib;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor.ArmorMaterial;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+
 
 /**
  * Created by MasterAbdoTGM50 on 4/23/2014.
@@ -11,30 +19,31 @@ import net.minecraft.item.Item;
 
 public class ModItems {
 
+	public static final Set<Item> items = new HashSet<>();
     public static Item itemDyeableMankini;
     public static Item itemKawaiiMankini;
     public static Item itemAethericMankini;
-    public static Item itemMankiniCannon;
+    public static final Item Itemmankinicannon;
     public static Item itemMankiniCapsule;
     public static Item itemBatMankini;
-
-    public static void init() {
-
-        itemDyeableMankini = new ItemDyeableMankini();
-        itemKawaiiMankini = new ItemKawaiiMankini();
-        itemAethericMankini = new ItemAAMT();
-        itemMankiniCannon  = new ItemMankiniCannon();
-        itemMankiniCapsule = new ItemMankiniCapsule();
-        itemBatMankini = new ItemBatMankini();
-
-        GameRegistry.registerItem(itemDyeableMankini, ItemLib.DYEABLE_MAKNINI_NAME);
-        GameRegistry.registerItem(itemKawaiiMankini, ItemLib.KAWAII_MAKNINI_NAME);
-        GameRegistry.registerItem(itemAethericMankini, ItemLib.AETHERIC_MAKNINI_NAME);
-        GameRegistry.registerItem(itemMankiniCannon, ItemLib.MANKINI_CANNON_NAME);
-        GameRegistry.registerItem(itemMankiniCapsule, ItemLib.MANKINI_CAPSULE_NAME);
-        GameRegistry.registerItem(itemBatMankini, ItemLib.MANKINI_BAT_NAME);
-
-    }
+    	
+    	static {
+    		Itemmankinicannon = registerItem(new ItemMankiniCannon(ItemLib.MANKINI_CANNON_NAME));
+    	}
+    	
+    	   public static void registerItems() {
+    		   
+    	   }
 
 
+	
+	private static <T extends Item> T registerItem(T item) {
+		GameRegistry.register(item);
+		items.add(item);
+
+		return item;
+	}
 }
+
+
+
