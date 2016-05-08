@@ -46,9 +46,7 @@ public class Mankini {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
 
-  
-        ModItems.registerItems();
-        
+        ModItems.init();
         ModRecipes.init();
 
         ModEntities.init();
@@ -68,6 +66,14 @@ public class Mankini {
     @EventHandler
     public void init(FMLInitializationEvent event) {
 
+    	if(event.getSide() == Side.CLIENT)
+    	{
+    	    	RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
+    	    		
+    	    	renderItem.getItemModelMesher().register(ModItems.itemBatMankini, 0, new ModelResourceLocation(ModLib.ID + ":" + ((ItemBatMankini) ModItems.itemBatMankini).getName()));
+    	}
+ 
+    	
     }
 
     @EventHandler

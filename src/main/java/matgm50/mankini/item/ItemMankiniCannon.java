@@ -21,14 +21,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemMankiniCannon extends Item {
 
-    public ItemMankiniCannon(String itemName) {
+    public ItemMankiniCannon() {
 
         super();
-        setItemName(this, itemName);
+        setUnlocalizedName(ItemLib.MANKINI_CANNON_NAME);
         setCreativeTab(Mankini.tabMankini);
         setMaxStackSize(1);
         setFull3D();
-
+        setRegistryName(ItemLib.MANKINI_CANNON_NAME);
         GameRegistry.register(this);
 
     }
@@ -52,13 +52,15 @@ public class ItemMankiniCannon extends Item {
         return par1ItemStack;
 
     }
+    @SideOnly(Side.CLIENT)
+    public void initModel() {
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+    }
 
-
-    public static void setItemName(Item item, String itemName) {
-		item.setRegistryName(itemName);
-		item.setUnlocalizedName(item.getRegistryName().toString());
+	public String getName() {
+		// TODO Auto-generated method stub
+		return ItemLib.MANKINI_CANNON_NAME;
 	}
-    
 }
 
     

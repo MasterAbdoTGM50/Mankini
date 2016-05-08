@@ -29,7 +29,7 @@ public class ItemBatMankini extends ItemArmor implements IMankini {
 
 
 	
-    public ItemBatMankini(ItemArmor.ArmorMaterial material, int renderIndex) {
+    public ItemBatMankini() {
 
         super(ArmorMaterial.IRON, 0, EntityEquipmentSlot.CHEST);
         setUnlocalizedName(ItemLib.MANKINI_BAT_NAME);
