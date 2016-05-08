@@ -54,18 +54,27 @@ public class EntityMankiniCapsule extends EntityThrowable {
                 Boolean full = true;
         
                 
-                    for (int i=0; i<=hitPlayer.inventory.getSizeInventory(); i++) {
-                    	
-                         if (hitPlayer.inventory.getStackInSlot(i) == null) {
-                             full = false;
-                         }
-                    }
+                    
                            
                 if(!this.worldObj.isRemote) {
-
+                	
+                	for (int i=0; i<=3; i++) {
+                    	
+                        if (hitPlayer.inventory.getStackInSlot(i) == null) {
+                            full = false;
+                        }
+                   } 
+                	
                     if(hitPlayer.inventory.armorItemInSlot(2) == null){
                     	hitPlayer.inventory.setInventorySlotContents(38, MankiniHelper.getFirstFoundMankini(hitPlayer));
                     }
+                    
+                    else if(hitPlayer.inventory.armorItemInSlot(2) != null && full == false){
+                    	hitPlayer.inventory.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), MankiniHelper.getFirstFoundMankini(hitPlayer));
+                    		//hitPlayer.inventory.addItemStackToInventory(MankiniHelper.getFirstFoundMankini(hitPlayer));
+                    	
+                    }
+                    
         }
         
     }

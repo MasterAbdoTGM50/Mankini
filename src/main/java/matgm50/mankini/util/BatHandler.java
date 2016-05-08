@@ -4,6 +4,7 @@ import matgm50.mankini.item.ModItems;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumHand;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -24,22 +25,18 @@ public class BatHandler {
 	ItemStack currentItem = event.getEntityPlayer().inventory.getCurrentItem();
 	ItemStack BatMankini = new ItemStack(ModItems.itemBatMankini);
 	ItemStack Mankini = new ItemStack(ModItems.itemDyeableMankini);
-	//event.entityPlayer.addChatComponentMessage(new ChatComponentText("Fired event"));
+	
 	if(event.getTarget() instanceof EntityBat && event.getEntityPlayer().inventory.getCurrentItem().isItemEqual(Mankini) ){
 	{
 		
 		event.getTarget().setDead();
-    // Was used to test
-	//event.entityPlayer.addChatComponentMessage(new ChatComponentText("Detected entity"));
-	//event.entityPlayer.addChatComponentMessage(new ChatComponentText("Detected item"));
+    
 		batCount = batCount+0.5;
 		setBatCount();
-		//event.entityPlayer.addChatComponentMessage(new ChatComponentText("Current bat count is "+ batCount));
+	
 		if(batCount == 5.0F){
-			event.getEntityPlayer().inventory.addItemStackToInventory(BatMankini);
-			 ItemStack stack = new ItemStack(MankiniHelper.getFirstFoundMankini(event.getEntityPlayer()).getItem());
-		        --stack.stackSize;
-			//event.getEntityPlayer().inventory.consumeInventoryItem(ModItems.itemDyeableMankini);
+			event.getEntityPlayer().setHeldItem(EnumHand.MAIN_HAND, null);
+			event.getEntityPlayer().inventory.addItemStackToInventory(BatMankini);	
 			batCount = 0F;
 		}
 		
