@@ -7,8 +7,13 @@ import matgm50.mankini.lib.ItemLib;
 import matgm50.mankini.util.MankiniHelper;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -33,24 +38,37 @@ public class ItemMankiniCannon extends Item {
 
     }
 
-    public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-
-        if (!par2World.isRemote) {
-        	if(MankiniHelper.mankiniinInventory(par3EntityPlayer) == true){
-        		
-
-            par2World.spawnEntityInWorld(new EntityMankiniCapsule(par2World, par3EntityPlayer, MankiniHelper.getFirstFoundMankini(par3EntityPlayer)));
-        	}
-
-        }
-        ItemStack stack = new ItemStack(MankiniHelper.getFirstFoundMankini(par3EntityPlayer).getItem());
-        --stack.stackSize;
-       // par3EntityPlayer.inventory.consumeInventoryItem(MankiniHelper.getFirstFoundMankini(par3EntityPlayer).getItem());
+    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    	 
+      
+          //  --itemStackIn.stackSize;
         
-        par3EntityPlayer.inventory.markDirty();
-
-        return par1ItemStack;
-
+       
+        worldIn.playSound((EntityPlayer)null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.entity_snowball_throw, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+       
+        if (!worldIn.isRemote) {
+            if(MankiniHelper.mankiniinInventory(playerIn) == true){
+            	
+            	  if (!playerIn.capabilities.isCreativeMode)
+                  {	
+            playerIn.inventory.removeStackFromSlot(MankiniHelper.mankiniSlot(playerIn));
+                  }
+            	  
+            EntityMankiniCapsule entitymankinicapsule = new EntityMankiniCapsule(worldIn, playerIn, MankiniHelper.getFirstFoundMankini(playerIn));
+            entitymankinicapsule.func_184538_a(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+            worldIn.spawnEntityInWorld(entitymankinicapsule);
+            //par2World.spawnEntityInWo+++rld(new EntityMankiniCapsule(par2World, par3EntityPlayer, MankiniHelper.getFirstFoundMankini(par3EntityPlayer)));
+            }
+ 
+        }
+        ItemStack stack = new ItemStack(MankiniHelper.getFirstFoundMankini(playerIn).getItem());
+   //     --stack.stackSize;
+       // par3EntityPlayer.inventory.consumeInventoryItem(MankiniHelper.getFirstFoundMankini(par3EntityPlayer).getItem());
+       
+        playerIn.inventory.markDirty();
+ 
+        return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+ 
     }
     @SideOnly(Side.CLIENT)
     public void initModel() {

@@ -2,7 +2,6 @@ package matgm50.mankini;
 
 import matgm50.mankini.crafting.ModRecipes;
 import matgm50.mankini.entity.ModEntities;
-import matgm50.mankini.item.ItemBatMankini;
 import matgm50.mankini.item.ModItems;
 import matgm50.mankini.lib.ModLib;
 import matgm50.mankini.proxy.CommonProxy;
@@ -10,11 +9,7 @@ import matgm50.mankini.util.BatHandler;
 import matgm50.mankini.util.BatMankiniJump;
 import matgm50.mankini.util.TabMankini;
 import matgm50.mankini.util.TickHandler;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderItem;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -22,7 +17,6 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.relauncher.Side;
 
 /**
  * Created by MasterAbdoTGM50 on 4/23/2014.
@@ -48,6 +42,7 @@ public class Mankini {
 
         ModItems.init();
         ModRecipes.init();
+        proxy.RegisterRenders();
 
         ModEntities.init();
 
@@ -57,21 +52,20 @@ public class Mankini {
         
         BatHandler.init();
         
-        BatMankiniJump.init();       
-        
-       
+        BatMankiniJump.init();
       
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
 
+    	/*
     	if(event.getSide() == Side.CLIENT)
     	{
     	    	RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
     	    		
     	    	renderItem.getItemModelMesher().register(ModItems.itemBatMankini, 0, new ModelResourceLocation(ModLib.ID + ":" + ((ItemBatMankini) ModItems.itemBatMankini).getName()));
-    	}
+    	}*/
  
     	
     }

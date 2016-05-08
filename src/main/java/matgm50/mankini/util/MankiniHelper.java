@@ -44,5 +44,10 @@ public class MankiniHelper {
         return false;
 
     }
+    public static int mankiniSlot(EntityPlayer thrower){
+		
+    	return thrower.inventory.getSlotFor(getFirstFoundMankini(thrower));
+    	
+    }
 
 }
