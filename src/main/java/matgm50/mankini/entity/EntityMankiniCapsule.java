@@ -40,7 +40,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
 
    @Override
     protected void onImpact(RayTraceResult mop) {
-
+	   
         if(mop.typeOfHit != null && mop.typeOfHit == RayTraceResult.Type.ENTITY) {
 
             Entity hit = mop.entityHit;
@@ -76,6 +76,11 @@ public class EntityMankiniCapsule extends EntityThrowable {
         
     }
             setDead();
+        }
+        if (mop.typeOfHit != null && mop.typeOfHit == RayTraceResult.Type.BLOCK)
+        {
+           setDead();
+           this.dropItem(itemhere, 1);
         }
    }
 }
