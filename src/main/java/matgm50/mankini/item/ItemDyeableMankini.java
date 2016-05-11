@@ -2,7 +2,6 @@ package matgm50.mankini.item;
 
 import matgm50.mankini.Mankini;
 import matgm50.mankini.lib.ItemLib;
-import matgm50.mankini.lib.ModLib;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
@@ -107,7 +106,9 @@ public class ItemDyeableMankini extends ItemArmor implements IMankini {
    	@SideOnly(Side.CLIENT)
    	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
    	{
-   		return "mankini:" + "textures/models/mankini.png";
+    	if(type == null){return "mankini:textures/models/mankini.png";}
+    	else return "mankini:textures/models/mankiniover.png";
+    	//return type == null ? "mankini:textures/armors/mankini.png" : "mankini:textures/armors/mankiniover.png";
    	}
    
 

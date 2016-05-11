@@ -3,8 +3,12 @@ package matgm50.mankini.item;
 import java.util.Locale;
 
 import matgm50.mankini.lib.ModLib;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.model.ModelLoader;
 
 /**
@@ -47,10 +51,26 @@ public class ModItems {
     		registerRender(itemMankiniCapsule);
     		registerRender(itemBatMankini);
     	}
+        
+        public static void registerColorRenders()
+        {
+        	Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor() {
+                @Override
+                public int getColorFromItemstack(ItemStack stack, int tintIndex) {
+                     NBTTagCompound tag = stack.getTagCompound();
+                     if(tag!=null){
+                         NBTTagCompound nbt = tag.getCompoundTag("display");
+                        return nbt == null ? 10511680 : (nbt.hasKey("color", 3) ? nbt.getInteger("color") : 10511680);
+                     }
+                     return 10511680;
+                }
+            }, itemDyeableMankini);
+        }
     	
     	public static void registerRender(Item item)
     	{
     		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(ModLib.ID + ":" + item.getUnlocalizedName().substring(5).toLowerCase(Locale.US), "inventory"));
+    		
     	}
 }
 

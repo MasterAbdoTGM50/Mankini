@@ -1,6 +1,5 @@
 package matgm50.mankini.proxy;
 
-import matgm50.mankini.client.renderer.RendererMankiniCapsule;
 import matgm50.mankini.client.renderer.RenderingFactoryMankiniCapsule;
 import matgm50.mankini.entity.EntityMankiniCapsule;
 import matgm50.mankini.item.ModItems;
@@ -15,6 +14,11 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void RegisterRenders(){
 		ModItems.registerRenders();
+	}
+	
+	@Override
+	public void RegisterColorRenders(){
+		ModItems.registerColorRenders();
 	}
     @Override
     public void initRenderers() {

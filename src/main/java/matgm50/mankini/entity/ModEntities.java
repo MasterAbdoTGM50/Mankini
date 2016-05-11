@@ -3,7 +3,6 @@ package matgm50.mankini.entity;
 import java.util.Random;
 
 import matgm50.mankini.Mankini;
-import net.minecraft.entity.EntityList;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 /**
