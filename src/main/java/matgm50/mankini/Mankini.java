@@ -58,7 +58,7 @@ public class Mankini {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-
+    	proxy.RegisterColorRenders();
     	/*
     	if(event.getSide() == Side.CLIENT)
     	{

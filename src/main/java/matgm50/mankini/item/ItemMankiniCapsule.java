@@ -2,7 +2,6 @@ package matgm50.mankini.item;
 
 import matgm50.mankini.Mankini;
 import matgm50.mankini.lib.ItemLib;
-import matgm50.mankini.lib.ModLib;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

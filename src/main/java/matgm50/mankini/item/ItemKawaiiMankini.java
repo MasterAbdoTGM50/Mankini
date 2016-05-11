@@ -2,7 +2,6 @@ package matgm50.mankini.item;
 
 import matgm50.mankini.Mankini;
 import matgm50.mankini.lib.ItemLib;
-import matgm50.mankini.lib.ModLib;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
