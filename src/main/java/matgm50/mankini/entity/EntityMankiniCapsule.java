@@ -1,11 +1,14 @@
 package matgm50.mankini.entity;
 
 import matgm50.mankini.item.ModItems;
+import matgm50.mankini.lib.ItemLib;
 import matgm50.mankini.util.MankiniHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -72,15 +75,20 @@ public class EntityMankiniCapsule extends EntityThrowable {
                     	
                     }
                     
+                    
         }
         
     }
             setDead();
         }
-        if (mop.typeOfHit != null && mop.typeOfHit == RayTraceResult.Type.BLOCK)
-        {
-           setDead();
-           this.dropItem(itemhere, 1);
-        }
+        if(!this.worldObj.isRemote) {
+      	  if (mop.typeOfHit != null && mop.typeOfHit == RayTraceResult.Type.BLOCK)
+      {
+         setDead();
+         int kiniDrop = Item.getIdFromItem(ModItems.itemDyeableMankini);
+         this.dropItem(Item.getItemById(kiniDrop), 1);
+      }
+      }
+        else setDead();
    }
 }

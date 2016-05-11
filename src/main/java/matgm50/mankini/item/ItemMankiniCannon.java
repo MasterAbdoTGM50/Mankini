@@ -25,6 +25,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 
 public class ItemMankiniCannon extends Item {
+	
+	boolean shotFired;
 
     public ItemMankiniCannon() {
 
@@ -57,17 +59,21 @@ public class ItemMankiniCannon extends Item {
             EntityMankiniCapsule entitymankinicapsule = new EntityMankiniCapsule(worldIn, playerIn, MankiniHelper.getFirstFoundMankini(playerIn));
             entitymankinicapsule.func_184538_a(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
             worldIn.spawnEntityInWorld(entitymankinicapsule);
+            shotFired = true;
             //par2World.spawnEntityInWo+++rld(new EntityMankiniCapsule(par2World, par3EntityPlayer, MankiniHelper.getFirstFoundMankini(par3EntityPlayer)));
             }
  
-        }
+        
         ItemStack stack = new ItemStack(MankiniHelper.getFirstFoundMankini(playerIn).getItem());
    //     --stack.stackSize;
        // par3EntityPlayer.inventory.consumeInventoryItem(MankiniHelper.getFirstFoundMankini(par3EntityPlayer).getItem());
        
         playerIn.inventory.markDirty();
- 
+        }
+        if(shotFired = true){
         return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+        }
+        else return new ActionResult(EnumActionResult.FAIL, itemStackIn);
  
     }
     @SideOnly(Side.CLIENT)
