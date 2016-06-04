@@ -29,7 +29,7 @@ public class BatMankiniJump {
 			if (player.inventory.armorItemInSlot(2) != null){
 				if(player.inventory.armorItemInSlot(2).getItem()== ModItems.itemBatMankini){
 				player.motionY += 1.1F;
-				player.addPotionEffect((new PotionEffect(MobEffects.moveSlowdown, 200, 1)));
+				player.addPotionEffect((new PotionEffect(MobEffects.SLOWNESS, 200, 1)));
 				}
 			}
     		}
