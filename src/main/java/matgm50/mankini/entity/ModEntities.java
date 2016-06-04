@@ -13,13 +13,13 @@ public class ModEntities {
 	
 	public static void registerEntity(Class entityClass, String name)
     {
-    int entityID = EntityRegistry.findGlobalUniqueEntityId();
+    int entityID = 0;
     long seed = name.hashCode();
     Random rand = new Random(seed);
     int primaryColor = rand.nextInt() * 16777215;
     int secondaryColor = rand.nextInt() * 16777215;
 
-    EntityRegistry.registerGlobalEntityID(entityClass, name, entityID);
+    //EntityRegistry.registerGlobalEntityID(entityClass, name, entityID);
     EntityRegistry.registerModEntity(entityClass, name, entityID, Mankini.instance, 64, 1, true);
    // EntityList.entityEggs.put(Integer.valueOf(entityID), new EntityList.EntityEggInfo(entityID, primaryColor, secondaryColor));
     }
