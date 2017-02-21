@@ -1,6 +1,7 @@
 package matgm50.mankini.item;
 
 import matgm50.mankini.Mankini;
+import matgm50.mankini.init.ModItems;
 import matgm50.mankini.lib.ItemLib;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,27 +17,18 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemBatMankini extends ItemArmor implements IMankini {
-
-
-
-	 
-
-
 	
     public ItemBatMankini() {
 
         super(ArmorMaterial.IRON, 0, EntityEquipmentSlot.CHEST);
-        setUnlocalizedName(ItemLib.MANKINI_BAT_NAME);
+        setUnlocalizedName(ItemLib.ModItems.MANKINI_BAT_NAME.getUnlocalisedName());
+		setRegistryName(ItemLib.ModItems.MANKINI_BAT_NAME.getRegistryName());
         setCreativeTab(Mankini.tabMankini);
         setMaxStackSize(1);
-        setRegistryName(ItemLib.MANKINI_BAT_NAME);
         GameRegistry.register(this);
 
-   
     }
 
-
-    
     @SubscribeEvent
 	public void PlayerJump(LivingJumpEvent event)
 	{
@@ -54,8 +46,6 @@ public class ItemBatMankini extends ItemArmor implements IMankini {
     	}
 	}
 
-   
-
     public String getName()
     {
     return "battymankini";
@@ -69,11 +59,3 @@ public class ItemBatMankini extends ItemArmor implements IMankini {
     
   
 }
-
-
-  
- 
-   
-    
-  
-

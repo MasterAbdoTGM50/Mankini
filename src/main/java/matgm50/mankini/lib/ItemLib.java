@@ -5,12 +5,32 @@ package matgm50.mankini.lib;
  */
 
 public class ItemLib {
-
-    public static final String DYEABLE_MAKNINI_NAME = "itemDyeableMankini";
-    public static final String KAWAII_MAKNINI_NAME = "itemKawaiiMankini";
-    public static final String AETHERIC_MAKNINI_NAME = "itemAethericMankini";
-    public static final String MANKINI_CANNON_NAME = "itemMankiniCannon";
-    public static final String MANKINI_CAPSULE_NAME = "itemMankiniCapsule";
-    public static final String MANKINI_BAT_NAME = "itemMankiniBat";
-
+	
+    public static final String MANKINI_CANNON_NAME = "itemmankinicannon";
+    
+    public static enum ModItems {
+    	
+    	DYEABLE_MAKNINI_NAME("dyeablemankini", "itemdyeablemankini"),
+    	KAWAII_MAKNINI_NAME("kawaiimankini", "itemkawaiimankini"),
+    	AETHERIC_MAKNINI_NAME("aethericmankini", "itemaethericmankini"),
+    	MANKINI_CANNON_NAME("mankinicannon", "itemmankinicannon"),
+    	MANKINI_CAPSULE_NAME("mankinicapsule", "itemmankinicapsule"),
+    	MANKINI_BAT_NAME("mankinibat", "itemmankinibat");
+    	
+    	private String unlocalisedName;
+    	private String registryName;
+    	
+    	ModItems(String unlocalisedName, String registryName) {
+    		this.unlocalisedName = unlocalisedName;
+    		this.registryName = registryName;
+    	}
+    	
+    	public String getUnlocalisedName() {
+    		return unlocalisedName;
+    	}
+    	
+    	public String getRegistryName() {
+    		return registryName;
+    	}
+    }
 }

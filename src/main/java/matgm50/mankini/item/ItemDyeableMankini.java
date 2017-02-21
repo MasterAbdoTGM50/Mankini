@@ -23,15 +23,13 @@ public class ItemDyeableMankini extends ItemArmor implements IMankini {
     public ItemDyeableMankini() {
 
         super(ArmorMaterial.LEATHER, 0, EntityEquipmentSlot.CHEST);
-        setUnlocalizedName(ItemLib.DYEABLE_MAKNINI_NAME);
+        setUnlocalizedName(ItemLib.ModItems.DYEABLE_MAKNINI_NAME.getUnlocalisedName());
+		setRegistryName(ItemLib.ModItems.DYEABLE_MAKNINI_NAME.getRegistryName());
         setCreativeTab(Mankini.tabMankini);
         setMaxStackSize(1);
-        setRegistryName(ItemLib.DYEABLE_MAKNINI_NAME);
        GameRegistry.register(this);
 
     }
-
-   
 
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
@@ -81,8 +79,6 @@ public class ItemDyeableMankini extends ItemArmor implements IMankini {
 
     }
 
-   
-
     @Override
     public void removeColor(ItemStack par1ItemStack) {
 
@@ -110,6 +106,4 @@ public class ItemDyeableMankini extends ItemArmor implements IMankini {
     	else return "mankini:textures/models/mankiniover.png";
     	//return type == null ? "mankini:textures/armors/mankini.png" : "mankini:textures/armors/mankiniover.png";
    	}
-   
-
 }

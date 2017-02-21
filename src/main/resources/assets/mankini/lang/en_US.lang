@@ -1,10 +1,10 @@
 #Misc
-itemGroup.Mankini=Mankini
+itemGroup.mankini=Mankini
 
 #Items
-item.itemDyeableMankini.name=Plain Dyeable Mankini
-item.itemKawaiiMankini.name=So Kawaii Mankini
-item.itemAethericMankini.name=Angelic Aetheric Mankini Thingy
-item.itemMankiniCannon.name=Mankini Cannon
-item.itemMankiniCapsule.name=Mankini Capsule Mankini
-item.itemMankiniBat.name=Batty Mankini
+item.dyeablemankini.name=Plain Dyeable Mankini
+item.kawaiimankini.name=So Kawaii Mankini
+item.aethericmankini.name=Angelic Aetheric Mankini Thingy
+item.mankinicannon.name=Mankini Cannon
+item.mankinicapsule.name=Mankini Capsule Mankini
+item.mankinibat.name=Batty Mankini

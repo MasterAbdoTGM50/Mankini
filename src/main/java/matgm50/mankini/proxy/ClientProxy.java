@@ -2,7 +2,7 @@ package matgm50.mankini.proxy;
 
 import matgm50.mankini.client.renderer.RenderingFactoryMankiniCapsule;
 import matgm50.mankini.entity.EntityMankiniCapsule;
-import matgm50.mankini.item.ModItems;
+import matgm50.mankini.init.ModItems;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 /**

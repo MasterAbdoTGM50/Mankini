@@ -1,8 +1,11 @@
-package matgm50.mankini.item;
+package matgm50.mankini.init;
 
-import java.util.Locale;
-
-import matgm50.mankini.lib.ModLib;
+import matgm50.mankini.item.ItemAAMT;
+import matgm50.mankini.item.ItemBatMankini;
+import matgm50.mankini.item.ItemDyeableMankini;
+import matgm50.mankini.item.ItemKawaiiMankini;
+import matgm50.mankini.item.ItemMankiniCannon;
+import matgm50.mankini.item.ItemMankiniCapsule;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.color.IItemColor;
@@ -10,6 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Created by MasterAbdoTGM50 on 4/23/2014.
@@ -34,7 +38,15 @@ public class ModItems {
         itemBatMankini = new ItemBatMankini();
     	}
 
-    
+    public static void register()
+    {
+    	GameRegistry.register(itemDyeableMankini);
+    	GameRegistry.register(itemKawaiiMankini);
+    	GameRegistry.register(itemAethericMankini);
+    	GameRegistry.register(itemMankiniCannon);
+    	GameRegistry.register(itemMankiniCapsule);
+    	GameRegistry.register(itemBatMankini);
+    }
        // GameRegistry.registerItem(itemDyeableMankini, ItemLib.DYEABLE_MAKNINI_NAME);
        // GameRegistry.registerItem(itemKawaiiMankini, ItemLib.KAWAII_MAKNINI_NAME);
        // GameRegistry.registerItem(itemAethericMankini, ItemLib.AETHERIC_MAKNINI_NAME);
@@ -67,12 +79,8 @@ public class ModItems {
             }, itemDyeableMankini);
         }
     	
-    	public static void registerRender(Item item)
+        public static void registerRender(Item item)
     	{
-    		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(ModLib.ID + ":" + item.getUnlocalizedName().substring(5).toLowerCase(Locale.US), "inventory"));
-    		
+    		ModelLoader.setCustomModelResourceLocation(item, 0, new ModelResourceLocation(item.getRegistryName(), "inventory"));
     	}
 }
-
-
-

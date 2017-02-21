@@ -1,6 +1,5 @@
-package matgm50.mankini.crafting;
+package matgm50.mankini.init;
 
-import matgm50.mankini.item.ModItems;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.registry.GameRegistry;

@@ -1,6 +1,6 @@
 package matgm50.mankini.entity;
 
-import matgm50.mankini.item.ModItems;
+import matgm50.mankini.init.ModItems;
 import matgm50.mankini.util.MankiniHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

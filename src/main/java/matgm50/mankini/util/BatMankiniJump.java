@@ -1,6 +1,6 @@
 package matgm50.mankini.util;
 
-import matgm50.mankini.item.ModItems;
+import matgm50.mankini.init.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
