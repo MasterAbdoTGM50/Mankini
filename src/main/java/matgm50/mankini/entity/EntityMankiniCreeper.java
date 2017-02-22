@@ -15,15 +15,12 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.datasync.DataParameter;
@@ -263,8 +260,8 @@ public class EntityMankiniCreeper extends EntityMob
     {
     	EntityPlayer hitPlayer = (EntityPlayer) this.getAttackTarget();
     	ItemStack creeperKini = new ItemStack(ModItems.itemDyeableMankini);
-    	
-        if (!this.worldObj.isRemote)
+
+    	if (!this.worldObj.isRemote)
         {
             boolean flag = this.worldObj.getGameRules().getBoolean("mobGriefing");
 
