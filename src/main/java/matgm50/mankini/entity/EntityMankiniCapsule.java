@@ -4,8 +4,11 @@ import matgm50.mankini.init.ModItems;
 import matgm50.mankini.util.MankiniHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RayTraceResult;
@@ -33,9 +36,9 @@ public class EntityMankiniCapsule extends EntityThrowable {
 
     }
 
-    public EntityMankiniCapsule(World par1World, double par2, double par4, double par6) {
+    public EntityMankiniCapsule(World par1World, double x, double y, double z) {
 
-        super(par1World, par2, par4, par6);
+        super(par1World, x, y, z);
 
     }
 
@@ -50,19 +53,13 @@ public class EntityMankiniCapsule extends EntityThrowable {
             	setDead();
                 EntityPlayer hitPlayer = (EntityPlayer)hit;
                 Boolean full = true;
-        
-                
-                    
-                           
+      
                 if(!this.worldObj.isRemote) {
-                	
                 	for (int i=0; i<=3; i++) {
-                    	
                         if (hitPlayer.inventory.getStackInSlot(i) == null) {
                             full = false;
                         }
                    } 
-                	
                     if(hitPlayer.inventory.armorItemInSlot(2) == null){
                     	hitPlayer.inventory.setInventorySlotContents(38, MankiniHelper.getFirstFoundMankini(hitPlayer));
                     }
@@ -70,13 +67,30 @@ public class EntityMankiniCapsule extends EntityThrowable {
                     else if(hitPlayer.inventory.armorItemInSlot(2) != null && full == false){
                     	hitPlayer.inventory.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), MankiniHelper.getFirstFoundMankini(hitPlayer));
                     		//hitPlayer.inventory.addItemStackToInventory(MankiniHelper.getFirstFoundMankini(hitPlayer));
-                    	
                     }
-                    
-                    
-        }
-        
-    }
+                }
+            }
+            
+            if (hit instanceof EntityCreeper)
+            {
+            	setDead();
+            	EntityCreeper hitCreeper = (EntityCreeper)hit;
+
+                hitCreeper.setDead();
+                                
+                EntityMankiniCreeper mankinicreeper = new EntityMankiniCreeper(worldObj); 
+                mankinicreeper.setLocationAndAngles(hitCreeper.posX, hitCreeper.posY, hitCreeper.posZ, 0,0); 
+        		worldObj.spawnEntityInWorld(mankinicreeper);
+            }
+            
+            if (hit instanceof EntityZombie)
+            {
+            	setDead();
+            	EntityZombie hitZombie = (EntityZombie)hit;
+            	ItemStack creeperKini = new ItemStack(ModItems.itemDyeableMankini);
+            	
+            	hitZombie.setItemStackToSlot(EntityEquipmentSlot.CHEST, creeperKini);
+            }
             setDead();
         }
         if(!this.worldObj.isRemote) {

@@ -74,13 +74,6 @@ public class ItemAAMT extends ItemArmor implements IMankini {
         return model;
 
     }
-
-    @Override
-   	@SideOnly(Side.CLIENT)
-   	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
-   	{
-   		return "mankini:" + "textures/models/aethericmankini.png";
-   	}
     
 	@SideOnly(Side.CLIENT)
 	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {

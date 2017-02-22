@@ -71,10 +71,6 @@ public class ItemMankiniCannon extends Item {
         else return new ActionResult(EnumActionResult.FAIL, itemStackIn);
  
     }
-    @SideOnly(Side.CLIENT)
-    public void initModel() {
-        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
-    }
 
 	public String getName() {
 		// TODO Auto-generated method stub
