@@ -1,16 +1,22 @@
-#################
-## Mod Ignores
-#################
+# eclipse
+bin
+*.launch
+.settings
+.metadata
+.classpath
+.project
 
-## Gradle
-/.gradle
-/build
+# idea
+out
+*.ipr
+*.iws
+*.iml
+.idea
 
-## Intellij
-/out
-/*.iml
-/*.ipr
-/*.iws
+# gradle
+build
+.gradle
 
-## Misc
-/run
+# other
+eclipse
+run

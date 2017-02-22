@@ -10,4 +10,13 @@ public class CommonProxy {
 
     }
 
+	public void RegisterRenders() {
+
+		
+	}
+
+	public void RegisterColorRenders() {
+		
+	}
+
 }

@@ -1,12 +1,5 @@
 package matgm50.mankini;
 
-import cpw.mods.fml.common.Mod;
-import cpw.mods.fml.common.Mod.EventHandler;
-import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.SidedProxy;
-import cpw.mods.fml.common.event.FMLInitializationEvent;
-import cpw.mods.fml.common.event.FMLPostInitializationEvent;
-import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import matgm50.mankini.crafting.ModRecipes;
 import matgm50.mankini.entity.ModEntities;
 import matgm50.mankini.item.ModItems;
@@ -17,6 +10,13 @@ import matgm50.mankini.util.BatMankiniJump;
 import matgm50.mankini.util.TabMankini;
 import matgm50.mankini.util.TickHandler;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.Mod.EventHandler;
+import net.minecraftforge.fml.common.Mod.Instance;
+import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 /**
  * Created by MasterAbdoTGM50 on 4/23/2014.
@@ -34,7 +34,7 @@ public class Mankini {
 
     public static CreativeTabs tabMankini = new TabMankini(ModLib.ID);
     
-   
+    
    
 
     @EventHandler
@@ -42,6 +42,7 @@ public class Mankini {
 
         ModItems.init();
         ModRecipes.init();
+        proxy.RegisterRenders();
 
         ModEntities.init();
 
@@ -51,14 +52,22 @@ public class Mankini {
         
         BatHandler.init();
         
-        BatMankiniJump.init();       
-        
+        BatMankiniJump.init();
       
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-
+    	proxy.RegisterColorRenders();
+    	/*
+    	if(event.getSide() == Side.CLIENT)
+    	{
+    	    	RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
+    	    		
+    	    	renderItem.getItemModelMesher().register(ModItems.itemBatMankini, 0, new ModelResourceLocation(ModLib.ID + ":" + ((ItemBatMankini) ModItems.itemBatMankini).getName()));
+    	}*/
+ 
+    	
     }
 
     @EventHandler

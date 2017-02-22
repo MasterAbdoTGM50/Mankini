@@ -4,19 +4,29 @@ import matgm50.mankini.Mankini;
 import matgm50.mankini.entity.EntityMankiniCapsule;
 //import matgm50.mankini.entity.EntityMankiniWither;
 import matgm50.mankini.lib.ItemLib;
-import matgm50.mankini.lib.ModLib;
 import matgm50.mankini.util.MankiniHelper;
-import net.minecraft.client.renderer.texture.IIconRegister;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Created by MasterAbdoTGM50 on 7/2/2014.
  */
 
 public class ItemMankiniCannon extends Item {
+	
+	boolean shotFired;
 
     public ItemMankiniCannon() {
 
@@ -25,33 +35,56 @@ public class ItemMankiniCannon extends Item {
         setCreativeTab(Mankini.tabMankini);
         setMaxStackSize(1);
         setFull3D();
+        setRegistryName(ItemLib.MANKINI_CANNON_NAME);
+        GameRegistry.register(this);
 
     }
 
-    @Override
-    public ItemStack onItemRightClick(ItemStack par1ItemStack, World par2World, EntityPlayer par3EntityPlayer) {
-
-        if (!par2World.isRemote) {
-        	if(MankiniHelper.mankiniinInventory(par3EntityPlayer) == true){
-        		
-
-            par2World.spawnEntityInWorld(new EntityMankiniCapsule(par2World, par3EntityPlayer, MankiniHelper.getFirstFoundMankini(par3EntityPlayer)));
-        	}
-
+    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    	 
+      
+          //  --itemStackIn.stackSize;
+        
+       
+        worldIn.playSound((EntityPlayer)null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+       
+        if (!worldIn.isRemote) {
+            if(MankiniHelper.mankiniinInventory(playerIn) == true){
+            	
+            	  if (!playerIn.capabilities.isCreativeMode)
+                  {	
+            playerIn.inventory.removeStackFromSlot(MankiniHelper.mankiniSlot(playerIn));
+                  }
+            	  
+            EntityMankiniCapsule entitymankinicapsule = new EntityMankiniCapsule(worldIn, playerIn, MankiniHelper.getFirstFoundMankini(playerIn));
+            entitymankinicapsule.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+            worldIn.spawnEntityInWorld(entitymankinicapsule);
+            shotFired = true;
+            //par2World.spawnEntityInWo+++rld(new EntityMankiniCapsule(par2World, par3EntityPlayer, MankiniHelper.getFirstFoundMankini(par3EntityPlayer)));
+            }
+ 
+        
+        ItemStack stack = new ItemStack(MankiniHelper.getFirstFoundMankini(playerIn).getItem());
+   //     --stack.stackSize;
+       // par3EntityPlayer.inventory.consumeInventoryItem(MankiniHelper.getFirstFoundMankini(par3EntityPlayer).getItem());
+       
+        playerIn.inventory.markDirty();
         }
-
-        par3EntityPlayer.inventory.consumeInventoryItem(MankiniHelper.getFirstFoundMankini(par3EntityPlayer).getItem());
-        par3EntityPlayer.inventory.markDirty();
-
-        return par1ItemStack;
-
+        if(shotFired = true){
+        return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+        }
+        else return new ActionResult(EnumActionResult.FAIL, itemStackIn);
+ 
+    }
+    @SideOnly(Side.CLIENT)
+    public void initModel() {
+        ModelLoader.setCustomModelResourceLocation(this, 0, new ModelResourceLocation(getRegistryName(), "inventory"));
     }
 
-    @Override
-    public void registerIcons(IIconRegister par1IconRegister) {
-
-        itemIcon = par1IconRegister.registerIcon(ModLib.ID.toLowerCase() + ":" + "mankinicannon");
-
-    }
-
+	public String getName() {
+		// TODO Auto-generated method stub
+		return ItemLib.MANKINI_CANNON_NAME;
+	}
 }
+
+    

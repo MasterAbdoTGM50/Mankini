@@ -1,16 +1,15 @@
 package matgm50.mankini.item;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import matgm50.mankini.Mankini;
 import matgm50.mankini.lib.ItemLib;
-import matgm50.mankini.lib.ModLib;
-import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.Entity;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.IIcon;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Created by MasterAbdoTGM50 on 5/26/2014.
@@ -18,35 +17,22 @@ import net.minecraft.util.IIcon;
 
 public class ItemDyeableMankini extends ItemArmor implements IMankini {
 
-    private IIcon iconNormal;
-    private IIcon iconOverlay;
+  //  private IIcon iconNormal;
+   // private IIcon iconOverlay;
 
     public ItemDyeableMankini() {
 
-        super(ArmorMaterial.CLOTH, 0, 1);
+        super(ArmorMaterial.LEATHER, 0, EntityEquipmentSlot.CHEST);
         setUnlocalizedName(ItemLib.DYEABLE_MAKNINI_NAME);
         setCreativeTab(Mankini.tabMankini);
         setMaxStackSize(1);
+        setRegistryName(ItemLib.DYEABLE_MAKNINI_NAME);
+       GameRegistry.register(this);
 
     }
 
-    @Override
-    public void registerIcons(IIconRegister par1IconRegister) {
+   
 
-        iconNormal = par1IconRegister.registerIcon(ModLib.ID.toLowerCase() + ":" + "mankini");
-        iconOverlay = par1IconRegister.registerIcon(ModLib.ID.toLowerCase() + ":" + "mankiniover");
-
-    }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIconFromDamage(int par1) {
-
-        return iconNormal;
-
-    }
-
-    @Override
     @SideOnly(Side.CLIENT)
     public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
 
@@ -69,13 +55,6 @@ public class ItemDyeableMankini extends ItemArmor implements IMankini {
 
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public boolean requiresMultipleRenderPasses() {
-
-        return true;
-
-    }
 
     @Override
     public boolean hasColor(ItemStack par1ItemStack) {
@@ -102,13 +81,7 @@ public class ItemDyeableMankini extends ItemArmor implements IMankini {
 
     }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public IIcon getIconFromDamageForRenderPass(int par1, int par2) {
-
-        return par2 == 1 ? this.iconOverlay : super.getIconFromDamageForRenderPass(par1, par2);
-
-    }
+   
 
     @Override
     public void removeColor(ItemStack par1ItemStack) {
@@ -128,36 +101,15 @@ public class ItemDyeableMankini extends ItemArmor implements IMankini {
         }
 
     }
-
+    
     @Override
-    public void func_82813_b(ItemStack par1ItemStack, int par2) {
-
-        NBTTagCompound nbttagcompound = par1ItemStack.getTagCompound();
-
-        if (nbttagcompound == null) {
-
-            nbttagcompound = new NBTTagCompound();
-            par1ItemStack.setTagCompound(nbttagcompound);
-
-        }
-
-        NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
-
-        if (!nbttagcompound.hasKey("display", 10)) {
-
-            nbttagcompound.setTag("display", nbttagcompound1);
-
-        }
-
-        nbttagcompound1.setInteger("color", par2);
-
-    }
-
-    @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, int slot, String type) {
-
-        return type == null ? "mankini:textures/armors/mankini.png" : "mankini:textures/armors/mankiniover.png";
-
-    }
+   	@SideOnly(Side.CLIENT)
+   	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
+   	{
+    	if(type == null){return "mankini:textures/models/mankini.png";}
+    	else return "mankini:textures/models/mankiniover.png";
+    	//return type == null ? "mankini:textures/armors/mankini.png" : "mankini:textures/armors/mankiniover.png";
+   	}
+   
 
 }
