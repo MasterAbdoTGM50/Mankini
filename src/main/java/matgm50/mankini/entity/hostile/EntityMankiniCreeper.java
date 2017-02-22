@@ -39,11 +39,6 @@ public class EntityMankiniCreeper extends EntityCreeper
         super(worldIn);
     }
     
-    public static void registerFixesMankiniCreeper(DataFixer fixer)
-    {
-        EntityLiving.registerFixesMob(fixer, "MankiniCreeper");
-    }
-
     @Override
     protected void initEntityAI()
     {
@@ -56,6 +51,11 @@ public class EntityMankiniCreeper extends EntityCreeper
         this.tasks.addTask(6, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
         this.targetTasks.addTask(2, new EntityAIHurtByTarget(this, false, new Class[0]));
+    }
+    
+    public static void registerFixesMankiniCreeper(DataFixer fixer)
+    {
+        EntityLiving.registerFixesMob(fixer, "MankiniCreeper");
     }
 
     protected SoundEvent getHurtSound()
