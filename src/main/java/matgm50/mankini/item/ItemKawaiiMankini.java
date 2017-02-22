@@ -20,11 +20,10 @@ public class ItemKawaiiMankini extends ItemArmor implements IMankini {
     public ItemKawaiiMankini() {
 
         super(ArmorMaterial.GOLD, 0, EntityEquipmentSlot.CHEST);
-        setUnlocalizedName(ItemLib.KAWAII_MAKNINI_NAME);
+        setUnlocalizedName(ItemLib.ModItems.KAWAII_MAKNINI_NAME.getUnlocalisedName());
+		setRegistryName(ItemLib.ModItems.KAWAII_MAKNINI_NAME.getRegistryName());
         setCreativeTab(Mankini.tabMankini);
         setMaxStackSize(1);
-        setRegistryName(ItemLib.KAWAII_MAKNINI_NAME);
-        GameRegistry.register(this);
 
     }
 
@@ -34,7 +33,4 @@ public class ItemKawaiiMankini extends ItemArmor implements IMankini {
    	{
    		return "mankini:" + "textures/models/kawaiimankini.png";
    	}
-
-  
-
 }

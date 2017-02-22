@@ -1,7 +1,7 @@
 package matgm50.mankini.client.renderer;
 
 import matgm50.mankini.entity.EntityMankiniCapsule;
-import matgm50.mankini.item.ModItems;
+import matgm50.mankini.init.ModItems;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderSnowball;

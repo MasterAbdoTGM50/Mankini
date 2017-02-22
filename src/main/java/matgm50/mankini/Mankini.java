@@ -1,8 +1,8 @@
 package matgm50.mankini;
 
-import matgm50.mankini.crafting.ModRecipes;
 import matgm50.mankini.entity.ModEntities;
-import matgm50.mankini.item.ModItems;
+import matgm50.mankini.init.ModItems;
+import matgm50.mankini.init.ModRecipes;
 import matgm50.mankini.lib.ModLib;
 import matgm50.mankini.proxy.CommonProxy;
 import matgm50.mankini.util.BatHandler;
@@ -22,25 +22,25 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
  * Created by MasterAbdoTGM50 on 4/23/2014.
  */
 
-@Mod(modid = ModLib.ID, name = ModLib.NAME, version = ModLib.VERSION)
+@Mod(modid = ModLib.MOD_ID, name = ModLib.MOD_NAME, version = ModLib.VERSION, acceptedMinecraftVersions = ModLib.ACCEPTED_VERSIONS)
 
 public class Mankini {
 
-    @Instance(ModLib.ID)
+    @Instance(ModLib.MOD_ID)
     public static Mankini instance;
 
-    @SidedProxy(serverSide = ModLib.COMMONPROXY, clientSide = ModLib.CLIENTPROXY)
-    public static CommonProxy proxy;
+    @SidedProxy(clientSide = ModLib.CLIENTPROXY, serverSide = ModLib.COMMONPROXY)
+	public static CommonProxy proxy;
 
-    public static CreativeTabs tabMankini = new TabMankini(ModLib.ID);
+    public static CreativeTabs tabMankini = new TabMankini(ModLib.MOD_ID);
     
-    
-   
-
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
 
         ModItems.init();
+
+        ModItems.register();
+        
         ModRecipes.init();
         proxy.RegisterRenders();
 

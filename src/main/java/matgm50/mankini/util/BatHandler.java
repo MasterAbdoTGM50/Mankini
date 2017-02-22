@@ -1,6 +1,6 @@
 package matgm50.mankini.util;
 
-import matgm50.mankini.item.ModItems;
+import matgm50.mankini.init.ModItems;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.item.ItemStack;

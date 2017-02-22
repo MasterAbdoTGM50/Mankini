@@ -1,6 +1,6 @@
 package matgm50.mankini.util;
 
-import matgm50.mankini.item.ModItems;
+import matgm50.mankini.init.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.FMLCommonHandler;

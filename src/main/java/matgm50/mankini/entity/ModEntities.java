@@ -28,11 +28,8 @@ public class ModEntities {
 
         EntityRegistry.registerModEntity(EntityMankiniCapsule.class, "MankiniCapsule", 0, Mankini.instance, 64, 10, true);
         
-        
         //registerEntity(EntityMankiniWither.class, "Mankini Wither");
-    	
         
-
     }
 
 }

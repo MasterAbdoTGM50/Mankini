@@ -31,21 +31,16 @@ public class ItemMankiniCannon extends Item {
     public ItemMankiniCannon() {
 
         super();
-        setUnlocalizedName(ItemLib.MANKINI_CANNON_NAME);
+        setUnlocalizedName(ItemLib.ModItems.MANKINI_CANNON_NAME.getUnlocalisedName());
+		setRegistryName(ItemLib.ModItems.MANKINI_CANNON_NAME.getRegistryName());
         setCreativeTab(Mankini.tabMankini);
         setMaxStackSize(1);
         setFull3D();
-        setRegistryName(ItemLib.MANKINI_CANNON_NAME);
-        GameRegistry.register(this);
-
+        
     }
 
     public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
-    	 
-      
           //  --itemStackIn.stackSize;
-        
-       
         worldIn.playSound((EntityPlayer)null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
        
         if (!worldIn.isRemote) {

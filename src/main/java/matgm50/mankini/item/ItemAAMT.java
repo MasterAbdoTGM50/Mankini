@@ -27,11 +27,10 @@ public class ItemAAMT extends ItemArmor implements IMankini {
     public ItemAAMT() {
 
         super(ArmorMaterial.DIAMOND, 0, EntityEquipmentSlot.CHEST);
-        setUnlocalizedName(ItemLib.AETHERIC_MAKNINI_NAME);
+        setUnlocalizedName(ItemLib.ModItems.AETHERIC_MAKNINI_NAME.getUnlocalisedName());
+		setRegistryName(ItemLib.ModItems.AETHERIC_MAKNINI_NAME.getRegistryName());
         setCreativeTab(Mankini.tabMankini);
         setMaxStackSize(1);
-        setRegistryName(ItemLib.AETHERIC_MAKNINI_NAME);
-        GameRegistry.register(this);
 
     }
 
@@ -85,7 +84,7 @@ public class ItemAAMT extends ItemArmor implements IMankini {
     
 	@SideOnly(Side.CLIENT)
 	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
-		return new ModelResourceLocation(ModLib.ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
+		return new ModelResourceLocation(ModLib.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
 	}
 
 	@SideOnly(Side.CLIENT)

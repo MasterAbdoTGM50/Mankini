@@ -17,11 +17,10 @@ public class ItemMankiniCapsule extends Item {
     public ItemMankiniCapsule() {
 
         super();
-        setUnlocalizedName(ItemLib.MANKINI_CAPSULE_NAME);
+        setUnlocalizedName(ItemLib.ModItems.MANKINI_CAPSULE_NAME.getUnlocalisedName());
+		setRegistryName(ItemLib.ModItems.MANKINI_CAPSULE_NAME.getRegistryName());
         setCreativeTab(Mankini.tabMankini);
         setMaxStackSize(1);
-        setRegistryName(ItemLib.MANKINI_CAPSULE_NAME);
-        GameRegistry.register(this);
 
     }
 
@@ -30,7 +29,4 @@ public class ItemMankiniCapsule extends Item {
         return par1ItemStack;
 
     }
-
-
-
 }
