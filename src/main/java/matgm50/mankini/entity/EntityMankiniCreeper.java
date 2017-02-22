@@ -103,9 +103,9 @@ public class EntityMankiniCreeper extends EntityMob
         this.dataManager.register(IGNITED, Boolean.valueOf(false));
     }
 
-    public static void registerFixesCreeper(DataFixer fixer)
+    public static void registerFixesMankiniCreeper(DataFixer fixer)
     {
-        EntityLiving.registerFixesMob(fixer, "Creeper");
+        EntityLiving.registerFixesMob(fixer, "MankiniCreeper");
     }
 
     /**
