@@ -7,6 +7,7 @@ import matgm50.mankini.lib.ModLib;
 import matgm50.mankini.proxy.CommonProxy;
 import matgm50.mankini.util.BatHandler;
 import matgm50.mankini.util.BatMankiniJump;
+import matgm50.mankini.util.DropHandler;
 import matgm50.mankini.util.TabMankini;
 import matgm50.mankini.util.TickHandler;
 import net.minecraft.creativetab.CreativeTabs;
@@ -42,11 +43,8 @@ public class Mankini {
         ModItems.register();
         
         ModRecipes.init();
-        
-        ModEntities.init();
-        
+        ModEntities.register();
         proxy.RegisterRenders();
-        
         proxy.initMobRenderers();
       
     }
@@ -54,19 +52,12 @@ public class Mankini {
     @EventHandler
     public void init(FMLInitializationEvent event) {
     	
-    	//MinecraftForge.EVENT_BUS.register(new BatHandler());
-    	//MinecraftForge.EVENT_BUS.register(new BatMankiniJump());
+    	MinecraftForge.EVENT_BUS.register(new BatHandler());
+    	MinecraftForge.EVENT_BUS.register(new BatMankiniJump());
     	MinecraftForge.EVENT_BUS.register(new TickHandler());
+    	MinecraftForge.EVENT_BUS.register(new DropHandler());
     	
     	proxy.RegisterColorRenders();
-    	/*
-    	if(event.getSide() == Side.CLIENT)
-    	{
-    	    	RenderItem renderItem = Minecraft.getMinecraft().getRenderItem();
-    	    		
-    	    	renderItem.getItemModelMesher().register(ModItems.itemBatMankini, 0, new ModelResourceLocation(ModLib.ID + ":" + ((ItemBatMankini) ModItems.itemBatMankini).getName()));
-    	}*/
- 
     	
     }
 

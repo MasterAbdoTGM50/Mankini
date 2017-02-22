@@ -30,7 +30,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
 
     ItemStack foundMankini;
 
-    ItemStack kini = new ItemStack(ModItems.itemDyeableMankini);
+    ItemStack kini = new ItemStack(ModItems.dyeable_mankini);
     public EntityMankiniCapsule(World worldIn)
     {
         super(worldIn);
@@ -121,7 +121,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
            {
             	setDead();
             	EntityZombie hitZombie = (EntityZombie)hit;
-            	ItemStack mankini = new ItemStack(ModItems.itemDyeableMankini);
+            	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
             	
             	hitZombie.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
             	hitZombie.setDropChance(EntityEquipmentSlot.CHEST, 1f);
@@ -131,7 +131,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
            {
             	setDead();
             	EntitySkeleton hitSkeleton = (EntitySkeleton)hit;
-            	ItemStack mankini = new ItemStack(ModItems.itemDyeableMankini);
+            	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
             	
             	hitSkeleton.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
             	hitSkeleton.setDropChance(EntityEquipmentSlot.CHEST, 1f);
@@ -141,7 +141,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
            {
             	setDead();
             	EntityPigZombie hitPigman = (EntityPigZombie)hit;
-            	ItemStack mankini = new ItemStack(ModItems.itemDyeableMankini);
+            	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
             	
             	hitPigman.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
             	hitPigman.setDropChance(EntityEquipmentSlot.CHEST, 1f);
@@ -152,7 +152,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
       	  if (result.typeOfHit != null && result.typeOfHit == RayTraceResult.Type.BLOCK)
       {
          setDead();
-         int kiniDrop = Item.getIdFromItem(ModItems.itemDyeableMankini);
+         int kiniDrop = Item.getIdFromItem(ModItems.dyeable_mankini);
          this.dropItem(Item.getItemById(kiniDrop), 1);
       }
       }

@@ -61,7 +61,7 @@ public class EntityMankiniSpider extends EntitySpider
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata)
     {
         livingdata = super.onInitialSpawn(difficulty, livingdata);
-    	ItemStack creeperKini = new ItemStack(ModItems.itemDyeableMankini);
+    	ItemStack creeperKini = new ItemStack(ModItems.dyeable_mankini);
 
         if (this.worldObj.rand.nextInt(100) == 0)
         {

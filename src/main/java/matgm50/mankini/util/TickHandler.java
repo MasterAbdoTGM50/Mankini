@@ -18,31 +18,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 public class TickHandler {
 
     @SubscribeEvent
-	public void onLivingDrop(LivingDropsEvent event) {
-		if (event.getEntity() instanceof EntityMankiniCreeper) {
-            {
-            	ItemStack itemStackToDrop = new ItemStack(ModItems.itemDyeableMankini, 1);
-            	event.getDrops().add(new EntityItem(event.getEntity().worldObj, event.getEntity().posX, 
-            		event.getEntity().posY, event.getEntity().posZ, itemStackToDrop));
-            }
-		}
-		if (event.getEntity() instanceof EntityMankiniEnderman) {
-            {
-            	ItemStack itemStackToDrop = new ItemStack(ModItems.itemDyeableMankini, 1);
-            	event.getDrops().add(new EntityItem(event.getEntity().worldObj, event.getEntity().posX, 
-            		event.getEntity().posY, event.getEntity().posZ, itemStackToDrop));
-            }
-		}
-		if (event.getEntity() instanceof EntityMankiniSpider) {
-            {
-            	ItemStack itemStackToDrop = new ItemStack(ModItems.itemDyeableMankini, 1);
-            	event.getDrops().add(new EntityItem(event.getEntity().worldObj, event.getEntity().posX, 
-            		event.getEntity().posY, event.getEntity().posZ, itemStackToDrop));
-            }
-		}
-    }
-		
-    @SubscribeEvent
     public void tick(PlayerTickEvent event) {
 
         EntityPlayer player = event.player;
@@ -51,12 +26,12 @@ public class TickHandler {
 
         if(armor != null) {
 
-            if(armor.getItem() == ModItems.itemAethericMankini) {
+            if(armor.getItem() == ModItems.aetheric_mankini) {
 
                 player.capabilities.allowFlying = true;
 
             }
-            else if (armor.getItem() == ModItems.itemBatMankini) {
+            else if (armor.getItem() == ModItems.bat_mankini) {
 
                player.fallDistance = 0F;
 

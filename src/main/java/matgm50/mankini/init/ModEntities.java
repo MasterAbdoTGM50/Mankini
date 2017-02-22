@@ -9,7 +9,7 @@ import matgm50.mankini.entity.hostile.EntityMankiniSpider;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class ModEntities {
-	public static void init() {
+	public static void register() {
 
         EntityRegistry.registerModEntity(EntityMankiniCapsule.class, "MankiniCapsule", 0, Mankini.instance, 64, 10, true);
         EntityRegistry.registerModEntity(EntityMankiniCreeper.class, "MankiniCreeper", 1, Mankini.instance, 64, 10, true);

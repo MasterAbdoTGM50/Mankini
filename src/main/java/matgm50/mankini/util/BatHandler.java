@@ -18,8 +18,8 @@ public class BatHandler {
 	{
 	InventoryPlayer inv = event.getEntityPlayer().inventory;
 	ItemStack currentItem = event.getEntityPlayer().inventory.getCurrentItem();
-	ItemStack BatMankini = new ItemStack(ModItems.itemBatMankini);
-	ItemStack Mankini = new ItemStack(ModItems.itemDyeableMankini);
+	ItemStack BatMankini = new ItemStack(ModItems.bat_mankini);
+	ItemStack Mankini = new ItemStack(ModItems.dyeable_mankini);
 	
 	if(event.getTarget() instanceof EntityBat && event.getEntityPlayer().inventory.getCurrentItem().isItemEqual(Mankini) ){
 		{

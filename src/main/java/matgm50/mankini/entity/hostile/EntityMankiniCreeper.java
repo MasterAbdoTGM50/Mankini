@@ -115,7 +115,7 @@ public class EntityMankiniCreeper extends EntityCreeper
     	if(this.getAttackTarget() instanceof EntityPlayer)
     	{
     		EntityPlayer hitPlayer = (EntityPlayer) this.getAttackTarget();
-        	ItemStack creeperKini = new ItemStack(ModItems.itemDyeableMankini);
+        	ItemStack creeperKini = new ItemStack(ModItems.dyeable_mankini);
 
         	if (!this.worldObj.isRemote)
             {

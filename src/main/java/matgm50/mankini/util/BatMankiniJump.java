@@ -11,7 +11,7 @@ import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class BatMankiniJump {
-	 ItemStack batKini = new ItemStack(ModItems.itemBatMankini);
+	 ItemStack batKini = new ItemStack(ModItems.bat_mankini);
 	 EntityEquipmentSlot slotIn = EntityEquipmentSlot.CHEST;
 
 	@SubscribeEvent
@@ -22,7 +22,7 @@ public class BatMankiniJump {
     		EntityPlayer player = (EntityPlayer) event.getEntityLiving();
     		if(!player.isSneaking()){
 			if (player.inventory.armorItemInSlot(2) != null){
-				if(player.inventory.armorItemInSlot(2).getItem()== ModItems.itemBatMankini){
+				if(player.inventory.armorItemInSlot(2).getItem()== ModItems.bat_mankini){
 				player.motionY += 1.1F;
 				player.addPotionEffect((new PotionEffect(MobEffects.SLOWNESS, 200, 1)));
 				}
