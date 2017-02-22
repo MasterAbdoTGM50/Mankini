@@ -257,33 +257,35 @@ public class EntityMankiniCreeper extends EntityMob
      * Creates an explosion as determined by this creeper's power and explosion radius.
      */
     private void explode()
-    {
-    	EntityPlayer hitPlayer = (EntityPlayer) this.getAttackTarget();
-    	ItemStack creeperKini = new ItemStack(ModItems.itemDyeableMankini);
+    {   		
+    	if(this.getAttackTarget() instanceof EntityPlayer)
+    	{
+    		EntityPlayer hitPlayer = (EntityPlayer) this.getAttackTarget();
+        	ItemStack creeperKini = new ItemStack(ModItems.itemDyeableMankini);
 
-    	if (!this.worldObj.isRemote)
-        {
-            boolean flag = this.worldObj.getGameRules().getBoolean("mobGriefing");
+        	if (!this.worldObj.isRemote)
+            {
+                boolean flag = this.worldObj.getGameRules().getBoolean("mobGriefing");
 
-                this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float)0.0, flag);
-                if(hitPlayer.posX == (int) this.posX || hitPlayer.posY == (int) this.posY || hitPlayer.posZ == this.posZ){
-                	
-                	if(hitPlayer.inventory.armorItemInSlot(3) != null) {
+                    this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float)0.0, flag);
+                    if(hitPlayer.posX == (int) this.posX || hitPlayer.posY == (int) this.posY || hitPlayer.posZ == this.posZ){
+                    	
+                    	if(hitPlayer.inventory.armorItemInSlot(3) != null) {
 
+                            ItemStack toSpawn = hitPlayer.inventory.armorItemInSlot(3);
+                           // EntityItem spawned = new EntityItem(hitPlayer.worldObj, hitPlayer.posX, hitPlayer.posY, hitPlayer.posZ, toSpawn);
+                            hitPlayer.inventory.addItemStackToInventory(toSpawn);
+                           // worldObj.spawnEntityInWorld(spawned);
+
+                        }
+
+                        hitPlayer.setItemStackToSlot(EntityEquipmentSlot.CHEST, creeperKini);
                         ItemStack toSpawn = hitPlayer.inventory.armorItemInSlot(3);
-                       // EntityItem spawned = new EntityItem(hitPlayer.worldObj, hitPlayer.posX, hitPlayer.posY, hitPlayer.posZ, toSpawn);
                         hitPlayer.inventory.addItemStackToInventory(toSpawn);
-                       // worldObj.spawnEntityInWorld(spawned);
-
+                    	
                     }
-
-                    hitPlayer.setItemStackToSlot(EntityEquipmentSlot.CHEST, creeperKini);
-                    ItemStack toSpawn = hitPlayer.inventory.armorItemInSlot(3);
-                    hitPlayer.inventory.addItemStackToInventory(toSpawn);
-                	
                 }
-            }
-
+    	}
             this.setDead();
     }
 
