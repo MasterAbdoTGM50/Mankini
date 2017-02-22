@@ -4,6 +4,7 @@ import matgm50.mankini.init.ModItems;
 import matgm50.mankini.util.MankiniHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.item.Item;
@@ -33,9 +34,9 @@ public class EntityMankiniCapsule extends EntityThrowable {
 
     }
 
-    public EntityMankiniCapsule(World par1World, double par2, double par4, double par6) {
+    public EntityMankiniCapsule(World par1World, double x, double y, double z) {
 
-        super(par1World, par2, par4, par6);
+        super(par1World, x, y, z);
 
     }
 
@@ -50,19 +51,13 @@ public class EntityMankiniCapsule extends EntityThrowable {
             	setDead();
                 EntityPlayer hitPlayer = (EntityPlayer)hit;
                 Boolean full = true;
-        
-                
-                    
-                           
+      
                 if(!this.worldObj.isRemote) {
-                	
                 	for (int i=0; i<=3; i++) {
-                    	
                         if (hitPlayer.inventory.getStackInSlot(i) == null) {
                             full = false;
                         }
                    } 
-                	
                     if(hitPlayer.inventory.armorItemInSlot(2) == null){
                     	hitPlayer.inventory.setInventorySlotContents(38, MankiniHelper.getFirstFoundMankini(hitPlayer));
                     }
@@ -70,13 +65,22 @@ public class EntityMankiniCapsule extends EntityThrowable {
                     else if(hitPlayer.inventory.armorItemInSlot(2) != null && full == false){
                     	hitPlayer.inventory.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), MankiniHelper.getFirstFoundMankini(hitPlayer));
                     		//hitPlayer.inventory.addItemStackToInventory(MankiniHelper.getFirstFoundMankini(hitPlayer));
-                    	
                     }
-                    
-                    
-        }
-        
-    }
+                }
+            }
+            
+            if (hit instanceof EntityCreeper)
+            {
+            	setDead();
+            	EntityCreeper hitCreeper = (EntityCreeper)hit;
+            	
+                worldObj.removeEntity(hitCreeper);
+                hitCreeper.setDead();
+                                
+                EntityMankiniCreeper mankinicreeper = new EntityMankiniCreeper(worldObj); 
+                mankinicreeper.setLocationAndAngles(hitCreeper.posX + 0.5, hitCreeper.posY, hitCreeper.posZ + 0.5, 0,0); 
+        		worldObj.spawnEntityInWorld(mankinicreeper);
+            }
             setDead();
         }
         if(!this.worldObj.isRemote) {
