@@ -27,7 +27,7 @@ public class ModEntities {
     public static void init() {
 
         EntityRegistry.registerModEntity(EntityMankiniCapsule.class, "MankiniCapsule", 0, Mankini.instance, 64, 10, true);
-        
+        EntityRegistry.registerModEntity(EntityMankiniCreeper.class, "MankiniCreeper", 1, Mankini.instance, 80, 3, true);
         //registerEntity(EntityMankiniWither.class, "Mankini Wither");
         
     }
