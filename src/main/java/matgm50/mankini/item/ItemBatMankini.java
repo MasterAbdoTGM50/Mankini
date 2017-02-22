@@ -50,5 +50,10 @@ public class ItemBatMankini extends ItemArmor implements IMankini {
     return "battymankini";
     }
     
-  
+    @Override
+	@SideOnly(Side.CLIENT)
+	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
+	{
+		return "mankini:" + "textures/models/battymankini.png";
+	}
 }

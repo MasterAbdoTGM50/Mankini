@@ -5,7 +5,9 @@ import net.minecraft.client.model.ModelEnderman;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.datafix.DataFixer;
 import net.minecraftforge.fml.client.registry.IRenderFactory;
 
 public class RenderMankiniEnderman extends RenderLiving<EntityMankiniEnderman>{

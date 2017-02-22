@@ -2,6 +2,7 @@ package matgm50.mankini.entity;
 
 import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
 import matgm50.mankini.entity.hostile.EntityMankiniEnderman;
+import matgm50.mankini.entity.hostile.EntityMankiniSpider;
 import matgm50.mankini.init.ModItems;
 import matgm50.mankini.util.MankiniHelper;
 import net.minecraft.entity.Entity;
@@ -10,6 +11,7 @@ import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -81,6 +83,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
             	setDead();
             	EntityCreeper hitCreeper = (EntityCreeper)hit;
                 hitCreeper.setDead();
+                worldObj.removeEntity(hitCreeper);
                 
                 EntityMankiniCreeper mankinicreeper = new EntityMankiniCreeper(worldObj); 
                 mankinicreeper.setLocationAndAngles(hitCreeper.posX, hitCreeper.posY, hitCreeper.posZ, 0,0); 
@@ -92,10 +95,23 @@ public class EntityMankiniCapsule extends EntityThrowable {
             	setDead();
             	EntityEnderman hitEnderman = (EntityEnderman)hit;
             	hitEnderman.setDead();
+            	worldObj.removeEntity(hitEnderman);
             	
                 EntityMankiniEnderman mankinienderman = new EntityMankiniEnderman(worldObj); 
                 mankinienderman.setLocationAndAngles(hitEnderman.posX, hitEnderman.posY, hitEnderman.posZ, 0,0); 
         		worldObj.spawnEntityInWorld(mankinienderman);
+            }
+			
+            else if (hit instanceof EntitySpider)
+            {
+            	setDead();
+            	EntitySpider hitSpider = (EntitySpider)hit;
+            	hitSpider.setDead();
+            	worldObj.removeEntity(hitSpider);
+            	
+            	EntityMankiniSpider mankinispider = new EntityMankiniSpider(worldObj); 
+            	mankinispider.setLocationAndAngles(hitSpider.posX, hitSpider.posY, hitSpider.posZ, 0,0); 
+        		worldObj.spawnEntityInWorld(mankinispider);
             }
             
            else if (hit instanceof EntityZombie)

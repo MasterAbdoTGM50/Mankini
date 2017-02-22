@@ -1,7 +1,5 @@
 package matgm50.mankini.entity;
 
-import java.util.Random;
-
 import matgm50.mankini.Mankini;
 import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
 import matgm50.mankini.entity.hostile.EntityMankiniEnderman;
@@ -14,19 +12,6 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
  */
 
 public class ModEntities {
-	
-	public static void registerEntity(Class entityClass, String name)
-    {
-    int entityID = 0;
-    long seed = name.hashCode();
-    Random rand = new Random(seed);
-    int primaryColor = rand.nextInt() * 16777215;
-    int secondaryColor = rand.nextInt() * 16777215;
-
-    //EntityRegistry.registerGlobalEntityID(entityClass, name, entityID);
-    EntityRegistry.registerModEntity(entityClass, name, entityID, Mankini.instance, 64, 1, true);
-   // EntityList.entityEggs.put(Integer.valueOf(entityID), new EntityList.EntityEggInfo(entityID, primaryColor, secondaryColor));
-    }
 
     public static void init() {
 
