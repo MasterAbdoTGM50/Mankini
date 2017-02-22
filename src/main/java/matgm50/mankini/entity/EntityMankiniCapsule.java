@@ -5,8 +5,10 @@ import matgm50.mankini.util.MankiniHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.RayTraceResult;
@@ -79,6 +81,15 @@ public class EntityMankiniCapsule extends EntityThrowable {
                 EntityMankiniCreeper mankinicreeper = new EntityMankiniCreeper(worldObj); 
                 mankinicreeper.setLocationAndAngles(hitCreeper.posX, hitCreeper.posY, hitCreeper.posZ, 0,0); 
         		worldObj.spawnEntityInWorld(mankinicreeper);
+            }
+            
+            if (hit instanceof EntityZombie)
+            {
+            	setDead();
+            	EntityZombie hitZombie = (EntityZombie)hit;
+            	ItemStack creeperKini = new ItemStack(ModItems.itemDyeableMankini);
+            	
+            	hitZombie.setItemStackToSlot(EntityEquipmentSlot.CHEST, creeperKini);
             }
             setDead();
         }
