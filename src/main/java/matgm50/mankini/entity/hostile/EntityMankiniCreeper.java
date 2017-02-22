@@ -1,4 +1,4 @@
-package matgm50.mankini.entity;
+package matgm50.mankini.entity.hostile;
 
 import javax.annotation.Nullable;
 

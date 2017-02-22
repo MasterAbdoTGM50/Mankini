@@ -1,10 +1,14 @@
 package matgm50.mankini.entity;
 
+import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
+import matgm50.mankini.entity.hostile.EntityMankiniEnderman;
 import matgm50.mankini.init.ModItems;
 import matgm50.mankini.util.MankiniHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
@@ -50,7 +54,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
 
             Entity hit = mop.entityHit;
            
-            if(hit instanceof EntityPlayer) {
+			if(hit instanceof EntityPlayer) {
             	setDead();
                 EntityPlayer hitPlayer = (EntityPlayer)hit;
                 Boolean full = true;
@@ -72,36 +76,58 @@ public class EntityMankiniCapsule extends EntityThrowable {
                 }
             }
             
-            if (hit instanceof EntityCreeper)
+            else if (hit instanceof EntityCreeper)
             {
             	setDead();
             	EntityCreeper hitCreeper = (EntityCreeper)hit;
-
                 hitCreeper.setDead();
-                                
+                
                 EntityMankiniCreeper mankinicreeper = new EntityMankiniCreeper(worldObj); 
                 mankinicreeper.setLocationAndAngles(hitCreeper.posX, hitCreeper.posY, hitCreeper.posZ, 0,0); 
         		worldObj.spawnEntityInWorld(mankinicreeper);
             }
-            
-            if (hit instanceof EntityZombie)
+			
+            else if (hit instanceof EntityEnderman)
             {
+            	setDead();
+            	EntityEnderman hitEnderman = (EntityEnderman)hit;
+            	hitEnderman.setDead();
+            	
+                EntityMankiniEnderman mankinienderman = new EntityMankiniEnderman(worldObj); 
+                mankinienderman.setLocationAndAngles(hitEnderman.posX, hitEnderman.posY, hitEnderman.posZ, 0,0); 
+        		worldObj.spawnEntityInWorld(mankinienderman);
+            }
+            
+           else if (hit instanceof EntityZombie)
+           {
             	setDead();
             	EntityZombie hitZombie = (EntityZombie)hit;
-            	ItemStack creeperKini = new ItemStack(ModItems.itemDyeableMankini);
+            	ItemStack mankini = new ItemStack(ModItems.itemDyeableMankini);
             	
-            	hitZombie.setItemStackToSlot(EntityEquipmentSlot.CHEST, creeperKini);
-            }
+            	hitZombie.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
+            	hitZombie.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+           }
             
-            if (hit instanceof EntitySkeleton)
-            {
+           else if (hit instanceof EntitySkeleton)
+           {
             	setDead();
             	EntitySkeleton hitSkeleton = (EntitySkeleton)hit;
-            	ItemStack creeperKini = new ItemStack(ModItems.itemDyeableMankini);
+            	ItemStack mankini = new ItemStack(ModItems.itemDyeableMankini);
             	
-            	hitSkeleton.setItemStackToSlot(EntityEquipmentSlot.CHEST, creeperKini);
-            }
-            setDead();
+            	hitSkeleton.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
+            	hitSkeleton.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+           }
+            
+           else if (hit instanceof EntityPigZombie)
+           {
+            	setDead();
+            	EntityPigZombie hitPigman = (EntityPigZombie)hit;
+            	ItemStack mankini = new ItemStack(ModItems.itemDyeableMankini);
+            	
+            	hitPigman.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
+            	hitPigman.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+           }
+           setDead();
         }
         if(!this.worldObj.isRemote) {
       	  if (mop.typeOfHit != null && mop.typeOfHit == RayTraceResult.Type.BLOCK)

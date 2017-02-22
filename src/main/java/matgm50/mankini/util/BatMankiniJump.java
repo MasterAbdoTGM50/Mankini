@@ -13,12 +13,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class BatMankiniJump {
 	 ItemStack batKini = new ItemStack(ModItems.itemBatMankini);
 	 EntityEquipmentSlot slotIn = EntityEquipmentSlot.CHEST;
-	
-	public static void init() {
 
-        MinecraftForge.EVENT_BUS.register(new BatMankiniJump());
-
-    }
 	@SubscribeEvent
 	public void PlayerJump(LivingJumpEvent event)
 	{

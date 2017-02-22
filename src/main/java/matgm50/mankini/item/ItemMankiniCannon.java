@@ -48,7 +48,7 @@ public class ItemMankiniCannon extends Item {
             	
             	  if (!playerIn.capabilities.isCreativeMode)
                   {	
-            playerIn.inventory.removeStackFromSlot(MankiniHelper.mankiniSlot(playerIn));
+            		  playerIn.inventory.removeStackFromSlot(MankiniHelper.mankiniSlot(playerIn));
                   }
             	  
             EntityMankiniCapsule entitymankinicapsule = new EntityMankiniCapsule(worldIn, playerIn, MankiniHelper.getFirstFoundMankini(playerIn));
@@ -69,7 +69,6 @@ public class ItemMankiniCannon extends Item {
         return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
         }
         else return new ActionResult(EnumActionResult.FAIL, itemStackIn);
- 
     }
 
 	public String getName() {

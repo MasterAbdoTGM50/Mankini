@@ -1,6 +1,6 @@
 package matgm50.mankini.client.renderer;
 
-import matgm50.mankini.entity.EntityMankiniCreeper;
+import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
 import net.minecraft.client.model.ModelCreeper;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;

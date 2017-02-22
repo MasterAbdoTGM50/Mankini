@@ -1,6 +1,6 @@
 package matgm50.mankini.client.renderer;
 
-import matgm50.mankini.entity.EntityMankiniSpider;
+import matgm50.mankini.entity.hostile.EntityMankiniSpider;
 import net.minecraft.client.model.ModelSpider;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;

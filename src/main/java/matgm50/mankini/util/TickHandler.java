@@ -1,9 +1,13 @@
 package matgm50.mankini.util;
 
+import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
+import matgm50.mankini.entity.hostile.EntityMankiniEnderman;
+import matgm50.mankini.entity.hostile.EntityMankiniSpider;
 import matgm50.mankini.init.ModItems;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
@@ -13,12 +17,31 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
 public class TickHandler {
 
-    public static void init() {
-
-        FMLCommonHandler.instance().bus().register(new TickHandler());
-
+    @SubscribeEvent
+	public void onLivingDrop(LivingDropsEvent event) {
+		if (event.getEntity() instanceof EntityMankiniCreeper) {
+            {
+            	ItemStack itemStackToDrop = new ItemStack(ModItems.itemDyeableMankini, 1);
+            	event.getDrops().add(new EntityItem(event.getEntity().worldObj, event.getEntity().posX, 
+            		event.getEntity().posY, event.getEntity().posZ, itemStackToDrop));
+            }
+		}
+		if (event.getEntity() instanceof EntityMankiniEnderman) {
+            {
+            	ItemStack itemStackToDrop = new ItemStack(ModItems.itemDyeableMankini, 1);
+            	event.getDrops().add(new EntityItem(event.getEntity().worldObj, event.getEntity().posX, 
+            		event.getEntity().posY, event.getEntity().posZ, itemStackToDrop));
+            }
+		}
+		if (event.getEntity() instanceof EntityMankiniSpider) {
+            {
+            	ItemStack itemStackToDrop = new ItemStack(ModItems.itemDyeableMankini, 1);
+            	event.getDrops().add(new EntityItem(event.getEntity().worldObj, event.getEntity().posX, 
+            		event.getEntity().posY, event.getEntity().posZ, itemStackToDrop));
+            }
+		}
     }
-
+		
     @SubscribeEvent
     public void tick(PlayerTickEvent event) {
 
