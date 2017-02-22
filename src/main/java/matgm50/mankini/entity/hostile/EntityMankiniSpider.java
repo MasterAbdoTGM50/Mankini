@@ -11,9 +11,6 @@ import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.SoundEvent;
@@ -25,8 +22,6 @@ import net.minecraft.world.World;
 
 public class EntityMankiniSpider extends EntitySpider
 {
-    private static final DataParameter<Byte> CLIMBING = EntityDataManager.<Byte>createKey(EntityMankiniSpider.class, DataSerializers.BYTE);
-
     public EntityMankiniSpider(World worldIn)
     {
         super(worldIn);

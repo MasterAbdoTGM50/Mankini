@@ -18,6 +18,7 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
@@ -30,31 +31,33 @@ public class EntityMankiniCapsule extends EntityThrowable {
     ItemStack foundMankini;
 
     ItemStack kini = new ItemStack(ModItems.itemDyeableMankini);
-    public EntityMankiniCapsule(World par1World) {
-
-        super(par1World);
-
+    public EntityMankiniCapsule(World worldIn)
+    {
+        super(worldIn);
     }
 
-    public EntityMankiniCapsule(World par1World, EntityLivingBase par2EntityLivingBase, ItemStack foundMankini) {
-
-        super(par1World, par2EntityLivingBase);
-        this.foundMankini = foundMankini;
-
+    public EntityMankiniCapsule(World worldIn, EntityLivingBase throwerIn, ItemStack foundMankini)
+    {
+    	super(worldIn, throwerIn);
+    	this.foundMankini = foundMankini;
     }
 
-    public EntityMankiniCapsule(World par1World, double x, double y, double z) {
+    public EntityMankiniCapsule(World worldIn, double x, double y, double z)
+    {
+        super(worldIn, x, y, z);
+    }
 
-        super(par1World, x, y, z);
-
+    public static void registerFixesMankiniCapsule(DataFixer fixer)
+    {
+        EntityThrowable.registerFixesThrowable(fixer, "MankiniCapsule");
     }
 
    @Override
-    protected void onImpact(RayTraceResult mop) {
+    protected void onImpact(RayTraceResult result) {
 	   
-        if(mop.typeOfHit != null && mop.typeOfHit == RayTraceResult.Type.ENTITY) {
+        if(result.typeOfHit != null && result.typeOfHit == RayTraceResult.Type.ENTITY) {
 
-            Entity hit = mop.entityHit;
+            Entity hit = result.entityHit;
            
 			if(hit instanceof EntityPlayer) {
             	setDead();
@@ -146,7 +149,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
            setDead();
         }
         if(!this.worldObj.isRemote) {
-      	  if (mop.typeOfHit != null && mop.typeOfHit == RayTraceResult.Type.BLOCK)
+      	  if (result.typeOfHit != null && result.typeOfHit == RayTraceResult.Type.BLOCK)
       {
          setDead();
          int kiniDrop = Item.getIdFromItem(ModItems.itemDyeableMankini);

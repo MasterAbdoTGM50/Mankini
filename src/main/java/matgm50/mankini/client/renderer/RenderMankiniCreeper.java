@@ -19,9 +19,11 @@ public class RenderMankiniCreeper extends RenderLiving<EntityMankiniCreeper>{
 		super(renderManagerIn, new ModelCreeper(), 0.5F);
 	}	
 
+	@Override
 	protected ResourceLocation getEntityTexture(EntityMankiniCreeper entity) {
 		return MANKINI_CREEPER;
 	}
+	
 	public static class Factory implements IRenderFactory<EntityMankiniCreeper> {
 
 	@Override

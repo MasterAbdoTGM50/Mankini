@@ -1,6 +1,6 @@
 package matgm50.mankini;
 
-import matgm50.mankini.entity.ModEntities;
+import matgm50.mankini.init.ModEntities;
 import matgm50.mankini.init.ModItems;
 import matgm50.mankini.init.ModRecipes;
 import matgm50.mankini.lib.ModLib;
@@ -39,13 +39,13 @@ public class Mankini {
     public void preInit(FMLPreInitializationEvent event) {
 
         ModItems.init();
-
         ModItems.register();
         
         ModRecipes.init();
-        proxy.RegisterRenders();
-
+        
         ModEntities.init();
+        
+        proxy.RegisterRenders();
         
         proxy.initMobRenderers();
       
@@ -54,8 +54,8 @@ public class Mankini {
     @EventHandler
     public void init(FMLInitializationEvent event) {
     	
-    	MinecraftForge.EVENT_BUS.register(new BatHandler());
-    	MinecraftForge.EVENT_BUS.register(new BatMankiniJump());
+    	//MinecraftForge.EVENT_BUS.register(new BatHandler());
+    	//MinecraftForge.EVENT_BUS.register(new BatMankiniJump());
     	MinecraftForge.EVENT_BUS.register(new TickHandler());
     	
     	proxy.RegisterColorRenders();

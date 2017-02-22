@@ -21,9 +21,6 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.datafix.DataFixer;
@@ -31,17 +28,9 @@ import net.minecraft.world.World;
 
 public class EntityMankiniCreeper extends EntityCreeper
 {
-    private static final DataParameter<Integer> STATE = EntityDataManager.<Integer>createKey(EntityMankiniCreeper.class, DataSerializers.VARINT);
-    private static final DataParameter<Boolean> IGNITED = EntityDataManager.<Boolean>createKey(EntityMankiniCreeper.class, DataSerializers.BOOLEAN);
-    /**
-     * Time when this creeper was last in an active state (Messed up code here, probably causes creeper animation to go
-     * weird)
-     */
     private int lastActiveTime;
-    /** The amount of time since the creeper was close enough to the player to ignite */
     private int timeSinceIgnited;
     private int fuseTime = 30;
-    /** Explosion radius for this creeper. */
     private int explosionRadius = 3;
     private int droppedSkulls;
 

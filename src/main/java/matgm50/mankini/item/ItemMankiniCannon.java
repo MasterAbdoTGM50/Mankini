@@ -5,7 +5,6 @@ import matgm50.mankini.entity.EntityMankiniCapsule;
 //import matgm50.mankini.entity.EntityMankiniWither;
 import matgm50.mankini.lib.ItemLib;
 import matgm50.mankini.util.MankiniHelper;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -15,10 +14,6 @@ import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 /**
  * Created by MasterAbdoTGM50 on 7/2/2014.
