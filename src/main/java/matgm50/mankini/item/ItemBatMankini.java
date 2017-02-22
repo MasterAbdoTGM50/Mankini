@@ -25,7 +25,6 @@ public class ItemBatMankini extends ItemArmor implements IMankini {
 		setRegistryName(ItemLib.ModItems.MANKINI_BAT_NAME.getRegistryName());
         setCreativeTab(Mankini.tabMankini);
         setMaxStackSize(1);
-        GameRegistry.register(this);
 
     }
 

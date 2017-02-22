@@ -36,7 +36,6 @@ public class ItemMankiniCannon extends Item {
         setCreativeTab(Mankini.tabMankini);
         setMaxStackSize(1);
         setFull3D();
-        GameRegistry.register(this);
         
     }
 

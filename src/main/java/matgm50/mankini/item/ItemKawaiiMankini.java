@@ -24,7 +24,6 @@ public class ItemKawaiiMankini extends ItemArmor implements IMankini {
 		setRegistryName(ItemLib.ModItems.KAWAII_MAKNINI_NAME.getRegistryName());
         setCreativeTab(Mankini.tabMankini);
         setMaxStackSize(1);
-        GameRegistry.register(this);
 
     }
 
