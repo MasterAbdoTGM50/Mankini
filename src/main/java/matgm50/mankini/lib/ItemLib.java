@@ -15,7 +15,8 @@ public class ItemLib {
     	AETHERIC_MAKNINI_NAME("aethericmankini", "itemaethericmankini"),
     	MANKINI_CANNON_NAME("mankinicannon", "itemmankinicannon"),
     	MANKINI_CAPSULE_NAME("mankinicapsule", "itemmankinicapsule"),
-    	MANKINI_BAT_NAME("mankinibat", "itemmankinibat");
+    	MANKINI_BAT_NAME("mankinibat", "itemmankinibat"),
+    	MANKINI_HORSE_ARMOR("ironhorsemankini", "itemironhorsemankini");
     	
     	private String unlocalisedName;
     	private String registryName;

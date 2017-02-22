@@ -27,6 +27,7 @@ public class ModItems {
     public static Item mankini_cannon;
     public static Item mankini_capsule;
     public static Item bat_mankini;
+    //public static Item iron_horse_mankini;
 
     public static void init() {
 
@@ -36,6 +37,7 @@ public class ModItems {
         mankini_cannon  = new ItemMankiniCannon();
         mankini_capsule = new ItemMankiniCapsule();
         bat_mankini = new ItemBatMankini();
+        //iron_horse_mankini = new ItemHorseMankini();
     	}
 
     public static void register()
@@ -46,6 +48,7 @@ public class ModItems {
     	GameRegistry.register(mankini_cannon);
     	GameRegistry.register(mankini_capsule);
     	GameRegistry.register(bat_mankini);
+    	//GameRegistry.register(iron_horse_mankini);
     }
        // GameRegistry.registerItem(itemDyeableMankini, ItemLib.DYEABLE_MAKNINI_NAME);
        // GameRegistry.registerItem(itemKawaiiMankini, ItemLib.KAWAII_MAKNINI_NAME);
@@ -62,6 +65,7 @@ public class ModItems {
     		registerRender(mankini_cannon);
     		registerRender(mankini_capsule);
     		registerRender(bat_mankini);
+    		//registerRender(iron_horse_mankini);
     	}
         
         public static void registerColorRenders()
