@@ -73,12 +73,11 @@ public class EntityMankiniCapsule extends EntityThrowable {
             {
             	setDead();
             	EntityCreeper hitCreeper = (EntityCreeper)hit;
-            	
-                worldObj.removeEntity(hitCreeper);
+
                 hitCreeper.setDead();
                                 
                 EntityMankiniCreeper mankinicreeper = new EntityMankiniCreeper(worldObj); 
-                mankinicreeper.setLocationAndAngles(hitCreeper.posX + 0.5, hitCreeper.posY, hitCreeper.posZ + 0.5, 0,0); 
+                mankinicreeper.setLocationAndAngles(hitCreeper.posX, hitCreeper.posY, hitCreeper.posZ, 0,0); 
         		worldObj.spawnEntityInWorld(mankinicreeper);
             }
             setDead();
