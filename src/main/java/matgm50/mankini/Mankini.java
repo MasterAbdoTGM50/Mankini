@@ -1,5 +1,6 @@
 package matgm50.mankini;
 
+import matgm50.mankini.init.ModConfigGen;
 import matgm50.mankini.init.ModEntities;
 import matgm50.mankini.init.ModItems;
 import matgm50.mankini.init.ModRecipes;
@@ -12,6 +13,7 @@ import matgm50.mankini.util.TabMankini;
 import matgm50.mankini.util.TickHandler;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -39,6 +41,9 @@ public class Mankini {
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
 
+    	Configuration cfg = new Configuration(event.getSuggestedConfigurationFile());
+    	ModConfigGen.configOptions(cfg);
+    	
         ModItems.init();
         ModItems.register();
         

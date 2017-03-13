@@ -109,6 +109,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
             {
             	setDead();
             	EntitySpider hitSpider = (EntitySpider)hit;
+            	hitSpider.setPosition(hitSpider.posX, hitSpider.posY +100, hitSpider.posZ);
             	hitSpider.setDead();
             	worldObj.removeEntity(hitSpider);
             	
