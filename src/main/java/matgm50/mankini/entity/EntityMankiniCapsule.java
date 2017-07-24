@@ -1,5 +1,6 @@
 package matgm50.mankini.entity;
 
+import matgm50.mankini.init.ModConfigGen;
 import matgm50.mankini.init.ModItems;
 import matgm50.mankini.util.MankiniHelper;
 import net.minecraft.entity.Entity;
@@ -52,8 +53,40 @@ public class EntityMankiniCapsule extends EntityThrowable {
         if(result.typeOfHit != null && result.typeOfHit == RayTraceResult.Type.ENTITY) {
 
             Entity hit = result.entityHit;
-           
-			if(hit instanceof EntityPlayer) {
+            
+            if (ModConfigGen.ShootMankinisOntoMobs)
+			{
+		       if (hit instanceof EntityZombie)
+		       {
+		        	setDead();
+		        	EntityZombie hitZombie = (EntityZombie)hit;
+		        	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
+		        	
+		        	hitZombie.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
+		        	hitZombie.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+		       }
+		        
+		       else if (hit instanceof EntitySkeleton)
+		       {
+		        	setDead();
+		        	EntitySkeleton hitSkeleton = (EntitySkeleton)hit;
+		        	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
+		        	
+		        	hitSkeleton.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
+		        	hitSkeleton.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+		       }
+		        
+		       else if (hit instanceof EntityPigZombie)
+		       {
+		        	setDead();
+		        	EntityPigZombie hitPigman = (EntityPigZombie)hit;
+		        	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
+		        	
+		        	hitPigman.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
+		        	hitPigman.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+		       }
+			}
+            else if(hit instanceof EntityPlayer) {
             	setDead();
                 EntityPlayer hitPlayer = (EntityPlayer)hit;
                 Boolean full = true;
@@ -111,38 +144,9 @@ public class EntityMankiniCapsule extends EntityThrowable {
         		worldObj.spawnEntityInWorld(mankinispider);
             }
            */
-			
-           else if (hit instanceof EntityZombie)
-           {
-            	setDead();
-            	EntityZombie hitZombie = (EntityZombie)hit;
-            	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
-            	
-            	hitZombie.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
-            	hitZombie.setDropChance(EntityEquipmentSlot.CHEST, 1f);
-           }
-            
-           else if (hit instanceof EntitySkeleton)
-           {
-            	setDead();
-            	EntitySkeleton hitSkeleton = (EntitySkeleton)hit;
-            	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
-            	
-            	hitSkeleton.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
-            	hitSkeleton.setDropChance(EntityEquipmentSlot.CHEST, 1f);
-           }
-            
-           else if (hit instanceof EntityPigZombie)
-           {
-            	setDead();
-            	EntityPigZombie hitPigman = (EntityPigZombie)hit;
-            	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
-            	
-            	hitPigman.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
-            	hitPigman.setDropChance(EntityEquipmentSlot.CHEST, 1f);
-           }
            setDead();
         }
+        
         if(!this.worldObj.isRemote) {
       	  if (result.typeOfHit != null && result.typeOfHit == RayTraceResult.Type.BLOCK)
       {

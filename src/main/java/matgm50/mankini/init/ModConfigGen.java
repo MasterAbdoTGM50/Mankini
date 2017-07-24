@@ -9,8 +9,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Config(modid = ModLib.MOD_ID)
 public class ModConfigGen {
 
+	@Config.Comment("Ability to shoot Mankini's onto capable mobs (default: true)")
+	public static boolean ShootMankinisOntoMobs = true;
+	
 	private static class EventHandler {
-
 		@SubscribeEvent
 		public static void onConfigChanged(final ConfigChangedEvent.OnConfigChangedEvent event) {
 			if (event.getModID().equals(ModLib.MOD_ID)) {
