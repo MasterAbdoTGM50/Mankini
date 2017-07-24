@@ -1,13 +1,13 @@
 [
 {
-  "modid": "Mankini",
+  "modid": "mankini",
   "name": "Mankini",
   "description": "A minecraft mod allowing you to become a mankini wearing star. What would you ask for more?",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authors": ["MasterAbdoTGM50, Kenny2810, Mrbysco"],
+  "authorList": ["MasterAbdoTGM50", "Kenny2810", "Mrbysco"],
   "credits": "Runew0lf, Geekasaurus",
   "logoFile": "",
   "screenshots": [],
