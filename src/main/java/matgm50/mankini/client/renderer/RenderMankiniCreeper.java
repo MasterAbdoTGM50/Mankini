@@ -1,6 +1,6 @@
 package matgm50.mankini.client.renderer;
 
-import matgm50.mankini.entity.EntityMankiniCreeper;
+import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
 import net.minecraft.client.model.ModelCreeper;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -19,9 +19,11 @@ public class RenderMankiniCreeper extends RenderLiving<EntityMankiniCreeper>{
 		super(renderManagerIn, new ModelCreeper(), 0.5F);
 	}	
 
+	@Override
 	protected ResourceLocation getEntityTexture(EntityMankiniCreeper entity) {
 		return MANKINI_CREEPER;
 	}
+	
 	public static class Factory implements IRenderFactory<EntityMankiniCreeper> {
 
 	@Override

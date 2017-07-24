@@ -6,7 +6,7 @@ package matgm50.mankini.proxy;
 
 public class CommonProxy {
 
-    public void initRenderers() {
+    public void initMobRenderers() {
 
     }
 

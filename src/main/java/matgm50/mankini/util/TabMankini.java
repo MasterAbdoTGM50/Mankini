@@ -19,7 +19,7 @@ public class TabMankini extends CreativeTabs {
     @Override
     public Item getTabIconItem() {
 
-        return ModItems.itemDyeableMankini;
+        return ModItems.dyeable_mankini;
 
     }
 

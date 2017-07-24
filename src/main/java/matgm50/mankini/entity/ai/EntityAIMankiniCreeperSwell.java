@@ -1,6 +1,6 @@
 package matgm50.mankini.entity.ai;
 
-import matgm50.mankini.entity.EntityMankiniCreeper;
+import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 

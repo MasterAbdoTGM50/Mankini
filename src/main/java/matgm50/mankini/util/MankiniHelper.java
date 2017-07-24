@@ -24,7 +24,7 @@ public class MankiniHelper {
 
         }
 
-        return new ItemStack(ModItems.itemDyeableMankini);
+        return new ItemStack(ModItems.dyeable_mankini);
 
     }
 

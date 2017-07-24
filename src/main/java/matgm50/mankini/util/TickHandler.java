@@ -1,9 +1,13 @@
 package matgm50.mankini.util;
 
+import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
+import matgm50.mankini.entity.hostile.EntityMankiniEnderman;
+import matgm50.mankini.entity.hostile.EntityMankiniSpider;
 import matgm50.mankini.init.ModItems;
+import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
@@ -12,12 +16,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
  */
 
 public class TickHandler {
-
-    public static void init() {
-
-        FMLCommonHandler.instance().bus().register(new TickHandler());
-
-    }
 
     @SubscribeEvent
     public void tick(PlayerTickEvent event) {
@@ -28,12 +26,12 @@ public class TickHandler {
 
         if(armor != null) {
 
-            if(armor.getItem() == ModItems.itemAethericMankini) {
+            if(armor.getItem() == ModItems.aetheric_mankini) {
 
                 player.capabilities.allowFlying = true;
 
             }
-            else if (armor.getItem() == ModItems.itemBatMankini) {
+            else if (armor.getItem() == ModItems.bat_mankini) {
 
                player.fallDistance = 0F;
 

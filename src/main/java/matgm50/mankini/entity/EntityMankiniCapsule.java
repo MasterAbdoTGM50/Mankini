@@ -1,16 +1,19 @@
 package matgm50.mankini.entity;
 
+import matgm50.mankini.init.ModConfigGen;
 import matgm50.mankini.init.ModItems;
 import matgm50.mankini.util.MankiniHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityPigZombie;
+import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
@@ -22,34 +25,37 @@ public class EntityMankiniCapsule extends EntityThrowable {
 
     ItemStack foundMankini;
 
-    ItemStack kini = new ItemStack(ModItems.itemDyeableMankini);
-    public EntityMankiniCapsule(World par1World) {
-
-        super(par1World);
-
+    ItemStack kini = new ItemStack(ModItems.dyeable_mankini);
+    public EntityMankiniCapsule(World worldIn)
+    {
+        super(worldIn);
     }
 
-    public EntityMankiniCapsule(World par1World, EntityLivingBase par2EntityLivingBase, ItemStack foundMankini) {
-
-        super(par1World, par2EntityLivingBase);
-        this.foundMankini = foundMankini;
-
+    public EntityMankiniCapsule(World worldIn, EntityLivingBase throwerIn, ItemStack foundMankini)
+    {
+    	super(worldIn, throwerIn);
+    	this.foundMankini = foundMankini;
     }
 
-    public EntityMankiniCapsule(World par1World, double x, double y, double z) {
+    public EntityMankiniCapsule(World worldIn, double x, double y, double z)
+    {
+        super(worldIn, x, y, z);
+    }
 
-        super(par1World, x, y, z);
-
+    public static void registerFixesMankiniCapsule(DataFixer fixer)
+    {
+        EntityThrowable.registerFixesThrowable(fixer, "MankiniCapsule");
     }
 
    @Override
-    protected void onImpact(RayTraceResult mop) {
+    protected void onImpact(RayTraceResult result) {
 	   
-        if(mop.typeOfHit != null && mop.typeOfHit == RayTraceResult.Type.ENTITY) {
+        if(result.typeOfHit != null && result.typeOfHit == RayTraceResult.Type.ENTITY) {
 
-            Entity hit = mop.entityHit;
-           
+            Entity hit = result.entityHit;
+            
             if(hit instanceof EntityPlayer) {
+            	System.out.println("I hit a player");
             	setDead();
                 EntityPlayer hitPlayer = (EntityPlayer)hit;
                 Boolean full = true;
@@ -71,33 +77,83 @@ public class EntityMankiniCapsule extends EntityThrowable {
                 }
             }
             
-            if (hit instanceof EntityCreeper)
+            if (ModConfigGen.ShootMankinisOntoMobs)
+			{
+		       if (hit instanceof EntityZombie)
+		       {
+		        	setDead();
+		        	EntityZombie hitZombie = (EntityZombie)hit;
+		        	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
+		        	
+		        	hitZombie.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
+		        	hitZombie.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+		       }
+		        
+		       if (hit instanceof EntitySkeleton)
+		       {
+		        	setDead();
+		        	EntitySkeleton hitSkeleton = (EntitySkeleton)hit;
+		        	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
+		        	
+		        	hitSkeleton.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
+		        	hitSkeleton.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+		       }
+		        
+		       if (hit instanceof EntityPigZombie)
+		       {
+		        	setDead();
+		        	EntityPigZombie hitPigman = (EntityPigZombie)hit;
+		        	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
+		        	
+		        	hitPigman.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
+		        	hitPigman.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+		       }
+			}
+            /*
+            else if (hit instanceof EntityCreeper && !(hit instanceof EntityMankiniCreeper))
             {
-            	setDead();
-            	EntityCreeper hitCreeper = (EntityCreeper)hit;
-
-                hitCreeper.setDead();
-                                
+                hit.setDead();
+                
                 EntityMankiniCreeper mankinicreeper = new EntityMankiniCreeper(worldObj); 
-                mankinicreeper.setLocationAndAngles(hitCreeper.posX, hitCreeper.posY, hitCreeper.posZ, 0,0); 
+                mankinicreeper.setLocationAndAngles(hit.posX, hit.posY, hit.posZ, 0,0); 
         		worldObj.spawnEntityInWorld(mankinicreeper);
+        		
+        		
+        		this.setDead();
             }
-            
-            if (hit instanceof EntityZombie)
+			
+            else if (hit instanceof EntityEnderman && !(hit instanceof EntityMankiniEnderman))
+            {
+            	EntityEnderman hitEnderman = (EntityEnderman)hit;
+            	hitEnderman.setDead();
+            	worldObj.removeEntity(hitEnderman);
+            	
+                EntityMankiniEnderman mankinienderman = new EntityMankiniEnderman(worldObj); 
+                mankinienderman.setLocationAndAngles(hitEnderman.posX, hitEnderman.posY, hitEnderman.posZ, 0,0); 
+        		worldObj.spawnEntityInWorld(mankinienderman);
+        		setDead();
+            }
+			
+            else if (hit instanceof EntitySpider && !(hit instanceof EntityMankiniSpider))
             {
             	setDead();
-            	EntityZombie hitZombie = (EntityZombie)hit;
-            	ItemStack creeperKini = new ItemStack(ModItems.itemDyeableMankini);
+            	EntitySpider hitSpider = (EntitySpider)hit;
+            	hitSpider.setDead();
+            	worldObj.removeEntity(hitSpider);
             	
-            	hitZombie.setItemStackToSlot(EntityEquipmentSlot.CHEST, creeperKini);
+            	EntityMankiniSpider mankinispider = new EntityMankiniSpider(worldObj); 
+            	mankinispider.setLocationAndAngles(hitSpider.posX, hitSpider.posY, hitSpider.posZ, 0,0); 
+        		worldObj.spawnEntityInWorld(mankinispider);
             }
-            setDead();
+           */
+           setDead();
         }
+        
         if(!this.worldObj.isRemote) {
-      	  if (mop.typeOfHit != null && mop.typeOfHit == RayTraceResult.Type.BLOCK)
+      	  if (result.typeOfHit != null && result.typeOfHit == RayTraceResult.Type.BLOCK)
       {
          setDead();
-         int kiniDrop = Item.getIdFromItem(ModItems.itemDyeableMankini);
+         int kiniDrop = Item.getIdFromItem(ModItems.dyeable_mankini);
          this.dropItem(Item.getItemById(kiniDrop), 1);
       }
       }

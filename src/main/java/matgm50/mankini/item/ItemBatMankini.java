@@ -36,7 +36,7 @@ public class ItemBatMankini extends ItemArmor implements IMankini {
     		EntityPlayer player = (EntityPlayer) event.getEntityLiving();
     		if(!player.isSneaking()){
 			if (player.inventory.armorItemInSlot(2) != null){
-				if(player.inventory.armorItemInSlot(2).getItem()== ModItems.itemBatMankini){
+				if(player.inventory.armorItemInSlot(2).getItem()== ModItems.bat_mankini){
 				player.motionY += 1.1F;
 				player.addPotionEffect((new PotionEffect(MobEffects.SLOWNESS, 200, 1)));
 				}
@@ -50,5 +50,10 @@ public class ItemBatMankini extends ItemArmor implements IMankini {
     return "battymankini";
     }
     
-  
+    @Override
+	@SideOnly(Side.CLIENT)
+	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
+	{
+		return "mankini:" + "textures/models/battymankini.png";
+	}
 }

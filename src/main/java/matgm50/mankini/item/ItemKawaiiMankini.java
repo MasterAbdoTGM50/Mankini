@@ -26,4 +26,11 @@ public class ItemKawaiiMankini extends ItemArmor implements IMankini {
         setMaxStackSize(1);
 
     }
+    
+    @Override
+   	@SideOnly(Side.CLIENT)
+   	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
+   	{
+   		return "mankini:" + "textures/models/kawaiimankini.png";
+   	}
 }
