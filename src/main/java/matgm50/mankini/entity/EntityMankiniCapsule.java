@@ -54,39 +54,8 @@ public class EntityMankiniCapsule extends EntityThrowable {
 
             Entity hit = result.entityHit;
             
-            if (ModConfigGen.ShootMankinisOntoMobs)
-			{
-		       if (hit instanceof EntityZombie)
-		       {
-		        	setDead();
-		        	EntityZombie hitZombie = (EntityZombie)hit;
-		        	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
-		        	
-		        	hitZombie.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
-		        	hitZombie.setDropChance(EntityEquipmentSlot.CHEST, 1f);
-		       }
-		        
-		       else if (hit instanceof EntitySkeleton)
-		       {
-		        	setDead();
-		        	EntitySkeleton hitSkeleton = (EntitySkeleton)hit;
-		        	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
-		        	
-		        	hitSkeleton.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
-		        	hitSkeleton.setDropChance(EntityEquipmentSlot.CHEST, 1f);
-		       }
-		        
-		       else if (hit instanceof EntityPigZombie)
-		       {
-		        	setDead();
-		        	EntityPigZombie hitPigman = (EntityPigZombie)hit;
-		        	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
-		        	
-		        	hitPigman.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
-		        	hitPigman.setDropChance(EntityEquipmentSlot.CHEST, 1f);
-		       }
-			}
-            else if(hit instanceof EntityPlayer) {
+            if(hit instanceof EntityPlayer) {
+            	System.out.println("I hit a player");
             	setDead();
                 EntityPlayer hitPlayer = (EntityPlayer)hit;
                 Boolean full = true;
@@ -107,6 +76,39 @@ public class EntityMankiniCapsule extends EntityThrowable {
                     }
                 }
             }
+            
+            if (ModConfigGen.ShootMankinisOntoMobs)
+			{
+		       if (hit instanceof EntityZombie)
+		       {
+		        	setDead();
+		        	EntityZombie hitZombie = (EntityZombie)hit;
+		        	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
+		        	
+		        	hitZombie.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
+		        	hitZombie.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+		       }
+		        
+		       if (hit instanceof EntitySkeleton)
+		       {
+		        	setDead();
+		        	EntitySkeleton hitSkeleton = (EntitySkeleton)hit;
+		        	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
+		        	
+		        	hitSkeleton.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
+		        	hitSkeleton.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+		       }
+		        
+		       if (hit instanceof EntityPigZombie)
+		       {
+		        	setDead();
+		        	EntityPigZombie hitPigman = (EntityPigZombie)hit;
+		        	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
+		        	
+		        	hitPigman.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
+		        	hitPigman.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+		       }
+			}
             /*
             else if (hit instanceof EntityCreeper && !(hit instanceof EntityMankiniCreeper))
             {
