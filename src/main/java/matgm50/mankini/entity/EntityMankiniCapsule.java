@@ -1,17 +1,11 @@
 package matgm50.mankini.entity;
 
-import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
-import matgm50.mankini.entity.hostile.EntityMankiniEnderman;
-import matgm50.mankini.entity.hostile.EntityMankiniSpider;
 import matgm50.mankini.init.ModItems;
 import matgm50.mankini.util.MankiniHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -80,22 +74,21 @@ public class EntityMankiniCapsule extends EntityThrowable {
                     }
                 }
             }
-            
-            else if (hit instanceof EntityCreeper)
+            /*
+            else if (hit instanceof EntityCreeper && !(hit instanceof EntityMankiniCreeper))
             {
-            	setDead();
-            	EntityCreeper hitCreeper = (EntityCreeper)hit;
-                hitCreeper.setDead();
-                worldObj.removeEntity(hitCreeper);
+                hit.setDead();
                 
                 EntityMankiniCreeper mankinicreeper = new EntityMankiniCreeper(worldObj); 
-                mankinicreeper.setLocationAndAngles(hitCreeper.posX, hitCreeper.posY, hitCreeper.posZ, 0,0); 
+                mankinicreeper.setLocationAndAngles(hit.posX, hit.posY, hit.posZ, 0,0); 
         		worldObj.spawnEntityInWorld(mankinicreeper);
+        		
+        		
+        		this.setDead();
             }
 			
-            else if (hit instanceof EntityEnderman)
+            else if (hit instanceof EntityEnderman && !(hit instanceof EntityMankiniEnderman))
             {
-            	setDead();
             	EntityEnderman hitEnderman = (EntityEnderman)hit;
             	hitEnderman.setDead();
             	worldObj.removeEntity(hitEnderman);
@@ -103,13 +96,13 @@ public class EntityMankiniCapsule extends EntityThrowable {
                 EntityMankiniEnderman mankinienderman = new EntityMankiniEnderman(worldObj); 
                 mankinienderman.setLocationAndAngles(hitEnderman.posX, hitEnderman.posY, hitEnderman.posZ, 0,0); 
         		worldObj.spawnEntityInWorld(mankinienderman);
+        		setDead();
             }
 			
-            else if (hit instanceof EntitySpider)
+            else if (hit instanceof EntitySpider && !(hit instanceof EntityMankiniSpider))
             {
             	setDead();
             	EntitySpider hitSpider = (EntitySpider)hit;
-            	hitSpider.setPosition(hitSpider.posX, hitSpider.posY +100, hitSpider.posZ);
             	hitSpider.setDead();
             	worldObj.removeEntity(hitSpider);
             	
@@ -117,7 +110,8 @@ public class EntityMankiniCapsule extends EntityThrowable {
             	mankinispider.setLocationAndAngles(hitSpider.posX, hitSpider.posY, hitSpider.posZ, 0,0); 
         		worldObj.spawnEntityInWorld(mankinispider);
             }
-            
+           */
+			
            else if (hit instanceof EntityZombie)
            {
             	setDead();
