@@ -13,6 +13,7 @@ import net.minecraft.entity.projectile.EntityThrowable;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -48,16 +49,25 @@ public class EntityMankiniCapsule extends EntityThrowable {
     {
         EntityThrowable.registerFixesThrowable(fixer, "MankiniCapsule");
     }
-
-   @Override
+    
+	@Override
+	public void handleStatusUpdate(byte id) {
+		if (id == 3)
+        {
+            for (int i = 0; i < 8; ++i)
+            {
+                this.world.spawnParticle(EnumParticleTypes.SPIT, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+            }
+        }
+	}
+	@Override
     protected void onImpact(RayTraceResult result) {
 	   
-        if(result.typeOfHit != null && result.typeOfHit == RayTraceResult.Type.ENTITY) {
+	   if (result.entityHit != null) {
 
             Entity hit = result.entityHit;
            
             if(hit instanceof EntityPlayer) {
-                this.setDead();
                 EntityPlayer hitPlayer = (EntityPlayer)hit;
                 Boolean full = true;
                 
@@ -89,7 +99,6 @@ public class EntityMankiniCapsule extends EntityThrowable {
 			{
 		       if (hit instanceof EntityZombie)
 		       {
-		        	setDead();
 		        	EntityZombie hitZombie = (EntityZombie)hit;
 		        	
 		        	hitZombie.setItemStackToSlot(EntityEquipmentSlot.CHEST, foundMankini);
@@ -98,7 +107,6 @@ public class EntityMankiniCapsule extends EntityThrowable {
 		        
 		       if (hit instanceof EntitySkeleton)
 		       {
-		        	setDead();
 		        	EntitySkeleton hitSkeleton = (EntitySkeleton)hit;
 		        	
 		        	hitSkeleton.setItemStackToSlot(EntityEquipmentSlot.CHEST, foundMankini);
@@ -107,7 +115,6 @@ public class EntityMankiniCapsule extends EntityThrowable {
 		        
 		       if (hit instanceof EntityPigZombie)
 		       {
-		        	setDead();
 		        	EntityPigZombie hitPigman = (EntityPigZombie)hit;
 		        	
 		        	hitPigman.setItemStackToSlot(EntityEquipmentSlot.CHEST, foundMankini);
@@ -122,9 +129,6 @@ public class EntityMankiniCapsule extends EntityThrowable {
                 EntityMankiniCreeper mankinicreeper = new EntityMankiniCreeper(worldObj); 
                 mankinicreeper.setLocationAndAngles(hit.posX, hit.posY, hit.posZ, 0,0); 
         		worldObj.spawnEntityInWorld(mankinicreeper);
-        		
-        		
-        		this.setDead();
             }
 			
             else if (hit instanceof EntityEnderman && !(hit instanceof EntityMankiniEnderman))
@@ -136,12 +140,10 @@ public class EntityMankiniCapsule extends EntityThrowable {
                 EntityMankiniEnderman mankinienderman = new EntityMankiniEnderman(worldObj); 
                 mankinienderman.setLocationAndAngles(hitEnderman.posX, hitEnderman.posY, hitEnderman.posZ, 0,0); 
         		worldObj.spawnEntityInWorld(mankinienderman);
-        		setDead();
             }
 			
             else if (hit instanceof EntitySpider && !(hit instanceof EntityMankiniSpider))
             {
-            	setDead();
             	EntitySpider hitSpider = (EntitySpider)hit;
             	hitSpider.setDead();
             	worldObj.removeEntity(hitSpider);
@@ -151,19 +153,12 @@ public class EntityMankiniCapsule extends EntityThrowable {
         		worldObj.spawnEntityInWorld(mankinispider);
             }
            */
-           this.world.setEntityState(this, (byte)3);
-           this.setDead();
         }
-        if(!this.world.isRemote) {
-      	  if (result.typeOfHit != null && result.typeOfHit == RayTraceResult.Type.BLOCK)
-	      {
-	  		this.world.setEntityState(this, (byte)3);
-			this.setDead();
+	   if (!this.world.isRemote)
+	   {
 			this.entityDropItem(foundMankini, 1);
-	      }
-	      }
-        	else
-	        this.world.setEntityState(this, (byte)3);
-	        this.setDead();
+			this.world.setEntityState(this, (byte)3);
+			this.setDead();
 	   }
+   }
 }
