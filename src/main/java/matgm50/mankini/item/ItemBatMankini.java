@@ -46,11 +46,6 @@ public class ItemBatMankini extends ItemArmor implements IMankini {
     		}
     	}
 	}
-
-    public String getName()
-    {
-    return "battymankini";
-    }
     
     @Override
 	@SideOnly(Side.CLIENT)

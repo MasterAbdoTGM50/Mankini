@@ -24,7 +24,7 @@ public class ItemMankiniCapsule extends Item {
 		setRegistryName(ItemLib.ModItems.MANKINI_CAPSULE_NAME.getRegistryName());
         setCreativeTab(Mankini.tabMankini);
         setMaxStackSize(1);
-
+        setFull3D();
     }
 
     @Override

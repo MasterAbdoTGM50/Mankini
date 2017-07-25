@@ -26,12 +26,12 @@ public class ClientProxy extends CommonProxy {
 	}
     @Override
     public void initMobRenderers() {
-			RenderingRegistry.registerEntityRenderingHandler(EntityMankiniCapsule.class, new IRenderFactory<EntityMankiniCapsule>() {
-				@Override
-				public Render<? super EntityMankiniCapsule> createRenderFor(RenderManager manager) {
-					return new RenderSnowball<EntityMankiniCapsule>(manager, ModItems.mankini_capsule, Minecraft.getMinecraft().getRenderItem());
-				}
-			});
+		RenderingRegistry.registerEntityRenderingHandler(EntityMankiniCapsule.class, new IRenderFactory<EntityMankiniCapsule>() {
+			@Override
+			public Render<? super EntityMankiniCapsule> createRenderFor(RenderManager manager) {
+				return new RenderSnowball<EntityMankiniCapsule>(manager, ModItems.mankini_capsule, Minecraft.getMinecraft().getRenderItem());
+			}
+		});
     	
         //RenderingRegistry.registerEntityRenderingHandler(EntityMankiniCapsule.class, new RenderingFactoryMankiniCapsule());
     	//RenderingRegistry.registerEntityRenderingHandler(EntityMankiniCreeper.class, RenderMankiniCreeper.FACTORY);
