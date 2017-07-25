@@ -57,6 +57,6 @@ public class EntityMankiniEndermite extends EntityEndermite
 
     public static void registerFixesMankiniEndermite(DataFixer fixer)
     {
-        EntityLiving.registerFixesMob(fixer, "MankiniEndermite");
+        EntityLiving.registerFixesMob(fixer, EntityMankiniEndermite.class);
     }
 }

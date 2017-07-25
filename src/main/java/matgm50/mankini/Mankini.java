@@ -47,6 +47,7 @@ public class Mankini {
         
         ModRecipes.init();
         ModEntities.register();
+        
         proxy.RegisterRenders();
         proxy.initMobRenderers();
       

@@ -11,7 +11,7 @@ import net.minecraft.item.ItemStack;
 
 public class MankiniHelper {
 
-    public static ItemStack getFirstFoundMankini(EntityPlayer thrower) {
+	public static ItemStack getFirstFoundMankini(EntityPlayer thrower) {
 
         for(int i = 0; i < thrower.inventory.getSizeInventory(); i++) {
 
@@ -49,6 +49,4 @@ public class MankiniHelper {
     	return thrower.inventory.getSlotFor(getFirstFoundMankini(thrower));
     	
     }
-
-
 }

@@ -16,21 +16,21 @@ public class DropHandler {
 		if (event.getEntity() instanceof EntityMankiniCreeper) {
             {
             	ItemStack itemStackToDrop = new ItemStack(ModItems.dyeable_mankini, 1);
-            	event.getDrops().add(new EntityItem(event.getEntity().worldObj, event.getEntity().posX, 
+            	event.getDrops().add(new EntityItem(event.getEntity().world, event.getEntity().posX, 
             		event.getEntity().posY, event.getEntity().posZ, itemStackToDrop));
             }
 		}
 		if (event.getEntity() instanceof EntityMankiniEnderman) {
             {
             	ItemStack itemStackToDrop = new ItemStack(ModItems.dyeable_mankini, 1);
-            	event.getDrops().add(new EntityItem(event.getEntity().worldObj, event.getEntity().posX, 
+            	event.getDrops().add(new EntityItem(event.getEntity().world, event.getEntity().posX, 
             		event.getEntity().posY, event.getEntity().posZ, itemStackToDrop));
             }
 		}
 		if (event.getEntity() instanceof EntityMankiniSpider) {
             {
             	ItemStack itemStackToDrop = new ItemStack(ModItems.dyeable_mankini, 1);
-            	event.getDrops().add(new EntityItem(event.getEntity().worldObj, event.getEntity().posX, 
+            	event.getDrops().add(new EntityItem(event.getEntity().world, event.getEntity().posX, 
             		event.getEntity().posY, event.getEntity().posZ, itemStackToDrop));
             }
 		}

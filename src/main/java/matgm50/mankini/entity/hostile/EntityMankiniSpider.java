@@ -29,7 +29,7 @@ public class EntityMankiniSpider extends EntitySpider
 
     public static void registerFixesMankiniSpider(DataFixer fixer)
     {
-        EntityLiving.registerFixesMob(fixer, "MankiniSpider");
+        EntityLiving.registerFixesMob(fixer, EntityMankiniSpider.class);
     }
 
     protected SoundEvent getAmbientSound()
@@ -63,23 +63,23 @@ public class EntityMankiniSpider extends EntitySpider
         livingdata = super.onInitialSpawn(difficulty, livingdata);
     	ItemStack creeperKini = new ItemStack(ModItems.dyeable_mankini);
 
-        if (this.worldObj.rand.nextInt(100) == 0)
+        if (this.world.rand.nextInt(100) == 0)
         {
-            EntitySkeleton entityskeleton = new EntitySkeleton(this.worldObj);
+            EntitySkeleton entityskeleton = new EntitySkeleton(this.world);
             entityskeleton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
             entityskeleton.onInitialSpawn(difficulty, (IEntityLivingData)null);
-            this.worldObj.spawnEntityInWorld(entityskeleton);
+            this.world.spawnEntity(entityskeleton);
             entityskeleton.setItemStackToSlot(EntityEquipmentSlot.CHEST, creeperKini);
             entityskeleton.startRiding(this);
         }
         
-        else if (this.worldObj.rand.nextInt(100) < 10)
+        else if (this.world.rand.nextInt(100) < 10)
         {
         	
-            EntityMankiniCreeper mankinicreeper = new EntityMankiniCreeper(this.worldObj);
+            EntityMankiniCreeper mankinicreeper = new EntityMankiniCreeper(this.world);
             mankinicreeper.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
             mankinicreeper.onInitialSpawn(difficulty, (IEntityLivingData)null);
-            this.worldObj.spawnEntityInWorld(mankinicreeper);
+            this.world.spawnEntity(mankinicreeper);
             mankinicreeper.setItemStackToSlot(EntityEquipmentSlot.CHEST, creeperKini);
             mankinicreeper.startRiding(this);
         }
@@ -88,9 +88,9 @@ public class EntityMankiniSpider extends EntitySpider
         {
             livingdata = new EntityMankiniSpider.GroupData();
 
-            if (this.worldObj.getDifficulty() == EnumDifficulty.HARD && this.worldObj.rand.nextFloat() < 0.1F * difficulty.getClampedAdditionalDifficulty())
+            if (this.world.getDifficulty() == EnumDifficulty.HARD && this.world.rand.nextFloat() < 0.1F * difficulty.getClampedAdditionalDifficulty())
             {
-                ((EntityMankiniSpider.GroupData)livingdata).setRandomEffect(this.worldObj.rand);
+                ((EntityMankiniSpider.GroupData)livingdata).setRandomEffect(this.world.rand);
             }
         }
 

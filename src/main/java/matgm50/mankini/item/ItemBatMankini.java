@@ -34,9 +34,11 @@ public class ItemBatMankini extends ItemArmor implements IMankini {
     	
     	if(event.getEntityLiving() instanceof EntityPlayer) {
     		EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+    		ItemStack itemstack = player.inventory.armorInventory.get(2);
+    		
     		if(!player.isSneaking()){
-			if (player.inventory.armorItemInSlot(2) != null){
-				if(player.inventory.armorItemInSlot(2).getItem()== ModItems.bat_mankini){
+			if (itemstack != null){
+				if(itemstack.getItem()== ModItems.bat_mankini){
 				player.motionY += 1.1F;
 				player.addPotionEffect((new PotionEffect(MobEffects.SLOWNESS, 200, 1)));
 				}

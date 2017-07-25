@@ -27,8 +27,11 @@ public class ItemMankiniCapsule extends Item {
 
     }
 
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
-    {
-        return new ActionResult(EnumActionResult.PASS, itemStackIn);
+    @Override
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    	
+    	ItemStack itemstack = playerIn.getHeldItem(handIn);
+    	
+    	return new ActionResult(EnumActionResult.SUCCESS, itemstack);    
     }
 }
