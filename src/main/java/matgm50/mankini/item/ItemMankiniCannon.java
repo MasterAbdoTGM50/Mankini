@@ -51,13 +51,7 @@ public class ItemMankiniCannon extends Item {
             mankinicapsule.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -10.0F, 0.5F, 1.0F);
             worldIn.spawnEntity(mankinicapsule);
             shotFired = true;
-            //par2World.spawnEntityInWorld(new EntityMankiniCapsule(par2World, par3EntityPlayer, MankiniHelper.getFirstFoundMankini(par3EntityPlayer)));
             }
- 
-        
-            //ItemStack stack = new ItemStack(MankiniHelper.getFirstFoundMankini(playerIn).getItem());
-            //     --stack.stackSize;
-            // par3EntityPlayer.inventory.consumeInventoryItem(MankiniHelper.getFirstFoundMankini(par3EntityPlayer).getItem());
        
         playerIn.inventory.markDirty();;
         }

@@ -8,45 +8,38 @@ import net.minecraft.item.ItemStack;
 /**
  * Created by MasterAbdoTGM50 on 7/3/2014.
  */
-
 public class MankiniHelper {
-
 	public static ItemStack getFirstFoundMankini(EntityPlayer thrower) {
-
-        for(int i = 0; i < thrower.inventory.getSizeInventory(); i++) {
-
+        for(int i = 0; i < thrower.inventory.getSizeInventory(); ++i) {
+        	ItemStack itemstack = thrower.inventory.getStackInSlot(i);
+        	
+        	if (!itemstack.isEmpty() && itemstack.getItem() instanceof IMankini)
+            {
+        		ItemStack foundMankini = thrower.inventory.getStackInSlot(i);
+                return foundMankini;
+            }
+        	
+        	/*
             if(thrower.inventory.getStackInSlot(i) != null && thrower.inventory.getStackInSlot(i).getItem() instanceof IMankini) {
-
                 ItemStack foundMankini = thrower.inventory.getStackInSlot(i);
                 return foundMankini;
-
             }
-
+            */
         }
 
         return new ItemStack(ModItems.dyeable_mankini);
-
     }
 
     public static Boolean mankiniinInventory(EntityPlayer thrower) {
-
-        for(int i = 0; i < thrower.inventory.getSizeInventory(); i++) {
-
+        for(int i = 0; i < thrower.inventory.getSizeInventory(); ++i) {
             if(thrower.inventory.getStackInSlot(i) != null && thrower.inventory.getStackInSlot(i).getItem() instanceof IMankini) {
-
- 
                 return true;
-
             }
-
         }
-
         return false;
-
     }
+    
     public static int mankiniSlot(EntityPlayer thrower){
-		
     	return thrower.inventory.getSlotFor(getFirstFoundMankini(thrower));
-    	
     }
 }
