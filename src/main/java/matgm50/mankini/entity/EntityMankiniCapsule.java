@@ -1,17 +1,18 @@
 package matgm50.mankini.entity;
 
 import matgm50.mankini.init.ModConfigGen;
-import matgm50.mankini.init.ModItems;
-import matgm50.mankini.util.MankiniHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.datafix.DataFixer;
@@ -71,56 +72,100 @@ public class EntityMankiniCapsule extends EntityThrowable {
                 EntityPlayer hitPlayer = (EntityPlayer)hit;
                 Boolean full = true;
                 
+                
                 ItemStack itemstack = hitPlayer.inventory.armorInventory.get(2);
+                InventoryPlayer playerInv = hitPlayer.inventory;
                            
                 if(!this.world.isRemote) {
                 	
                 	for (int i=0; i<=3; i++) {
                     	
-                        if (hitPlayer.inventory.getStackInSlot(i) == null) {
+                        if (playerInv.getStackInSlot(i) == null) {
                             full = false;
                         }
-                   } 
-                	
+                	} 
+
                     if(itemstack.getItem() == null){
-                    	hitPlayer.inventory.setInventorySlotContents(38, foundMankini);
+                    	playerInv.setInventorySlotContents(38, foundMankini);
                     	//hitPlayer.inventory.setInventorySlotContents(38, MankiniHelper.getFirstFoundMankini(hitPlayer));
                     }
                     
                     else if(itemstack.getItem() != null && full == false){
-                    	hitPlayer.inventory.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), foundMankini);
+                    	playerInv.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), foundMankini);
                     	//hitPlayer.inventory.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), MankiniHelper.getFirstFoundMankini(hitPlayer));
                     		//hitPlayer.inventory.addItemStackToInventory(MankiniHelper.getFirstFoundMankini(hitPlayer));
                     }
                 }
             }
-            
             if (ModConfigGen.ShootMankinisOntoMobs)
 			{
 		       if (hit instanceof EntityZombie)
 		       {
-		        	EntityZombie hitZombie = (EntityZombie)hit;
+		        	EntityZombie hitZombie = (EntityZombie)hit;		        	
+		        	ItemStack GetChest = hitZombie.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		        	
-		        	hitZombie.setItemStackToSlot(EntityEquipmentSlot.CHEST, foundMankini);
-		        	hitZombie.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+		        	if(!this.world.isRemote) {
+	                    if(GetChest.getItem() == Items.AIR){
+	                    	hitZombie.setItemStackToSlot(EntityEquipmentSlot.CHEST, foundMankini);
+	    		        	hitZombie.setDropChance(EntityEquipmentSlot.CHEST, 1F);
+	                    }
+	                    else
+	                    {
+	                    	this.entityDropItem(foundMankini, 1);
+	                    }
+	                }
 		       }
 		        
 		       if (hit instanceof EntitySkeleton)
 		       {
 		        	EntitySkeleton hitSkeleton = (EntitySkeleton)hit;
+		        	ItemStack GetChest = hitSkeleton.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		        	
-		        	hitSkeleton.setItemStackToSlot(EntityEquipmentSlot.CHEST, foundMankini);
-		        	hitSkeleton.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+		        	if(!this.world.isRemote) {
+	                	
+	                    if(GetChest.getItem() == Items.AIR){
+	                    	hitSkeleton.setItemStackToSlot(EntityEquipmentSlot.CHEST, foundMankini);
+	                    	hitSkeleton.setDropChance(EntityEquipmentSlot.CHEST, 1F);
+	                    }
+		        		else
+		        		{
+		        			this.entityDropItem(foundMankini, 1);
+		        		}
+	                }
 		       }
 		        
 		       if (hit instanceof EntityPigZombie)
 		       {
 		        	EntityPigZombie hitPigman = (EntityPigZombie)hit;
+		        	ItemStack GetChest = hitPigman.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		        	
-		        	hitPigman.setItemStackToSlot(EntityEquipmentSlot.CHEST, foundMankini);
-		        	hitPigman.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+		        	if(!this.world.isRemote) {
+	                	
+	                    if(GetChest.getItem() == Items.AIR){
+	                    	hitPigman.setItemStackToSlot(EntityEquipmentSlot.CHEST, foundMankini);
+	                    	hitPigman.setDropChance(EntityEquipmentSlot.CHEST, 1F);
+	                    }
+		        		else
+		        		{
+		        			this.entityDropItem(foundMankini, 1);
+		        		}
+	                }
 		       }
 			}
+            
+            //In case other mobs are hit
+            //Don't want to delete the mankini
+            if (hit instanceof EntityMob || hit instanceof EntityLiving)
+            {
+            	if (hit instanceof EntityPlayer || hit instanceof EntityZombie || hit instanceof EntitySkeleton || hit instanceof EntityPigZombie)
+            	{
+            		
+            	}
+            	else
+            	{
+            		this.entityDropItem(foundMankini, 1);
+            	}
+            }
             /*
             else if (hit instanceof EntityCreeper && !(hit instanceof EntityMankiniCreeper))
             {
@@ -154,11 +199,16 @@ public class EntityMankiniCapsule extends EntityThrowable {
             }
            */
         }
-	   if (!this.world.isRemote)
-	   {
-			this.entityDropItem(foundMankini, 1);
+		if (!this.world.isRemote){
+			if (result.typeOfHit != null && result.typeOfHit == RayTraceResult.Type.BLOCK)
+			{
+				this.entityDropItem(foundMankini, 1);
+				this.world.setEntityState(this, (byte)3);
+				this.setDead();
+			}
+		}
+			else 
 			this.world.setEntityState(this, (byte)3);
 			this.setDead();
-	   }
-   }
+		}
 }
