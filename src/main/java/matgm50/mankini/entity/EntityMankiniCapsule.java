@@ -156,14 +156,22 @@ public class EntityMankiniCapsule extends EntityThrowable {
             //Don't want to delete the mankini
             if (hit instanceof EntityMob || hit instanceof EntityLiving)
             {
-            	if (hit instanceof EntityPlayer || hit instanceof EntityZombie || hit instanceof EntitySkeleton || hit instanceof EntityPigZombie)
+            	if (ModConfigGen.ShootMankinisOntoMobs)
             	{
-            		
+	            	if (hit instanceof EntityPlayer || hit instanceof EntityZombie || hit instanceof EntitySkeleton || hit instanceof EntityPigZombie)
+	            	{
+	            		
+	            	}
+	            	else
+	            	{
+	            		this.entityDropItem(foundMankini, 1);
+	            	}
             	}
             	else
             	{
-            		this.entityDropItem(foundMankini, 1);
+            		
             	}
+            	
             }
             /*
             else if (hit instanceof EntityCreeper && !(hit instanceof EntityMankiniCreeper))
