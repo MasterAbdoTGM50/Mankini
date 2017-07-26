@@ -48,8 +48,7 @@ public class ItemMankiniCannon extends Item {
                   }
             	  
             EntityMankiniCapsule mankinicapsule = new EntityMankiniCapsule(worldIn, playerIn, MankiniHelper.getFirstFoundMankini(playerIn));
-            mankinicapsule.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
-            //mankinicapsule.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20.0F, 0.5F, 1.0F);
+            mankinicapsule.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -10.0F, 0.5F, 1.0F);
             worldIn.spawnEntity(mankinicapsule);
             shotFired = true;
             //par2World.spawnEntityInWorld(new EntityMankiniCapsule(par2World, par3EntityPlayer, MankiniHelper.getFirstFoundMankini(par3EntityPlayer)));

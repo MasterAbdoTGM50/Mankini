@@ -4,7 +4,7 @@ import matgm50.mankini.init.ModItems;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 /**
  * Created by MasterAbdoTGM50 on 5/30/2014.
@@ -13,35 +13,33 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 public class TickHandler {
 
     @SubscribeEvent
-    public void tick(PlayerTickEvent event) {
+    public void tick(TickEvent.PlayerTickEvent event) {
 
         EntityPlayer player = event.player;
-
+        boolean allowFlying = false;
+        
         ItemStack armor = player.inventory.armorItemInSlot(2);
 
         if(armor != null) {
-
             if(armor.getItem() == ModItems.aetheric_mankini) {
-
-                player.capabilities.allowFlying = true;
-
-            }
+            	allowFlying = true;
+            } 
+            
             else if (armor.getItem() == ModItems.bat_mankini) {
-
-               player.fallDistance = 0F;
-
+                player.fallDistance = 0F;
             }
-
-        } else {
-
-            if(!player.capabilities.isCreativeMode) {
-
-                player.capabilities.allowFlying = false;
-
+            
+            if (allowFlying) {
+                event.player.capabilities.allowFlying = true;
+            } 
+            
+            else 
+            {
+            	if(!player.capabilities.isCreativeMode) {
+		        	player.capabilities.isFlying = false;
+		        	player.capabilities.allowFlying = false;
+            	}
             }
-
         }
-
     }
-    
 }
