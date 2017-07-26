@@ -32,7 +32,6 @@ public class TickHandler {
             if (allowFlying) {
                 event.player.capabilities.allowFlying = true;
             } 
-            
             else 
             {
             	if(!player.capabilities.isCreativeMode) {

@@ -1,5 +1,7 @@
 package matgm50.mankini.init;
 
+import net.minecraft.init.Blocks;
+
 public class ModRecipes {
 	
     public static void init() {
@@ -10,7 +12,6 @@ public class ModRecipes {
 
     	//  GameRegistry.addShapedRecipe(new ItemStack(ModItems.itemAethericMankini), "X X", "DOD", " D ", 'X',  new ItemStack(Items.nether_star), 'D', new ItemStack(Blocks.diamond_block),
         //        'O', new ItemStack(ModItems.itemKawaiiMankini));
-        
     }
 
 }
