@@ -57,6 +57,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
         {
             for (int i = 0; i < 8; ++i)
             {
+                this.world.spawnParticle(EnumParticleTypes.SNOWBALL, this.posX, this.posY, this.posZ, -10.0F, 0.0D, 0.0D);
             }
         }
     }
