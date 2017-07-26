@@ -30,11 +30,11 @@ public class ItemMankiniCannon extends Item {
 		setRegistryName(ItemLib.ModItems.MANKINI_CANNON_NAME.getRegistryName());
         setCreativeTab(Mankini.tabMankini);
         setMaxStackSize(1);
-        setFull3D();
-        
     }
-
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand) {
+    
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
+    {
+    	ItemStack itemstack = playerIn.getHeldItem(handIn);
           //  --itemStackIn.stackSize;
         worldIn.playSound((EntityPlayer)null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
        
@@ -46,30 +46,26 @@ public class ItemMankiniCannon extends Item {
             		  playerIn.inventory.removeStackFromSlot(MankiniHelper.mankiniSlot(playerIn));
                   }
             	  
-            EntityMankiniCapsule entitymankinicapsule = new EntityMankiniCapsule(worldIn, playerIn, MankiniHelper.getFirstFoundMankini(playerIn));
-            entitymankinicapsule.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
-            worldIn.spawnEntityInWorld(entitymankinicapsule);
+            EntityMankiniCapsule mankinicapsule = new EntityMankiniCapsule(worldIn, playerIn, MankiniHelper.getFirstFoundMankini(playerIn));
+            mankinicapsule.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20.0F, 0.5F, 1.0F);
+            worldIn.spawnEntity(mankinicapsule);
             shotFired = true;
-            //par2World.spawnEntityInWo+++rld(new EntityMankiniCapsule(par2World, par3EntityPlayer, MankiniHelper.getFirstFoundMankini(par3EntityPlayer)));
+            //par2World.spawnEntityInWorld(new EntityMankiniCapsule(par2World, par3EntityPlayer, MankiniHelper.getFirstFoundMankini(par3EntityPlayer)));
             }
  
         
-        ItemStack stack = new ItemStack(MankiniHelper.getFirstFoundMankini(playerIn).getItem());
-   //     --stack.stackSize;
-       // par3EntityPlayer.inventory.consumeInventoryItem(MankiniHelper.getFirstFoundMankini(par3EntityPlayer).getItem());
+            //ItemStack stack = new ItemStack(MankiniHelper.getFirstFoundMankini(playerIn).getItem());
+            //     --stack.stackSize;
+            // par3EntityPlayer.inventory.consumeInventoryItem(MankiniHelper.getFirstFoundMankini(par3EntityPlayer).getItem());
        
         playerIn.inventory.markDirty();
         }
         if(shotFired = true){
-        return new ActionResult(EnumActionResult.SUCCESS, itemStackIn);
+        return new ActionResult(EnumActionResult.SUCCESS, itemstack);
         }
-        else return new ActionResult(EnumActionResult.FAIL, itemStackIn);
+        else return new ActionResult(EnumActionResult.FAIL, itemstack);
+ 
     }
-
-	public String getName() {
-		// TODO Auto-generated method stub
-		return ItemLib.MANKINI_CANNON_NAME;
-	}
 }
 
     

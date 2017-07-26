@@ -55,7 +55,7 @@ public class EntityMankiniCreeper extends EntityCreeper
     
     public static void registerFixesMankiniCreeper(DataFixer fixer)
     {
-        EntityLiving.registerFixesMob(fixer, "MankiniCreeper");
+        EntityLiving.registerFixesMob(fixer, EntityMankiniCreeper.class);
     }
 
     protected SoundEvent getHurtSound()
@@ -117,19 +117,19 @@ public class EntityMankiniCreeper extends EntityCreeper
     		EntityPlayer hitPlayer = (EntityPlayer) this.getAttackTarget();
         	ItemStack creeperKini = new ItemStack(ModItems.dyeable_mankini);
 
-        	if (!this.worldObj.isRemote)
+        	if (!this.world.isRemote)
             {
-                boolean flag = this.worldObj.getGameRules().getBoolean("mobGriefing");
+                boolean flag = this.world.getGameRules().getBoolean("mobGriefing");
 
-                    this.worldObj.createExplosion(this, this.posX, this.posY, this.posZ, (float)0.0, flag);
+                    this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float)0.0, flag);
                     if(hitPlayer.posX == (int) this.posX || hitPlayer.posY == (int) this.posY || hitPlayer.posZ == this.posZ){
                     	
                     	if(hitPlayer.inventory.armorItemInSlot(3) != null) {
 
                             ItemStack toSpawn = hitPlayer.inventory.armorItemInSlot(3);
-                           // EntityItem spawned = new EntityItem(hitPlayer.worldObj, hitPlayer.posX, hitPlayer.posY, hitPlayer.posZ, toSpawn);
+                           // EntityItem spawned = new EntityItem(hitPlayer.world, hitPlayer.posX, hitPlayer.posY, hitPlayer.posZ, toSpawn);
                             hitPlayer.inventory.addItemStackToInventory(toSpawn);
-                           // worldObj.spawnEntityInWorld(spawned);
+                           // world.spawnEntityInWorld(spawned);
 
                         }
 
@@ -148,7 +148,7 @@ public class EntityMankiniCreeper extends EntityCreeper
     {
         super.onDeath(cause);
 
-        if (this.worldObj.getGameRules().getBoolean("doMobLoot"))
+        if (this.world.getGameRules().getBoolean("doMobLoot"))
         {
             if (cause.getEntity() instanceof EntitySkeleton)
             {

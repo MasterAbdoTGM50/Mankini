@@ -17,7 +17,4 @@ public class RendererMankiniCapsule extends RenderSnowball<EntityMankiniCapsule>
         super(renderManager, ModItems.mankini_capsule, itemRender);
 
     }
-
- 
-
 }

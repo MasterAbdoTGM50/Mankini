@@ -55,7 +55,7 @@ public class EntityMankiniEnderman extends EntityEnderman
     
     public static void registerFixesMankiniEnderman(DataFixer fixer)
     {
-        EntityLiving.registerFixesMob(fixer, "MankiniEnderman");
+        EntityLiving.registerFixesMob(fixer, EntityMankiniEnderman.class);
     }
 
     @Override
@@ -70,9 +70,9 @@ public class EntityMankiniEnderman extends EntityEnderman
     
     private boolean shouldAttackPlayer(EntityPlayer player)
     {
-        ItemStack itemstack = player.inventory.armorInventory[3];
+        ItemStack itemstack = (ItemStack)player.inventory.armorInventory.get(3);
 
-        if (itemstack != null && itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN))
+        if (itemstack.getItem() == Item.getItemFromBlock(Blocks.PUMPKIN))
         {
             return false;
         }
@@ -103,7 +103,7 @@ public class EntityMankiniEnderman extends EntityEnderman
 
         if (flag)
         {
-            this.worldObj.playSound((EntityPlayer)null, this.prevPosX, this.prevPosY, this.prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, this.getSoundCategory(), 1.0F, 1.0F);
+            this.world.playSound((EntityPlayer)null, this.prevPosX, this.prevPosY, this.prevPosZ, SoundEvents.ENTITY_ENDERMEN_TELEPORT, this.getSoundCategory(), 1.0F, 1.0F);
             this.playSound(SoundEvents.ENTITY_ENDERMEN_TELEPORT, 1.0F, 1.0F);
         }
 
@@ -130,7 +130,7 @@ public class EntityMankiniEnderman extends EntityEnderman
         public boolean shouldExecute()
         {
             double d0 = this.getTargetDistance();
-            this.player = this.enderman.worldObj.getNearestAttackablePlayer(this.enderman.posX, this.enderman.posY, this.enderman.posZ, d0, d0, (Function<EntityPlayer, Double>)null, new Predicate<EntityPlayer>()
+            this.player = this.enderman.world.getNearestAttackablePlayer(this.enderman.posX, this.enderman.posY, this.enderman.posZ, d0, d0, (Function<EntityPlayer, Double>)null, new Predicate<EntityPlayer>()
             {
                 public boolean apply(@Nullable EntityPlayer p_apply_1_)
                 {

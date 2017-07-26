@@ -24,11 +24,14 @@ public class ItemMankiniCapsule extends Item {
 		setRegistryName(ItemLib.ModItems.MANKINI_CAPSULE_NAME.getRegistryName());
         setCreativeTab(Mankini.tabMankini);
         setMaxStackSize(1);
-
+        setFull3D();
     }
 
-    public ActionResult<ItemStack> onItemRightClick(ItemStack itemStackIn, World worldIn, EntityPlayer playerIn, EnumHand hand)
-    {
-        return new ActionResult(EnumActionResult.PASS, itemStackIn);
+    @Override
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    	
+    	ItemStack itemstack = playerIn.getHeldItem(handIn);
+    	
+    	return new ActionResult(EnumActionResult.SUCCESS, itemstack);    
     }
 }

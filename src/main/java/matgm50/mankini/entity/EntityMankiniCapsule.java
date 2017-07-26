@@ -1,18 +1,20 @@
 package matgm50.mankini.entity;
 
 import matgm50.mankini.init.ModConfigGen;
-import matgm50.mankini.init.ModItems;
-import matgm50.mankini.util.MankiniHelper;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.entity.projectile.EntityThrowable;
+import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -25,90 +27,145 @@ public class EntityMankiniCapsule extends EntityThrowable {
 
     ItemStack foundMankini;
 
-    ItemStack kini = new ItemStack(ModItems.dyeable_mankini);
-    public EntityMankiniCapsule(World worldIn)
-    {
+    public EntityMankiniCapsule(World worldIn) {
+
         super(worldIn);
+
     }
 
-    public EntityMankiniCapsule(World worldIn, EntityLivingBase throwerIn, ItemStack foundMankini)
-    {
-    	super(worldIn, throwerIn);
-    	this.foundMankini = foundMankini;
+    public EntityMankiniCapsule(World worldIn, EntityLivingBase throwerIn, ItemStack foundMankini) {
+
+        super(worldIn, throwerIn);
+        this.foundMankini = foundMankini;
+
     }
 
-    public EntityMankiniCapsule(World worldIn, double x, double y, double z)
-    {
+    public EntityMankiniCapsule(World worldIn, double x, double y, double z) {
+
         super(worldIn, x, y, z);
+
     }
 
     public static void registerFixesMankiniCapsule(DataFixer fixer)
     {
         EntityThrowable.registerFixesThrowable(fixer, "MankiniCapsule");
     }
-
-   @Override
+    
+	@Override
+	public void handleStatusUpdate(byte id) {
+		if (id == 3)
+        {
+            for (int i = 0; i < 8; ++i)
+            {
+                this.world.spawnParticle(EnumParticleTypes.SPIT, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
+            }
+        }
+	}
+	@Override
     protected void onImpact(RayTraceResult result) {
 	   
-        if(result.typeOfHit != null && result.typeOfHit == RayTraceResult.Type.ENTITY) {
+	   if (result.entityHit != null) {
 
             Entity hit = result.entityHit;
-            
+           
             if(hit instanceof EntityPlayer) {
-            	System.out.println("I hit a player");
-            	setDead();
                 EntityPlayer hitPlayer = (EntityPlayer)hit;
                 Boolean full = true;
-      
-                if(!this.worldObj.isRemote) {
+                
+                
+                ItemStack itemstack = hitPlayer.inventory.armorInventory.get(2);
+                InventoryPlayer playerInv = hitPlayer.inventory;
+                           
+                if(!this.world.isRemote) {
+                	
                 	for (int i=0; i<=3; i++) {
-                        if (hitPlayer.inventory.getStackInSlot(i) == null) {
+                    	
+                        if (playerInv.getStackInSlot(i) == null) {
                             full = false;
                         }
-                   } 
-                    if(hitPlayer.inventory.armorItemInSlot(2) == null){
-                    	hitPlayer.inventory.setInventorySlotContents(38, MankiniHelper.getFirstFoundMankini(hitPlayer));
+                	} 
+
+                    if(itemstack.getItem() == null){
+                    	playerInv.setInventorySlotContents(38, foundMankini);
+                    	//hitPlayer.inventory.setInventorySlotContents(38, MankiniHelper.getFirstFoundMankini(hitPlayer));
                     }
                     
-                    else if(hitPlayer.inventory.armorItemInSlot(2) != null && full == false){
-                    	hitPlayer.inventory.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), MankiniHelper.getFirstFoundMankini(hitPlayer));
+                    else if(itemstack.getItem() != null && full == false){
+                    	playerInv.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), foundMankini);
+                    	//hitPlayer.inventory.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), MankiniHelper.getFirstFoundMankini(hitPlayer));
                     		//hitPlayer.inventory.addItemStackToInventory(MankiniHelper.getFirstFoundMankini(hitPlayer));
                     }
                 }
             }
-            
             if (ModConfigGen.ShootMankinisOntoMobs)
 			{
 		       if (hit instanceof EntityZombie)
 		       {
-		        	setDead();
-		        	EntityZombie hitZombie = (EntityZombie)hit;
-		        	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
+		        	EntityZombie hitZombie = (EntityZombie)hit;		        	
+		        	ItemStack GetChest = hitZombie.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		        	
-		        	hitZombie.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
-		        	hitZombie.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+		        	if(!this.world.isRemote) {
+	                    if(GetChest.getItem() == Items.AIR){
+	                    	hitZombie.setItemStackToSlot(EntityEquipmentSlot.CHEST, foundMankini);
+	    		        	hitZombie.setDropChance(EntityEquipmentSlot.CHEST, 1F);
+	                    }
+	                    else
+	                    {
+	                    	this.entityDropItem(foundMankini, 1);
+	                    }
+	                }
 		       }
 		        
 		       if (hit instanceof EntitySkeleton)
 		       {
-		        	setDead();
 		        	EntitySkeleton hitSkeleton = (EntitySkeleton)hit;
-		        	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
+		        	ItemStack GetChest = hitSkeleton.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		        	
-		        	hitSkeleton.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
-		        	hitSkeleton.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+		        	if(!this.world.isRemote) {
+	                	
+	                    if(GetChest.getItem() == Items.AIR){
+	                    	hitSkeleton.setItemStackToSlot(EntityEquipmentSlot.CHEST, foundMankini);
+	                    	hitSkeleton.setDropChance(EntityEquipmentSlot.CHEST, 1F);
+	                    }
+		        		else
+		        		{
+		        			this.entityDropItem(foundMankini, 1);
+		        		}
+	                }
 		       }
 		        
 		       if (hit instanceof EntityPigZombie)
 		       {
-		        	setDead();
 		        	EntityPigZombie hitPigman = (EntityPigZombie)hit;
-		        	ItemStack mankini = new ItemStack(ModItems.dyeable_mankini);
+		        	ItemStack GetChest = hitPigman.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		        	
-		        	hitPigman.setItemStackToSlot(EntityEquipmentSlot.CHEST, mankini);
-		        	hitPigman.setDropChance(EntityEquipmentSlot.CHEST, 1f);
+		        	if(!this.world.isRemote) {
+	                	
+	                    if(GetChest.getItem() == Items.AIR){
+	                    	hitPigman.setItemStackToSlot(EntityEquipmentSlot.CHEST, foundMankini);
+	                    	hitPigman.setDropChance(EntityEquipmentSlot.CHEST, 1F);
+	                    }
+		        		else
+		        		{
+		        			this.entityDropItem(foundMankini, 1);
+		        		}
+	                }
 		       }
 			}
+            
+            //In case other mobs are hit
+            //Don't want to delete the mankini
+            if (hit instanceof EntityMob || hit instanceof EntityLiving)
+            {
+            	if (hit instanceof EntityPlayer || hit instanceof EntityZombie || hit instanceof EntitySkeleton || hit instanceof EntityPigZombie)
+            	{
+            		
+            	}
+            	else
+            	{
+            		this.entityDropItem(foundMankini, 1);
+            	}
+            }
             /*
             else if (hit instanceof EntityCreeper && !(hit instanceof EntityMankiniCreeper))
             {
@@ -117,9 +174,6 @@ public class EntityMankiniCapsule extends EntityThrowable {
                 EntityMankiniCreeper mankinicreeper = new EntityMankiniCreeper(worldObj); 
                 mankinicreeper.setLocationAndAngles(hit.posX, hit.posY, hit.posZ, 0,0); 
         		worldObj.spawnEntityInWorld(mankinicreeper);
-        		
-        		
-        		this.setDead();
             }
 			
             else if (hit instanceof EntityEnderman && !(hit instanceof EntityMankiniEnderman))
@@ -131,12 +185,10 @@ public class EntityMankiniCapsule extends EntityThrowable {
                 EntityMankiniEnderman mankinienderman = new EntityMankiniEnderman(worldObj); 
                 mankinienderman.setLocationAndAngles(hitEnderman.posX, hitEnderman.posY, hitEnderman.posZ, 0,0); 
         		worldObj.spawnEntityInWorld(mankinienderman);
-        		setDead();
             }
 			
             else if (hit instanceof EntitySpider && !(hit instanceof EntityMankiniSpider))
             {
-            	setDead();
             	EntitySpider hitSpider = (EntitySpider)hit;
             	hitSpider.setDead();
             	worldObj.removeEntity(hitSpider);
@@ -146,17 +198,17 @@ public class EntityMankiniCapsule extends EntityThrowable {
         		worldObj.spawnEntityInWorld(mankinispider);
             }
            */
-           setDead();
         }
-        
-        if(!this.worldObj.isRemote) {
-      	  if (result.typeOfHit != null && result.typeOfHit == RayTraceResult.Type.BLOCK)
-      {
-         setDead();
-         int kiniDrop = Item.getIdFromItem(ModItems.dyeable_mankini);
-         this.dropItem(Item.getItemById(kiniDrop), 1);
-      }
-      }
-        else setDead();
-   }
+		if (!this.world.isRemote){
+			if (result.typeOfHit != null && result.typeOfHit == RayTraceResult.Type.BLOCK)
+			{
+				this.entityDropItem(foundMankini, 1);
+				this.world.setEntityState(this, (byte)3);
+				this.setDead();
+			}
+		}
+			else 
+			this.world.setEntityState(this, (byte)3);
+			this.setDead();
+		}
 }

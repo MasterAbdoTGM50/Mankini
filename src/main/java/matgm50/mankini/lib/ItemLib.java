@@ -5,9 +5,7 @@ package matgm50.mankini.lib;
  */
 
 public class ItemLib {
-	
-    public static final String MANKINI_CANNON_NAME = "itemmankinicannon";
-    
+	    
     public static enum ModItems {
     	
     	DYEABLE_MAKNINI_NAME("dyeablemankini", "itemdyeablemankini"),
