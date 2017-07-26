@@ -12,7 +12,6 @@ public class BatHandler {
 	public double batCount = 0;
 	double newBatCount = 0;
 
-
 	@SubscribeEvent
 	public void BatCapture(EntityInteract event)
 	{
@@ -23,7 +22,6 @@ public class BatHandler {
 	
 	if(event.getTarget() instanceof EntityBat && event.getEntityPlayer().inventory.getCurrentItem().isItemEqual(Mankini) ){
 		{
-			
 			event.getTarget().setDead();
 	    
 			batCount = batCount+0.5;
@@ -34,7 +32,6 @@ public class BatHandler {
 				event.getEntityPlayer().inventory.addItemStackToInventory(BatMankini);	
 				batCount = 0F;
 			}
-			
 		}
 	}
 	
@@ -42,6 +39,4 @@ public class BatHandler {
 	public void setBatCount(){
 		newBatCount = batCount;
 	}
-	
-	
 }
