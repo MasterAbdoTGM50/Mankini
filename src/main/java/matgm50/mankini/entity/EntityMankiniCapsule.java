@@ -18,10 +18,9 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-/**
- * Created by MasterAbdoTGM50 on 7/2/2014.
- */
 
 public class EntityMankiniCapsule extends EntityThrowable {
 
@@ -50,17 +49,17 @@ public class EntityMankiniCapsule extends EntityThrowable {
     {
         EntityThrowable.registerFixesThrowable(fixer, "MankiniCapsule");
     }
-    
-	@Override
-	public void handleStatusUpdate(byte id) {
-		if (id == 3)
+	
+	@SideOnly(Side.CLIENT)
+    public void handleStatusUpdate(byte id)
+    {
+        if (id == 3)
         {
             for (int i = 0; i < 8; ++i)
             {
-                this.world.spawnParticle(EnumParticleTypes.SPIT, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D, new int[0]);
             }
         }
-	}
+    }
 	@Override
     protected void onImpact(RayTraceResult result) {
 	   
@@ -77,7 +76,6 @@ public class EntityMankiniCapsule extends EntityThrowable {
                 InventoryPlayer playerInv = hitPlayer.inventory;
                            
                 if(!this.world.isRemote) {
-                	
                 	for (int i=0; i<=3; i++) {
                     	
                         if (playerInv.getStackInSlot(i) == null) {

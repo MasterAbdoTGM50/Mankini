@@ -1,0 +1,44 @@
+{
+  "result": {
+    "item": "mankini:itemkawaiimankini"
+  },
+  "pattern": [
+    "1 7",
+    "2X6",
+    "345"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "1": {
+      "item": "minecraft:dye",
+      "data": 13
+    },
+    "2": {
+      "item": "minecraft:dye",
+      "data": 5
+    },
+    "3": {
+      "item": "minecraft:dye",
+      "data": 4
+    },
+    "4": {
+      "item": "minecraft:dye",
+      "data": 2
+    },
+    "5": {
+      "item": "minecraft:dye",
+      "data": 11
+    },
+    "6": {
+      "item": "minecraft:dye",
+      "data": 14
+    },
+    "7": {
+      "item": "minecraft:dye",
+      "data": 1
+    },
+    "X": {
+      "item": "minecraft:leather"
+    }
+  }
+}

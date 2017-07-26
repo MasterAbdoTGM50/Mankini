@@ -1,12 +1,8 @@
 package matgm50.mankini.proxy;
 
+import matgm50.mankini.client.renderer.RenderingFactoryMankiniCapsule;
 import matgm50.mankini.entity.EntityMankiniCapsule;
 import matgm50.mankini.init.ModItems;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.Render;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderSnowball;
-import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 /**
@@ -24,16 +20,10 @@ public class ClientProxy extends CommonProxy {
 	public void RegisterColorRenders(){
 		ModItems.registerColorRenders();
 	}
+	
     @Override
     public void initMobRenderers() {
-		RenderingRegistry.registerEntityRenderingHandler(EntityMankiniCapsule.class, new IRenderFactory<EntityMankiniCapsule>() {
-			@Override
-			public Render<? super EntityMankiniCapsule> createRenderFor(RenderManager manager) {
-				return new RenderSnowball<EntityMankiniCapsule>(manager, ModItems.mankini_capsule, Minecraft.getMinecraft().getRenderItem());
-			}
-		});
-    	
-        //RenderingRegistry.registerEntityRenderingHandler(EntityMankiniCapsule.class, new RenderingFactoryMankiniCapsule());
+        RenderingRegistry.registerEntityRenderingHandler(EntityMankiniCapsule.class, new RenderingFactoryMankiniCapsule());
     	//RenderingRegistry.registerEntityRenderingHandler(EntityMankiniCreeper.class, RenderMankiniCreeper.FACTORY);
     	//RenderingRegistry.registerEntityRenderingHandler(EntityMankiniSpider.class, RenderMankiniSpider.FACTORY);
     	//RenderingRegistry.registerEntityRenderingHandler(EntityMankiniEnderman.class, RenderMankiniEnderman.FACTORY);

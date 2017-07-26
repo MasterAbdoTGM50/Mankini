@@ -3,7 +3,6 @@ package matgm50.mankini;
 import matgm50.mankini.init.ModConfigGen;
 import matgm50.mankini.init.ModEntities;
 import matgm50.mankini.init.ModItems;
-import matgm50.mankini.init.ModRecipes;
 import matgm50.mankini.lib.ModLib;
 import matgm50.mankini.proxy.CommonProxy;
 import matgm50.mankini.util.BatHandler;
@@ -20,10 +19,6 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-
-/**
- * Created by MasterAbdoTGM50 on 4/23/2014.
- */
 
 @Mod(modid = ModLib.MOD_ID, name = ModLib.MOD_NAME, version = ModLib.VERSION, acceptedMinecraftVersions = ModLib.ACCEPTED_VERSIONS)
 
@@ -45,11 +40,11 @@ public class Mankini {
         ModItems.init();
         ModItems.register();
         
-        ModRecipes.init();
+        //ModRecipes.init();
         ModEntities.register();
         
-        proxy.RegisterRenders();
         proxy.initMobRenderers();
+        proxy.RegisterRenders();
       
     }
 

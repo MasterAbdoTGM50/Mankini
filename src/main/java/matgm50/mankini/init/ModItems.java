@@ -13,7 +13,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 /**
  * Created by MasterAbdoTGM50 on 4/23/2014.
@@ -40,12 +40,12 @@ public class ModItems {
 
     public static void register()
     {
-    	GameRegistry.register(dyeable_mankini);
-    	GameRegistry.register(kawaii_mankini);
-    	GameRegistry.register(aetheric_mankini);
-    	GameRegistry.register(mankini_cannon);
-    	GameRegistry.register(mankini_capsule);
-    	GameRegistry.register(bat_mankini);
+    	ForgeRegistries.ITEMS.register(dyeable_mankini);
+    	ForgeRegistries.ITEMS.register(kawaii_mankini);
+    	ForgeRegistries.ITEMS.register(aetheric_mankini);
+    	ForgeRegistries.ITEMS.register(mankini_cannon);
+    	ForgeRegistries.ITEMS.register(mankini_capsule);
+    	ForgeRegistries.ITEMS.register(bat_mankini);
     }
     
         public static void registerRenders()

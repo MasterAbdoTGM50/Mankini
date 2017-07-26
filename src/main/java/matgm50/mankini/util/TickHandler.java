@@ -1,13 +1,8 @@
 package matgm50.mankini.util;
 
-import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
-import matgm50.mankini.entity.hostile.EntityMankiniEnderman;
-import matgm50.mankini.entity.hostile.EntityMankiniSpider;
 import matgm50.mankini.init.ModItems;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 

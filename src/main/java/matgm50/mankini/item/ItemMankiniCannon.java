@@ -32,6 +32,7 @@ public class ItemMankiniCannon extends Item {
         setMaxStackSize(1);
     }
     
+    @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
     	ItemStack itemstack = playerIn.getHeldItem(handIn);
@@ -47,7 +48,8 @@ public class ItemMankiniCannon extends Item {
                   }
             	  
             EntityMankiniCapsule mankinicapsule = new EntityMankiniCapsule(worldIn, playerIn, MankiniHelper.getFirstFoundMankini(playerIn));
-            mankinicapsule.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20.0F, 0.5F, 1.0F);
+            mankinicapsule.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, 0.0F, 1.5F, 1.0F);
+            //mankinicapsule.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20.0F, 0.5F, 1.0F);
             worldIn.spawnEntity(mankinicapsule);
             shotFired = true;
             //par2World.spawnEntityInWorld(new EntityMankiniCapsule(par2World, par3EntityPlayer, MankiniHelper.getFirstFoundMankini(par3EntityPlayer)));
@@ -58,7 +60,7 @@ public class ItemMankiniCannon extends Item {
             //     --stack.stackSize;
             // par3EntityPlayer.inventory.consumeInventoryItem(MankiniHelper.getFirstFoundMankini(par3EntityPlayer).getItem());
        
-        playerIn.inventory.markDirty();
+        playerIn.inventory.markDirty();;
         }
         if(shotFired = true){
         return new ActionResult(EnumActionResult.SUCCESS, itemstack);
