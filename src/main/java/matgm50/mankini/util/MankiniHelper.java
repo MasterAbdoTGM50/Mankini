@@ -1,6 +1,5 @@
 package matgm50.mankini.util;
 
-import matgm50.mankini.init.ModItems;
 import matgm50.mankini.item.IMankini;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -9,37 +8,23 @@ import net.minecraft.item.ItemStack;
  * Created by MasterAbdoTGM50 on 7/3/2014.
  */
 public class MankiniHelper {
-	public static ItemStack getFirstFoundMankini(EntityPlayer thrower) {
-        for(int i = 0; i < thrower.inventory.getSizeInventory(); ++i) {
-        	ItemStack itemstack = thrower.inventory.getStackInSlot(i);
-        	
-        	if (!itemstack.isEmpty() && itemstack.getItem() instanceof IMankini)
-            {
-        		ItemStack foundMankini = thrower.inventory.getStackInSlot(i);
+	public static ItemStack findMankini(EntityPlayer player)
+    {
+        for (int i = 0; i < player.inventory.getSizeInventory()-5; ++i)
+        {
+            ItemStack itemstack = player.inventory.getStackInSlot(i);
+            
+            if(itemstack != null && isMankini(itemstack)) {
+                ItemStack foundMankini = player.inventory.getStackInSlot(i);
                 return foundMankini;
             }
-        	
-        	/*
-            if(thrower.inventory.getStackInSlot(i) != null && thrower.inventory.getStackInSlot(i).getItem() instanceof IMankini) {
-                ItemStack foundMankini = thrower.inventory.getStackInSlot(i);
-                return foundMankini;
-            }
-            */
         }
 
-        return new ItemStack(ModItems.dyeable_mankini);
-    }
-
-    public static Boolean mankiniinInventory(EntityPlayer thrower) {
-        for(int i = 0; i < thrower.inventory.getSizeInventory(); ++i) {
-            if(thrower.inventory.getStackInSlot(i) != null && thrower.inventory.getStackInSlot(i).getItem() instanceof IMankini) {
-                return true;
-            }
-        }
-        return false;
-    }
+        return ItemStack.EMPTY;
+}
     
-    public static int mankiniSlot(EntityPlayer thrower){
-    	return thrower.inventory.getSlotFor(getFirstFoundMankini(thrower));
-    }
+    public static boolean isMankini(ItemStack stack)
+    {
+        return stack.getItem() instanceof IMankini;
+    }   
 }

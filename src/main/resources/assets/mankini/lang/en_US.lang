@@ -11,3 +11,6 @@ item.mankinibat.name=Batty Mankini
 
 #Config name
 mankini.config.title=Mankini config
+
+#Bat Capture Message
+bat.message=Successfully captured a bat in a Mankini.
