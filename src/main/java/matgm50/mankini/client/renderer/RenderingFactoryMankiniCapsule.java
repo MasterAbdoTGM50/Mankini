@@ -14,5 +14,4 @@ public class RenderingFactoryMankiniCapsule implements IRenderFactory<EntityMank
 		RenderItem renderer = FMLClientHandler.instance().getClient().getRenderItem();
 		return new RendererMankiniCapsule(manager, renderer);
 	}
-
 }

@@ -1,4 +1,4 @@
-package matgm50.mankini.client.renderer;
+package matgm50.mankini.client.renderer.mobs;
 
 import matgm50.mankini.entity.hostile.EntityMankiniEndermite;
 import net.minecraft.client.model.ModelEnderMite;

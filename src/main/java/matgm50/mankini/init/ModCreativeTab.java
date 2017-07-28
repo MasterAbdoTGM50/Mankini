@@ -1,6 +1,5 @@
-package matgm50.mankini.util;
+package matgm50.mankini.init;
 
-import matgm50.mankini.init.ModItems;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 
@@ -8,9 +7,9 @@ import net.minecraft.item.ItemStack;
  * Created by MasterAbdoTGM50 on 4/23/2014.
  */
 
-public class TabMankini extends CreativeTabs {
+public class ModCreativeTab extends CreativeTabs {
 
-    public TabMankini(String label) {
+    public ModCreativeTab(String label) {
 
         super(label);
 
@@ -19,7 +18,7 @@ public class TabMankini extends CreativeTabs {
     @Override
     public ItemStack getTabIconItem() {
 
-        return new ItemStack(ModItems.dyeable_mankini);
+        return new ItemStack(ModItems.kawaii_mankini);
 
     }
 

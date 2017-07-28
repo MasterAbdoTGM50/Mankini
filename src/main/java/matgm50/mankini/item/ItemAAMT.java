@@ -3,17 +3,12 @@ package matgm50.mankini.item;
 import matgm50.mankini.Mankini;
 import matgm50.mankini.client.model.ModelAAMT;
 import matgm50.mankini.lib.ItemLib;
-import matgm50.mankini.lib.ModLib;
 import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -22,8 +17,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  */
 
 public class ItemAAMT extends ItemArmor implements IMankini {
-
-
+	
+	private static final String TEXTURE = "mankini:textures/models/aethericmankini.png";
+	
     public ItemAAMT() {
 
         super(ArmorMaterial.DIAMOND, 0, EntityEquipmentSlot.CHEST);
@@ -34,8 +30,26 @@ public class ItemAAMT extends ItemArmor implements IMankini {
 
     }
 
+    @Override
+	public boolean isValidArmor(ItemStack stack, EntityEquipmentSlot armorType, Entity entity) {
+		return armorType == EntityEquipmentSlot.CHEST;
+    }
     
+    @SideOnly(Side.CLIENT)
+    private ModelAAMT model;
+    
+    @Override
+	@SideOnly(Side.CLIENT)
+	public ModelBiped getArmorModel(EntityLivingBase entityLiving, ItemStack itemStack, EntityEquipmentSlot armorSlot, ModelBiped _default) {
+		if (armorSlot == EntityEquipmentSlot.CHEST) {
+			if (model == null) model = new ModelAAMT(0.5F);
+			return model;
+		}
 
+		return null;
+    }
+    
+    /*
     @SideOnly(Side.CLIENT)
     public ModelBiped getArmorModel(EntityLivingBase player, ItemStack stack, int slot) {
 
@@ -75,13 +89,15 @@ public class ItemAAMT extends ItemArmor implements IMankini {
 
     }
     
+    
 	@SideOnly(Side.CLIENT)
 	public ModelResourceLocation getModel(ItemStack stack, EntityPlayer player, int useRemaining) {
 		return new ModelResourceLocation(ModLib.MOD_ID + ":" + getUnlocalizedName(stack).substring(5), "inventory");
 	}
-
-	@SideOnly(Side.CLIENT)
-	public boolean isFull3D() {
-		return true;
+    */
+    
+	@Override
+	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+		return "mankini:" + "textures/models/aethericmankini.png";
 	}
 }

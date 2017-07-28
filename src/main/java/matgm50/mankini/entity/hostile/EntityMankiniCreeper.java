@@ -115,7 +115,10 @@ public class EntityMankiniCreeper extends EntityCreeper
     	if(this.getAttackTarget() instanceof EntityPlayer)
     	{
     		EntityPlayer hitPlayer = (EntityPlayer) this.getAttackTarget();
-        	ItemStack creeperKini = new ItemStack(ModItems.dyeable_mankini);
+    		Boolean full = true;      
+            ItemStack itemstack = hitPlayer.inventory.armorInventory.get(2);
+            
+        	ItemStack creeperKini = new ItemStack(ModItems.kawaii_mankini);
 
         	if (!this.world.isRemote)
             {
@@ -124,9 +127,9 @@ public class EntityMankiniCreeper extends EntityCreeper
                     this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float)0.0, flag);
                     if(hitPlayer.posX == (int) this.posX || hitPlayer.posY == (int) this.posY || hitPlayer.posZ == this.posZ){
                     	
-                    	if(hitPlayer.inventory.armorItemInSlot(3) != null) {
+                    	if(hitPlayer.inventory.armorItemInSlot(2) != null) {
 
-                            ItemStack toSpawn = hitPlayer.inventory.armorItemInSlot(3);
+                            ItemStack toSpawn = hitPlayer.inventory.armorItemInSlot(2);
                            // EntityItem spawned = new EntityItem(hitPlayer.world, hitPlayer.posX, hitPlayer.posY, hitPlayer.posZ, toSpawn);
                             hitPlayer.inventory.addItemStackToInventory(toSpawn);
                            // world.spawnEntityInWorld(spawned);
@@ -150,7 +153,7 @@ public class EntityMankiniCreeper extends EntityCreeper
 
         if (this.world.getGameRules().getBoolean("doMobLoot"))
         {
-            if (cause.getEntity() instanceof EntitySkeleton)
+            if (cause.getTrueSource() instanceof EntitySkeleton)
             {
                 int i = Item.getIdFromItem(Items.RECORD_13);
                 int j = Item.getIdFromItem(Items.RECORD_WAIT);

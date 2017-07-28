@@ -9,7 +9,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
  * Created by MasterAbdoTGM50 on 7/2/2014.
@@ -24,14 +23,11 @@ public class ItemMankiniCapsule extends Item {
 		setRegistryName(ItemLib.ModItems.MANKINI_CAPSULE_NAME.getRegistryName());
         setCreativeTab(Mankini.tabMankini);
         setMaxStackSize(1);
-        setFull3D();
     }
 
     @Override
 	public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
     	
-    	ItemStack itemstack = playerIn.getHeldItem(handIn);
-    	
-    	return new ActionResult(EnumActionResult.SUCCESS, itemstack);    
+        return new ActionResult<ItemStack>(EnumActionResult.PASS, playerIn.getHeldItem(handIn));
     }
 }

@@ -177,7 +177,7 @@ public class EntityMankiniEnderman extends EntityEnderman
             }
             else
             {
-                return this.targetEntity != null && ((EntityPlayer)this.targetEntity).isEntityAlive() ? true : super.continueExecuting();
+                return this.targetEntity != null && ((EntityPlayer)this.targetEntity).isEntityAlive() ? true : super.shouldContinueExecuting();
             }
         }
 

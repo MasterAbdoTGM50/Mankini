@@ -2,7 +2,7 @@ package matgm50.mankini.item;
 
 import matgm50.mankini.Mankini;
 import matgm50.mankini.entity.EntityMankiniCapsule;
-//import matgm50.mankini.entity.EntityMankiniWither;
+import matgm50.mankini.init.ModItems;
 import matgm50.mankini.lib.ItemLib;
 import matgm50.mankini.util.MankiniHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -32,39 +32,53 @@ public class ItemMankiniCannon extends Item {
         setMaxStackSize(1);
     }
     
+    @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn)
     {
-    	ItemStack itemstack = playerIn.getHeldItem(handIn);
-          //  --itemStackIn.stackSize;
-        worldIn.playSound((EntityPlayer)null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
-       
-        if (!worldIn.isRemote) {
-            if(MankiniHelper.mankiniinInventory(playerIn) == true){
-            	
-            	  if (!playerIn.capabilities.isCreativeMode)
-                  {	
-            		  playerIn.inventory.removeStackFromSlot(MankiniHelper.mankiniSlot(playerIn));
-                  }
-            	  
-            EntityMankiniCapsule mankinicapsule = new EntityMankiniCapsule(worldIn, playerIn, MankiniHelper.getFirstFoundMankini(playerIn));
-            mankinicapsule.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -20.0F, 0.5F, 1.0F);
-            worldIn.spawnEntity(mankinicapsule);
-            shotFired = true;
-            //par2World.spawnEntityInWorld(new EntityMankiniCapsule(par2World, par3EntityPlayer, MankiniHelper.getFirstFoundMankini(par3EntityPlayer)));
-            }
- 
+    	ItemStack helditem = playerIn.getHeldItem(handIn);
+    	
+    	ItemStack itemstack = MankiniHelper.findMankini(playerIn);
         
-            //ItemStack stack = new ItemStack(MankiniHelper.getFirstFoundMankini(playerIn).getItem());
-            //     --stack.stackSize;
-            // par3EntityPlayer.inventory.consumeInventoryItem(MankiniHelper.getFirstFoundMankini(par3EntityPlayer).getItem());
-       
-        playerIn.inventory.markDirty();
+        if (!itemstack.isEmpty() || playerIn.capabilities.isCreativeMode)
+        {
+        	if(itemstack.isEmpty())
+        	{
+        		shotFired = false;
+        		itemstack = new ItemStack(ModItems.dyeable_mankini);
+        	}
+        	
+        	if (!worldIn.isRemote)
+            {
+        		EntityMankiniCapsule mankinicapsule = new EntityMankiniCapsule(worldIn, playerIn, itemstack.copy());
+        		//EntityMankiniCapsule mankinicapsule = new EntityMankiniCapsule(worldIn, playerIn, new ItemStack(foundMankini));
+        		mankinicapsule.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -10.0F, 0.5F, 1.0F);
+                worldIn.spawnEntity(mankinicapsule);
+        		shotFired = true;
+        	}
+        	
+        	worldIn.playSound((EntityPlayer)null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+
+        	if (!playerIn.capabilities.isCreativeMode)
+            {
+        		itemstack.shrink(1);
+        		
+                if (itemstack.isEmpty())
+                {
+                    playerIn.inventory.deleteStack(itemstack);
+                }
+            }
+        
         }
+        else 
+        worldIn.playSound((EntityPlayer)null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.BLOCK_DISPENSER_FAIL, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+
+        
         if(shotFired = true){
-        return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+        	return new ActionResult(EnumActionResult.SUCCESS, helditem);
         }
-        else return new ActionResult(EnumActionResult.FAIL, itemstack);
- 
+        else {
+        	return new ActionResult(EnumActionResult.FAIL, helditem);
+        }
     }
 }
 
