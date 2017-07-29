@@ -16,3 +16,4 @@ mankini.config.title=Mankini config
 bat.message=Successfully captured a bat in a Mankini.
 
 #Mob Names
+entity.mankini:MankiniCreeper.name=Mankini Creeper
