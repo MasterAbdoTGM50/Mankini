@@ -46,17 +46,13 @@ public class ItemDyeableMankini extends ItemArmor implements IMankini {
             }
 
             return j;
-
         }
-
     }
 
 
     @Override
     public boolean hasColor(ItemStack par1ItemStack) {
-
         return true;
-
     }
 
     @Override
@@ -74,7 +70,6 @@ public class ItemDyeableMankini extends ItemArmor implements IMankini {
             return nbttagcompound1 == null ? 10511680 : (nbttagcompound1.hasKey("color", 3) ? nbttagcompound1.getInteger("color") : 10511680);
 
         }
-
     }
 
     @Override
@@ -89,11 +84,8 @@ public class ItemDyeableMankini extends ItemArmor implements IMankini {
             if (nbttagcompound1.hasKey("color")) {
 
                 nbttagcompound1.removeTag("color");
-
             }
-
         }
-
     }
     
     @Override

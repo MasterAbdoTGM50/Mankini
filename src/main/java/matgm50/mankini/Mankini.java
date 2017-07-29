@@ -1,7 +1,8 @@
 package matgm50.mankini;
 
-import matgm50.mankini.init.ModCreativeTab;
+import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
 import matgm50.mankini.init.ModConfigGen;
+import matgm50.mankini.init.ModCreativeTab;
 import matgm50.mankini.init.ModEntities;
 import matgm50.mankini.init.ModItems;
 import matgm50.mankini.lib.ModLib;
@@ -11,6 +12,9 @@ import matgm50.mankini.util.BatMankiniJump;
 import matgm50.mankini.util.DropHandler;
 import matgm50.mankini.util.TickHandler;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.EnumCreatureType;
+import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biome.SpawnListEntry;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -50,6 +54,12 @@ public class Mankini {
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
+    	for (Biome biome : Biome.REGISTRY) {
+    		if(ModConfigGen.entities.MankiniCreeper)
+    		{
+    			biome.getSpawnableList(EnumCreatureType.MONSTER).add(new SpawnListEntry(EntityMankiniCreeper.class, 30, 4, 4));
+    		}
+    	}
     	
     	MinecraftForge.EVENT_BUS.register(new BatHandler());
     	MinecraftForge.EVENT_BUS.register(new BatMankiniJump());
