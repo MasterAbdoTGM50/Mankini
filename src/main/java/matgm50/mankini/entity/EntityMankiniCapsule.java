@@ -90,7 +90,14 @@ public class EntityMankiniCapsule extends EntityThrowable {
                     }
                     
                     else if(itemstack.getItem() != null && full == false){
-                    	playerInv.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), foundMankini);
+                    	if(hitPlayer.inventory.getFirstEmptyStack() == -1)
+                    	{
+                    		hitPlayer.entityDropItem(foundMankini, 0.5F);
+                    	}
+                    	else
+                    	{ 
+                    		playerInv.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), foundMankini);
+                    	}
                     	//hitPlayer.inventory.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), MankiniHelper.getFirstFoundMankini(hitPlayer));
                     		//hitPlayer.inventory.addItemStackToInventory(MankiniHelper.getFirstFoundMankini(hitPlayer));
                     }

@@ -9,7 +9,7 @@ public class ModEntityNames {
 	public static final String MANKINI_CREEPER = ModLib.MOD_PREFIX + "MankiniCreeper";
 		
 	public static final ResourceLocation MANKINI_CAPSULE_REGISTRY = Name("mankini_capsule");
-	public static final ResourceLocation MANKINI_CREEPER_REGISTER = Name("mankini_creeper");
+	public static final ResourceLocation MANKINI_CREEPER_REGISTRY = Name("mankini_creeper");
 	
 	private static ResourceLocation Name(String s) {
 			return new ResourceLocation(ModLib.MOD_ID, s);

@@ -11,7 +11,7 @@ public class ModEntities {
 		 EntityRegistry.registerModEntity(ModEntityNames.MANKINI_CAPSULE_REGISTRY, EntityMankiniCapsule.class, ModEntityNames.MANKINI_CAPSULE, 0, Mankini.instance, 80, 1, true);   
 		 if (ModConfigGen.entities.MankiniCreeper)
 		 {
-		 EntityRegistry.registerModEntity(ModEntityNames.MANKINI_CREEPER_REGISTER, EntityMankiniCreeper.class, ModEntityNames.MANKINI_CREEPER, 1, Mankini.instance, 80, 3, true, 894731, 0);
+		 EntityRegistry.registerModEntity(ModEntityNames.MANKINI_CREEPER_REGISTRY, EntityMankiniCreeper.class, ModEntityNames.MANKINI_CREEPER, 1, Mankini.instance, 80, 3, true, 894731, 0);
 		 }
 		 //registerEntity(EntityMankiniWither.class, "Mankini Wither");
         

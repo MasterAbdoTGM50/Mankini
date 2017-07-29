@@ -2,8 +2,6 @@ package matgm50.mankini.entity.hostile;
 
 import matgm50.mankini.init.ModConfigGen;
 import matgm50.mankini.init.ModItems;
-import matgm50.mankini.item.IMankini;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityCreeper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -100,7 +98,6 @@ public class EntityMankiniCreeper extends EntityCreeper
         		boolean EvilCreepers = ModConfigGen.mobbehavior.EvilCreepers;
         		
                     if(hitPlayer.posX == (int) this.posX || hitPlayer.posY == (int) this.posY || hitPlayer.posZ == this.posZ){
-                    	EnchantmentHelper.addRandomEnchantment(this.rand, creeperKini, (int)(5.0F + f * (float)this.rand.nextInt(18)), false);
                         if(itemstack == ItemStack.EMPTY){
                         	playerInv.setInventorySlotContents(38, creeperKini);
                         	full=true;
