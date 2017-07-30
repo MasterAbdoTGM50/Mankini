@@ -1,4 +1,4 @@
-package matgm50.mankini.entity;
+package matgm50.mankini.entity.projectiles;
 
 import matgm50.mankini.init.ModConfigGen;
 import net.minecraft.entity.Entity;

@@ -1,7 +1,7 @@
 package matgm50.mankini.item;
 
 import matgm50.mankini.Mankini;
-import matgm50.mankini.entity.EntityMankiniCapsule;
+import matgm50.mankini.entity.projectiles.EntityMankiniCapsule;
 import matgm50.mankini.init.ModItems;
 import matgm50.mankini.lib.ItemLib;
 import matgm50.mankini.util.MankiniHelper;

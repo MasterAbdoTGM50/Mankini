@@ -1,8 +1,8 @@
 package matgm50.mankini.proxy;
 
 import matgm50.mankini.client.renderer.mobs.RenderMankiniCreeper;
-import matgm50.mankini.entity.EntityMankiniCapsule;
 import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
+import matgm50.mankini.entity.projectiles.EntityMankiniCapsule;
 import matgm50.mankini.init.ModConfigGen;
 import matgm50.mankini.init.ModItems;
 import net.minecraft.client.Minecraft;
@@ -36,10 +36,12 @@ public class ClientProxy extends CommonProxy {
 				return new RenderSnowball<EntityMankiniCapsule>(manager, ModItems.mankini_capsule, Minecraft.getMinecraft().getRenderItem());
 			}
     	});
+    	
     	if(ModConfigGen.entities.MankiniCreeper)
     	{
     		RenderingRegistry.registerEntityRenderingHandler(EntityMankiniCreeper.class, RenderMankiniCreeper.FACTORY);
     	}
+    	
         //RenderingRegistry.registerEntityRenderingHandler(EntityMankiniWither.class, new RendererMankiniWither(new ModelMankiniWither(), 0.5F));
 
 

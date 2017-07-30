@@ -1,8 +1,8 @@
 package matgm50.mankini.init;
 
 import matgm50.mankini.Mankini;
-import matgm50.mankini.entity.EntityMankiniCapsule;
 import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
+import matgm50.mankini.entity.projectiles.EntityMankiniCapsule;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 
 public class ModEntities {
