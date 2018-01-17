@@ -1,7 +1,7 @@
 package matgm50.mankini.item;
 
 import matgm50.mankini.Mankini;
-import matgm50.mankini.entity.EntityMankiniCapsule;
+import matgm50.mankini.entity.projectiles.EntityMankiniCapsule;
 import matgm50.mankini.init.ModItems;
 import matgm50.mankini.lib.ItemLib;
 import matgm50.mankini.util.MankiniHelper;
@@ -47,16 +47,16 @@ public class ItemMankiniCannon extends Item {
         		itemstack = new ItemStack(ModItems.dyeable_mankini);
         	}
         	
+        	worldIn.playSound((EntityPlayer)null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
+
         	if (!worldIn.isRemote)
             {
         		EntityMankiniCapsule mankinicapsule = new EntityMankiniCapsule(worldIn, playerIn, itemstack.copy());
         		//EntityMankiniCapsule mankinicapsule = new EntityMankiniCapsule(worldIn, playerIn, new ItemStack(foundMankini));
-        		mankinicapsule.setHeadingFromThrower(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -10.0F, 0.5F, 1.0F);
+        		mankinicapsule.shoot(playerIn, playerIn.rotationPitch, playerIn.rotationYaw, -10.0F, 0.5F, 1.0F);
                 worldIn.spawnEntity(mankinicapsule);
         		shotFired = true;
         	}
-        	
-        	worldIn.playSound((EntityPlayer)null, playerIn.posX, playerIn.posY, playerIn.posZ, SoundEvents.ENTITY_SNOWBALL_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (itemRand.nextFloat() * 0.4F + 0.8F));
 
         	if (!playerIn.capabilities.isCreativeMode)
             {

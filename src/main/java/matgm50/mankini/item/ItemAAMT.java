@@ -27,7 +27,6 @@ public class ItemAAMT extends ItemArmor implements IMankini {
 		setRegistryName(ItemLib.ModItems.AETHERIC_MAKNINI_NAME.getRegistryName());
         setCreativeTab(Mankini.tabMankini);
         setMaxStackSize(1);
-
     }
 
     @Override

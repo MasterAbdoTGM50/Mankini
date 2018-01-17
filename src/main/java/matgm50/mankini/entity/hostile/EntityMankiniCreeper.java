@@ -1,28 +1,16 @@
 package matgm50.mankini.entity.hostile;
 
-import matgm50.mankini.entity.ai.EntityAIMankiniCreeperSwell;
+import matgm50.mankini.init.ModConfigGen;
 import matgm50.mankini.init.ModItems;
 import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWander;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.passive.EntityOcelot;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Items;
+import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.init.Enchantments;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.datafix.DataFixer;
 import net.minecraft.world.World;
 
@@ -31,7 +19,7 @@ public class EntityMankiniCreeper extends EntityCreeper
     private int lastActiveTime;
     private int timeSinceIgnited;
     private int fuseTime = 30;
-    private int explosionRadius = 3;
+    private int explosionRadius = 1;
     private int droppedSkulls;
 
     public EntityMankiniCreeper(World worldIn)
@@ -39,33 +27,9 @@ public class EntityMankiniCreeper extends EntityCreeper
         super(worldIn);
     }
     
-    @Override
-    protected void initEntityAI()
-    {
-        this.tasks.addTask(1, new EntityAISwimming(this));
-        this.tasks.addTask(2, new EntityAIMankiniCreeperSwell(this));
-        this.tasks.addTask(3, new EntityAIAvoidEntity(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
-        this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, false));
-        this.tasks.addTask(5, new EntityAIWander(this, 0.8D));
-        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(6, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAINearestAttackableTarget(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(2, new EntityAIHurtByTarget(this, false, new Class[0]));
-    }
-    
     public static void registerFixesMankiniCreeper(DataFixer fixer)
     {
         EntityLiving.registerFixesMob(fixer, EntityMankiniCreeper.class);
-    }
-
-    protected SoundEvent getHurtSound()
-    {
-        return SoundEvents.ENTITY_CREEPER_HURT;
-    }
-
-    protected SoundEvent getDeathSound()
-    {
-        return SoundEvents.ENTITY_CREEPER_DEATH;
     }
 
     /**
@@ -115,63 +79,99 @@ public class EntityMankiniCreeper extends EntityCreeper
     	if(this.getAttackTarget() instanceof EntityPlayer)
     	{
     		EntityPlayer hitPlayer = (EntityPlayer) this.getAttackTarget();
-    		Boolean full = true;      
-            ItemStack itemstack = hitPlayer.inventory.armorInventory.get(2);
-            
-        	ItemStack creeperKini = new ItemStack(ModItems.kawaii_mankini);
+    		
+    		float f = this.getPowered() ? 2.0F : 1.0F;
+    		
+        	Boolean full = true;
+        	
+        	InventoryPlayer playerInv = hitPlayer.inventory;
+        	
+        	ItemStack itemstack = hitPlayer.inventory.armorInventory.get(2);
+            ItemStack creeperKini = new ItemStack(ModItems.dyeable_mankini);
 
+            this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float)this.explosionRadius * f, false);
+            
+            
         	if (!this.world.isRemote)
             {
-                boolean flag = this.world.getGameRules().getBoolean("mobGriefing");
-
-                    this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float)0.0, flag);
+        		boolean ArmourOverride = ModConfigGen.mobbehavior.CreeperOverride;
+        		boolean EvilCreepers = ModConfigGen.mobbehavior.EvilCreepers;
+        		
                     if(hitPlayer.posX == (int) this.posX || hitPlayer.posY == (int) this.posY || hitPlayer.posZ == this.posZ){
-                    	
-                    	if(hitPlayer.inventory.armorItemInSlot(2) != null) {
-
-                            ItemStack toSpawn = hitPlayer.inventory.armorItemInSlot(2);
-                           // EntityItem spawned = new EntityItem(hitPlayer.world, hitPlayer.posX, hitPlayer.posY, hitPlayer.posZ, toSpawn);
-                            hitPlayer.inventory.addItemStackToInventory(toSpawn);
-                           // world.spawnEntityInWorld(spawned);
-
+                        if(itemstack == ItemStack.EMPTY){
+                        	playerInv.setInventorySlotContents(38, creeperKini);
+                        	full=true;
                         }
-
-                        hitPlayer.setItemStackToSlot(EntityEquipmentSlot.CHEST, creeperKini);
-                        ItemStack toSpawn = hitPlayer.inventory.armorItemInSlot(3);
-                        hitPlayer.inventory.addItemStackToInventory(toSpawn);
-                    	
+                        
+                        else if(itemstack != ItemStack.EMPTY && full == true && itemstack != creeperKini){
+                        	if(ArmourOverride == true)
+                        	{
+                        		if(EvilCreepers)
+                        		{
+                        			playerInv.removeStackFromSlot(38);
+                                	playerInv.setInventorySlotContents(38, creeperKini);
+                                	creeperKini.addEnchantment(Enchantments.BINDING_CURSE, 1);
+                                	creeperKini.addEnchantment(Enchantments.VANISHING_CURSE, 1);
+                        		}
+                        		else
+                        		{
+                        			playerInv.removeStackFromSlot(38);
+                                	playerInv.setInventorySlotContents(38, creeperKini);
+                        		}
+                        	}
+                        	else
+                        	{
+                        		if(EvilCreepers)
+                        		{
+                        			ItemStack oldArmour = itemstack.copy();
+		                        	playerInv.removeStackFromSlot(38);
+		                        	playerInv.setInventorySlotContents(38, creeperKini);
+		                        	creeperKini.addEnchantment(Enchantments.BINDING_CURSE, 1);         
+		                        	creeperKini.addEnchantment(Enchantments.VANISHING_CURSE, 1);         
+			                        	if(hitPlayer.inventory.getFirstEmptyStack() == -1)
+			                        	{
+			                        		hitPlayer.entityDropItem(oldArmour, 0.5F);
+			                        	}
+			                        	else
+			                        	{ 
+			                        		playerInv.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), oldArmour);
+			                        	}
+                        		}
+                        		else
+                        		{
+                        			ItemStack oldArmour = itemstack.copy();
+		                        	playerInv.removeStackFromSlot(38);
+		                        	playerInv.setInventorySlotContents(38, creeperKini);
+			                        	if(hitPlayer.inventory.getFirstEmptyStack() == -1)
+			                        	{
+			                        		hitPlayer.entityDropItem(oldArmour, 0.5F);
+			                        	}
+			                        	else
+			                        	{ 
+			                        		playerInv.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), oldArmour);
+			                        	}
+                        		}
+                        	}
+                        }
+                        else 
+                        {
+                        	hitPlayer.entityDropItem(creeperKini, 0.5F);
+                        }
                     }
                 }
     	}
-            this.setDead();
+        this.setDead();
     }
 
     @Override
     public void onDeath(DamageSource cause)
     {
         super.onDeath(cause);
-
-        if (this.world.getGameRules().getBoolean("doMobLoot"))
-        {
-            if (cause.getTrueSource() instanceof EntitySkeleton)
-            {
-                int i = Item.getIdFromItem(Items.RECORD_13);
-                int j = Item.getIdFromItem(Items.RECORD_WAIT);
-                int k = i + this.rand.nextInt(j - i + 1);
-                this.dropItem(Item.getItemById(k), 1);
-            }
-        }
     }
     
     @Override
-    public void onStruckByLightning(EntityLightningBolt lightningBolt)
+    protected ResourceLocation getLootTable()
     {
-        super.onStruckByLightning(lightningBolt);
-    }
-    
-    @Override
-    public boolean getPowered()
-    {
-        return false;
+    	return new ResourceLocation("mankini:entities/mankini_creeper");
     }
 }

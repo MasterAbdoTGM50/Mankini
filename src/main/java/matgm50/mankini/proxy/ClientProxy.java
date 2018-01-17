@@ -1,6 +1,9 @@
 package matgm50.mankini.proxy;
 
-import matgm50.mankini.entity.EntityMankiniCapsule;
+import matgm50.mankini.client.renderer.mobs.RenderMankiniCreeper;
+import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
+import matgm50.mankini.entity.projectiles.EntityMankiniCapsule;
+import matgm50.mankini.init.ModConfigGen;
 import matgm50.mankini.init.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.Render;
@@ -17,7 +20,6 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void RegisterRenders(){
-		ModItems.registerRenders();
 	}
 	
 	@Override
@@ -34,11 +36,11 @@ public class ClientProxy extends CommonProxy {
 			}
     	});
     	
-        //RenderingRegistry.registerEntityRenderingHandler(EntityMankiniCapsule.class, new RenderingFactoryMankiniCapsule());
-    	//RenderingRegistry.registerEntityRenderingHandler(EntityMankiniCreeper.class, RenderMankiniCreeper.FACTORY);
-    	//RenderingRegistry.registerEntityRenderingHandler(EntityMankiniSpider.class, RenderMankiniSpider.FACTORY);
-    	//RenderingRegistry.registerEntityRenderingHandler(EntityMankiniEnderman.class, RenderMankiniEnderman.FACTORY);
-    	//RenderingRegistry.registerEntityRenderingHandler(EntityMankiniEndermite.class, RenderMankiniEndermite.FACTORY);
+    	if(ModConfigGen.entities.MankiniCreeper)
+    	{
+    		RenderingRegistry.registerEntityRenderingHandler(EntityMankiniCreeper.class, RenderMankiniCreeper.FACTORY);
+    	}
+    	
         //RenderingRegistry.registerEntityRenderingHandler(EntityMankiniWither.class, new RendererMankiniWither(new ModelMankiniWither(), 0.5F));
 
 

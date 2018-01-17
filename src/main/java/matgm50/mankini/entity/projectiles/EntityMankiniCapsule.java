@@ -1,4 +1,4 @@
-package matgm50.mankini.entity;
+package matgm50.mankini.entity.projectiles;
 
 import matgm50.mankini.init.ModConfigGen;
 import net.minecraft.entity.Entity;
@@ -90,13 +90,20 @@ public class EntityMankiniCapsule extends EntityThrowable {
                     }
                     
                     else if(itemstack.getItem() != null && full == false){
-                    	playerInv.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), foundMankini);
+                    	if(hitPlayer.inventory.getFirstEmptyStack() == -1)
+                    	{
+                    		hitPlayer.entityDropItem(foundMankini, 0.5F);
+                    	}
+                    	else
+                    	{ 
+                    		playerInv.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), foundMankini);
+                    	}
                     	//hitPlayer.inventory.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), MankiniHelper.getFirstFoundMankini(hitPlayer));
                     		//hitPlayer.inventory.addItemStackToInventory(MankiniHelper.getFirstFoundMankini(hitPlayer));
                     }
                 }
             }
-            if (ModConfigGen.ShootMankinisOntoMobs)
+            if (ModConfigGen.general.ShootMankinisOntoMobs)
 			{
 		       if (hit instanceof EntityZombie)
 		       {
@@ -156,7 +163,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
             //Don't want to delete the mankini
             if (hit instanceof EntityMob || hit instanceof EntityLiving)
             {
-            	if (ModConfigGen.ShootMankinisOntoMobs)
+            	if (ModConfigGen.general.ShootMankinisOntoMobs)
             	{
 	            	if (hit instanceof EntityPlayer || hit instanceof EntityZombie || hit instanceof EntitySkeleton || hit instanceof EntityPigZombie)
 	            	{
@@ -173,43 +180,11 @@ public class EntityMankiniCapsule extends EntityThrowable {
             	}
             	
             }
-            /*
-            else if (hit instanceof EntityCreeper && !(hit instanceof EntityMankiniCreeper))
-            {
-                hit.setDead();
-                
-                EntityMankiniCreeper mankinicreeper = new EntityMankiniCreeper(worldObj); 
-                mankinicreeper.setLocationAndAngles(hit.posX, hit.posY, hit.posZ, 0,0); 
-        		worldObj.spawnEntityInWorld(mankinicreeper);
-            }
-			
-            else if (hit instanceof EntityEnderman && !(hit instanceof EntityMankiniEnderman))
-            {
-            	EntityEnderman hitEnderman = (EntityEnderman)hit;
-            	hitEnderman.setDead();
-            	worldObj.removeEntity(hitEnderman);
-            	
-                EntityMankiniEnderman mankinienderman = new EntityMankiniEnderman(worldObj); 
-                mankinienderman.setLocationAndAngles(hitEnderman.posX, hitEnderman.posY, hitEnderman.posZ, 0,0); 
-        		worldObj.spawnEntityInWorld(mankinienderman);
-            }
-			
-            else if (hit instanceof EntitySpider && !(hit instanceof EntityMankiniSpider))
-            {
-            	EntitySpider hitSpider = (EntitySpider)hit;
-            	hitSpider.setDead();
-            	worldObj.removeEntity(hitSpider);
-            	
-            	EntityMankiniSpider mankinispider = new EntityMankiniSpider(worldObj); 
-            	mankinispider.setLocationAndAngles(hitSpider.posX, hitSpider.posY, hitSpider.posZ, 0,0); 
-        		worldObj.spawnEntityInWorld(mankinispider);
-            }
-           */
         }
 		if (!this.world.isRemote){
 			if (result.typeOfHit != null && result.typeOfHit == RayTraceResult.Type.BLOCK)
 			{
-				this.entityDropItem(foundMankini, 1);
+				this.entityDropItem(foundMankini, 0.5F);
 				this.world.setEntityState(this, (byte)3);
 				this.setDead();
 			}
