@@ -1,10 +1,12 @@
 package matgm50.mankini;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
 import matgm50.mankini.init.ModConfigGen;
 import matgm50.mankini.init.ModCreativeTab;
 import matgm50.mankini.init.ModEntities;
-import matgm50.mankini.init.ModItems;
 import matgm50.mankini.lib.ModLib;
 import matgm50.mankini.proxy.CommonProxy;
 import matgm50.mankini.util.BatHandler;
@@ -34,22 +36,21 @@ public class Mankini {
     @SidedProxy(clientSide = ModLib.CLIENTPROXY, serverSide = ModLib.COMMONPROXY)
 	public static CommonProxy proxy;
 
+	public static final Logger logger = LogManager.getLogger(ModLib.MOD_ID);
+
     public static CreativeTabs tabMankini = new ModCreativeTab(ModLib.MOD_ID);
     
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
 
+    	logger.debug("Registering Config");
     	MinecraftForge.EVENT_BUS.register(new ModConfigGen());
-    	
-        ModItems.init();
-        ModItems.register();
         
         //ModRecipes.init();
+    	logger.debug("Registering Entities");
         ModEntities.register();
         
-        proxy.initMobRenderers();
-        proxy.RegisterRenders();
-      
+        proxy.initMobRenderers();      
     }
 
     @EventHandler
@@ -61,13 +62,13 @@ public class Mankini {
     		}
     	}
     	
+    	logger.debug("Registering Handlers");
     	MinecraftForge.EVENT_BUS.register(new BatHandler());
     	MinecraftForge.EVENT_BUS.register(new BatMankiniJump());
     	MinecraftForge.EVENT_BUS.register(new TickHandler());
     	MinecraftForge.EVENT_BUS.register(new DropHandler());
     	
     	proxy.RegisterColorRenders();
-    	
     }
 
     @EventHandler
