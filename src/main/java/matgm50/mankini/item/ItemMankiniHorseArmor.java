@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class ItemMankiniHorseArmor extends Item {
-    public static final HorseArmorType MANKINI_ARMOR = HorseArmorType.create("mankini",3,"mankini:textures/entity/horse_armor/mankini_horse_armor.png", "maa", ModItems.mankini_horse_armor);
+    public static final HorseArmorType MANKINI_ARMOR = HorseArmorType.create("mankini",3,"mankini:textures/entity/horse_armor/mankini_horse_armor", "maa", ModItems.mankini_horse_armor);
 
     public ItemMankiniHorseArmor(Item.Properties builder) {
         super(builder.group(Mankini.tabMankini).maxStackSize(1));
