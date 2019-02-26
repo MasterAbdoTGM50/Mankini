@@ -40,8 +40,6 @@ public class ModItems {
 
     public static Item mankini_creeper_spawn_egg;
 
-    public static final HorseArmorType MANKINI_ARMOR = HorseArmorType.create("mankini",3,"mankini:textures/entity/horse_armor/mankini_horse_armor.png", "maa", mankini_horse_armor);
-
     public static ArrayList<Item> ITEMS = new ArrayList<>();
 
 	@SubscribeEvent
