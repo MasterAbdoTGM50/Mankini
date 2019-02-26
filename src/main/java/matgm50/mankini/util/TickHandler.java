@@ -1,21 +1,22 @@
 package matgm50.mankini.util;
 
 import matgm50.mankini.init.ModItems;
+import matgm50.mankini.lib.ModLib;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.TextComponentString;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 /**
  * Created by MasterAbdoTGM50 on 5/30/2014.
  */
-
+@Mod.EventBusSubscriber(modid = ModLib.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TickHandler {
 
     @SubscribeEvent
-    public void tick(TickEvent.PlayerTickEvent event) {
+    public static void playerTick(TickEvent.PlayerTickEvent event) {
 
         EntityPlayer player = event.player;
         boolean allowFlying = false;
@@ -36,13 +37,13 @@ public class TickHandler {
             }
             
             if (allowFlying && !player.isCreative()) { 
-				player.capabilities.allowFlying = true;
+				player.abilities.allowFlying = true;
 			}
             else 
             {
-            	if (player.capabilities.allowFlying && !player.isCreative()) { 
-		        	player.capabilities.isFlying = false;
-		        	player.capabilities.allowFlying = false;
+            	if (player.abilities.allowFlying && !player.isCreative()) {
+		        	player.abilities.isFlying = false;
+		        	player.abilities.allowFlying = false;
             	}
             }
         }

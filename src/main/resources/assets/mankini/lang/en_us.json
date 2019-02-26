@@ -1,0 +1,22 @@
+{
+  "_comment": "Misc",
+  "itemGroup.mankini": "Mankini",
+
+  "_comment": "Items",
+  "item.mankini.dyeable_mankini": "Plain Dyeable Mankini",
+  "item.mankini.kawaii_mankini": "So Kawaii Mankini",
+  "item.mankini.aetheric_mankini": "Angelic Aetheric Mankini Thingy",
+  "item.mankini.mankini_cannon": "Mankini Cannon",
+  "item.mankini.mankini_capsule": "Mankini Capsule Mankini",
+  "item.mankini.mankini_bat": "Batty Mankini",
+  "item.mankini.mankini_horse_armor": "Mankini Horse Armor",
+  
+  "_comment": "Spawn eggs",
+  "item.mankini.mankini_creeper_spawn_egg": "Mankini Creeper Spawn Egg",
+
+  "_comment": "Bat Capture Message",
+  "mankini.bat.message": "Successfully captured a bat in a Mankini.",
+
+  "_comment": "Mob Names",
+  "entity.mankini:mankini_creeper.name": "Mankini Creeper"
+}

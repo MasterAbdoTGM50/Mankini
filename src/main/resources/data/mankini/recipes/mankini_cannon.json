@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "mankini:itemmankinicannon"
+    "item": "mankini:mankini_cannon"
   },
   "pattern": [
     " R ",
@@ -13,15 +13,13 @@
       "item": "minecraft:dispenser"
     },
 	"R": {
-      "item": "minecraft:dye",
-      "data": 1
+      "tag": "forge:dyes/red"
     },
 	"B": {
-      "item": "minecraft:dye",
-      "data": 4
+      "tag": "forge:dyes/blue"
     },
 	"I": {
-      "item": "minecraft:iron_ingot"
+      "tag": "forge:ingots/iron"
     }
 	
   }

@@ -1,13 +1,13 @@
 {
     "pools": [
         {
-            "name": "mankinicreeper",
+            "name": "mankini_creeper",
             "conditions": [],
             "entries": [
                 {
                     "conditions": [],
                     "type": "item",
-                    "name": "mankini:itemdyeablemankini",
+                    "name": "mankini:dyeable_mankini",
                     "functions": [],
                     "weight": 1,
                     "quality": 0

@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "mankini:itemaethericmankini"
+    "item": "mankini:aetheric_mankini"
   },
   "pattern": [
     "BEB",
@@ -10,7 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "K": {
-      "item": "mankini:itemkawaiimankini"
+      "item": "mankini:aetheric_mankini"
     },
 	"E": {
       "item": "minecraft:elytra"
@@ -19,7 +19,7 @@
       "item": "minecraft:nether_star"
     },
 	"D": {
-      "item": "minecraft:diamond_block"
+      "tag": "forge:storage_blocks/diamond"
     },
 	"B": {
       "item": "minecraft:dragon_breath"
@@ -28,7 +28,7 @@
       "item": "minecraft:clay"
     },
 	"O": {
-      "item": "minecraft:emerald_ore"
+      "tag": "forge:ores/emerald"
     }
   }
 }

@@ -1,7 +1,7 @@
 {
 	"parent": "item/generated",
 	"textures": {
-		"layer0": "mankini:items/mankinicapsule"
+		"layer0": "mankini:item/aethericmankini"
 	}
 	
 }
