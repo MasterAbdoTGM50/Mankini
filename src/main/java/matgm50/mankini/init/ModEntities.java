@@ -69,7 +69,5 @@ public class ModEntities {
 		register(MANKINI_SKELETON, "mankini_skeleton", event);
 		register(MANKINI_WITHER, "mankini_wither", event);
 		register(MANKINI_WITHER_PROJECTILE, "mankini_wither_capsule", event);
-
-		//registerEntity(EntityMankiniWither.class, "Mankini Wither");
 	}
 }
