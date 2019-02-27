@@ -39,6 +39,10 @@ public class ModItems {
     public static Item mankini_horse_armor;
 
     public static Item mankini_creeper_spawn_egg;
+    public static Item mankini_enderman_spawn_egg;
+    public static Item mankini_endermite_spawn_egg;
+    public static Item mankini_spider_spawn_egg;
+    public static Item mankini_skeleton_spawn_egg;
 
     public static ArrayList<Item> ITEMS = new ArrayList<>();
 
@@ -56,7 +60,11 @@ public class ModItems {
         mankini_horse_armor = registerItem(new ItemMankiniHorseArmor(itemBuilder()), "mankini_horse_armor");
 
         mankini_creeper_spawn_egg = registerItem(new ItemSpawnEgg(ModEntities.MANKINI_CREEPER, 894731, 0, itemBuilderWithGroup()), "mankini_creeper_spawn_egg");
-        
+        mankini_enderman_spawn_egg = registerItem(new ItemSpawnEgg(ModEntities.MANKINI_ENDERMAN, 1447446, 0, itemBuilderWithGroup()), "mankini_enderman_spawn_egg");
+        mankini_endermite_spawn_egg = registerItem(new ItemSpawnEgg(ModEntities.MANKINI_ENDERMITE, 1447446, 7237230, itemBuilderWithGroup()), "mankini_endermite_spawn_egg");
+        mankini_spider_spawn_egg = registerItem(new ItemSpawnEgg(ModEntities.MANKINI_SPIDER, 3419431, 11013646, itemBuilderWithGroup()), "mankini_spider_spawn_egg");
+        mankini_skeleton_spawn_egg = registerItem(new ItemSpawnEgg(ModEntities.MANKINI_SKELETON, 12698049, 4802889, itemBuilderWithGroup()), "mankini_skeleton_spawn_egg");
+
         registry.registerAll(ITEMS.toArray(new Item[0]));
     }
 
@@ -66,7 +74,6 @@ public class ModItems {
 
         item.setRegistryName(new ResourceLocation(ModLib.MOD_ID, name));
         Preconditions.checkNotNull(item, "registryName");
-        Mankini.logger.debug(item + " " + name);
         return item;
     }
         

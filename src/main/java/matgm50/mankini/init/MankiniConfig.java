@@ -13,6 +13,10 @@ public class MankiniConfig {
 
         //Mobs
         public final ForgeConfigSpec.BooleanValue MankiniCreeperSpawn;
+        public final ForgeConfigSpec.BooleanValue MankiniEndermanSpawn;
+        public final ForgeConfigSpec.BooleanValue MankiniEndermiteSpawn;
+        public final ForgeConfigSpec.BooleanValue MankiniSpiderSpawn;
+        public final ForgeConfigSpec.BooleanValue MankiniSkeletonSpawn;
 
         //Mob Behavior
         public final ForgeConfigSpec.BooleanValue CreeperOverride;
@@ -35,6 +39,22 @@ public class MankiniConfig {
             MankiniCreeperSpawn = builder
                     .comment("Enables the Mankini Creeper spawning (default: true)")
                     .define("MankiniCreeperSpawn", true);
+
+            MankiniEndermanSpawn = builder
+                    .comment("Enables the Mankini Enderman spawning (default: true)")
+                    .define("MankiniEndermanSpawn", true);
+
+            MankiniEndermiteSpawn = builder
+                    .comment("Enables the Mankini Endermite spawning (default: true)")
+                    .define("MankiniEndermiteSpawn", true);
+
+            MankiniSpiderSpawn = builder
+                    .comment("Enables the Mankini Spider spawning (default: true)")
+                    .define("MankiniSpiderSpawn", true);
+
+            MankiniSkeletonSpawn = builder
+                    .comment("Enables the Mankini Skeleton spawning (default: true)")
+                    .define("MankiniSkeletonSpawn", true);
 
 
             builder.pop();

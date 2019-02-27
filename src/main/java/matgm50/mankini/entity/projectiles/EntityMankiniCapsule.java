@@ -1,10 +1,12 @@
 package matgm50.mankini.entity.projectiles;
 
+import matgm50.mankini.entity.boss.EntityMankiniWither;
 import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.ModEntities;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntitySkeleton;
@@ -57,8 +59,17 @@ public class EntityMankiniCapsule extends EntityThrowable {
 	   if (result.entity != null) {
 
             Entity hit = result.entity;
-           
-            if(hit instanceof EntityPlayer) {
+
+            if(hit instanceof EntityWither && !(hit instanceof EntityMankiniWither)) {
+            	EntityWither originalWither = (EntityWither)hit;
+				originalWither.setDropItemsWhenDead(false);
+
+            	EntityMankiniWither mankiniWiher = new EntityMankiniWither(this.world);
+				mankiniWiher.setLocationAndAngles(originalWither.posX, originalWither.posY, originalWither.posZ, originalWither.rotationYaw, 0.0F);
+
+				originalWither.remove();
+				this.world.spawnEntity(mankiniWiher);
+			} else if(hit instanceof EntityPlayer) {
                 EntityPlayer hitPlayer = (EntityPlayer)hit;
                 Boolean full = true;
                 
@@ -92,8 +103,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
                     		//hitPlayer.inventory.addItemStackToInventory(MankiniHelper.getFirstFoundMankini(hitPlayer));
                     }
                 }
-            }
-            if (MankiniConfig.COMMON.ShootMankinisOntoMobs.get())
+            } else if (MankiniConfig.COMMON.ShootMankinisOntoMobs.get())
 			{
 		       if (hit instanceof EntityZombie)
 		       {
@@ -110,10 +120,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
 	                    	this.entityDropItem(foundMankini, 1);
 	                    }
 	                }
-		       }
-		        
-		       if (hit instanceof EntitySkeleton)
-		       {
+		       } else if (hit instanceof EntitySkeleton) {
 		        	EntitySkeleton hitSkeleton = (EntitySkeleton)hit;
 		        	ItemStack GetChest = hitSkeleton.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		        	
@@ -128,10 +135,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
 		        			this.entityDropItem(foundMankini, 1);
 		        		}
 	                }
-		       }
-		        
-		       if (hit instanceof EntityPigZombie)
-		       {
+		       } else if (hit instanceof EntityPigZombie) {
 		        	EntityPigZombie hitPigman = (EntityPigZombie)hit;
 		        	ItemStack GetChest = hitPigman.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
 		        	
@@ -151,7 +155,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
             
             //In case other mobs are hit
             //Don't want to delete the mankini
-            if (hit instanceof EntityMob || hit instanceof EntityLiving)
+			else if (hit instanceof EntityMob || hit instanceof EntityLiving)
             {
             	if (MankiniConfig.COMMON.ShootMankinisOntoMobs.get())
             	{

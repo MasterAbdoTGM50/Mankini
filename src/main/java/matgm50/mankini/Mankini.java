@@ -1,7 +1,17 @@
 package matgm50.mankini;
 
 import matgm50.mankini.client.renderer.mobs.RenderMankiniCreeper;
+import matgm50.mankini.client.renderer.mobs.RenderMankiniEnderman;
+import matgm50.mankini.client.renderer.mobs.RenderMankiniEndermite;
+import matgm50.mankini.client.renderer.mobs.RenderMankiniSpider;
+import matgm50.mankini.client.renderer.mobs.RenderMankiniWither;
+import matgm50.mankini.entity.boss.EntityMankiniWither;
+import matgm50.mankini.entity.boss.EntityMankiniWitherCapsule;
 import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
+import matgm50.mankini.entity.hostile.EntityMankiniEnderman;
+import matgm50.mankini.entity.hostile.EntityMankiniEndermite;
+import matgm50.mankini.entity.hostile.EntityMankiniSkeleton;
+import matgm50.mankini.entity.hostile.EntityMankiniSpider;
 import matgm50.mankini.entity.projectiles.EntityMankiniCapsule;
 import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.ModCreativeTab;
@@ -10,6 +20,7 @@ import matgm50.mankini.init.ModSpawning;
 import matgm50.mankini.lib.ModLib;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.client.renderer.entity.RenderSkeleton;
 import net.minecraft.client.renderer.entity.RenderSprite;
 import net.minecraft.item.ItemArmorDyeable;
 import net.minecraft.item.ItemGroup;
@@ -52,23 +63,8 @@ public class Mankini {
 
 	private void setup(final FMLCommonSetupEvent event)
 	{
-        //ModRecipes.init();
-        
-       // proxy.initMobRenderers();
-
 		ModSpawning.register();
     }
-
-
-//    public void init(FMLInitializationEvent event) {
-//
-//    	//proxy.RegisterColorRenders();
-//    }
-
-//    public void postInit(FMLPostInitializationEvent event) {
-//
-//    }
-
 
 	public static class ClientHandler {
 		public static void registerRenders(ModelRegistryEvent event) {
@@ -76,6 +72,18 @@ public class Mankini {
 					renderManager -> new RenderSprite<EntityMankiniCapsule>(renderManager, ModItems.mankini_capsule, Minecraft.getInstance().getItemRenderer()));
 			RenderingRegistry.registerEntityRenderingHandler(EntityMankiniCreeper.class,
 					renderManager -> new RenderMankiniCreeper(renderManager));
+			RenderingRegistry.registerEntityRenderingHandler(EntityMankiniEnderman.class,
+					renderManager -> new RenderMankiniEnderman(renderManager));
+			RenderingRegistry.registerEntityRenderingHandler(EntityMankiniEndermite.class,
+					renderManager -> new RenderMankiniEndermite(renderManager));
+			RenderingRegistry.registerEntityRenderingHandler(EntityMankiniSpider.class,
+					renderManager -> new RenderMankiniSpider(renderManager));
+			RenderingRegistry.registerEntityRenderingHandler(EntityMankiniSkeleton.class,
+					renderManager -> new RenderSkeleton(renderManager));
+			RenderingRegistry.registerEntityRenderingHandler(EntityMankiniWither.class,
+					renderManager -> new RenderMankiniWither(renderManager));
+			RenderingRegistry.registerEntityRenderingHandler(EntityMankiniWitherCapsule.class,
+					renderManager -> new RenderSprite<EntityMankiniWitherCapsule>(renderManager, ModItems.mankini_capsule, Minecraft.getInstance().getItemRenderer()));
 		}
 
 		public static void registerBlockColors(ColorHandlerEvent.Item event) {
