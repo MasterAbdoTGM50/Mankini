@@ -5,6 +5,7 @@ import matgm50.mankini.init.ModEntities;
 import matgm50.mankini.init.ModItems;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -37,7 +38,7 @@ public class EntityMankiniSpider extends EntitySpider {
         ItemStack creeperKini = new ItemStack(ModItems.dyeable_mankini);
 
         if (this.world.rand.nextInt(100) == 0) {
-            EntitySkeleton entityskeleton = new EntitySkeleton(this.world);
+            EntityMob entityskeleton = new EntitySkeleton(this.world);
 
             if(this.world.rand.nextInt(20) < 5) {
                 entityskeleton = new EntityMankiniSkeleton(this.world);

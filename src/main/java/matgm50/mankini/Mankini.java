@@ -3,6 +3,7 @@ package matgm50.mankini;
 import matgm50.mankini.client.renderer.mobs.RenderMankiniCreeper;
 import matgm50.mankini.client.renderer.mobs.RenderMankiniEnderman;
 import matgm50.mankini.client.renderer.mobs.RenderMankiniEndermite;
+import matgm50.mankini.client.renderer.mobs.RenderMankiniSkeleton;
 import matgm50.mankini.client.renderer.mobs.RenderMankiniSpider;
 import matgm50.mankini.client.renderer.mobs.RenderMankiniWither;
 import matgm50.mankini.entity.boss.EntityMankiniWither;
@@ -54,7 +55,6 @@ public class Mankini {
 
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 
-
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
 			MinecraftForge.EVENT_BUS.addListener(ClientHandler::registerRenders);
 			MinecraftForge.EVENT_BUS.addListener(ClientHandler::registerBlockColors);
@@ -79,7 +79,7 @@ public class Mankini {
 			RenderingRegistry.registerEntityRenderingHandler(EntityMankiniSpider.class,
 					renderManager -> new RenderMankiniSpider(renderManager));
 			RenderingRegistry.registerEntityRenderingHandler(EntityMankiniSkeleton.class,
-					renderManager -> new RenderSkeleton(renderManager));
+					renderManager -> new RenderMankiniSkeleton(renderManager));
 			RenderingRegistry.registerEntityRenderingHandler(EntityMankiniWither.class,
 					renderManager -> new RenderMankiniWither(renderManager));
 			RenderingRegistry.registerEntityRenderingHandler(EntityMankiniWitherCapsule.class,

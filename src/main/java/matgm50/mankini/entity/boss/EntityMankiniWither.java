@@ -483,7 +483,7 @@ public class EntityMankiniWither extends EntityWither implements IRangedAttackMo
      * Drop 0-2 items of this living's type
      */
     protected void dropFewItems(boolean wasRecentlyHit, int lootingModifier) {
-        EntityItem entityitem = this.entityDropItem(ModItems.kawaii_mankini);
+        EntityItem entityitem = this.entityDropItem(ModItems.wither_mankini);
         if (entityitem != null) {
             entityitem.setNoDespawn();
         }

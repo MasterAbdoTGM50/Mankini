@@ -10,13 +10,13 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "K": {
-      "item": "mankini:aetheric_mankini"
+      "item": "mankini:mankini_bat"
     },
 	"E": {
       "item": "minecraft:elytra"
     },
 	"W": {
-      "item": "minecraft:nether_star"
+      "item": "mankini:mankini_wither"
     },
 	"D": {
       "tag": "forge:storage_blocks/diamond"
