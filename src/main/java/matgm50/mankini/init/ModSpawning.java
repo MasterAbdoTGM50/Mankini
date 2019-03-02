@@ -26,6 +26,7 @@ public class ModSpawning
                 registerSpawn(entry, biome, EntityType.ENDERMAN, ModEntities.MANKINI_ENDERMAN);
                 registerSpawn(entry, biome, EntityType.SPIDER, ModEntities.MANKINI_SPIDER);
                 registerSpawn(entry, biome, EntityType.SKELETON, ModEntities.MANKINI_SKELETON);
+                registerSpawn(entry, biome, EntityType.EVOKER, ModEntities.MANKINI_EVOKER);
             }
         }
     }
@@ -55,5 +56,6 @@ public class ModSpawning
         EntitySpawnPlacementRegistry.register(ModEntities.MANKINI_SPIDER, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
         EntitySpawnPlacementRegistry.register(ModEntities.MANKINI_SKELETON, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
         EntitySpawnPlacementRegistry.register(ModEntities.MANKINI_WITHER, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
+        EntitySpawnPlacementRegistry.register(ModEntities.MANKINI_EVOKER, EntitySpawnPlacementRegistry.SpawnPlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, null);
     }
 }
