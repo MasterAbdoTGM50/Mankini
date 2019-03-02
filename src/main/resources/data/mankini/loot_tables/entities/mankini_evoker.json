@@ -1,18 +1,18 @@
 {
   "pools": [
     {
-      "name": "mankini",
       "rolls": 1,
+      "name": "mankini",
       "entries": [
         {
           "type": "item",
-          "name": "mankini:dyeable_mankini",
+          "name": "mankini:dyeable_mankini"
         }
       ]
     },
     {
-        "name": "emerald",
         "rolls": 1,
+        "name": "emerald",
         "entries": [
             {
                 "type": "item",
