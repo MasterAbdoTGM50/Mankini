@@ -55,7 +55,7 @@ public class EntityMankiniEvoker extends EntitySpellcasterIllager {
         this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityMankiniEvoker.class));
         this.targetTasks.addTask(2, (new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true)).setUnseenMemoryTicks(300));
-        this.targetTasks.addTask(3, (new EntityAIMankiniTarget(this, EntityVillager.class, false)).setUnseenMemoryTicks(300));
+        this.targetTasks.addTask(3, (new EntityAIMankiniTarget<>(this, EntityVillager.class, false)).setUnseenMemoryTicks(300));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityIronGolem.class, false));
     }
 
