@@ -11,7 +11,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IEntityLivingData;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIFleeSun;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -37,7 +36,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -48,35 +46,17 @@ import java.time.temporal.ChronoField;
 
 public abstract class AbstractMankiniSkeleton extends EntityMob implements IRangedAttackMob {
     private static final DataParameter<Boolean> SWINGING_ARMS = EntityDataManager.createKey(AbstractMankiniSkeleton.class, DataSerializers.BOOLEAN);
-    private final EntityAIMankiniCannon<AbstractMankiniSkeleton> aiCannonAttack = new EntityAIMankiniCannon<>(this, 1.0D, 40, 15.0F);
-    private final EntityAIAttackMelee aiAttackOnCollide = new EntityAIAttackMelee(this, 1.2D, false) {
-        /**
-         * Reset the task's internal state. Called when this task is interrupted by another one
-         */
-        public void resetTask() {
-            super.resetTask();
-            AbstractMankiniSkeleton.this.setSwingingArms(false);
-        }
-
-        /**
-         * Execute a one shot task or start executing a continuous task
-         */
-        public void startExecuting() {
-            super.startExecuting();
-            AbstractMankiniSkeleton.this.setSwingingArms(true);
-        }
-    };
 
     protected AbstractMankiniSkeleton(EntityType<?> type, World p_i48555_2_) {
         super(type, p_i48555_2_);
         this.setSize(0.6F, 1.99F);
-        this.setCombatTask();
     }
 
     protected void initEntityAI() {
         this.tasks.addTask(2, new EntityAIRestrictSun(this));
         this.tasks.addTask(3, new EntityAIFleeSun(this, 1.0D));
         this.tasks.addTask(3, new EntityAIAvoidEntity<>(this, EntityWolf.class, 6.0F, 1.0D, 1.2D));
+        this.tasks.addTask(4, new EntityAIMankiniCannon<AbstractMankiniSkeleton>(this, 1.0D, 40, 15.0F));
         this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 1.0D));
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(6, new EntityAILookIdle(this));
@@ -160,7 +140,6 @@ public abstract class AbstractMankiniSkeleton extends EntityMob implements IRang
         entityLivingData = super.onInitialSpawn(difficulty, entityLivingData, itemNbt);
         this.setEquipmentBasedOnDifficulty(difficulty);
         this.setEnchantmentBasedOnDifficulty(difficulty);
-        this.setCombatTask();
         this.setCanPickUpLoot(this.rand.nextFloat() < 0.55F * difficulty.getClampedAdditionalDifficulty());
         if (this.getItemStackFromSlot(EntityEquipmentSlot.HEAD).isEmpty()) {
             LocalDate localdate = LocalDate.now();
@@ -173,29 +152,6 @@ public abstract class AbstractMankiniSkeleton extends EntityMob implements IRang
         }
 
         return entityLivingData;
-    }
-
-    /**
-     * sets this entity's combat AI.
-     */
-    public void setCombatTask() {
-        if (this.world != null && !this.world.isRemote) {
-            this.tasks.removeTask(this.aiAttackOnCollide);
-            this.tasks.removeTask(this.aiCannonAttack);
-            ItemStack itemstack = this.getHeldItemMainhand();
-            if (itemstack.getItem() == ModItems.mankini_cannon) {
-                int i = 20;
-                if (this.world.getDifficulty() != EnumDifficulty.HARD) {
-                    i = 40;
-                }
-
-                this.aiCannonAttack.setAttackCooldown(i);
-                this.tasks.addTask(4, this.aiCannonAttack);
-            } else {
-                this.tasks.addTask(4, this.aiAttackOnCollide);
-            }
-
-        }
     }
 
     /**
@@ -213,7 +169,9 @@ public abstract class AbstractMankiniSkeleton extends EntityMob implements IRang
     }
 
     protected EntityMankiniCapsule getCapsule(float p_190726_1_) {
-        EntityMankiniCapsule mankiniCapsule = new EntityMankiniCapsule(this.world, this, new ItemStack(ModItems.dyeable_mankini));
+        ItemStack stack = new ItemStack(ModItems.dyeable_mankini);
+        stack.setDamage(this.rand.nextInt(stack.getMaxDamage()));
+        EntityMankiniCapsule mankiniCapsule = new EntityMankiniCapsule(this.world, this, stack, false);
         return mankiniCapsule;
     }
 
@@ -222,15 +180,10 @@ public abstract class AbstractMankiniSkeleton extends EntityMob implements IRang
      */
     public void readAdditional(NBTTagCompound compound) {
         super.readAdditional(compound);
-        this.setCombatTask();
     }
 
     public void setItemStackToSlot(EntityEquipmentSlot slotIn, ItemStack stack) {
         super.setItemStackToSlot(slotIn, stack);
-        if (!this.world.isRemote && slotIn == EntityEquipmentSlot.MAINHAND) {
-            this.setCombatTask();
-        }
-
     }
 
     public float getEyeHeight() {

@@ -11,7 +11,6 @@ import matgm50.mankini.item.ItemMankiniCapsule;
 import matgm50.mankini.item.ItemMankiniHorseArmor;
 import matgm50.mankini.item.ItemWitherKini;
 import matgm50.mankini.lib.ModLib;
-import net.minecraft.entity.passive.HorseArmorType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemSpawnEgg;
 import net.minecraft.util.ResourceLocation;
@@ -79,21 +78,6 @@ public class ModItems {
         Preconditions.checkNotNull(item, "registryName");
         return item;
     }
-        
-//    public static void registerColorRenders()
-//    {
-//    	Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new IItemColor() {
-//            @Override
-//            public int colorMultiplier(ItemStack stack, int tintIndex) {
-//                 NBTTagCompound tag = stack.getTagCompound();
-//                 if(tag!=null){
-//                     NBTTagCompound nbt = tag.getCompoundTag("display");
-//                    return nbt == null ? 10511680 : (nbt.hasKey("color", 3) ? nbt.getInteger("color") : 10511680);
-//                 }
-//                 return 10511680;
-//            }
-//        }, dyeable_mankini);
-//    }
 
     private static Item.Properties itemBuilder()
     {

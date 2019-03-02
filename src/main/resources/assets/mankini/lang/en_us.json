@@ -31,6 +31,9 @@
   "entity.mankini:mankini_wither.name": "Mankini Wither",
   "entity.mankini:mankini_wither_capsule.name": "Mankini Wither Capsule",
   
+  "_comment": "Boss Names",
+  "entity.mankini:mankini.wither.name": "Mankini Wither",
+  
   "_comment": "Death Messages",
   "death.attack.mankini_wither": "%1$s could not handle the power of the mankini",
   "death.attack.mankini_wither.player": "%1$s withered away whilst fighting %2$s 's mankini's",

@@ -14,7 +14,7 @@ public class EntityMankiniEndermite extends EntityEndermite {
 
     @Override
     public EntityType<?> getType() {
-        return ModEntities.MANKINI_ENDERMAN;
+        return ModEntities.MANKINI_ENDERMITE;
     }
 
     @Override

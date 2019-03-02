@@ -8,9 +8,8 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.entity.projectile.EntityWitherSkull;
+import net.minecraft.entity.projectile.EntityFireball;
 import net.minecraft.fluid.IFluidState;
-import net.minecraft.init.MobEffects;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -23,16 +22,23 @@ import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class EntityMankiniWitherCapsule extends EntityWitherSkull {
+public class EntityMankiniWitherCapsule extends EntityFireball {
     private static final DataParameter<Boolean> INVULNERABLE = EntityDataManager.createKey(EntityMankiniWitherCapsule.class, DataSerializers.BOOLEAN);
     
     public EntityMankiniWitherCapsule(World worldIn) {
-        super(worldIn);
+        super(ModEntities.MANKINI_WITHER_PROJECTILE, worldIn, 0.3125F, 0.3125F);
     }
 
     public EntityMankiniWitherCapsule(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ) {
-        super(worldIn, shooter, accelX, accelY, accelZ);
+        super(ModEntities.MANKINI_WITHER_PROJECTILE, shooter, accelX, accelY, accelZ, worldIn, 0.3125F, 0.3125F);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public EntityMankiniWitherCapsule(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
+        super(ModEntities.MANKINI_WITHER_PROJECTILE, x, y, z, accelX, accelY, accelZ, worldIn, 0.3125F, 0.3125F);
     }
 
     @Override
