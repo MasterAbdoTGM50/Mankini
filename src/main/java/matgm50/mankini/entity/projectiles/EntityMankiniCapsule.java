@@ -76,7 +76,7 @@ public class EntityMankiniCapsule extends EntityThrowable {
 						playerInv.setInventorySlotContents(38, foundMankini);
 						if(playerInv.getFirstEmptyStack() == -1) {
 							if(dropItem) {
-								this.entityDropItem(foundMankini, 0.5F);
+								this.entityDropItem(wornStack, 0.5F);
 							}
 						} else {
 							playerInv.setInventorySlotContents(playerInv.getFirstEmptyStack(), wornStack);

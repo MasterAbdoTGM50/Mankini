@@ -18,6 +18,7 @@
   "item.mankini.mankini_endermite_spawn_egg": "Mankini Endermite Spawn Egg",
   "item.mankini.mankini_spider_spawn_egg": "Mankini Spider Spawn Egg",
   "item.mankini.mankini_skeleton_spawn_egg": "Mankini Skeleton Spawn Egg",
+  "item.mankini.mankini_evoker_spawn_egg": "Mankini Evoker Spawn Egg",
 
   "_comment": "Bat Capture Message",
   "mankini.bat.message": "Successfully captured a bat in a Mankini.",
@@ -30,6 +31,7 @@
   "entity.mankini:mankini_skeleton.name": "Mankini Skeleton",
   "entity.mankini:mankini_wither.name": "Mankini Wither",
   "entity.mankini:mankini_wither_capsule.name": "Mankini Wither Capsule",
+  "entity.mankini:mankini_evoker.name": "Mankini Evoker",
   
   "_comment": "Boss Names",
   "entity.mankini:mankini.wither.name": "Mankini Wither",

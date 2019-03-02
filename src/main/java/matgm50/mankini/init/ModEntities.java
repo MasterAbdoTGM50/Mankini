@@ -7,6 +7,7 @@ import matgm50.mankini.entity.boss.EntityMankiniWitherCapsule;
 import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
 import matgm50.mankini.entity.hostile.EntityMankiniEnderman;
 import matgm50.mankini.entity.hostile.EntityMankiniEndermite;
+import matgm50.mankini.entity.hostile.EntityMankiniEvoker;
 import matgm50.mankini.entity.hostile.EntityMankiniSkeleton;
 import matgm50.mankini.entity.hostile.EntityMankiniSpider;
 import matgm50.mankini.entity.projectiles.EntityMankiniCapsule;
@@ -29,7 +30,8 @@ public class ModEntities {
 	public static final EntityType<EntityMankiniSpider> MANKINI_SPIDER = register("mankini_spider", EntityType.Builder.create(EntityMankiniSpider.class, EntityMankiniSpider::new), 80, 3, true);
 	public static final EntityType<EntityMankiniSkeleton> MANKINI_SKELETON = register("mankini_skeleton", EntityType.Builder.create(EntityMankiniSkeleton.class, EntityMankiniSkeleton::new), 80, 3, true);
 	public static final EntityType<EntityMankiniWither> MANKINI_WITHER = register("mankini_wither", EntityType.Builder.create(EntityMankiniWither.class, EntityMankiniWither::new), 80, 3, true);
-	public static final EntityType<EntityMankiniWitherCapsule> MANKINI_WITHER_PROJECTILE = register("mankini_wither_projectile", EntityType.Builder.create(EntityMankiniWitherCapsule.class, EntityMankiniWitherCapsule::new), 80, 3, true);
+	public static final EntityType<EntityMankiniWitherCapsule> MANKINI_WITHER_PROJECTILE = register("mankini_wither_projectile", EntityType.Builder.create(EntityMankiniWitherCapsule.class, EntityMankiniWitherCapsule::new), 80, 1, true);
+	public static final EntityType<EntityMankiniEvoker> MANKINI_EVOKER = register("mankini_evoker", EntityType.Builder.create(EntityMankiniEvoker.class, EntityMankiniEvoker::new), 80, 3, true);
 
 	public static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> builder) {
 		EntityType<T> entityType = builder.build("");
@@ -69,5 +71,6 @@ public class ModEntities {
 		register(MANKINI_SKELETON, "mankini_skeleton", event);
 		register(MANKINI_WITHER, "mankini_wither", event);
 		register(MANKINI_WITHER_PROJECTILE, "mankini_wither_capsule", event);
+		register(MANKINI_EVOKER, "mankini_evoker", event);
 	}
 }
