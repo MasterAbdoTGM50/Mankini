@@ -8,7 +8,6 @@ import matgm50.mankini.item.ItemDyeableMankini;
 import matgm50.mankini.item.ItemKawaiiMankini;
 import matgm50.mankini.item.ItemMankiniCannon;
 import matgm50.mankini.item.ItemMankiniCapsule;
-import matgm50.mankini.item.ItemMankiniHorseArmor;
 import matgm50.mankini.item.ItemWitherKini;
 import matgm50.mankini.lib.ModLib;
 import net.minecraft.item.Item;
@@ -37,7 +36,7 @@ public class ModItems {
     public static Item mankini_capsule;
     public static Item bat_mankini;
     public static Item wither_mankini;
-    public static Item mankini_horse_armor;
+//    public static Item mankini_horse_armor;
 
     public static Item mankini_creeper_spawn_egg;
     public static Item mankini_enderman_spawn_egg;
@@ -60,7 +59,7 @@ public class ModItems {
         mankini_capsule = registerItem(new ItemMankiniCapsule(itemBuilder()), "mankini_capsule");
         bat_mankini = registerItem(new ItemBatMankini(itemBuilder()), "mankini_bat");
         wither_mankini = registerItem(new ItemWitherKini(itemBuilder()), "mankini_wither");
-        mankini_horse_armor = registerItem(new ItemMankiniHorseArmor(itemBuilder()), "mankini_horse_armor");
+//        mankini_horse_armor = registerItem(new ItemMankiniHorseArmor(itemBuilder()), "mankini_horse_armor");
 
         mankini_creeper_spawn_egg = registerItem(new ItemSpawnEgg(ModEntities.MANKINI_CREEPER, 894731, 0, itemBuilderWithGroup()), "mankini_creeper_spawn_egg");
         mankini_enderman_spawn_egg = registerItem(new ItemSpawnEgg(ModEntities.MANKINI_ENDERMAN, 1447446, 0, itemBuilderWithGroup()), "mankini_enderman_spawn_egg");
