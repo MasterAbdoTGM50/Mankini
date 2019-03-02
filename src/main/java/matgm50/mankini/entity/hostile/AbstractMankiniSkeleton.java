@@ -1,6 +1,7 @@
 package matgm50.mankini.entity.hostile;
 
 import matgm50.mankini.entity.ai.EntityAIMankiniCannon;
+import matgm50.mankini.entity.ai.EntityAIMankiniTarget;
 import matgm50.mankini.entity.projectiles.EntityMankiniCapsule;
 import matgm50.mankini.init.ModItems;
 import net.minecraft.block.state.IBlockState;
@@ -61,7 +62,7 @@ public abstract class AbstractMankiniSkeleton extends EntityMob implements IRang
         this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
         this.tasks.addTask(6, new EntityAILookIdle(this));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
-        this.targetTasks.addTask(2, new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+        this.targetTasks.addTask(2, new EntityAIMankiniTarget<>(this, EntityPlayer.class, true));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityIronGolem.class, true));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityWither.class, true));
     }

@@ -1,6 +1,5 @@
 package matgm50.mankini.entity.hostile;
 
-import matgm50.mankini.Mankini;
 import matgm50.mankini.entity.ai.EntityAIMankiniTarget;
 import matgm50.mankini.entity.boss.EntityMankiniWither;
 import matgm50.mankini.init.ModEntities;
@@ -19,7 +18,6 @@ import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.ai.EntityAIZombieAttack;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntitySpellcasterIllager;
 import net.minecraft.entity.monster.EntityVex;
@@ -173,7 +171,6 @@ public class EntityMankiniEvoker extends EntitySpellcasterIllager {
         };
 
         public boolean isWearing(EntityPlayer playerIn) {
-            Mankini.logger.debug(playerIn.inventory.armorInventory.get(2).getItem());
             return !(playerIn.inventory.armorInventory.get(2).getItem() instanceof IMankini);
         }
         public AIWololoSpell() {

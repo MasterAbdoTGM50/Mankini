@@ -1,13 +1,24 @@
 package matgm50.mankini.entity.hostile;
 
+import matgm50.mankini.entity.ai.EntityAIMankiniTarget;
 import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.ModEntities;
 import matgm50.mankini.init.ModItems;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IEntityLivingData;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAILeapAtTarget;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySkeleton;
 import net.minecraft.entity.monster.EntitySpider;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -29,6 +40,19 @@ public class EntityMankiniSpider extends EntitySpider {
     @Override
     public EntityType<?> getType() {
         return ModEntities.MANKINI_SPIDER;
+    }
+
+    @Override
+    protected void initEntityAI() {
+        this.tasks.addTask(1, new EntityAISwimming(this));
+        this.tasks.addTask(3, new EntityAILeapAtTarget(this, 0.4F));
+        this.tasks.addTask(4, new EntityMankiniSpider.AISpiderAttack(this));
+        this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.8D));
+        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        this.tasks.addTask(6, new EntityAILookIdle(this));
+        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, false));
+        this.targetTasks.addTask(2, new EntityMankiniSpider.AISpiderTarget<>(this, EntityPlayer.class));
+        this.targetTasks.addTask(3, new EntityMankiniSpider.AISpiderTarget<>(this, EntityIronGolem.class));
     }
 
     @Nullable
@@ -87,6 +111,43 @@ public class EntityMankiniSpider extends EntitySpider {
         else
         {
             return false;
+        }
+    }
+
+    static class AISpiderAttack extends EntityAIAttackMelee {
+        public AISpiderAttack(EntitySpider spider) {
+            super(spider, 1.0D, true);
+        }
+
+        /**
+         * Returns whether an in-progress EntityAIBase should continue executing
+         */
+        public boolean shouldContinueExecuting() {
+            float f = this.attacker.getBrightness();
+            if (f >= 0.5F && this.attacker.getRNG().nextInt(100) == 0) {
+                this.attacker.setAttackTarget((EntityLivingBase)null);
+                return false;
+            } else {
+                return super.shouldContinueExecuting();
+            }
+        }
+
+        protected double getAttackReachSqr(EntityLivingBase attackTarget) {
+            return (double)(4.0F + attackTarget.width);
+        }
+    }
+
+    static class AISpiderTarget<T extends EntityLivingBase> extends EntityAIMankiniTarget<T> {
+        public AISpiderTarget(EntitySpider spider, Class<T> classTarget) {
+            super(spider, classTarget, true);
+        }
+
+        /**
+         * Returns whether the EntityAIBase should begin execution.
+         */
+        public boolean shouldExecute() {
+            float f = this.taskOwner.getBrightness();
+            return f >= 0.5F ? false : super.shouldExecute();
         }
     }
 }
