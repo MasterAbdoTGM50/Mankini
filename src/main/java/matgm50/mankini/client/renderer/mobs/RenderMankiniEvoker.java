@@ -15,7 +15,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class RenderMankiniEvoker extends RenderLiving<EntityMankiniEvoker> {
-	private static final ResourceLocation MANKINI_EVOKER_ILLAGER = new ResourceLocation("mankini:textures/entity/illager/evoker.png");
+	private static final ResourceLocation MANKINI_EVOKER_ILLAGER = new ResourceLocation("mankini:textures/entity/mankini_evoker.png");
 
 	public RenderMankiniEvoker(RenderManager renderManagerIn) {
 		super(renderManagerIn, new ModelIllager(0.0F, 0.0F, 64, 64), 0.5F);
