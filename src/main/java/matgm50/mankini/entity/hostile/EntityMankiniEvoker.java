@@ -53,14 +53,14 @@ public class EntityMankiniEvoker extends EntitySpellcasterIllager {
         this.tasks.addTask(1, new EntityMankiniEvoker.AICastingSpell());
         this.tasks.addTask(2, new EntityAIAvoidEntity<>(this, EntityMankiniWither.class, 8.0F, 0.6D, 1.0D));
         this.tasks.addTask(4, new EntityMankiniEvoker.AIWololoSpell());
-        this.tasks.addTask(6, new EntityAIAttackMelee(this, 1.0D, false));
+        this.tasks.addTask(6, new EntityAIAttackMelee(this, 0.3D, false));
 
         this.tasks.addTask(8, new EntityAIWander(this, 0.6D));
         this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
         this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityMankiniEvoker.class));
-        this.targetTasks.addTask(2, (new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true)).setUnseenMemoryTicks(300));
-        this.targetTasks.addTask(3, (new EntityAIMankiniTarget<>(this, EntityVillager.class, false)).setUnseenMemoryTicks(300));
+        this.targetTasks.addTask(2, (new EntityAIMankiniTarget<>(this, EntityPlayer.class, true)).setUnseenMemoryTicks(300));
+        this.targetTasks.addTask(3, (new EntityAINearestAttackableTarget<>(this, EntityVillager.class, false)).setUnseenMemoryTicks(300));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityIronGolem.class, false));
     }
 

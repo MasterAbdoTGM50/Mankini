@@ -1,11 +1,14 @@
 package matgm50.mankini.entity.hostile;
 
+import matgm50.mankini.entity.ai.EntityAIMankiniTarget;
 import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.ModEntities;
 import matgm50.mankini.init.ModItems;
 import matgm50.mankini.init.ModLootTableList;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Enchantments;
@@ -26,6 +29,8 @@ public class EntityMankiniCreeper extends EntityCreeper
     public EntityMankiniCreeper(World worldIn)
     {
         super(worldIn);
+        this.targetTasks.removeTask(new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true));
+        this.targetTasks.addTask(1, new EntityAIMankiniTarget<>(this, EntityPlayer.class, true));
     }
 
     @Override

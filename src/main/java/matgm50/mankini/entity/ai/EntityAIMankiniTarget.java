@@ -2,17 +2,18 @@ package matgm50.mankini.entity.ai;
 
 import matgm50.mankini.item.IMankini;
 import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 
 import java.util.function.Predicate;
 
-public class EntityAIMankiniTarget<T extends EntityCreature> extends EntityAINearestAttackableTarget<T> {
+public class EntityAIMankiniTarget<T extends EntityLivingBase> extends EntityAINearestAttackableTarget<T> {
     private final EntityCreature attacker;
 
-    public EntityAIMankiniTarget(EntityCreature attacker, Class<T> target, boolean p_i48571_3_) {
-        super(attacker, target, 10, p_i48571_3_, false, (Predicate<T>)null);
+    public EntityAIMankiniTarget(EntityCreature attacker, Class<T> target, boolean checkSight) {
+        super(attacker, target, checkSight);
         this.attacker = attacker;
     }
 
