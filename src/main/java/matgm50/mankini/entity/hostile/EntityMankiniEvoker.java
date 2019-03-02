@@ -1,15 +1,16 @@
 package matgm50.mankini.entity.hostile;
 
+import matgm50.mankini.entity.ai.EntityAIMankiniTarget;
 import matgm50.mankini.entity.boss.EntityMankiniWither;
 import matgm50.mankini.init.ModEntities;
 import matgm50.mankini.init.ModItems;
+import matgm50.mankini.init.ModLootTableList;
 import matgm50.mankini.item.IMankini;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -29,7 +30,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootTableList;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -48,7 +48,6 @@ public class EntityMankiniEvoker extends EntitySpellcasterIllager {
         super.initEntityAI();
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityMankiniEvoker.AICastingSpell());
-        this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
         this.tasks.addTask(2, new EntityAIAvoidEntity<>(this, EntityMankiniWither.class, 8.0F, 0.6D, 1.0D));
         this.tasks.addTask(6, new EntityMankiniEvoker.AIWololoSpell());
         this.tasks.addTask(8, new EntityAIWander(this, 0.6D));
@@ -56,7 +55,7 @@ public class EntityMankiniEvoker extends EntitySpellcasterIllager {
         this.tasks.addTask(10, new EntityAIWatchClosest(this, EntityLiving.class, 8.0F));
         this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true, EntityMankiniEvoker.class));
         this.targetTasks.addTask(2, (new EntityAINearestAttackableTarget<>(this, EntityPlayer.class, true)).setUnseenMemoryTicks(300));
-        this.targetTasks.addTask(3, (new EntityAINearestAttackableTarget<>(this, EntityVillager.class, false)).setUnseenMemoryTicks(300));
+        this.targetTasks.addTask(3, (new EntityAIMankiniTarget(this, EntityVillager.class, false)).setUnseenMemoryTicks(300));
         this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityIronGolem.class, false));
     }
 
@@ -87,7 +86,7 @@ public class EntityMankiniEvoker extends EntitySpellcasterIllager {
     }
 
     protected ResourceLocation getLootTable() {
-        return LootTableList.ENTITIES_EVOCATION_ILLAGER;
+        return ModLootTableList.ENTITIES_MANKINI_EVOKER;
     }
 
     protected void updateAITasks() {
