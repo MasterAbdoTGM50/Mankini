@@ -2,6 +2,7 @@ package matgm50.mankini.entity.hostile;
 
 import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.ModEntities;
+import matgm50.mankini.init.ModLootTableList;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
@@ -29,7 +30,7 @@ public class EntityMankiniSkeleton extends AbstractMankiniSkeleton {
 
     @Nullable
     protected ResourceLocation getLootTable() {
-        return LootTableList.ENTITIES_SKELETON;
+        return ModLootTableList.ENTITIES_MANKINI_SKELETON;
     }
 
     protected SoundEvent getAmbientSound() {
