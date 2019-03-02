@@ -1,5 +1,6 @@
 package matgm50.mankini.entity.hostile;
 
+import matgm50.mankini.entity.boss.EntityMankiniWither;
 import matgm50.mankini.init.ModEntities;
 import matgm50.mankini.init.ModItems;
 import matgm50.mankini.item.IMankini;
@@ -8,12 +9,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
 import net.minecraft.entity.ai.EntityAIAvoidEntity;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
+import net.minecraft.entity.ai.EntityAIZombieAttack;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.entity.monster.EntitySpellcasterIllager;
 import net.minecraft.entity.monster.EntityVex;
@@ -46,7 +49,8 @@ public class EntityMankiniEvoker extends EntitySpellcasterIllager {
         super.initEntityAI();
         this.tasks.addTask(0, new EntityAISwimming(this));
         this.tasks.addTask(1, new EntityMankiniEvoker.AICastingSpell());
-        this.tasks.addTask(2, new EntityAIAvoidEntity<>(this, EntityPlayer.class, 8.0F, 0.6D, 1.0D));
+        this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
+        this.tasks.addTask(2, new EntityAIAvoidEntity<>(this, EntityMankiniWither.class, 8.0F, 0.6D, 1.0D));
         this.tasks.addTask(6, new EntityMankiniEvoker.AIWololoSpell());
         this.tasks.addTask(8, new EntityAIWander(this, 0.6D));
         this.tasks.addTask(9, new EntityAIWatchClosest(this, EntityPlayer.class, 3.0F, 1.0F));
