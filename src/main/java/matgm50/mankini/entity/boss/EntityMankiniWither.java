@@ -9,7 +9,6 @@ import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIAttackRanged;
@@ -19,8 +18,8 @@ import net.minecraft.entity.ai.EntityAILookIdle;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -50,7 +49,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class EntityMankiniWither extends EntityWither implements IRangedAttackMob {
+public class EntityMankiniWither extends EntityMob implements IRangedAttackMob {
     private static final DataParameter<Integer> FIRST_HEAD_TARGET = EntityDataManager.createKey(EntityMankiniWither.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> SECOND_HEAD_TARGET = EntityDataManager.createKey(EntityMankiniWither.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> THIRD_HEAD_TARGET = EntityDataManager.createKey(EntityMankiniWither.class, DataSerializers.VARINT);
@@ -75,8 +74,8 @@ public class EntityMankiniWither extends EntityWither implements IRangedAttackMo
     };
 
     public EntityMankiniWither(World worldIn) {
-        super(worldIn);
-        this.setHealth(120.0F);
+        super(ModEntities.MANKINI_WITHER, worldIn);
+        this.setHealth(this.getMaxHealth());
         this.setSize(0.9F, 3.5F);
         this.isImmuneToFire = true;
         ((PathNavigateGround) this.getNavigator()).setCanSwim(true);
@@ -232,7 +231,7 @@ public class EntityMankiniWither extends EntityWither implements IRangedAttackMo
 
             this.setInvulTime(j1);
             if (this.ticksExisted % 10 == 0) {
-                this.heal(10.0F);
+                this.heal(5.0F);
             }
 
         } else {
@@ -332,7 +331,7 @@ public class EntityMankiniWither extends EntityWither implements IRangedAttackMo
                 this.heal(1.0F);
             }
 
-            this.bossInfo.setPercent(this.getHealth() / 120.0F);
+            this.bossInfo.setPercent(this.getHealth() / this.getMaxHealth());
         }
     }
 
@@ -345,7 +344,7 @@ public class EntityMankiniWither extends EntityWither implements IRangedAttackMo
      */
     public void ignite() {
         this.setInvulTime(220);
-        this.setHealth(120.0F / 3.0F);
+        this.setHealth(this.getMaxHealth() / 3.0F);
     }
 
     /**
@@ -511,7 +510,7 @@ public class EntityMankiniWither extends EntityWither implements IRangedAttackMo
 
     protected void registerAttributes() {
         super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(300.0D);
+        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(180.0D);
         this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double) 0.6F);
         this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(40.0D);
         this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(4.0D);
@@ -554,7 +553,7 @@ public class EntityMankiniWither extends EntityWither implements IRangedAttackMo
      * its maximum.
      */
     public boolean isArmored() {
-        return this.getHealth() <= 120.0F / 2.0F;
+        return this.getHealth() <= this.getMaxHealth() / 2.0F;
     }
 
     public CreatureAttribute getCreatureAttribute() {
@@ -573,11 +572,6 @@ public class EntityMankiniWither extends EntityWither implements IRangedAttackMo
     }
 
     public void setSwingingArms(boolean swingingArms) {
-    }
-
-    @Override
-    public EntityType<?> getType() {
-        return ModEntities.MANKINI_WITHER;
     }
 
     class AIDoNothing extends EntityAIBase {

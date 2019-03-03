@@ -1,6 +1,7 @@
 package matgm50.mankini.client.renderer.mobs;
 
 import matgm50.mankini.client.layers.LayerMankiniWitherAura;
+import matgm50.mankini.client.model.ModelMankiniWither;
 import matgm50.mankini.entity.boss.EntityMankiniWither;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
@@ -16,7 +17,7 @@ public class RenderMankiniWither extends RenderLiving<EntityMankiniWither>{
 	private static final ResourceLocation MANKINI_WITHER = new ResourceLocation("mankini:textures/entity/mankini_wither.png");
 
 	public RenderMankiniWither(RenderManager renderManagerIn) {
-		super(renderManagerIn, new ModelWither(0.0F), 1.0F);
+		super(renderManagerIn, new ModelMankiniWither(0.0F), 1.0F);
 		this.addLayer(new LayerMankiniWitherAura(this));
 	}
 

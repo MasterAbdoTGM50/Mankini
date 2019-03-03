@@ -1,11 +1,11 @@
 package matgm50.mankini.client.layers;
 
+import matgm50.mankini.client.model.ModelMankiniWither;
 import matgm50.mankini.client.renderer.mobs.RenderMankiniWither;
 import matgm50.mankini.entity.boss.EntityMankiniWither;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
-import net.minecraft.client.renderer.entity.model.ModelWither;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
@@ -15,7 +15,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class LayerMankiniWitherAura implements LayerRenderer<EntityMankiniWither> {
     private static final ResourceLocation MANKINI_WITHER_ARMOR = new ResourceLocation("mankini:textures/entity/mankini_wither_armor.png");
     private final RenderMankiniWither witherRenderer;
-    private final ModelWither witherModel = new ModelWither(0.5F);
+    private final ModelMankiniWither witherModel = new ModelMankiniWither(0.5F);
 
     public LayerMankiniWitherAura(RenderMankiniWither witherRendererIn) {
         this.witherRenderer = witherRendererIn;
