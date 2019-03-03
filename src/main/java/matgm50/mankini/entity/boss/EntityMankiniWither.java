@@ -231,7 +231,7 @@ public class EntityMankiniWither extends EntityMob implements IRangedAttackMob {
 
             this.setInvulTime(j1);
             if (this.ticksExisted % 10 == 0) {
-                this.heal(10.0F);
+                this.heal(5.0F);
             }
 
         } else {
