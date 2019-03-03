@@ -1,9 +1,23 @@
 package matgm50.mankini.entity.hostile;
 
-import matgm50.mankini.init.ModConfigGen;
+import matgm50.mankini.entity.ai.EntityAIMankiniTarget;
+import matgm50.mankini.init.MankiniConfig;
+import matgm50.mankini.init.ModEntities;
 import matgm50.mankini.init.ModItems;
-import net.minecraft.entity.EntityLiving;
+import matgm50.mankini.init.ModLootTableList;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.EntityAIAttackMelee;
+import net.minecraft.entity.ai.EntityAIAvoidEntity;
+import net.minecraft.entity.ai.EntityAICreeperSwell;
+import net.minecraft.entity.ai.EntityAIHurtByTarget;
+import net.minecraft.entity.ai.EntityAILookIdle;
+import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
+import net.minecraft.entity.ai.EntityAISwimming;
+import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
+import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.passive.EntityOcelot;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.init.Enchantments;
@@ -11,7 +25,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.datafix.DataFixer;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 public class EntityMankiniCreeper extends EntityCreeper
@@ -19,56 +33,61 @@ public class EntityMankiniCreeper extends EntityCreeper
     private int lastActiveTime;
     private int timeSinceIgnited;
     private int fuseTime = 30;
-    private int explosionRadius = 1;
-    private int droppedSkulls;
+    private int explosionRadius = 3;
 
     public EntityMankiniCreeper(World worldIn)
     {
         super(worldIn);
     }
-    
-    public static void registerFixesMankiniCreeper(DataFixer fixer)
-    {
-        EntityLiving.registerFixesMob(fixer, EntityMankiniCreeper.class);
+
+    @Override
+    protected void initEntityAI() {
+        this.tasks.addTask(1, new EntityAISwimming(this));
+        this.tasks.addTask(2, new EntityAICreeperSwell(this));
+        this.tasks.addTask(3, new EntityAIAvoidEntity<>(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
+        this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, false));
+        this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.8D));
+        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
+        this.tasks.addTask(6, new EntityAILookIdle(this));
+        this.targetTasks.addTask(1, new EntityAIMankiniTarget<>(this, EntityPlayer.class, true));
+        this.targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
+    }
+
+    @Override
+    public EntityType<?> getType() {
+        return ModEntities.MANKINI_CREEPER;
     }
 
     /**
      * Called to update the entity's position/logic.
      */
     @Override
-    public void onUpdate()
+    public void tick()
     {
-        if (this.isEntityAlive())
+        if (this.isAlive())
         {
             this.lastActiveTime = this.timeSinceIgnited;
-
-            if (this.hasIgnited())
-            {
+            if (this.hasIgnited()) {
                 this.setCreeperState(1);
             }
 
             int i = this.getCreeperState();
-
-            if (i > 0 && this.timeSinceIgnited == 0)
-            {
+            if (i > 0 && this.timeSinceIgnited == 0) {
                 this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
             }
 
             this.timeSinceIgnited += i;
-
-            if (this.timeSinceIgnited < 0)
-            {
+            if (this.timeSinceIgnited < 0) {
                 this.timeSinceIgnited = 0;
             }
 
-            if (this.timeSinceIgnited >= this.fuseTime)
-            {
+            if (this.timeSinceIgnited >= this.fuseTime) {
                 this.timeSinceIgnited = this.fuseTime;
                 this.explode();
             }
         }
 
-        super.onUpdate();
+        super.tick();
     }
 
     /**
@@ -94,8 +113,8 @@ public class EntityMankiniCreeper extends EntityCreeper
             
         	if (!this.world.isRemote)
             {
-        		boolean ArmourOverride = ModConfigGen.mobbehavior.CreeperOverride;
-        		boolean EvilCreepers = ModConfigGen.mobbehavior.EvilCreepers;
+        		boolean ArmourOverride = MankiniConfig.COMMON.CreeperOverride.get();
+        		boolean EvilCreepers = MankiniConfig.COMMON.EvilCreepers.get();
         		
                     if(hitPlayer.posX == (int) this.posX || hitPlayer.posY == (int) this.posY || hitPlayer.posZ == this.posZ){
                         if(itemstack == ItemStack.EMPTY){
@@ -160,7 +179,7 @@ public class EntityMankiniCreeper extends EntityCreeper
                     }
                 }
     	}
-        this.setDead();
+        this.remove();
     }
 
     @Override
@@ -172,6 +191,18 @@ public class EntityMankiniCreeper extends EntityCreeper
     @Override
     protected ResourceLocation getLootTable()
     {
-    	return new ResourceLocation("mankini:entities/mankini_creeper");
+    	return ModLootTableList.ENTITIES_MANKINI_CREEPER;
+    }
+
+    @Override
+    public boolean canSpawn(IWorld worldIn, boolean p_205020_2_) {
+        if(MankiniConfig.COMMON.MankiniCreeperSpawn.get())
+        {
+            return super.canSpawn(worldIn, p_205020_2_);
+        }
+        else
+        {
+            return false;
+        }
     }
 }

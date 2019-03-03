@@ -1,99 +1,79 @@
 package matgm50.mankini.item;
 
 import matgm50.mankini.Mankini;
-import matgm50.mankini.lib.ItemLib;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmorDyeable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by MasterAbdoTGM50 on 5/26/2014.
  */
 
-public class ItemDyeableMankini extends ItemArmor implements IMankini {
+public class ItemDyeableMankini extends ItemArmorDyeable implements IMankini {
 
   //  private IIcon iconNormal;
    // private IIcon iconOverlay;
 
-    public ItemDyeableMankini() {
-
-        super(ArmorMaterial.LEATHER, 0, EntityEquipmentSlot.CHEST);
-        setUnlocalizedName(ItemLib.ModItems.DYEABLE_MAKNINI_NAME.getUnlocalisedName());
-		setRegistryName(ItemLib.ModItems.DYEABLE_MAKNINI_NAME.getRegistryName());
-        setCreativeTab(Mankini.tabMankini);
-        setMaxStackSize(1);
-
+    public ItemDyeableMankini(Item.Properties builder) {
+        super(ArmorMaterial.LEATHER, EntityEquipmentSlot.CHEST, builder.group(Mankini.tabMankini).maxStackSize(1));
     }
 
-    @SideOnly(Side.CLIENT)
-    public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-
-        if (par2 > 0) {
-
-            return 16777215;
-
-        } else {
-
-            int j = this.getColor(par1ItemStack);
-
-            if (j < 0)
-            {
-                j = 16777215;
-            }
-
-            return j;
-        }
-    }
+//    @OnlyIn(Dist.CLIENT)
+//    public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
+//
+//        if (par2 > 0) {
+//
+//            return 16777215;
+//
+//        } else {
+//
+//            int j = this.getColor(par1ItemStack);
+//
+//            if (j < 0)
+//            {
+//                j = 16777215;
+//            }
+//
+//            return j;
+//        }
+//    }
 
 
     @Override
-    public boolean hasColor(ItemStack par1ItemStack) {
-        return true;
+    public boolean hasColor(ItemStack stack) {
+        NBTTagCompound nbttagcompound = stack.getChildTag("display");
+        return nbttagcompound != null && nbttagcompound.contains("color", 99);
     }
 
     @Override
-    public int getColor(ItemStack par1ItemStack) {
+    public int getColor(ItemStack stack) {
+        NBTTagCompound nbttagcompound = stack.getChildTag("display");
+        return nbttagcompound != null && nbttagcompound.contains("color", 99) ? nbttagcompound.getInt("color") : 10511680;
+    }
 
-        NBTTagCompound nbttagcompound = par1ItemStack.getTagCompound();
-
-        if (nbttagcompound == null) {
-
-            return 10511680;
-
-        } else {
-
-            NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
-            return nbttagcompound1 == null ? 10511680 : (nbttagcompound1.hasKey("color", 3) ? nbttagcompound1.getInteger("color") : 10511680);
-
+    @Override
+    public void removeColor(ItemStack stack) {
+        NBTTagCompound nbttagcompound = stack.getChildTag("display");
+        if (nbttagcompound != null && nbttagcompound.hasKey("color")) {
+            nbttagcompound.removeTag("color");
         }
     }
 
     @Override
-    public void removeColor(ItemStack par1ItemStack) {
-
-        NBTTagCompound nbttagcompound = par1ItemStack.getTagCompound();
-
-        if (nbttagcompound != null) {
-
-            NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
-
-            if (nbttagcompound1.hasKey("color")) {
-
-                nbttagcompound1.removeTag("color");
-            }
-        }
+    public void setColor(ItemStack stack, int color) {
+        stack.getOrCreateChildTag("display").setInt("color", color);
     }
-    
+
+    @Nullable
     @Override
-   	@SideOnly(Side.CLIENT)
-   	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
-   	{
-    	if(type == null){return "mankini:textures/models/mankini.png";}
-    	else return "mankini:textures/models/mankiniover.png";
-    	//return type == null ? "mankini:textures/armors/mankini.png" : "mankini:textures/armors/mankiniover.png";
-   	}
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+        if(type == null){return "mankini:textures/models/mankini.png";}
+        else return "mankini:textures/models/mankini_over.png";
+    }
 }

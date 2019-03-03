@@ -1,15 +1,18 @@
 package matgm50.mankini.util;
 
 import matgm50.mankini.init.ModItems;
+import matgm50.mankini.lib.ModLib;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
+@Mod.EventBusSubscriber(modid = ModLib.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BatMankiniJump {
 	@SubscribeEvent
-	public void PlayerJump(LivingJumpEvent event)
+	public static void PlayerJump(LivingJumpEvent event)
 	{
     	if(event.getEntityLiving() instanceof EntityPlayer) {
     		EntityPlayer player = (EntityPlayer) event.getEntityLiving();

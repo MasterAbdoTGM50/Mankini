@@ -1,0 +1,16 @@
+{
+  "result": {
+    "item": "mankini:dyeable_mankini"
+  },
+  "pattern": [
+    "X X",
+    "X X",
+    " X "
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "X": {
+      "item": "minecraft:leather"
+    }
+  }
+}

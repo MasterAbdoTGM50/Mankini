@@ -1,13 +1,12 @@
 package matgm50.mankini.item;
 
 import matgm50.mankini.Mankini;
-import matgm50.mankini.lib.ItemLib;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ArmorMaterial;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 
 /**
@@ -16,20 +15,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ItemKawaiiMankini extends ItemArmor implements IMankini {
 
-    public ItemKawaiiMankini() {
-
-        super(ArmorMaterial.GOLD, 0, EntityEquipmentSlot.CHEST);
-        setUnlocalizedName(ItemLib.ModItems.KAWAII_MAKNINI_NAME.getUnlocalisedName());
-		setRegistryName(ItemLib.ModItems.KAWAII_MAKNINI_NAME.getRegistryName());
-        setCreativeTab(Mankini.tabMankini);
-        setMaxStackSize(1);
-
+    public ItemKawaiiMankini(Item.Properties builder) {
+        super(ArmorMaterial.GOLD, EntityEquipmentSlot.CHEST, builder.group(Mankini.tabMankini).maxStackSize(1));
     }
-    
+
     @Override
-   	@SideOnly(Side.CLIENT)
-   	public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type)
-   	{
-   		return "mankini:" + "textures/models/kawaiimankini.png";
+    public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
+   		return "mankini:textures/models/kawaii_mankini.png";
    	}
 }

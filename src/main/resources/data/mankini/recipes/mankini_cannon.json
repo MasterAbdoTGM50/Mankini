@@ -1,0 +1,26 @@
+{
+  "result": {
+    "item": "mankini:mankini_cannon"
+  },
+  "pattern": [
+    " R ",
+    " B ",
+    "IID"
+  ],
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "D": {
+      "item": "minecraft:dispenser"
+    },
+	"R": {
+      "tag": "forge:dyes/red"
+    },
+	"B": {
+      "tag": "forge:dyes/blue"
+    },
+	"I": {
+      "tag": "forge:ingots/iron"
+    }
+	
+  }
+}
