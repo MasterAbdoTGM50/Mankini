@@ -85,11 +85,12 @@ public class EntityMankiniCapsule extends EntityThrowable {
 						EntityWither originalWither = (EntityWither) hit;
 						originalWither.setDropItemsWhenDead(false);
 
-						EntityMankiniWither mankiniWiher = new EntityMankiniWither(this.world);
-						mankiniWiher.setLocationAndAngles(originalWither.posX, originalWither.posY, originalWither.posZ, originalWither.rotationYaw, 0.0F);
-
+						EntityMankiniWither mankiniWither = new EntityMankiniWither(this.world);
+						mankiniWither.setLocationAndAngles(originalWither.posX, originalWither.posY, originalWither.posZ, originalWither.rotationYaw, 0.0F);
+						mankiniWither.ignite();
+						originalWither.setDropItemsWhenDead(false);
 						originalWither.remove();
-						this.world.spawnEntity(mankiniWiher);
+						this.world.spawnEntity(mankiniWither);
 					} else if (MankiniConfig.COMMON.ShootMankinisOntoMobs.get()) {
 						if (hit instanceof EntityZombie) {
 							EntityZombie hitZombie = (EntityZombie) hit;

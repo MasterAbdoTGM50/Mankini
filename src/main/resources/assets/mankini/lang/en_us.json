@@ -34,7 +34,7 @@
   "entity.mankini:mankini_evoker.name": "Mankini Evoker",
   
   "_comment": "Boss Names",
-  "entity.mankini:mankini.wither.name": "Mankini Wither",
+  "entity.mankini.mankini_wither": "Mankini Wither",
   
   "_comment": "Death Messages",
   "death.attack.mankini_wither": "%1$s could not handle the power of the mankini",
