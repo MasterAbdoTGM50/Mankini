@@ -35,7 +35,7 @@ public class ModSpawning
     {
         if(entry.entityType == oldEntity)
         {
-            biome.addSpawn(EnumCreatureType.MONSTER, (new Biome.SpawnListEntry(newEntity, weight, minGroup, maxGroup)));
+            biome.getSpawns(EnumCreatureType.MONSTER).add(new Biome.SpawnListEntry(newEntity, weight, minGroup, maxGroup));
         }
     }
 
@@ -43,7 +43,7 @@ public class ModSpawning
     {
         if(entry.entityType == oldEntity)
         {
-            biome.addSpawn(EnumCreatureType.MONSTER, (new Biome.SpawnListEntry(newEntity, entry.itemWeight / 4, entry.minGroupCount, entry.maxGroupCount)));
+            biome.getSpawns(EnumCreatureType.MONSTER).add(new Biome.SpawnListEntry(newEntity, entry.itemWeight / 4, entry.minGroupCount, entry.maxGroupCount));
         }
     }
 

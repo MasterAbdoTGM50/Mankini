@@ -45,17 +45,15 @@ public class ItemMankiniCannon extends Item {
 
                 float f = getMankiniVelocity(i);
                 if (!((double)f < 0.1D)) {
-                    boolean flag1 = entityplayer.abilities.isCreativeMode || (itemstack.getItem() instanceof IMankini);
                     if (!worldIn.isRemote) {
-                        EntityMankiniCapsule entityCapsule = createMankini(worldIn, itemstack, entityLiving);
+                        EntityMankiniCapsule entityCapsule = createMankini(worldIn, itemstack.copy(), entityLiving);
                         entityCapsule.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, f * 3.0F, 1.0F);
 
-                        stack.damageItem(1, entityplayer);
                         worldIn.spawnEntity(entityCapsule);
                     }
 
                     worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
-                    if (!flag1 && !entityplayer.abilities.isCreativeMode) {
+                    if (MankiniHelper.isMankini(itemstack) && !entityplayer.abilities.isCreativeMode) {
                         itemstack.shrink(1);
                         if (itemstack.isEmpty()) {
                             entityplayer.inventory.deleteStack(itemstack);

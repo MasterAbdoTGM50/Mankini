@@ -9,15 +9,15 @@ import net.minecraft.util.EnumHand;
  * Created by MasterAbdoTGM50 on 7/3/2014.
  */
 public class MankiniHelper {
-	public static ItemStack findMankini(EntityPlayer player)
-    {
+
+    public static ItemStack findMankini(EntityPlayer player) {
         if (isMankini(player.getHeldItem(EnumHand.OFF_HAND))) {
             return player.getHeldItem(EnumHand.OFF_HAND);
         } else if (isMankini(player.getHeldItem(EnumHand.MAIN_HAND))) {
             return player.getHeldItem(EnumHand.MAIN_HAND);
         } else {
-            for(int i = 0; i < player.inventory.getSizeInventory(); ++i) {
-                ItemStack itemstack = player.inventory.getStackInSlot(i);
+            for(int i = 0; i < player.inventory.mainInventory.size(); ++i) {
+                ItemStack itemstack = player.inventory.mainInventory.get(i);
                 if (isMankini(itemstack)) {
                     return itemstack;
                 }
@@ -26,7 +26,7 @@ public class MankiniHelper {
             return ItemStack.EMPTY;
         }
     }
-    
+
     public static boolean isMankini(ItemStack stack)
     {
         return stack.getItem() instanceof IMankini;
