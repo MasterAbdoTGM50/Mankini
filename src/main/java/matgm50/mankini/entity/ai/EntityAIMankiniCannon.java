@@ -3,14 +3,16 @@ package matgm50.mankini.entity.ai;
 import matgm50.mankini.init.ModItems;
 import matgm50.mankini.item.IMankini;
 import matgm50.mankini.item.ItemMankiniCannon;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.IRangedAttackMob;
-import net.minecraft.entity.ai.EntityAIBase;
-import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumHand;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.Hand;
 
-public class EntityAIMankiniCannon <T extends EntityMob & IRangedAttackMob> extends EntityAIBase {
+import java.util.EnumSet;
+
+public class EntityAIMankiniCannon<T extends MonsterEntity & IRangedAttackMob> extends Goal {
     private final T entity;
     private final double moveSpeedAmp;
     private int attackCooldown;
@@ -26,7 +28,7 @@ public class EntityAIMankiniCannon <T extends EntityMob & IRangedAttackMob> exte
         this.moveSpeedAmp = moveSpeedAmpIn;
         this.attackCooldown = attackCooldownIn;
         this.maxAttackDistance = maxAttackDistanceIn * maxAttackDistanceIn;
-        this.setMutexBits(3);
+        this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
 
     public void setAttackCooldown(int p_189428_1_) {
@@ -56,7 +58,7 @@ public class EntityAIMankiniCannon <T extends EntityMob & IRangedAttackMob> exte
      */
     public void startExecuting() {
         super.startExecuting();
-        ((IRangedAttackMob) this.entity).setSwingingArms(true);
+        this.entity.setAggroed(true);
     }
 
     /**
@@ -64,7 +66,7 @@ public class EntityAIMankiniCannon <T extends EntityMob & IRangedAttackMob> exte
      */
     public void resetTask() {
         super.resetTask();
-        ((IRangedAttackMob) this.entity).setSwingingArms(false);
+        this.entity.setAggroed(false);
         this.seeTime = 0;
         this.attackTime = -1;
         this.entity.resetActiveHand();
@@ -74,10 +76,10 @@ public class EntityAIMankiniCannon <T extends EntityMob & IRangedAttackMob> exte
      * Keep ticking a continuous task that has already been started
      */
     public void tick() {
-        EntityLivingBase livingBase = this.entity.getAttackTarget();
+        LivingEntity livingBase = this.entity.getAttackTarget();
         if (livingBase != null) {
-            if(livingBase instanceof EntityPlayer) {
-                EntityPlayer player = (EntityPlayer)livingBase;
+            if(livingBase instanceof PlayerEntity) {
+                PlayerEntity player = (PlayerEntity)livingBase;
                 boolean flag = player.inventory.armorInventory.get(2).getItem() instanceof IMankini;
                 boolean flag2 = false;
 
@@ -97,7 +99,7 @@ public class EntityAIMankiniCannon <T extends EntityMob & IRangedAttackMob> exte
         }
     }
 
-    public void doMankiniShooting(EntityLivingBase entitylivingbase) {
+    public void doMankiniShooting(LivingEntity entitylivingbase) {
         double d0 = this.entity.getDistanceSq(entitylivingbase.posX, entitylivingbase.getBoundingBox().minY, entitylivingbase.posZ);
         boolean flag = this.entity.getEntitySenses().canSee(entitylivingbase);
         boolean flag1 = this.seeTime > 0;
@@ -141,7 +143,7 @@ public class EntityAIMankiniCannon <T extends EntityMob & IRangedAttackMob> exte
             this.entity.getMoveHelper().strafe(this.strafingBackwards ? -0.5F : 0.5F, this.strafingClockwise ? 0.5F : -0.5F);
             this.entity.faceEntity(entitylivingbase, 30.0F, 30.0F);
         } else {
-            this.entity.getLookHelper().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);
+            this.entity.getLookController().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);
         }
 
         if (this.entity.isHandActive()) {
@@ -156,7 +158,7 @@ public class EntityAIMankiniCannon <T extends EntityMob & IRangedAttackMob> exte
                 }
             }
         } else if (--this.attackTime <= 0 && this.seeTime >= -60) {
-            this.entity.setActiveHand(EnumHand.MAIN_HAND);
+            this.entity.setActiveHand(Hand.MAIN_HAND);
         }
     }
 }

@@ -1,18 +1,19 @@
 package matgm50.mankini.potion;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.potion.Potion;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.potion.Effect;
+import net.minecraft.potion.EffectType;
 import net.minecraft.util.DamageSource;
 
-public class MankiniWitherPotion extends Potion {
+public class MankiniWitherPotion extends Effect {
     public MankiniWitherPotion() {
-        super(true, 3484199);
-        setIconIndex(1, 2);
-        setEffectiveness(0.25D);
+        super(EffectType.HARMFUL, 3484199);
+//        setIconIndex(1, 2);
+//        setEffectiveness(0.25D);
     }
 
     @Override
-    public void performEffect(EntityLivingBase entityLivingBaseIn, int amplifier) {
+    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
         entityLivingBaseIn.attackEntityFrom(new DamageSource("mankini_wither").setDamageBypassesArmor(), 1.0F);
     }
 

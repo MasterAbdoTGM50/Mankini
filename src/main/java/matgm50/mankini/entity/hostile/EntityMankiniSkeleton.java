@@ -2,49 +2,32 @@ package matgm50.mankini.entity.hostile;
 
 import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.ModEntities;
-import matgm50.mankini.init.ModLootTableList;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootTableList;
-
-import javax.annotation.Nullable;
 
 public class EntityMankiniSkeleton extends AbstractMankiniSkeleton {
+
+    public EntityMankiniSkeleton(EntityType<? extends EntityMankiniSkeleton> type, World worldIn) {
+        super(type, worldIn);
+    }
 
     public EntityMankiniSkeleton(World worldIn) {
         super(ModEntities.MANKINI_SKELETON, worldIn);
     }
 
     @Override
-    public boolean canSpawn(IWorld worldIn, boolean p_205020_2_) {
-        if (MankiniConfig.COMMON.MankiniCreeperSpawn.get()) {
-            return super.canSpawn(worldIn, p_205020_2_);
-        } else {
+    public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
+        if (MankiniConfig.COMMON.MankiniCreeperSpawn.get())
+            return super.canSpawn(worldIn, reason);
+        else
             return false;
-        }
     }
 
-    @Nullable
-    protected ResourceLocation getLootTable() {
-        return ModLootTableList.ENTITIES_MANKINI_SKELETON;
-    }
-
-    protected SoundEvent getAmbientSound() {
-        return SoundEvents.ENTITY_SKELETON_AMBIENT;
-    }
-
-    protected SoundEvent getHurtSound(DamageSource damageSourceIn) {
-        return SoundEvents.ENTITY_SKELETON_HURT;
-    }
-
-    protected SoundEvent getDeathSound() {
-        return SoundEvents.ENTITY_SKELETON_DEATH;
-    }
-
+    @Override
     protected SoundEvent getStepSound() {
         return SoundEvents.ENTITY_SKELETON_STEP;
     }

@@ -4,48 +4,44 @@ import matgm50.mankini.entity.ai.EntityAIMankiniTarget;
 import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.ModEntities;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.monster.EntityEndermite;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.LookRandomlyGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.monster.EndermiteEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-public class EntityMankiniEndermite extends EntityEndermite {
+public class EntityMankiniEndermite extends EndermiteEntity {
+
+    public EntityMankiniEndermite(EntityType<? extends EntityMankiniEndermite> type, World worldIn) {
+        super(type, worldIn);
+    }
+
     public EntityMankiniEndermite(World worldIn) {
-        super(worldIn);
+        super(ModEntities.MANKINI_ENDERMITE, worldIn);
     }
 
     @Override
-    public EntityType<?> getType() {
-        return ModEntities.MANKINI_ENDERMITE;
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new SwimGoal(this));
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomWalkingGoal(this, 1.0D));
+        this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setCallsForHelp());
+        this.targetSelector.addGoal(2, new EntityAIMankiniTarget<>(this, PlayerEntity.class, true));
     }
 
     @Override
-    protected void initEntityAI() {
-        this.tasks.addTask(1, new EntityAISwimming(this));
-        this.tasks.addTask(2, new EntityAIAttackMelee(this, 1.0D, false));
-        this.tasks.addTask(3, new EntityAIWanderAvoidWater(this, 1.0D));
-        this.tasks.addTask(7, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(8, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIHurtByTarget(this, true));
-        this.targetTasks.addTask(2, new EntityAIMankiniTarget<>(this, EntityPlayer.class, true));
-    }
-
-    @Override
-    public boolean canSpawn(IWorld worldIn, boolean p_205020_2_) {
+    public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
         if(MankiniConfig.COMMON.MankiniEndermiteSpawn.get())
-        {
-            return super.canSpawn(worldIn, p_205020_2_);
-        }
+            return super.canSpawn(worldIn, reason);
         else
-        {
             return false;
-        }
     }
 }

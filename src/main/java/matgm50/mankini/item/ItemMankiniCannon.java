@@ -5,17 +5,17 @@ import matgm50.mankini.entity.hostile.EntityMankiniSkeleton;
 import matgm50.mankini.entity.projectiles.EntityMankiniCapsule;
 import matgm50.mankini.init.ModItems;
 import matgm50.mankini.util.MankiniHelper;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumAction;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.StatList;
+import net.minecraft.item.UseAction;
+import net.minecraft.stats.Stats;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 
 /**
@@ -29,11 +29,11 @@ public class ItemMankiniCannon extends Item {
     }
 
     @Override
-    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
-        if (entityLiving instanceof EntityPlayer) {
-            EntityPlayer entityplayer = (EntityPlayer)entityLiving;
-            boolean flag = entityplayer.abilities.isCreativeMode;
-            ItemStack itemstack = MankiniHelper.findMankini(entityplayer);
+    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
+        if (entityLiving instanceof PlayerEntity) {
+            PlayerEntity PlayerEntity = (PlayerEntity)entityLiving;
+            boolean flag = PlayerEntity.abilities.isCreativeMode;
+            ItemStack itemstack = MankiniHelper.findMankini(PlayerEntity);
 
             int i = this.getUseDuration(stack) - timeLeft;
             if (i < 0) return;
@@ -47,27 +47,27 @@ public class ItemMankiniCannon extends Item {
                 if (!((double)f < 0.1D)) {
                     if (!worldIn.isRemote) {
                         EntityMankiniCapsule entityCapsule = createMankini(worldIn, itemstack.copy(), entityLiving);
-                        entityCapsule.shoot(entityplayer, entityplayer.rotationPitch, entityplayer.rotationYaw, 0.0F, f * 3.0F, 1.0F);
+                        entityCapsule.shoot(PlayerEntity, PlayerEntity.rotationPitch, PlayerEntity.rotationYaw, 0.0F, f * 3.0F, 1.0F);
 
-                        worldIn.spawnEntity(entityCapsule);
+                        worldIn.addEntity(entityCapsule);
                     }
 
-                    worldIn.playSound((EntityPlayer)null, entityplayer.posX, entityplayer.posY, entityplayer.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
-                    if (MankiniHelper.isMankini(itemstack) && !entityplayer.abilities.isCreativeMode) {
+                    worldIn.playSound((PlayerEntity)null, PlayerEntity.posX, PlayerEntity.posY, PlayerEntity.posZ, SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+                    if (MankiniHelper.isMankini(itemstack) && !PlayerEntity.abilities.isCreativeMode) {
                         itemstack.shrink(1);
                         if (itemstack.isEmpty()) {
-                            entityplayer.inventory.deleteStack(itemstack);
+                            PlayerEntity.inventory.deleteStack(itemstack);
                         }
                     }
 
-                    entityplayer.addStat(StatList.ITEM_USED.get(this));
+                    PlayerEntity.addStat(Stats.ITEM_USED.get(this));
                 }
             }
         }
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         boolean flag = !MankiniHelper.findMankini(playerIn).isEmpty();
 
@@ -75,10 +75,10 @@ public class ItemMankiniCannon extends Item {
         if (ret != null) return ret;
 
         if (!playerIn.abilities.isCreativeMode && !flag) {
-            return flag ? new ActionResult<>(EnumActionResult.PASS, itemstack) : new ActionResult<>(EnumActionResult.FAIL, itemstack);
+            return flag ? new ActionResult<>(ActionResultType.PASS, itemstack) : new ActionResult<>(ActionResultType.FAIL, itemstack);
         } else {
             playerIn.setActiveHand(handIn);
-            return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+            return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
         }
     }
 
@@ -88,8 +88,8 @@ public class ItemMankiniCannon extends Item {
     }
 
     @Override
-    public EnumAction getUseAction(ItemStack stack) {
-        return EnumAction.BOW;
+    public UseAction getUseAction(ItemStack stack) {
+        return UseAction.BOW;
     }
 
     //This is for the skeleton
@@ -103,7 +103,7 @@ public class ItemMankiniCannon extends Item {
         return f;
     }
 
-    public EntityMankiniCapsule createMankini(World worldIn, ItemStack stack, EntityLivingBase livingBase) {
+    public EntityMankiniCapsule createMankini(World worldIn, ItemStack stack, LivingEntity livingBase) {
         EntityMankiniCapsule mankiniCapsule = new EntityMankiniCapsule(worldIn, livingBase, stack);
         if(livingBase instanceof EntityMankiniSkeleton) {
             stack.setDamage(random.nextInt(stack.getMaxDamage()));

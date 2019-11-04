@@ -2,12 +2,12 @@ package matgm50.mankini.util;
 
 import matgm50.mankini.init.ModItems;
 import matgm50.mankini.lib.ModLib;
-import net.minecraft.entity.passive.EntityBat;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
+import net.minecraft.entity.passive.BatEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -18,23 +18,23 @@ public class BatHandler {
 	@SubscribeEvent
 	public static void BatCapture(EntityInteract event)
 	{
-		EntityPlayer player = event.getEntityPlayer();
-		InventoryPlayer inv = event.getEntityPlayer().inventory;
-		ItemStack currentItem = event.getEntityPlayer().inventory.getCurrentItem();
+		PlayerEntity player = event.getPlayer();
+		PlayerInventory inv = player.inventory;
+		ItemStack currentItem = player.inventory.getCurrentItem();
 		ItemStack BatMankini = new ItemStack(ModItems.bat_mankini);
 		ItemStack Mankini = new ItemStack(ModItems.dyeable_mankini);
 
-		if(event.getTarget() instanceof EntityBat && currentItem.isItemEqual(Mankini) ){
+		if(event.getTarget() instanceof BatEntity && currentItem.isItemEqual(Mankini) ){
 			{
 				event.getTarget().remove();
-				NBTTagCompound playerData = player.getEntityData();
-				NBTTagCompound data = getTag(playerData, EntityPlayer.PERSISTED_NBT_TAG);
+				CompoundNBT playerData = player.getPersistentData();
+				CompoundNBT data = getTag(playerData, PlayerEntity.PERSISTED_NBT_TAG);
 
 				incrementBatTag(player);
 				int batCount = data.getInt(ModLib.BAT_COUNT_TAG);
 
 				if(batCount == 8){
-					event.getEntityPlayer().sendMessage(new TextComponentTranslation("mankini.bat.message"));
+					player.sendMessage(new TranslationTextComponent("mankini.bat.message"));
 					inv.removeStackFromSlot(inv.getSlotFor(Mankini));
 					inv.addItemStackToInventory(BatMankini);
 					setBatTag(player);
@@ -43,34 +43,34 @@ public class BatHandler {
 		}
 	}
 
-	public static void incrementBatTag(EntityPlayer player){
-		NBTTagCompound playerData = player.getEntityData();
-		NBTTagCompound data = getTag(playerData, EntityPlayer.PERSISTED_NBT_TAG);
+	public static void incrementBatTag(PlayerEntity player){
+		CompoundNBT playerData = player.getPersistentData();
+		CompoundNBT data = getTag(playerData, PlayerEntity.PERSISTED_NBT_TAG);
 
-		if(data.hasKey(ModLib.BAT_COUNT_TAG))
+		if(data.contains(ModLib.BAT_COUNT_TAG))
 		{
 			int currentBat = data.getInt(ModLib.BAT_COUNT_TAG);
-			data.setInt(ModLib.BAT_COUNT_TAG, currentBat++);
+			data.putInt(ModLib.BAT_COUNT_TAG, currentBat++);
 		}
 		else {
-			data.setInt(ModLib.BAT_COUNT_TAG, 1);
+			data.putInt(ModLib.BAT_COUNT_TAG, 1);
 		}
 
-		playerData.setTag(EntityPlayer.PERSISTED_NBT_TAG, data);
+		playerData.put(PlayerEntity.PERSISTED_NBT_TAG, data);
 	}
 
-	public static void setBatTag(EntityPlayer player){
-		NBTTagCompound playerData = player.getEntityData();
-		NBTTagCompound data = getTag(playerData, EntityPlayer.PERSISTED_NBT_TAG);
+	public static void setBatTag(PlayerEntity player){
+		CompoundNBT playerData = player.getPersistentData();
+		CompoundNBT data = getTag(playerData, PlayerEntity.PERSISTED_NBT_TAG);
 
-		data.setInt(ModLib.BAT_COUNT_TAG, 0);
+		data.putInt(ModLib.BAT_COUNT_TAG, 0);
 
-		playerData.setTag(EntityPlayer.PERSISTED_NBT_TAG, data);
+		playerData.put(PlayerEntity.PERSISTED_NBT_TAG, data);
 	}
 
-	public static NBTTagCompound getTag(NBTTagCompound tag, String key) {
-		if(tag == null || !tag.hasKey(key)) {
-			return new NBTTagCompound();
+	public static CompoundNBT getTag(CompoundNBT tag, String key) {
+		if(tag == null || !tag.contains(key)) {
+			return new CompoundNBT();
 		}
 		return tag.getCompound(key);
 	}

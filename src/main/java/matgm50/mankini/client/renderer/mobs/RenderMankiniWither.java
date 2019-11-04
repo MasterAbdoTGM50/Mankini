@@ -1,22 +1,20 @@
 package matgm50.mankini.client.renderer.mobs;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import matgm50.mankini.client.layers.LayerMankiniWitherAura;
 import matgm50.mankini.client.model.ModelMankiniWither;
 import matgm50.mankini.entity.boss.EntityMankiniWither;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.model.ModelWither;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
 
-public class RenderMankiniWither extends RenderLiving<EntityMankiniWither>{
-
+public class RenderMankiniWither extends MobRenderer<EntityMankiniWither, ModelMankiniWither<EntityMankiniWither>> {
 	private static final ResourceLocation MANKINI_WITHER_TEXTURES = new ResourceLocation("mankini:textures/entity/mankini_wither_invulnerable.png");
 	private static final ResourceLocation MANKINI_WITHER = new ResourceLocation("mankini:textures/entity/mankini_wither.png");
 
-	public RenderMankiniWither(RenderManager renderManagerIn) {
+	public RenderMankiniWither(EntityRendererManager renderManagerIn) {
 		super(renderManagerIn, new ModelMankiniWither(0.0F), 1.0F);
 		this.addLayer(new LayerMankiniWitherAura(this));
 	}

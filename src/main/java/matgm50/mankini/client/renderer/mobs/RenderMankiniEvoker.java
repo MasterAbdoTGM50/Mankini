@@ -1,33 +1,27 @@
 package matgm50.mankini.client.renderer.mobs;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import matgm50.mankini.entity.hostile.EntityMankiniEvoker;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.layers.LayerHeldItem;
-import net.minecraft.client.renderer.entity.model.ModelIllager;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntitySpellcasterIllager;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.IllagerRenderer;
+import net.minecraft.client.renderer.entity.layers.HeldItemLayer;
+import net.minecraft.client.renderer.entity.model.IllagerModel;
+import net.minecraft.entity.monster.SpellcastingIllagerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class RenderMankiniEvoker extends RenderLiving<EntityMankiniEvoker> {
+public class RenderMankiniEvoker<T extends EntityMankiniEvoker> extends IllagerRenderer<T> {
 	private static final ResourceLocation MANKINI_EVOKER_ILLAGER = new ResourceLocation("mankini:textures/entity/mankini_evoker.png");
 
-	public RenderMankiniEvoker(RenderManager renderManagerIn) {
-		super(renderManagerIn, new ModelIllager(0.0F, 0.0F, 64, 64), 0.5F);
-		this.addLayer(new LayerHeldItem(this) {
-			public void render(EntityLivingBase livingBase, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-				if (((EntitySpellcasterIllager)livingBase).isSpellcasting()) {
-					super.render(livingBase, limbSwing, limbSwingAmount, partialTicks, ageInTicks, netHeadYaw, headPitch, scale);
+	public RenderMankiniEvoker(EntityRendererManager renderManagerIn) {
+		super(renderManagerIn, new IllagerModel<>(0.0F, 0.0F, 64, 64), 0.5F);
+		this.addLayer(new HeldItemLayer<T, IllagerModel<T>>(this) {
+			public void render(T p_212842_1_, float p_212842_2_, float p_212842_3_, float p_212842_4_, float p_212842_5_, float p_212842_6_, float p_212842_7_, float p_212842_8_) {
+				if (p_212842_1_.isSpellcasting()) {
+					super.render(p_212842_1_, p_212842_2_, p_212842_3_, p_212842_4_, p_212842_5_, p_212842_6_, p_212842_7_, p_212842_8_);
 				}
-			}
-
-			protected void translateToHand(EnumHandSide p_191361_1_) {
-				((ModelIllager)this.livingEntityRenderer.getMainModel()).getArm(p_191361_1_).postRender(0.0625F);
 			}
 		});
 	}
@@ -35,14 +29,14 @@ public class RenderMankiniEvoker extends RenderLiving<EntityMankiniEvoker> {
 	/**
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
-	protected ResourceLocation getEntityTexture(EntityMankiniEvoker entity) {
+	protected ResourceLocation getEntityTexture(T entity) {
 		return MANKINI_EVOKER_ILLAGER;
 	}
 
 	/**
 	 * Allows the render to do state modifications necessary before the model is rendered.
 	 */
-	protected void preRenderCallback(EntityMankiniEvoker entitylivingbaseIn, float partialTickTime) {
+	protected void preRenderCallback(T entitylivingbaseIn, float partialTickTime) {
 		float f = 0.9375F;
 		GlStateManager.scalef(0.9375F, 0.9375F, 0.9375F);
 	}

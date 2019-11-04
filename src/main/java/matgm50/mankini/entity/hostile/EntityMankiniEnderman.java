@@ -3,37 +3,41 @@ package matgm50.mankini.entity.hostile;
 import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.ModEntities;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.monster.EndermanEntity;
+import net.minecraft.entity.monster.EndermiteEntity;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-public class EntityMankiniEnderman extends EntityEnderman {
+import java.util.function.Predicate;
+
+public class EntityMankiniEnderman extends EndermanEntity {
+
+    private static final Predicate<LivingEntity> spawnedByPlayer = (p_213626_0_) -> {
+        return p_213626_0_ instanceof EndermiteEntity && ((EndermiteEntity)p_213626_0_).isSpawnedByPlayer();
+    };
+
+    public EntityMankiniEnderman(EntityType<? extends EntityMankiniEnderman> type, World worldIn) {
+        super(type, worldIn);
+    }
 
     public EntityMankiniEnderman(World worldIn) {
-        super(worldIn);
+        super(ModEntities.MANKINI_ENDERMAN, worldIn);
     }
 
     @Override
-    public EntityType<?> getType() {
-        return ModEntities.MANKINI_ENDERMAN;
+    protected void registerGoals() {
+        super.registerGoals();
+        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, EntityMankiniEndermite.class, 10, true, false, spawnedByPlayer));
     }
 
     @Override
-    protected void initEntityAI() {
-        super.initEntityAI();
-        this.targetTasks.addTask(3, new EntityAINearestAttackableTarget<>(this, EntityMankiniEndermite.class, 10, true, false, EntityMankiniEndermite::isSpawnedByPlayer));
-    }
-
-    @Override
-    public boolean canSpawn(IWorld worldIn, boolean p_205020_2_) {
+    public boolean canSpawn(IWorld worldIn, SpawnReason reason) {
         if(MankiniConfig.COMMON.MankiniEndermanSpawn.get())
-        {
-            return super.canSpawn(worldIn, p_205020_2_);
-        }
+            return super.canSpawn(worldIn, reason);
         else
-        {
             return false;
-        }
     }
 }

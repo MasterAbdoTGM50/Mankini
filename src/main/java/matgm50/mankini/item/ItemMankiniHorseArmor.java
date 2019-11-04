@@ -1,25 +1,23 @@
 package matgm50.mankini.item;
 
 import matgm50.mankini.Mankini;
-import net.minecraft.entity.EntityLiving;
+import matgm50.mankini.lib.ModLib;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.item.HorseArmorItem;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-public class ItemMankiniHorseArmor extends Item {
-//    public static final HorseArmorType MANKINI_ARMOR = HorseArmorType.create("mankini",3,"iron", "maa", ModItems.mankini_horse_armor); //TODO: Change back when forge fixes the textureLocation: "mankini:textures/entity/horse_armor/mankini_horse_armor"
-
+public class ItemMankiniHorseArmor extends HorseArmorItem {
     public ItemMankiniHorseArmor(Item.Properties builder) {
-        super(builder.group(Mankini.tabMankini).maxStackSize(1));
+        super(3, new ResourceLocation(ModLib.MOD_ID, "textures/entity/horse_armor/mankini_horse_armor.png"), builder.group(Mankini.tabMankini).maxStackSize(1));
     }
 
-//    @Override
-//    public HorseArmorType getHorseArmorType(ItemStack stack) {
-//        return MANKINI_ARMOR;
-//    }
-
     @Override
-    public void onHorseArmorTick(ItemStack stack, World world, EntityLiving horse) {
-        //TODO: Fancy rainbow mankini?
+    public void onHorseArmorTick(ItemStack stack, World world, MobEntity horse) {
+
     }
 }

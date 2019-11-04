@@ -4,90 +4,56 @@ import matgm50.mankini.entity.ai.EntityAIMankiniTarget;
 import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.ModEntities;
 import matgm50.mankini.init.ModItems;
-import matgm50.mankini.init.ModLootTableList;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ai.EntityAIAttackMelee;
-import net.minecraft.entity.ai.EntityAIAvoidEntity;
-import net.minecraft.entity.ai.EntityAICreeperSwell;
-import net.minecraft.entity.ai.EntityAIHurtByTarget;
-import net.minecraft.entity.ai.EntityAILookIdle;
-import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
-import net.minecraft.entity.ai.EntityAISwimming;
-import net.minecraft.entity.ai.EntityAIWanderAvoidWater;
-import net.minecraft.entity.ai.EntityAIWatchClosest;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.passive.EntityOcelot;
-import net.minecraft.entity.passive.EntityVillager;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.init.Enchantments;
-import net.minecraft.init.SoundEvents;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.goal.AvoidEntityGoal;
+import net.minecraft.entity.ai.goal.CreeperSwellGoal;
+import net.minecraft.entity.ai.goal.HurtByTargetGoal;
+import net.minecraft.entity.ai.goal.LookAtGoal;
+import net.minecraft.entity.ai.goal.LookRandomlyGoal;
+import net.minecraft.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.entity.ai.goal.SwimGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.monster.CreeperEntity;
+import net.minecraft.entity.passive.CatEntity;
+import net.minecraft.entity.passive.OcelotEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
-public class EntityMankiniCreeper extends EntityCreeper
-{
-    private int lastActiveTime;
-    private int timeSinceIgnited;
-    private int fuseTime = 30;
-    private int explosionRadius = 3;
+public class EntityMankiniCreeper extends CreeperEntity {
+
+	public EntityMankiniCreeper(EntityType<? extends EntityMankiniCreeper> type, World worldIn) {
+		super(type, worldIn);
+	}
 
     public EntityMankiniCreeper(World worldIn)
     {
-        super(worldIn);
+        super(ModEntities.MANKINI_CREEPER, worldIn);
     }
 
-    @Override
-    protected void initEntityAI() {
-        this.tasks.addTask(1, new EntityAISwimming(this));
-        this.tasks.addTask(2, new EntityAICreeperSwell(this));
-        this.tasks.addTask(3, new EntityAIAvoidEntity<>(this, EntityOcelot.class, 6.0F, 1.0D, 1.2D));
-        this.tasks.addTask(4, new EntityAIAttackMelee(this, 1.0D, false));
-        this.tasks.addTask(5, new EntityAIWanderAvoidWater(this, 0.8D));
-        this.tasks.addTask(6, new EntityAIWatchClosest(this, EntityPlayer.class, 8.0F));
-        this.tasks.addTask(6, new EntityAILookIdle(this));
-        this.targetTasks.addTask(1, new EntityAIMankiniTarget<>(this, EntityPlayer.class, true));
-        this.targetTasks.addTask(2, new EntityAIHurtByTarget(this, false));
-    }
+	@Override
+	public EntityType<?> getType() {
+		return ModEntities.MANKINI_CREEPER;
+	}
 
-    @Override
-    public EntityType<?> getType() {
-        return ModEntities.MANKINI_CREEPER;
-    }
-
-    /**
-     * Called to update the entity's position/logic.
-     */
-    @Override
-    public void tick()
-    {
-        if (this.isAlive())
-        {
-            this.lastActiveTime = this.timeSinceIgnited;
-            if (this.hasIgnited()) {
-                this.setCreeperState(1);
-            }
-
-            int i = this.getCreeperState();
-            if (i > 0 && this.timeSinceIgnited == 0) {
-                this.playSound(SoundEvents.ENTITY_CREEPER_PRIMED, 1.0F, 0.5F);
-            }
-
-            this.timeSinceIgnited += i;
-            if (this.timeSinceIgnited < 0) {
-                this.timeSinceIgnited = 0;
-            }
-
-            if (this.timeSinceIgnited >= this.fuseTime) {
-                this.timeSinceIgnited = this.fuseTime;
-                this.explode();
-            }
-        }
-
-        super.tick();
+	@Override
+    protected void registerGoals() {
+        this.goalSelector.addGoal(1, new SwimGoal(this));
+        this.goalSelector.addGoal(2, new CreeperSwellGoal(this));
+        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, OcelotEntity.class, 6.0F, 1.0D, 1.2D));
+        this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, CatEntity.class, 6.0F, 1.0D, 1.2D));
+        this.goalSelector.addGoal(4, new MeleeAttackGoal(this, 1.0D, false));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.8D));
+        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 8.0F));
+        this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
+        this.targetSelector.addGoal(1, new EntityAIMankiniTarget<>(this, PlayerEntity.class, true));
+        this.targetSelector.addGoal(2, new HurtByTargetGoal(this));
     }
 
     /**
@@ -95,20 +61,20 @@ public class EntityMankiniCreeper extends EntityCreeper
      */
     private void explode()
     {   		
-    	if(this.getAttackTarget() instanceof EntityPlayer)
+    	if(this.getAttackTarget() instanceof PlayerEntity)
     	{
-    		EntityPlayer hitPlayer = (EntityPlayer) this.getAttackTarget();
+            PlayerEntity hitPlayer = (PlayerEntity) this.getAttackTarget();
     		
     		float f = this.getPowered() ? 2.0F : 1.0F;
     		
         	Boolean full = true;
         	
-        	InventoryPlayer playerInv = hitPlayer.inventory;
+        	PlayerInventory playerInv = hitPlayer.inventory;
         	
         	ItemStack itemstack = hitPlayer.inventory.armorInventory.get(2);
             ItemStack creeperKini = new ItemStack(ModItems.dyeable_mankini);
 
-            this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float)this.explosionRadius * f, false);
+            this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float)3 * f, Explosion.Mode.NONE);
             
             
         	if (!this.world.isRemote)
@@ -187,22 +153,12 @@ public class EntityMankiniCreeper extends EntityCreeper
     {
         super.onDeath(cause);
     }
-    
-    @Override
-    protected ResourceLocation getLootTable()
-    {
-    	return ModLootTableList.ENTITIES_MANKINI_CREEPER;
-    }
 
     @Override
-    public boolean canSpawn(IWorld worldIn, boolean p_205020_2_) {
+    public boolean canSpawn(IWorld worldIn, SpawnReason spawnReasonIn) {
         if(MankiniConfig.COMMON.MankiniCreeperSpawn.get())
-        {
-            return super.canSpawn(worldIn, p_205020_2_);
-        }
+            return super.canSpawn(worldIn, spawnReasonIn);
         else
-        {
             return false;
-        }
     }
 }

@@ -1,20 +1,20 @@
 package matgm50.mankini.util;
 
 import matgm50.mankini.item.IMankini;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.Hand;
 
 /**
  * Created by MasterAbdoTGM50 on 7/3/2014.
  */
 public class MankiniHelper {
 
-    public static ItemStack findMankini(EntityPlayer player) {
-        if (isMankini(player.getHeldItem(EnumHand.OFF_HAND))) {
-            return player.getHeldItem(EnumHand.OFF_HAND);
-        } else if (isMankini(player.getHeldItem(EnumHand.MAIN_HAND))) {
-            return player.getHeldItem(EnumHand.MAIN_HAND);
+    public static ItemStack findMankini(PlayerEntity player) {
+        if (isMankini(player.getHeldItem(Hand.OFF_HAND))) {
+            return player.getHeldItem(Hand.OFF_HAND);
+        } else if (isMankini(player.getHeldItem(Hand.MAIN_HAND))) {
+            return player.getHeldItem(Hand.MAIN_HAND);
         } else {
             for(int i = 0; i < player.inventory.mainInventory.size(); ++i) {
                 ItemStack itemstack = player.inventory.mainInventory.get(i);

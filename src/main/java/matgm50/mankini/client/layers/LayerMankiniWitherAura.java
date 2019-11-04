@@ -1,47 +1,50 @@
 package matgm50.mankini.client.layers;
 
+import com.mojang.blaze3d.platform.GlStateManager;
 import matgm50.mankini.client.model.ModelMankiniWither;
-import matgm50.mankini.client.renderer.mobs.RenderMankiniWither;
 import matgm50.mankini.entity.boss.EntityMankiniWither;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.GameRenderer;
+import net.minecraft.client.renderer.entity.IEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.LayerRenderer;
+import net.minecraft.client.renderer.entity.model.WitherModel;
+import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class LayerMankiniWitherAura implements LayerRenderer<EntityMankiniWither> {
-    private static final ResourceLocation MANKINI_WITHER_ARMOR = new ResourceLocation("mankini:textures/entity/mankini_wither_armor.png");
-    private final RenderMankiniWither witherRenderer;
-    private final ModelMankiniWither witherModel = new ModelMankiniWither(0.5F);
+public class LayerMankiniWitherAura extends LayerRenderer<EntityMankiniWither, ModelMankiniWither<EntityMankiniWither>> {
+    private static final ResourceLocation WITHER_ARMOR = new ResourceLocation("textures/entity/wither/wither_armor.png");
+    private final ModelMankiniWither<EntityMankiniWither> witherModel = new ModelMankiniWither(0.5F);
 
-    public LayerMankiniWitherAura(RenderMankiniWither witherRendererIn) {
-        this.witherRenderer = witherRendererIn;
+    public LayerMankiniWitherAura(IEntityRenderer<EntityMankiniWither, ModelMankiniWither<EntityMankiniWither>> p_i50915_1_) {
+        super(p_i50915_1_);
     }
 
-    public void render(EntityMankiniWither entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if (entitylivingbaseIn.isArmored()) {
-            GlStateManager.depthMask(!entitylivingbaseIn.isInvisible());
-            this.witherRenderer.bindTexture(MANKINI_WITHER_ARMOR);
+    public void render(EntityMankiniWither p_212842_1_, float p_212842_2_, float p_212842_3_, float p_212842_4_, float p_212842_5_, float p_212842_6_, float p_212842_7_, float p_212842_8_) {
+        if (p_212842_1_.isArmored()) {
+            GlStateManager.depthMask(!p_212842_1_.isInvisible());
+            this.bindTexture(WITHER_ARMOR);
             GlStateManager.matrixMode(5890);
             GlStateManager.loadIdentity();
-            float f = (float)entitylivingbaseIn.ticksExisted + partialTicks;
-            float f1 = MathHelper.cos(f * 0.02F) * 3.0F;
-            float f2 = f * 0.01F;
-            GlStateManager.translatef(f1, f2, 0.0F);
+            float lvt_9_1_ = (float)p_212842_1_.ticksExisted + p_212842_4_;
+            float lvt_10_1_ = MathHelper.cos(lvt_9_1_ * 0.02F) * 3.0F;
+            float lvt_11_1_ = lvt_9_1_ * 0.01F;
+            GlStateManager.translatef(lvt_10_1_, lvt_11_1_, 0.0F);
             GlStateManager.matrixMode(5888);
             GlStateManager.enableBlend();
-            float f3 = 0.5F;
+            float lvt_12_1_ = 0.5F;
             GlStateManager.color4f(0.5F, 0.5F, 0.5F, 1.0F);
             GlStateManager.disableLighting();
             GlStateManager.blendFunc(GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ONE);
-            this.witherModel.setLivingAnimations(entitylivingbaseIn, limbSwing, limbSwingAmount, partialTicks);
-            this.witherModel.setModelAttributes(this.witherRenderer.getMainModel());
-            Minecraft.getInstance().entityRenderer.setupFogColor(true);
-            this.witherModel.render(entitylivingbaseIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
-            Minecraft.getInstance().entityRenderer.setupFogColor(false);
+            this.witherModel.setLivingAnimations(p_212842_1_, p_212842_2_, p_212842_3_, p_212842_4_);
+            ((ModelMankiniWither)this.getEntityModel()).setModelAttributes(this.witherModel);
+            GameRenderer lvt_13_1_ = Minecraft.getInstance().gameRenderer;
+            lvt_13_1_.setupFogColor(true);
+            this.witherModel.render(p_212842_1_, p_212842_2_, p_212842_3_, p_212842_5_, p_212842_6_, p_212842_7_, p_212842_8_);
+            lvt_13_1_.setupFogColor(false);
             GlStateManager.matrixMode(5890);
             GlStateManager.loadIdentity();
             GlStateManager.matrixMode(5888);

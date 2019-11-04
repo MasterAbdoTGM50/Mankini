@@ -3,14 +3,13 @@ package matgm50.mankini.util;
 import matgm50.mankini.init.ModEffects;
 import matgm50.mankini.init.ModItems;
 import matgm50.mankini.lib.ModLib;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.Effects;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 /**
  * Created by MasterAbdoTGM50 on 5/30/2014.
@@ -20,16 +19,15 @@ public class TickHandler {
 
     @SubscribeEvent
     public static void playerTick(TickEvent.PlayerTickEvent event) {
-
-        EntityPlayer player = event.player;
+        PlayerEntity player = event.player;
         boolean allowFlying = false;
 
-        ItemStack armor = player.getItemStackFromSlot(EntityEquipmentSlot.CHEST);
+        ItemStack armor = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
 
         if(armor != null) {
             if (armor.getItem().equals(ModItems.wither_mankini)) {
-                if(player.getActivePotionEffects().contains(MobEffects.WITHER) || player.getActivePotionEffects().contains(ModEffects.MANKINI_WITHER)) {
-                    player.removePotionEffect(MobEffects.WITHER);
+                if(player.getActivePotionEffects().contains(Effects.WITHER) || player.getActivePotionEffects().contains(ModEffects.MANKINI_WITHER)) {
+                    player.removePotionEffect(Effects.WITHER);
                     player.removePotionEffect(ModEffects.MANKINI_WITHER);
                 }
             }
@@ -56,6 +54,5 @@ public class TickHandler {
             	}
             }
         }
-
     }
 }

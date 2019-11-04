@@ -3,7 +3,7 @@ package matgm50.mankini.util;
 import matgm50.mankini.entity.hostile.EntityMankiniEndermite;
 import matgm50.mankini.lib.ModLib;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.monster.EntityEndermite;
+import net.minecraft.entity.monster.EndermiteEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -17,11 +17,11 @@ public class SpawnHandler {
         Entity entity = event.getEntity();
 
         World worldIn = event.getWorld().getWorld();
-        if(entity instanceof EntityEndermite && !(entity instanceof EntityMankiniEndermite)) {
+        if(entity instanceof EndermiteEntity && !(entity instanceof EntityMankiniEndermite)) {
             EntityMankiniEndermite mankiniMite = new EntityMankiniEndermite(worldIn);
             mankiniMite.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, 0.0F);
             event.setCanceled(true);
-            worldIn.spawnEntity(mankiniMite);
+            worldIn.addEntity(mankiniMite);
         }
     }
 }

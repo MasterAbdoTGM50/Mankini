@@ -1,22 +1,20 @@
 package matgm50.mankini.client.renderer.mobs;
 
 import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
-import net.minecraft.client.renderer.entity.RenderCreeper;
-import net.minecraft.client.renderer.entity.RenderLiving;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.model.ModelCreeper;
-import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.model.CreeperModel;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class RenderMankiniCreeper extends RenderLiving<EntityMankiniCreeper> {
+public class RenderMankiniCreeper extends MobRenderer<EntityMankiniCreeper, CreeperModel<EntityMankiniCreeper>> {
+    private static final ResourceLocation MANKINI_CREEPER = new ResourceLocation("mankini", "textures/entity/mankini_creeper.png");
 
-    private static final ResourceLocation MANKINI_CREEPER = new ResourceLocation("mankini:textures/entity/mankini_creeper.png");
-
-	public RenderMankiniCreeper(RenderManager renderManagerIn) {
-		super(renderManagerIn, new ModelCreeper(), 0.5F);
+	public RenderMankiniCreeper(EntityRendererManager renderManagerIn) {
+		super(renderManagerIn, new CreeperModel<>(), 0.5F);
+		this.bindTexture(MANKINI_CREEPER);
 	}
 
 	@Override

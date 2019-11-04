@@ -3,47 +3,56 @@ package matgm50.mankini.entity.boss;
 import matgm50.mankini.init.ModEffects;
 import matgm50.mankini.init.ModEntities;
 import matgm50.mankini.init.ModItems;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.block.BlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.entity.projectile.EntityFireball;
+import net.minecraft.entity.IRendersAsItem;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.projectile.DamagingProjectileEntity;
 import net.minecraft.fluid.IFluidState;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.world.EnumDifficulty;
+import net.minecraft.world.Difficulty;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.FMLPlayMessages;
+import net.minecraftforge.fml.network.NetworkHooks;
 
-public class EntityMankiniWitherCapsule extends EntityFireball {
+@OnlyIn(
+        value = Dist.CLIENT,
+        _interface = IRendersAsItem.class
+)
+public class EntityMankiniWitherCapsule extends DamagingProjectileEntity implements IRendersAsItem {
     private static final DataParameter<Boolean> INVULNERABLE = EntityDataManager.createKey(EntityMankiniWitherCapsule.class, DataSerializers.BOOLEAN);
-    
-    public EntityMankiniWitherCapsule(World worldIn) {
-        super(ModEntities.MANKINI_WITHER_PROJECTILE, worldIn, 0.3125F, 0.3125F);
+
+    public EntityMankiniWitherCapsule(EntityType<? extends EntityMankiniWitherCapsule> type, World worldIn) {
+        super(type, worldIn);
     }
 
-    public EntityMankiniWitherCapsule(World worldIn, EntityLivingBase shooter, double accelX, double accelY, double accelZ) {
-        super(ModEntities.MANKINI_WITHER_PROJECTILE, shooter, accelX, accelY, accelZ, worldIn, 0.3125F, 0.3125F);
+    public EntityMankiniWitherCapsule(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
+        super(ModEntities.MANKINI_WITHER_PROJECTILE, shooter, accelX, accelY, accelZ, worldIn);
+    }
+
+    public EntityMankiniWitherCapsule(FMLPlayMessages.SpawnEntity spawnEntity, World worldIn) {
+        this(ModEntities.MANKINI_WITHER_PROJECTILE, worldIn);
     }
 
     @OnlyIn(Dist.CLIENT)
     public EntityMankiniWitherCapsule(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
-        super(ModEntities.MANKINI_WITHER_PROJECTILE, x, y, z, accelX, accelY, accelZ, worldIn, 0.3125F, 0.3125F);
-    }
-
-    @Override
-    public EntityType<?> getType() {
-        return ModEntities.MANKINI_WITHER_PROJECTILE;
+        super(ModEntities.MANKINI_WITHER_PROJECTILE, x, y, z, accelX, accelY, accelZ, worldIn);
     }
 
     /**
@@ -63,7 +72,7 @@ public class EntityMankiniWitherCapsule extends EntityFireball {
     /**
      * Explosion resistance of a block relative to this entity
      */
-    public float getExplosionResistance(Explosion explosionIn, IBlockReader worldIn, BlockPos pos, IBlockState blockStateIn, IFluidState p_180428_5_, float p_180428_6_) {
+    public float getExplosionResistance(Explosion explosionIn, IBlockReader worldIn, BlockPos pos, BlockState blockStateIn, IFluidState p_180428_5_, float p_180428_6_) {
         return this.isMankiniInvulnerable() && blockStateIn.canEntityDestroy(worldIn, pos, this) ? Math.min(0.8F, p_180428_6_) : p_180428_6_;
     }
 
@@ -72,35 +81,36 @@ public class EntityMankiniWitherCapsule extends EntityFireball {
      */
     protected void onImpact(RayTraceResult result) {
         if (!this.world.isRemote) {
-            if (result.entity != null) {
+            if (result.getType() == RayTraceResult.Type.ENTITY) {
+                Entity entity = ((EntityRayTraceResult)result).getEntity();
                 if (this.shootingEntity != null) {
-                    if (result.entity.attackEntityFrom(DamageSource.causeMobDamage(this.shootingEntity), 4.0F)) {
-                        if (result.entity.isAlive()) {
-                            this.applyEnchantments(this.shootingEntity, result.entity);
+                    if (entity.attackEntityFrom(DamageSource.causeMobDamage(this.shootingEntity), 4.0F)) {
+                        if (entity.isAlive()) {
+                            this.applyEnchantments(this.shootingEntity, entity);
                         } else {
                             this.shootingEntity.heal(5.0F);
                         }
                     }
                 } else {
-                    result.entity.attackEntityFrom(DamageSource.MAGIC, 3.0F);
+                    entity.attackEntityFrom(DamageSource.MAGIC, 3.0F);
                 }
 
-                if (result.entity instanceof EntityLivingBase) {
+                if (entity instanceof LivingEntity) {
                     int i = 0;
-                    if (this.world.getDifficulty() == EnumDifficulty.NORMAL) {
+                    if (this.world.getDifficulty() == Difficulty.NORMAL) {
                         i = 10;
-                    } else if (this.world.getDifficulty() == EnumDifficulty.HARD) {
+                    } else if (this.world.getDifficulty() == Difficulty.HARD) {
                         i = 40;
                     }
 
                     if (i > 0) {
-                        ((EntityLivingBase) result.entity).addPotionEffect(new PotionEffect(ModEffects.MANKINI_WITHER, 10 * i, 1));
+                        ((LivingEntity) entity).addPotionEffect(new EffectInstance(ModEffects.MANKINI_WITHER, 10 * i, 1));
                     }
 
                     if (!this.world.isRemote) {
-                        if (result.entity instanceof EntityPlayer) {
-                            EntityPlayer hitPlayer = (EntityPlayer) result.entity;
-                            InventoryPlayer playerInv = hitPlayer.inventory;
+                        if (entity instanceof PlayerEntity) {
+                            PlayerEntity hitPlayer = (PlayerEntity) entity;
+                            PlayerInventory playerInv = hitPlayer.inventory;
 
                             ItemStack itemstack = hitPlayer.inventory.armorInventory.get(2);
                             ItemStack dyeableKini = new ItemStack(ModItems.dyeable_mankini);
@@ -118,8 +128,8 @@ public class EntityMankiniWitherCapsule extends EntityFireball {
                     }
                 }
             }
-
-            this.world.newExplosion(this, this.posX, this.posY, this.posZ, 1.0F, false, net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this.shootingEntity));
+            Explosion.Mode mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this) ? Explosion.Mode.DESTROY : Explosion.Mode.NONE;
+            this.world.createExplosion(this, this.posX, this.posY, this.posZ, 1.0F, false, mode);
             this.remove();
         }
 
@@ -159,5 +169,15 @@ public class EntityMankiniWitherCapsule extends EntityFireball {
 
     protected boolean isFireballFiery() {
         return false;
+    }
+
+    @Override
+    public ItemStack getItem() {
+        return new ItemStack(ModItems.mankini_capsule);
+    }
+
+    @Override
+    public IPacket<?> createSpawnPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
     }
 }
