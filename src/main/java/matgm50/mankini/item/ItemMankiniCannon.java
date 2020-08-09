@@ -30,14 +30,13 @@ public class ItemMankiniCannon extends Item {
     @Override
     public void onPlayerStoppedUsing(ItemStack stack, World worldIn, LivingEntity entityLiving, int timeLeft) {
         if (entityLiving instanceof PlayerEntity) {
-            PlayerEntity PlayerEntity = (PlayerEntity)entityLiving;
-            boolean flag = PlayerEntity.abilities.isCreativeMode;
-            ItemStack itemstack = MankiniHelper.findMankini(PlayerEntity);
+            PlayerEntity playerEntity = (PlayerEntity)entityLiving;
+            ItemStack itemstack = MankiniHelper.findMankini(playerEntity);
 
             int i = this.getUseDuration(stack) - timeLeft;
             if (i < 0) return;
 
-            if (!itemstack.isEmpty() || flag) {
+            if (!itemstack.isEmpty() || playerEntity.abilities.isCreativeMode) {
                 if (itemstack.isEmpty()) {
                     itemstack = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
                 }
@@ -46,20 +45,21 @@ public class ItemMankiniCannon extends Item {
                 if (!((double)f < 0.1D)) {
                     if (!worldIn.isRemote) {
                         EntityMankiniCapsule entityCapsule = createMankini(worldIn, itemstack.copy(), entityLiving);
-                        entityCapsule.shoot(PlayerEntity, PlayerEntity.rotationPitch, PlayerEntity.rotationYaw, 0.0F, f * 3.0F, 1.0F);
+                        entityCapsule.func_234612_a_(playerEntity, playerEntity.rotationPitch, playerEntity.rotationYaw, 0.0F, f * 3.0F, 1.0F);
+                        entityCapsule.setShooter(playerEntity);
 
                         worldIn.addEntity(entityCapsule);
                     }
 
-                    worldIn.playSound((PlayerEntity)null, PlayerEntity.getPosX(), PlayerEntity.getPosY(), PlayerEntity.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
-                    if (MankiniHelper.isMankini(itemstack) && !PlayerEntity.abilities.isCreativeMode) {
+                    worldIn.playSound((PlayerEntity)null, playerEntity.getPosX(), playerEntity.getPosY(), playerEntity.getPosZ(), SoundEvents.ENTITY_ARROW_SHOOT, SoundCategory.PLAYERS, 1.0F, 1.0F / (random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+                    if (MankiniHelper.isMankini(itemstack) && !playerEntity.abilities.isCreativeMode) {
                         itemstack.shrink(1);
                         if (itemstack.isEmpty()) {
-                            PlayerEntity.inventory.deleteStack(itemstack);
+                            playerEntity.inventory.deleteStack(itemstack);
                         }
                     }
 
-                    PlayerEntity.addStat(Stats.ITEM_USED.get(this));
+                    playerEntity.addStat(Stats.ITEM_USED.get(this));
                 }
             }
         }
@@ -74,10 +74,10 @@ public class ItemMankiniCannon extends Item {
         if (ret != null) return ret;
 
         if (!playerIn.abilities.isCreativeMode && !flag) {
-            return flag ? new ActionResult<>(ActionResultType.PASS, itemstack) : new ActionResult<>(ActionResultType.FAIL, itemstack);
+            return flag ? ActionResult.resultPass(itemstack) : ActionResult.resultFail(itemstack);
         } else {
             playerIn.setActiveHand(handIn);
-            return new ActionResult<>(ActionResultType.SUCCESS, itemstack);
+            return ActionResult.resultSuccess(itemstack);
         }
     }
 

@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 /**
  * Created by MasterAbdoTGM50 on 5/30/2014.
  */
-@Mod.EventBusSubscriber(modid = ModLib.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = ModLib.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class TickHandler {
 
     @SubscribeEvent

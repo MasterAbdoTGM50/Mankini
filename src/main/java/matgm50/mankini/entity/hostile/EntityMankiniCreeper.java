@@ -6,6 +6,7 @@ import matgm50.mankini.init.ModRegistry;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.CreeperSwellGoal;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
@@ -15,6 +16,7 @@ import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.CreeperEntity;
+import net.minecraft.entity.monster.EndermanEntity;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.OcelotEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -38,6 +40,10 @@ public class EntityMankiniCreeper extends CreeperEntity {
 	@Override
 	public EntityType<?> getType() {
 		return ModRegistry.MANKINI_CREEPER.get();
+	}
+
+	public static AttributeModifierMap.MutableAttribute registerAttributes() {
+		return CreeperEntity.func_234278_m_();
 	}
 
 	@Override

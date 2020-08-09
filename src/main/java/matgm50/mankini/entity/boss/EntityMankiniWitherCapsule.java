@@ -9,7 +9,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.projectile.DamagingProjectileEntity;
-import net.minecraft.fluid.IFluidState;
+import net.minecraft.fluid.FluidState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
@@ -70,7 +70,7 @@ public class EntityMankiniWitherCapsule extends DamagingProjectileEntity impleme
     /**
      * Explosion resistance of a block relative to this entity
      */
-    public float getExplosionResistance(Explosion explosionIn, IBlockReader worldIn, BlockPos pos, BlockState blockStateIn, IFluidState p_180428_5_, float p_180428_6_) {
+    public float getExplosionResistance(Explosion explosionIn, IBlockReader worldIn, BlockPos pos, BlockState blockStateIn, FluidState p_180428_5_, float p_180428_6_) {
         return this.isMankiniInvulnerable() && blockStateIn.canEntityDestroy(worldIn, pos, this) ? Math.min(0.8F, p_180428_6_) : p_180428_6_;
     }
 
@@ -81,12 +81,14 @@ public class EntityMankiniWitherCapsule extends DamagingProjectileEntity impleme
         if (!this.world.isRemote) {
             if (result.getType() == RayTraceResult.Type.ENTITY) {
                 Entity entity = ((EntityRayTraceResult)result).getEntity();
-                if (this.shootingEntity != null) {
-                    if (entity.attackEntityFrom(DamageSource.causeMobDamage(this.shootingEntity), 4.0F)) {
+                Entity shooter = func_234616_v_();
+                if (shooter != null && shooter instanceof LivingEntity) {
+                    LivingEntity shootingEntity = (LivingEntity)shooter;
+                    if (entity.attackEntityFrom(DamageSource.causeMobDamage(shootingEntity), 4.0F)) {
                         if (entity.isAlive()) {
-                            this.applyEnchantments(this.shootingEntity, entity);
+                            this.applyEnchantments(shootingEntity, entity);
                         } else {
-                            this.shootingEntity.heal(5.0F);
+                            shootingEntity.heal(5.0F);
                         }
                     }
                 } else {

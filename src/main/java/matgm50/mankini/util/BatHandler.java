@@ -7,16 +7,15 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.Util;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent.EntityInteract;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = ModLib.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = ModLib.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class BatHandler {
 
-	@SubscribeEvent
-	public static void BatCapture(EntityInteract event) {
+	public static void BatCapture(PlayerInteractEvent.EntityInteract event) {
 		PlayerEntity player = event.getPlayer();
 		PlayerInventory inv = player.inventory;
 		ItemStack currentItem = player.inventory.getCurrentItem();
@@ -32,7 +31,7 @@ public class BatHandler {
 			int batCount = data.getInt(ModLib.BAT_COUNT_TAG);
 
 			if(batCount == 8){
-				player.sendMessage(new TranslationTextComponent("mankini.bat.message"));
+				player.sendMessage(new TranslationTextComponent("mankini.bat.message"), Util.DUMMY_UUID);
 				inv.removeStackFromSlot(inv.getSlotFor(Mankini));
 				inv.addItemStackToInventory(BatMankini);
 				setBatTag(player);

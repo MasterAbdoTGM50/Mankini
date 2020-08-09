@@ -5,12 +5,12 @@ import matgm50.mankini.lib.ModLib;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.event.entity.living.LivingEvent.LivingJumpEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = ModLib.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = ModLib.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class BatMankiniJump {
 	@SubscribeEvent
 	public static void PlayerJump(LivingJumpEvent event) {
@@ -19,7 +19,7 @@ public class BatMankiniJump {
     		if(!player.isSneaking()) {
 				if (player.inventory.armorItemInSlot(2) != null) {
 					if(player.inventory.armorItemInSlot(2).getItem()== ModRegistry.BAT_MANKINI.get()){
-						Vec3d motion = player.getMotion();
+						Vector3d motion = player.getMotion();
 						double motionY = motion.getY();
 						motionY += 1.1;
 						player.setMotion(motion.x, motionY, motion.z);

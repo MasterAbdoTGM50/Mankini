@@ -40,6 +40,7 @@ public class Mankini {
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
+		ModSpawning.registerAttributes();
 		DeferredWorkQueue.runLater(ModSpawning::register);
     }
 }

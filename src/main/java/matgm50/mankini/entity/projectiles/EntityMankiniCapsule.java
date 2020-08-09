@@ -10,7 +10,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.ZombieEntity;
-import net.minecraft.entity.monster.ZombiePigmanEntity;
+import net.minecraft.entity.monster.piglin.PiglinEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
@@ -57,7 +57,7 @@ public class EntityMankiniCapsule extends ProjectileItemEntity {
 	@OnlyIn(Dist.CLIENT)
 	private IParticleData func_213887_n() {
 		ItemStack itemstack = this.func_213882_k();
-		return (IParticleData)(itemstack.isEmpty() ? ParticleTypes.ITEM_SNOWBALL : new ItemParticleData(ParticleTypes.ITEM, itemstack));
+		return (IParticleData)(itemstack.isEmpty() ? ParticleTypes.CRIT : new ItemParticleData(ParticleTypes.ITEM, itemstack));
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -131,13 +131,13 @@ public class EntityMankiniCapsule extends ProjectileItemEntity {
 									this.entityDropItem(foundMankini, 0.5F);
 								}
 							}
-						} else if (hit instanceof ZombiePigmanEntity) {
-							ZombiePigmanEntity hitPigman = (ZombiePigmanEntity) hit;
-							ItemStack chestStack = hitPigman.getItemStackFromSlot(EquipmentSlotType.CHEST);
+						} else if (hit instanceof PiglinEntity) {
+							PiglinEntity hitPiglin = (PiglinEntity) hit;
+							ItemStack chestStack = hitPiglin.getItemStackFromSlot(EquipmentSlotType.CHEST);
 
 							if (chestStack.isEmpty()) {
-								hitPigman.setItemStackToSlot(EquipmentSlotType.CHEST, foundMankini);
-								hitPigman.setDropChance(EquipmentSlotType.CHEST, 1F);
+								hitPiglin.setItemStackToSlot(EquipmentSlotType.CHEST, foundMankini);
+								hitPiglin.setDropChance(EquipmentSlotType.CHEST, 1F);
 							} else {
 								if (dropItem) {
 									this.entityDropItem(foundMankini, 0.5F);

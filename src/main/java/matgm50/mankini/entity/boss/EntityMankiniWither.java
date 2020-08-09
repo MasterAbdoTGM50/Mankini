@@ -11,7 +11,8 @@ import net.minecraft.entity.IChargeableMob;
 import net.minecraft.entity.IRangedAttackMob;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
@@ -31,14 +32,13 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.Difficulty;
@@ -140,28 +140,28 @@ public class EntityMankiniWither extends MonsterEntity implements IRangedAttackM
      * use this to react to sunlight and start to burn.
      */
     public void livingTick() {
-        Vec3d vec3d = this.getMotion().mul(1.0D, 0.6D, 1.0D);
+        Vector3d Vector3d = this.getMotion().mul(1.0D, 0.6D, 1.0D);
         if (!this.world.isRemote && this.getWatchedTargetId(0) > 0) {
             Entity entity = this.world.getEntityByID(this.getWatchedTargetId(0));
             if (entity != null) {
-                double d0 = vec3d.y;
+                double d0 = Vector3d.y;
                 if (this.getPosY() < entity.getPosY() || !this.isArmored() && this.getPosY() < entity.getPosY() + 5.0D) {
                     d0 = Math.max(0.0D, d0);
                     d0 = d0 + (0.3D - d0 * (double)0.6F);
                 }
 
-                vec3d = new Vec3d(vec3d.x, d0, vec3d.z);
-                Vec3d vec3d1 = new Vec3d(entity.getPosX() - this.getPosX(), 0.0D, entity.getPosZ() - this.getPosZ());
-                if (horizontalMag(vec3d1) > 9.0D) {
-                    Vec3d vec3d2 = vec3d1.normalize();
-                    vec3d = vec3d.add(vec3d2.x * 0.3D - vec3d.x * 0.6D, 0.0D, vec3d2.z * 0.3D - vec3d.z * 0.6D);
+                Vector3d = new Vector3d(Vector3d.x, d0, Vector3d.z);
+                Vector3d Vector3d1 = new Vector3d(entity.getPosX() - this.getPosX(), 0.0D, entity.getPosZ() - this.getPosZ());
+                if (horizontalMag(Vector3d1) > 9.0D) {
+                    Vector3d Vector3d2 = Vector3d1.normalize();
+                    Vector3d = Vector3d.add(Vector3d2.x * 0.3D - Vector3d.x * 0.6D, 0.0D, Vector3d2.z * 0.3D - Vector3d.z * 0.6D);
                 }
             }
         }
 
-        this.setMotion(vec3d);
-        if (horizontalMag(vec3d) > 0.05D) {
-            this.rotationYaw = (float)MathHelper.atan2(vec3d.z, vec3d.x) * (180F / (float)Math.PI) - 90.0F;
+        this.setMotion(Vector3d);
+        if (horizontalMag(Vector3d) > 0.05D) {
+            this.rotationYaw = (float)MathHelper.atan2(Vector3d.z, Vector3d.x) * (180F / (float)Math.PI) - 90.0F;
         }
 
         super.livingTick();
@@ -221,7 +221,7 @@ public class EntityMankiniWither extends MonsterEntity implements IRangedAttackM
             if (j1 <= 0) {
                 Explosion.Mode explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this) ? Explosion.Mode.DESTROY : Explosion.Mode.NONE;
                 this.world.createExplosion(this, this.getPosX(), this.getPosYEye(), this.getPosZ(), 7.0F, false, explosion$mode);
-                this.world.playBroadcastSound(1023, new BlockPos(this), 0);
+                this.world.playBroadcastSound(1023, getPosition(), 0);
             }
 
             this.setInvulTime(j1);
@@ -316,7 +316,7 @@ public class EntityMankiniWither extends MonsterEntity implements IRangedAttackM
                     }
 
                     if (flag) {
-                        this.world.playEvent((PlayerEntity)null, 1022, new BlockPos(this), 0);
+                        this.world.playEvent((PlayerEntity)null, 1022, getPosition(), 0);
                     }
                 }
             }
@@ -342,7 +342,7 @@ public class EntityMankiniWither extends MonsterEntity implements IRangedAttackM
         this.setHealth(this.getMaxHealth() / 3.0F);
     }
 
-    public void setMotionMultiplier(BlockState p_213295_1_, Vec3d p_213295_2_) {
+    public void setMotionMultiplier(BlockState p_213295_1_, Vector3d p_213295_2_) {
     }
 
     /**
@@ -408,7 +408,7 @@ public class EntityMankiniWither extends MonsterEntity implements IRangedAttackM
      * Launches a Wither skull toward (par2, par4, par6)
      */
     private void launchWitherSkullToCoords(int p_82209_1_, double x, double y, double z, boolean invulnerable) {
-        this.world.playEvent((PlayerEntity)null, 1024, new BlockPos(this), 0);
+        this.world.playEvent((PlayerEntity)null, 1024, getPosition(), 0);
         double d0 = this.getHeadX(p_82209_1_);
         double d1 = this.getHeadY(p_82209_1_);
         double d2 = this.getHeadZ(p_82209_1_);
@@ -500,12 +500,11 @@ public class EntityMankiniWither extends MonsterEntity implements IRangedAttackM
         return false;
     }
 
-    protected void registerAttributes() {
-        super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(300.0D);
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue((double)0.6F);
-        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(40.0D);
-        this.getAttribute(SharedMonsterAttributes.ARMOR).setBaseValue(4.0D);
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return MonsterEntity.func_233666_p_().createMutableAttribute(Attributes.MAX_HEALTH, 300.0D)
+                .createMutableAttribute(Attributes.MOVEMENT_SPEED, (double)0.6F)
+                .createMutableAttribute(Attributes.FOLLOW_RANGE, 40.0D)
+                .createMutableAttribute(Attributes.ARMOR, 4.0D);
     }
 
     @OnlyIn(Dist.CLIENT)

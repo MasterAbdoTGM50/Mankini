@@ -5,7 +5,8 @@ import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.item.IMankini;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.AvoidEntityGoal;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
@@ -13,6 +14,7 @@ import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.monster.SpellcastingIllagerEntity;
 import net.minecraft.entity.passive.IronGolemEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -63,11 +65,11 @@ public class EntityMankiniEvoker extends SpellcastingIllagerEntity {
         return SoundEvents.ENTITY_VILLAGER_NO;
     }
 
-    protected void registerAttributes() {
-        super.registerAttributes();
-        this.getAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.5D);
-        this.getAttribute(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(12.0D);
-        this.getAttribute(SharedMonsterAttributes.MAX_HEALTH).setBaseValue(24.0D);
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return MonsterEntity.func_234295_eP_()
+            .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5D)
+            .createMutableAttribute(Attributes.FOLLOW_RANGE, 12.0D)
+            .createMutableAttribute(Attributes.MAX_HEALTH, 24.0D);
     }
     
     private void setWololoTarget(@Nullable PlayerEntity wololoTargetIn) {

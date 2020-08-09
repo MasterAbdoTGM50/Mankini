@@ -1,11 +1,19 @@
 package matgm50.mankini.init;
 
 import matgm50.mankini.Mankini;
+import matgm50.mankini.entity.boss.EntityMankiniWither;
+import matgm50.mankini.entity.hostile.AbstractMankiniSkeleton;
+import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
+import matgm50.mankini.entity.hostile.EntityMankiniEnderman;
+import matgm50.mankini.entity.hostile.EntityMankiniEndermite;
+import matgm50.mankini.entity.hostile.EntityMankiniEvoker;
+import matgm50.mankini.entity.hostile.EntityMankiniSpider;
 import matgm50.mankini.lib.ModLib;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.Heightmap;
@@ -56,7 +64,18 @@ public class ModSpawning
         EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_ENDERMITE.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canSpawnOn);
         EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_SPIDER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canSpawnOn);
         EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_SKELETON.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_WITHER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canSpawnOn);
+        EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_WITHER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawnInLight);
         EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_EVOKER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canSpawnOn);
+    }
+
+    public static void registerAttributes() {
+        Mankini.logger.info("Registering Mankini Mob Attributes");
+        GlobalEntityTypeAttributes.put(ModRegistry.MANKINI_CREEPER.get(), EntityMankiniCreeper.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(ModRegistry.MANKINI_ENDERMAN.get(), EntityMankiniEnderman.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(ModRegistry.MANKINI_ENDERMITE.get(), EntityMankiniEndermite.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(ModRegistry.MANKINI_SPIDER.get(), EntityMankiniSpider.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(ModRegistry.MANKINI_SKELETON.get(), AbstractMankiniSkeleton.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(ModRegistry.MANKINI_WITHER.get(), EntityMankiniWither.registerAttributes().create());
+        GlobalEntityTypeAttributes.put(ModRegistry.MANKINI_EVOKER.get(), EntityMankiniEvoker.registerAttributes().create());
     }
 }

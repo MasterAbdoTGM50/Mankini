@@ -5,12 +5,14 @@ import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.ModRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
+import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.monster.EndermiteEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.IWorld;
@@ -24,6 +26,10 @@ public class EntityMankiniEndermite extends EndermiteEntity {
 
     public EntityMankiniEndermite(World worldIn) {
         super(ModRegistry.MANKINI_ENDERMITE.get(), worldIn);
+    }
+
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return EndermiteEntity.func_234288_m_();
     }
 
     @Override
