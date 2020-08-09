@@ -2,8 +2,7 @@ package matgm50.mankini.entity.hostile;
 
 import matgm50.mankini.entity.ai.EntityAIMankiniTarget;
 import matgm50.mankini.init.MankiniConfig;
-import matgm50.mankini.init.ModEntities;
-import matgm50.mankini.init.ModItems;
+import matgm50.mankini.init.ModRegistry;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -32,14 +31,13 @@ public class EntityMankiniCreeper extends CreeperEntity {
 		super(type, worldIn);
 	}
 
-    public EntityMankiniCreeper(World worldIn)
-    {
-        super(ModEntities.MANKINI_CREEPER, worldIn);
+    public EntityMankiniCreeper(World worldIn) {
+        super(ModRegistry.MANKINI_CREEPER.get(), worldIn);
     }
 
 	@Override
 	public EntityType<?> getType() {
-		return ModEntities.MANKINI_CREEPER;
+		return ModRegistry.MANKINI_CREEPER.get();
 	}
 
 	@Override
@@ -59,10 +57,8 @@ public class EntityMankiniCreeper extends CreeperEntity {
     /**
      * Creates an explosion as determined by this creeper's power and explosion radius.
      */
-    private void explode()
-    {   		
-    	if(this.getAttackTarget() instanceof PlayerEntity)
-    	{
+    private void explode() {
+    	if(this.getAttackTarget() instanceof PlayerEntity) {
             PlayerEntity hitPlayer = (PlayerEntity) this.getAttackTarget();
     		
     		float f = this.getPowered() ? 2.0F : 1.0F;
@@ -72,78 +68,57 @@ public class EntityMankiniCreeper extends CreeperEntity {
         	PlayerInventory playerInv = hitPlayer.inventory;
         	
         	ItemStack itemstack = hitPlayer.inventory.armorInventory.get(2);
-            ItemStack creeperKini = new ItemStack(ModItems.dyeable_mankini);
+            ItemStack creeperKini = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
 
             this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float)3 * f, Explosion.Mode.NONE);
             
             
-        	if (!this.world.isRemote)
-            {
-        		boolean ArmourOverride = MankiniConfig.COMMON.CreeperOverride.get();
-        		boolean EvilCreepers = MankiniConfig.COMMON.EvilCreepers.get();
-        		
-                    if(hitPlayer.posX == (int) this.posX || hitPlayer.posY == (int) this.posY || hitPlayer.posZ == this.posZ){
-                        if(itemstack == ItemStack.EMPTY){
-                        	playerInv.setInventorySlotContents(38, creeperKini);
-                        	full=true;
-                        }
-                        
-                        else if(itemstack != ItemStack.EMPTY && full == true && itemstack != creeperKini){
-                        	if(ArmourOverride == true)
-                        	{
-                        		if(EvilCreepers)
-                        		{
-                        			playerInv.removeStackFromSlot(38);
-                                	playerInv.setInventorySlotContents(38, creeperKini);
-                                	creeperKini.addEnchantment(Enchantments.BINDING_CURSE, 1);
-                                	creeperKini.addEnchantment(Enchantments.VANISHING_CURSE, 1);
-                        		}
-                        		else
-                        		{
-                        			playerInv.removeStackFromSlot(38);
-                                	playerInv.setInventorySlotContents(38, creeperKini);
-                        		}
-                        	}
-                        	else
-                        	{
-                        		if(EvilCreepers)
-                        		{
-                        			ItemStack oldArmour = itemstack.copy();
-		                        	playerInv.removeStackFromSlot(38);
-		                        	playerInv.setInventorySlotContents(38, creeperKini);
-		                        	creeperKini.addEnchantment(Enchantments.BINDING_CURSE, 1);         
-		                        	creeperKini.addEnchantment(Enchantments.VANISHING_CURSE, 1);         
-			                        	if(hitPlayer.inventory.getFirstEmptyStack() == -1)
-			                        	{
-			                        		hitPlayer.entityDropItem(oldArmour, 0.5F);
-			                        	}
-			                        	else
-			                        	{ 
-			                        		playerInv.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), oldArmour);
-			                        	}
-                        		}
-                        		else
-                        		{
-                        			ItemStack oldArmour = itemstack.copy();
-		                        	playerInv.removeStackFromSlot(38);
-		                        	playerInv.setInventorySlotContents(38, creeperKini);
-			                        	if(hitPlayer.inventory.getFirstEmptyStack() == -1)
-			                        	{
-			                        		hitPlayer.entityDropItem(oldArmour, 0.5F);
-			                        	}
-			                        	else
-			                        	{ 
-			                        		playerInv.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), oldArmour);
-			                        	}
-                        		}
-                        	}
-                        }
-                        else 
-                        {
-                        	hitPlayer.entityDropItem(creeperKini, 0.5F);
-                        }
-                    }
-                }
+        	if (!this.world.isRemote) {
+				if(hitPlayer.posX == (int) this.posX || hitPlayer.posY == (int) this.posY || hitPlayer.posZ == this.posZ){
+					if(itemstack.isEmpty()){
+						playerInv.setInventorySlotContents(38, creeperKini);
+						full = true;
+					}
+
+					if(full && itemstack != creeperKini){
+						if(MankiniConfig.COMMON.CreeperOverride.get()) {
+							if(MankiniConfig.COMMON.EvilCreepers.get()) {
+								playerInv.removeStackFromSlot(38);
+								playerInv.setInventorySlotContents(38, creeperKini);
+								creeperKini.addEnchantment(Enchantments.BINDING_CURSE, 1);
+								creeperKini.addEnchantment(Enchantments.VANISHING_CURSE, 1);
+							} else {
+								playerInv.removeStackFromSlot(38);
+								playerInv.setInventorySlotContents(38, creeperKini);
+							}
+						} else {
+							if(MankiniConfig.COMMON.EvilCreepers.get()) {
+								ItemStack oldArmour = itemstack.copy();
+								playerInv.removeStackFromSlot(38);
+								playerInv.setInventorySlotContents(38, creeperKini);
+								creeperKini.addEnchantment(Enchantments.BINDING_CURSE, 1);
+								creeperKini.addEnchantment(Enchantments.VANISHING_CURSE, 1);
+									if(hitPlayer.inventory.getFirstEmptyStack() == -1) {
+										hitPlayer.entityDropItem(oldArmour, 0.5F);
+									} else {
+										playerInv.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), oldArmour);
+									}
+							} else {
+								ItemStack oldArmour = itemstack.copy();
+								playerInv.removeStackFromSlot(38);
+								playerInv.setInventorySlotContents(38, creeperKini);
+								if(hitPlayer.inventory.getFirstEmptyStack() == -1) {
+									hitPlayer.entityDropItem(oldArmour, 0.5F);
+								} else {
+									playerInv.setInventorySlotContents(hitPlayer.inventory.getFirstEmptyStack(), oldArmour);
+								}
+							}
+						}
+					} else {
+						hitPlayer.entityDropItem(creeperKini, 0.5F);
+					}
+				}
+			}
     	}
         this.remove();
     }

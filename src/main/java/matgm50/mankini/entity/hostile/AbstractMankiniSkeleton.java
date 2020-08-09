@@ -3,7 +3,7 @@ package matgm50.mankini.entity.hostile;
 import matgm50.mankini.entity.ai.EntityAIMankiniCannon;
 import matgm50.mankini.entity.ai.EntityAIMankiniTarget;
 import matgm50.mankini.entity.projectiles.EntityMankiniCapsule;
-import matgm50.mankini.init.ModItems;
+import matgm50.mankini.init.ModRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
@@ -58,8 +58,8 @@ public abstract class AbstractMankiniSkeleton extends AbstractSkeletonEntity {
      */
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty) {
         super.setEquipmentBasedOnDifficulty(difficulty);
-        this.setItemStackToSlot(EquipmentSlotType.CHEST, new ItemStack(ModItems.dyeable_mankini));
-        this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModItems.mankini_cannon));
+        this.setItemStackToSlot(EquipmentSlotType.CHEST, new ItemStack(ModRegistry.DYEABLE_MANKINI.get()));
+        this.setItemStackToSlot(EquipmentSlotType.MAINHAND, new ItemStack(ModRegistry.MANKINI_CANNON.get()));
     }
 
     @Nullable
@@ -96,7 +96,7 @@ public abstract class AbstractMankiniSkeleton extends AbstractSkeletonEntity {
     }
 
     protected EntityMankiniCapsule getCapsule(float p_190726_1_) {
-        ItemStack stack = new ItemStack(ModItems.dyeable_mankini);
+        ItemStack stack = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
         stack.setDamage(this.rand.nextInt(stack.getMaxDamage()));
         EntityMankiniCapsule mankiniCapsule = new EntityMankiniCapsule(this.world, this, stack, false);
         return mankiniCapsule;

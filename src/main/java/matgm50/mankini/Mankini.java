@@ -2,12 +2,12 @@ package matgm50.mankini;
 
 import matgm50.mankini.client.ClientHandler;
 import matgm50.mankini.init.MankiniConfig;
-import matgm50.mankini.init.ModCreativeTab;
+import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.init.ModSpawning;
 import matgm50.mankini.lib.ModLib;
-import net.minecraft.item.ItemGroup;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DeferredWorkQueue;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -23,24 +23,26 @@ public class Mankini {
 
 	public static final Logger logger = LogManager.getLogger(ModLib.MOD_ID);
 
-    public static ItemGroup tabMankini = new ModCreativeTab(ModLib.MOD_ID);
-
 	public Mankini() {
 		instance = this;
 
-		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MankiniConfig.commonSpec);
-		FMLJavaModLoadingContext.get().getModEventBus().register(MankiniConfig.class);
+		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MankiniConfig.commonSpec);
+		eventBus.register(MankiniConfig.class);
+
+		ModRegistry.ITEMS.register(eventBus);
+		ModRegistry.ENTITIES.register(eventBus);
+
+		eventBus.addListener(this::setup);
 
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> {
-			MinecraftForge.EVENT_BUS.addListener(ClientHandler::registerRenders);
-			FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientHandler::registerItemColors);
+			eventBus.addListener(ClientHandler::registerRenders);
+			eventBus.addListener(ClientHandler::registerItemColors);
 		});
 	}
 
-	private void setup(final FMLCommonSetupEvent event)
-	{
-		ModSpawning.register();
+	private void setup(final FMLCommonSetupEvent event) {
+		DeferredWorkQueue.runLater(ModSpawning::register);
     }
 }

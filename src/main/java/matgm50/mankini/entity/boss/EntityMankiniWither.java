@@ -146,7 +146,7 @@ public class EntityMankiniWither extends MonsterEntity implements IRangedAttackM
 
                 vec3d = new Vec3d(vec3d.x, d0, vec3d.z);
                 Vec3d vec3d1 = new Vec3d(entity.posX - this.posX, 0.0D, entity.posZ - this.posZ);
-                if (func_213296_b(vec3d1) > 9.0D) {
+                if (horizontalMag(vec3d1) > 9.0D) {
                     Vec3d vec3d2 = vec3d1.normalize();
                     vec3d = vec3d.add(vec3d2.x * 0.3D - vec3d.x * 0.6D, 0.0D, vec3d2.z * 0.3D - vec3d.z * 0.6D);
                 }
@@ -154,7 +154,7 @@ public class EntityMankiniWither extends MonsterEntity implements IRangedAttackM
         }
 
         this.setMotion(vec3d);
-        if (func_213296_b(vec3d) > 0.05D) {
+        if (horizontalMag(vec3d) > 0.05D) {
             this.rotationYaw = (float)MathHelper.atan2(vec3d.z, vec3d.x) * (180F / (float)Math.PI) - 90.0F;
         }
 

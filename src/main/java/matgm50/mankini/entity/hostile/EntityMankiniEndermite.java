@@ -2,7 +2,7 @@ package matgm50.mankini.entity.hostile;
 
 import matgm50.mankini.entity.ai.EntityAIMankiniTarget;
 import matgm50.mankini.init.MankiniConfig;
-import matgm50.mankini.init.ModEntities;
+import matgm50.mankini.init.ModRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.goal.HurtByTargetGoal;
@@ -23,7 +23,7 @@ public class EntityMankiniEndermite extends EndermiteEntity {
     }
 
     public EntityMankiniEndermite(World worldIn) {
-        super(ModEntities.MANKINI_ENDERMITE, worldIn);
+        super(ModRegistry.MANKINI_ENDERMITE.get(), worldIn);
     }
 
     @Override

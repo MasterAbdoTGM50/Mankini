@@ -1,6 +1,5 @@
 package matgm50.mankini.item;
 
-import matgm50.mankini.Mankini;
 import matgm50.mankini.client.model.ModelAAMT;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
@@ -22,7 +21,7 @@ import javax.annotation.Nullable;
 public class ItemAAMT extends ArmorItem implements IMankini {
 
     public ItemAAMT(Item.Properties builder) {
-        super(ArmorMaterial.DIAMOND, EquipmentSlotType.CHEST, builder.group(Mankini.tabMankini).maxStackSize(1));
+        super(ArmorMaterial.DIAMOND, EquipmentSlotType.CHEST, builder.maxStackSize(1));
     }
 
 	@Nullable

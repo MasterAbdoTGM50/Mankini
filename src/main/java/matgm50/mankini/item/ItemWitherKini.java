@@ -1,6 +1,5 @@
 package matgm50.mankini.item;
 
-import matgm50.mankini.Mankini;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorItem;
@@ -16,7 +15,7 @@ import net.minecraft.item.ItemStack;
 public class ItemWitherKini extends ArmorItem implements IMankini {
 
     public ItemWitherKini(Item.Properties builder) {
-        super(ArmorMaterial.IRON, EquipmentSlotType.CHEST, builder.group(Mankini.tabMankini).maxStackSize(1));
+        super(ArmorMaterial.IRON, EquipmentSlotType.CHEST, builder.maxStackSize(1));
     }
 
     @Override

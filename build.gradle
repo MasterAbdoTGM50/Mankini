@@ -12,14 +12,14 @@ apply plugin: 'net.minecraftforge.gradle'
 // Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
 apply plugin: 'eclipse'
 
-version = '1.3.4'
+version = "${version}"
 group = 'matgm50.mankini' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'mankini-1.14.4'
+archivesBaseName = "mankini-${mc_version}"
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 minecraft {
-    mappings channel: 'snapshot', version: '20190719-1.14.3'
+    mappings channel: "${mcp_channel}", version: "${mcp_mappings}"
 
 	runs {
 		client {
@@ -50,19 +50,19 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.4-28.1.76'
+    minecraft "net.minecraftforge:forge:${mc_version}-${forge_version}"
 }
 
 // Example for how to get properties into the manifest for reading by the runtime..
 jar {
     manifest {
 		attributes([
-            "Specification-Title": "MasterAbdoTGM50",
-            "Specification-Vendor": "svennieke",
+            "Specification-Title": "mankini",
+            "Specification-Vendor": "MasterAbdoTGM50",
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"MasterAbdoTGM50",
+            "Implementation-Vendor" :"mankini",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }

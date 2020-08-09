@@ -2,7 +2,6 @@ package matgm50.mankini.client.renderer.mobs;
 
 import matgm50.mankini.client.model.ModelMankinikSkeleton;
 import matgm50.mankini.entity.hostile.EntityMankiniSkeleton;
-import matgm50.mankini.lib.ModLib;
 import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.layers.BipedArmorLayer;

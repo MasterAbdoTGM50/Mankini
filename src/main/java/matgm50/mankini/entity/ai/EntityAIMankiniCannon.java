@@ -1,6 +1,6 @@
 package matgm50.mankini.entity.ai;
 
-import matgm50.mankini.init.ModItems;
+import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.item.IMankini;
 import matgm50.mankini.item.ItemMankiniCannon;
 import net.minecraft.entity.IRangedAttackMob;
@@ -43,7 +43,7 @@ public class EntityAIMankiniCannon<T extends MonsterEntity & IRangedAttackMob> e
     }
 
     protected boolean isCannonInMainHand() {
-        return !this.entity.getHeldItemMainhand().isEmpty() && this.entity.getHeldItemMainhand().getItem() == ModItems.mankini_cannon;
+        return !this.entity.getHeldItemMainhand().isEmpty() && this.entity.getHeldItemMainhand().getItem() == ModRegistry.MANKINI_CANNON.get();
     }
 
     /**

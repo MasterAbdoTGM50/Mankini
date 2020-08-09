@@ -1,8 +1,7 @@
 package matgm50.mankini.client.model;
 
-import matgm50.mankini.entity.hostile.AbstractMankiniSkeleton;
 import matgm50.mankini.entity.hostile.EntityMankiniSkeleton;
-import matgm50.mankini.init.ModItems;
+import matgm50.mankini.init.ModRegistry;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.RendererModel;
 import net.minecraft.entity.LivingEntity;
@@ -49,7 +48,7 @@ public class ModelMankinikSkeleton<T extends EntityMankiniSkeleton> extends Bipe
         this.rightArmPose = BipedModel.ArmPose.EMPTY;
         this.leftArmPose = BipedModel.ArmPose.EMPTY;
         ItemStack itemstack = LivingEntityIn.getHeldItem(Hand.MAIN_HAND);
-        if (itemstack.getItem() == ModItems.mankini_cannon && ((AbstractSkeletonEntity)LivingEntityIn).isAggressive()) {
+        if (itemstack.getItem() == ModRegistry.MANKINI_CANNON.get() && ((AbstractSkeletonEntity)LivingEntityIn).isAggressive()) {
             if (LivingEntityIn.getPrimaryHand() == HandSide.RIGHT) {
                 this.rightArmPose = BipedModel.ArmPose.BOW_AND_ARROW;
             } else {
@@ -69,7 +68,7 @@ public class ModelMankinikSkeleton<T extends EntityMankiniSkeleton> extends Bipe
         super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
         ItemStack itemstack = ((LivingEntity)entityIn).getHeldItemMainhand();
         EntityMankiniSkeleton skeleton = (EntityMankiniSkeleton)entityIn;
-        if (skeleton.isAggressive() && (itemstack.isEmpty() || itemstack.getItem() != ModItems.mankini_cannon)) {
+        if (skeleton.isAggressive() && (itemstack.isEmpty() || itemstack.getItem() != ModRegistry.MANKINI_CANNON.get())) {
             float f = MathHelper.sin(this.swingProgress * (float)Math.PI);
             float f1 = MathHelper.sin((1.0F - (1.0F - this.swingProgress) * (1.0F - this.swingProgress)) * (float)Math.PI);
             this.bipedRightArm.rotateAngleZ = 0.0F;

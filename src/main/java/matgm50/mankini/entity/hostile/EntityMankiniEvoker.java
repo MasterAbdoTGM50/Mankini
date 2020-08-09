@@ -1,8 +1,7 @@
 package matgm50.mankini.entity.hostile;
 
 import matgm50.mankini.entity.ai.EntityAIMankiniTarget;
-import matgm50.mankini.init.ModEntities;
-import matgm50.mankini.init.ModItems;
+import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.item.IMankini;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
@@ -35,7 +34,7 @@ public class EntityMankiniEvoker extends SpellcastingIllagerEntity {
     }
 
     public EntityMankiniEvoker(World worldIn) {
-        super(ModEntities.MANKINI_EVOKER, worldIn);
+        super(ModRegistry.MANKINI_EVOKER.get(), worldIn);
         this.experienceValue = 6;
     }
 
@@ -169,11 +168,11 @@ public class EntityMankiniEvoker extends SpellcastingIllagerEntity {
                 }
 
                 if(!flag && !flag2) {
-                    ItemStack kiniStack = new ItemStack(ModItems.dyeable_mankini);
+                    ItemStack kiniStack = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
 
-                    if(wornStack.getItem() == null){
+                    if(wornStack.getItem() == null) {
                         playerInv.setInventorySlotContents(38, kiniStack);
-                    } else if(wornStack.getItem() != null && !(wornStack.getItem() instanceof IMankini)){
+                    } else if(wornStack.getItem() != null && !(wornStack.getItem() instanceof IMankini)) {
                         playerInv.setInventorySlotContents(38, kiniStack);
                         if(playerInv.getFirstEmptyStack() != -1) {
                             targetPlayer.entityDropItem(wornStack, 0.5F);

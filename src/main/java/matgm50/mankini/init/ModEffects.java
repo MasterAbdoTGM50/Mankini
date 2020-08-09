@@ -21,8 +21,7 @@ public class ModEffects {
     public static ArrayList<Effect> POTIONS = new ArrayList<>();
 
     @SubscribeEvent
-    public static void registerPotions(RegistryEvent.Register<Effect> event)
-    {
+    public static void registerPotions(RegistryEvent.Register<Effect> event) {
         IForgeRegistry<Effect> registry = event.getRegistry();
 
         MANKINI_WITHER = registerEffect(new MankiniWitherPotion(), "mankini_wither");
@@ -30,8 +29,7 @@ public class ModEffects {
         registry.registerAll(POTIONS.toArray(new Effect[0]));
     }
 
-    public static <T extends Effect> T registerEffect(T potion, String name)
-    {
+    public static <T extends Effect> T registerEffect(T potion, String name) {
         POTIONS.add(potion);
 
         potion.setRegistryName(new ResourceLocation(ModLib.MOD_ID, name));

@@ -1,9 +1,8 @@
 package matgm50.mankini.item;
 
-import matgm50.mankini.Mankini;
 import matgm50.mankini.entity.hostile.EntityMankiniSkeleton;
 import matgm50.mankini.entity.projectiles.EntityMankiniCapsule;
-import matgm50.mankini.init.ModItems;
+import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.util.MankiniHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -25,7 +24,7 @@ import net.minecraft.world.World;
 public class ItemMankiniCannon extends Item {
 
     public ItemMankiniCannon(Item.Properties builder) {
-        super(builder.group(Mankini.tabMankini).maxStackSize(1));
+        super(builder.maxStackSize(1));
     }
 
     @Override
@@ -40,7 +39,7 @@ public class ItemMankiniCannon extends Item {
 
             if (!itemstack.isEmpty() || flag) {
                 if (itemstack.isEmpty()) {
-                    itemstack = new ItemStack(ModItems.dyeable_mankini);
+                    itemstack = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
                 }
 
                 float f = getMankiniVelocity(i);

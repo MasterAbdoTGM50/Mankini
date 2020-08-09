@@ -2,8 +2,7 @@ package matgm50.mankini.entity.hostile;
 
 import matgm50.mankini.entity.ai.EntityAIMankiniTarget;
 import matgm50.mankini.init.MankiniConfig;
-import matgm50.mankini.init.ModEntities;
-import matgm50.mankini.init.ModItems;
+import matgm50.mankini.init.ModRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ILivingEntityData;
 import net.minecraft.entity.LivingEntity;
@@ -42,7 +41,7 @@ public class EntityMankiniSpider extends SpiderEntity {
 
     public EntityMankiniSpider(World worldIn)
     {
-        super(ModEntities.MANKINI_SPIDER, worldIn);
+        super(ModRegistry.MANKINI_SPIDER.get(), worldIn);
     }
 
     @Override
@@ -62,7 +61,7 @@ public class EntityMankiniSpider extends SpiderEntity {
     @Override
     public ILivingEntityData onInitialSpawn(IWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason, @Nullable ILivingEntityData spawnDataIn, @Nullable CompoundNBT dataTag) {
         spawnDataIn = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-        ItemStack creeperKini = new ItemStack(ModItems.dyeable_mankini);
+        ItemStack creeperKini = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
 
         if (this.world.rand.nextInt(100) == 0) {
             MobEntity entityskeleton = new SkeletonEntity(EntityType.SKELETON, this.world);
@@ -76,9 +75,7 @@ public class EntityMankiniSpider extends SpiderEntity {
             entityskeleton.setItemStackToSlot(EquipmentSlotType.CHEST, creeperKini);
             this.world.addEntity(entityskeleton);
             entityskeleton.startRiding(this);
-        }
-        else if (this.world.rand.nextInt(100) < 10)
-        {
+        } else if (this.world.rand.nextInt(100) < 10) {
 
             EntityMankiniCreeper mankinicreeper = new EntityMankiniCreeper(this.world);
             mankinicreeper.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);

@@ -2,8 +2,7 @@ package matgm50.mankini.entity.projectiles;
 
 import matgm50.mankini.entity.boss.EntityMankiniWither;
 import matgm50.mankini.init.MankiniConfig;
-import matgm50.mankini.init.ModEntities;
-import matgm50.mankini.init.ModItems;
+import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.item.IMankini;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -43,18 +42,18 @@ public class EntityMankiniCapsule extends ProjectileItemEntity {
 	}
 
     public EntityMankiniCapsule(World worldIn, LivingEntity throwerIn, ItemStack foundMankini) {
-        super(ModEntities.MANKINI_CAPSULE, throwerIn.posX, throwerIn.posY + (double)throwerIn.getEyeHeight() - (double)0.1F, throwerIn.posZ, worldIn);
+        super(ModRegistry.MANKINI_CAPSULE.get(), throwerIn.posX, throwerIn.posY + (double)throwerIn.getEyeHeight() - (double)0.1F, throwerIn.posZ, worldIn);
         this.foundMankini = foundMankini;
     }
 
 	public EntityMankiniCapsule(World worldIn, LivingEntity throwerIn, ItemStack foundMankini, boolean drop) {
-		super(ModEntities.MANKINI_CAPSULE, throwerIn.posX, throwerIn.posY + (double)throwerIn.getEyeHeight() - (double)0.1F, throwerIn.posZ, worldIn);
+		super(ModRegistry.MANKINI_CAPSULE.get(), throwerIn.posX, throwerIn.posY + (double)throwerIn.getEyeHeight() - (double)0.1F, throwerIn.posZ, worldIn);
 		this.foundMankini = foundMankini;
 		this.dropItem = drop;
 	}
 
 	public EntityMankiniCapsule(FMLPlayMessages.SpawnEntity spawnEntity, World worldIn) {
-		this(ModEntities.MANKINI_CAPSULE, worldIn);
+		this(ModRegistry.MANKINI_CAPSULE.get(), worldIn);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -66,8 +65,7 @@ public class EntityMankiniCapsule extends ProjectileItemEntity {
 	@OnlyIn(Dist.CLIENT)
     public void handleStatusUpdate(byte id)
     {
-        if (id == 3)
-        {
+        if (id == 3) {
 			IParticleData iparticledata = this.func_213887_n();
 
 			for(int i = 0; i < 8; ++i) {
@@ -104,7 +102,7 @@ public class EntityMankiniCapsule extends ProjectileItemEntity {
 						WitherEntity originalWither = (WitherEntity) hit;
 //						originalWither.setDropItemsWhenDead(false);
 
-						EntityMankiniWither mankiniWither = new EntityMankiniWither(ModEntities.MANKINI_WITHER, this.world);
+						EntityMankiniWither mankiniWither = new EntityMankiniWither(ModRegistry.MANKINI_WITHER.get(), this.world);
 						mankiniWither.setLocationAndAngles(originalWither.posX, originalWither.posY, originalWither.posZ, originalWither.rotationYaw, 0.0F);
 						mankiniWither.ignite();
 						originalWither.remove();
@@ -158,21 +156,20 @@ public class EntityMankiniCapsule extends ProjectileItemEntity {
 				this.world.setEntityState(this, (byte)3);
 				this.remove();
 			}
-		}
-		else {
+		} else {
 			this.world.setEntityState(this, (byte) 3);
 			this.remove();
 		}
     }
 
 	@Override
-	protected Item func_213885_i() {
-		return ModItems.mankini_capsule;
+	protected Item getDefaultItem() {
+		return ModRegistry.MANKINI_CAPSULE_ITEM.get();
 	}
 
 	@Override
 	public ItemStack getItem() {
-		return new ItemStack(ModItems.mankini_capsule);
+		return new ItemStack(ModRegistry.MANKINI_CAPSULE_ITEM.get());
 	}
 
 	@Override

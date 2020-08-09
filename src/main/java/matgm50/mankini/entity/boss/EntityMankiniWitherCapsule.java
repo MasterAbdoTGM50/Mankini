@@ -1,8 +1,7 @@
 package matgm50.mankini.entity.boss;
 
 import matgm50.mankini.init.ModEffects;
-import matgm50.mankini.init.ModEntities;
-import matgm50.mankini.init.ModItems;
+import matgm50.mankini.init.ModRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -43,16 +42,16 @@ public class EntityMankiniWitherCapsule extends DamagingProjectileEntity impleme
     }
 
     public EntityMankiniWitherCapsule(World worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
-        super(ModEntities.MANKINI_WITHER_PROJECTILE, shooter, accelX, accelY, accelZ, worldIn);
+        super(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), shooter, accelX, accelY, accelZ, worldIn);
     }
 
     public EntityMankiniWitherCapsule(FMLPlayMessages.SpawnEntity spawnEntity, World worldIn) {
-        this(ModEntities.MANKINI_WITHER_PROJECTILE, worldIn);
+        this(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), worldIn);
     }
 
     @OnlyIn(Dist.CLIENT)
     public EntityMankiniWitherCapsule(World worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
-        super(ModEntities.MANKINI_WITHER_PROJECTILE, x, y, z, accelX, accelY, accelZ, worldIn);
+        super(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), x, y, z, accelX, accelY, accelZ, worldIn);
     }
 
     /**
@@ -113,16 +112,14 @@ public class EntityMankiniWitherCapsule extends DamagingProjectileEntity impleme
                             PlayerInventory playerInv = hitPlayer.inventory;
 
                             ItemStack itemstack = hitPlayer.inventory.armorInventory.get(2);
-                            ItemStack dyeableKini = new ItemStack(ModItems.dyeable_mankini);
+                            ItemStack dyeableKini = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
                             dyeableKini.setDamage(dyeableKini.getMaxDamage()/this.world.rand.nextInt(10));
 
                             if (this.world.rand.nextInt(100) < 8) {
                                 if(!itemstack.isEmpty()) {
                                     playerInv.removeStackFromSlot(38);
-                                    playerInv.setInventorySlotContents(38, new ItemStack(ModItems.dyeable_mankini));
-                                } else {
-                                    playerInv.setInventorySlotContents(38, new ItemStack(ModItems.dyeable_mankini));
                                 }
+                                playerInv.setInventorySlotContents(38, dyeableKini);
                             }
                         }
                     }
@@ -173,7 +170,7 @@ public class EntityMankiniWitherCapsule extends DamagingProjectileEntity impleme
 
     @Override
     public ItemStack getItem() {
-        return new ItemStack(ModItems.mankini_capsule);
+        return new ItemStack(ModRegistry.MANKINI_CAPSULE_ITEM.get());
     }
 
     @Override

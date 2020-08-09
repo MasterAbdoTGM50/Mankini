@@ -1,6 +1,5 @@
 package matgm50.mankini.item;
 
-import matgm50.mankini.Mankini;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ArmorMaterial;
@@ -17,29 +16,22 @@ import javax.annotation.Nullable;
 
 public class ItemDyeableMankini extends DyeableArmorItem implements IMankini {
 
-  //  private IIcon iconNormal;
+   // private IIcon iconNormal;
    // private IIcon iconOverlay;
 
     public ItemDyeableMankini(Item.Properties builder) {
-        super(ArmorMaterial.LEATHER, EquipmentSlotType.CHEST, builder.group(Mankini.tabMankini).maxStackSize(1));
+        super(ArmorMaterial.LEATHER, EquipmentSlotType.CHEST, builder.maxStackSize(1));
     }
 
 //    @OnlyIn(Dist.CLIENT)
 //    public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
-//
 //        if (par2 > 0) {
-//
 //            return 16777215;
-//
 //        } else {
-//
 //            int j = this.getColor(par1ItemStack);
-//
-//            if (j < 0)
-//            {
+//            if (j < 0) {
 //                j = 16777215;
 //            }
-//
 //            return j;
 //        }
 //    }

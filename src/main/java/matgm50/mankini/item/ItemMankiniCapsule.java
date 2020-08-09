@@ -1,6 +1,5 @@
 package matgm50.mankini.item;
 
-import matgm50.mankini.Mankini;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -16,7 +15,7 @@ import net.minecraft.world.World;
 public class ItemMankiniCapsule extends Item {
 
     public ItemMankiniCapsule(Item.Properties builder) {
-        super(builder.group(Mankini.tabMankini).maxStackSize(1));
+        super(builder.maxStackSize(1));
     }
 
     @Override

@@ -23,11 +23,11 @@ public class ModSpawning
         for(Biome biome : ForgeRegistries.BIOMES)
         {
             for (Biome.SpawnListEntry entry : new ArrayList<>(biome.getSpawns(EntityClassification.MONSTER))) {
-                registerSpawn(entry, biome, EntityType.CREEPER, ModEntities.MANKINI_CREEPER);
-                registerSpawn(entry, biome, EntityType.ENDERMAN, ModEntities.MANKINI_ENDERMAN);
-                registerSpawn(entry, biome, EntityType.SPIDER, ModEntities.MANKINI_SPIDER);
-                registerSpawn(entry, biome, EntityType.SKELETON, ModEntities.MANKINI_SKELETON);
-                registerSpawn(entry, biome, EntityType.EVOKER, ModEntities.MANKINI_EVOKER);
+                registerSpawn(entry, biome, EntityType.CREEPER, ModRegistry.MANKINI_CREEPER.get());
+                registerSpawn(entry, biome, EntityType.ENDERMAN, ModRegistry.MANKINI_ENDERMAN.get());
+                registerSpawn(entry, biome, EntityType.SPIDER, ModRegistry.MANKINI_SPIDER.get());
+                registerSpawn(entry, biome, EntityType.SKELETON, ModRegistry.MANKINI_SKELETON.get());
+                registerSpawn(entry, biome, EntityType.EVOKER, ModRegistry.MANKINI_EVOKER.get());
             }
         }
     }
@@ -51,12 +51,12 @@ public class ModSpawning
     public static void registerSpawnPlacement() {
         Mankini.logger.info("Registering Mankini Mob spawn placement");
         //Mobs that spawn on the ground
-        EntitySpawnPlacementRegistry.register(ModEntities.MANKINI_CREEPER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223325_c);
-        EntitySpawnPlacementRegistry.register(ModEntities.MANKINI_ENDERMAN, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223325_c);
-        EntitySpawnPlacementRegistry.register(ModEntities.MANKINI_ENDERMITE, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223325_c);
-        EntitySpawnPlacementRegistry.register(ModEntities.MANKINI_SPIDER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223325_c);
-        EntitySpawnPlacementRegistry.register(ModEntities.MANKINI_SKELETON, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223325_c);
-        EntitySpawnPlacementRegistry.register(ModEntities.MANKINI_WITHER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223325_c);
-        EntitySpawnPlacementRegistry.register(ModEntities.MANKINI_EVOKER, EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223325_c);
+        EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_CREEPER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223325_c);
+        EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_ENDERMAN.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223325_c);
+        EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_ENDERMITE.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223325_c);
+        EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_SPIDER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223325_c);
+        EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_SKELETON.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223325_c);
+        EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_WITHER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223325_c);
+        EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_EVOKER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::func_223325_c);
     }
 }

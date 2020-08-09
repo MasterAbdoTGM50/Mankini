@@ -1,7 +1,7 @@
 package matgm50.mankini.util;
 
 import matgm50.mankini.init.ModEffects;
-import matgm50.mankini.init.ModItems;
+import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.lib.ModLib;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -25,29 +25,25 @@ public class TickHandler {
         ItemStack armor = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
 
         if(armor != null) {
-            if (armor.getItem().equals(ModItems.wither_mankini)) {
+            if (armor.getItem().equals(ModRegistry.WITHER_MANKINI.get())) {
                 if(player.getActivePotionEffects().contains(Effects.WITHER) || player.getActivePotionEffects().contains(ModEffects.MANKINI_WITHER)) {
                     player.removePotionEffect(Effects.WITHER);
                     player.removePotionEffect(ModEffects.MANKINI_WITHER);
                 }
             }
-            if (armor.getItem().equals(ModItems.bat_mankini)) {
+            if (armor.getItem().equals(ModRegistry.BAT_MANKINI.get())) {
                 player.fallDistance = 0F;
             }
 
-            if(armor.getItem().equals(ModItems.aetheric_mankini)) {
+            if(armor.getItem().equals(ModRegistry.AETHERIC_MANKINI.get())) {
             	allowFlying = true;
-            }
-            else
-            {
+            } else {
             	allowFlying = false;
             }
             
             if (allowFlying && !player.isCreative()) { 
 				player.abilities.allowFlying = true;
-			}
-            else 
-            {
+			} else {
             	if (player.abilities.allowFlying && !player.isCreative()) {
 		        	player.abilities.isFlying = false;
 		        	player.abilities.allowFlying = false;

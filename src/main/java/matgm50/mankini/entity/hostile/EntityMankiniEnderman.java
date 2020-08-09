@@ -1,7 +1,7 @@
 package matgm50.mankini.entity.hostile;
 
 import matgm50.mankini.init.MankiniConfig;
-import matgm50.mankini.init.ModEntities;
+import matgm50.mankini.init.ModRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -24,7 +24,7 @@ public class EntityMankiniEnderman extends EndermanEntity {
     }
 
     public EntityMankiniEnderman(World worldIn) {
-        super(ModEntities.MANKINI_ENDERMAN, worldIn);
+        super(ModRegistry.MANKINI_ENDERMAN.get(), worldIn);
     }
 
     @Override

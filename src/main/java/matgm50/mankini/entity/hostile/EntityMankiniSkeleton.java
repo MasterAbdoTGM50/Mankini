@@ -1,7 +1,7 @@
 package matgm50.mankini.entity.hostile;
 
 import matgm50.mankini.init.MankiniConfig;
-import matgm50.mankini.init.ModEntities;
+import matgm50.mankini.init.ModRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.util.SoundEvent;
@@ -16,7 +16,7 @@ public class EntityMankiniSkeleton extends AbstractMankiniSkeleton {
     }
 
     public EntityMankiniSkeleton(World worldIn) {
-        super(ModEntities.MANKINI_SKELETON, worldIn);
+        super(ModRegistry.MANKINI_SKELETON.get(), worldIn);
     }
 
     @Override

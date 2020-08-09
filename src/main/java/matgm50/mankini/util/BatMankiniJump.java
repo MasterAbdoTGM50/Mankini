@@ -1,6 +1,6 @@
 package matgm50.mankini.util;
 
-import matgm50.mankini.init.ModItems;
+import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.lib.ModLib;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.EffectInstance;
@@ -13,14 +13,12 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = ModLib.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class BatMankiniJump {
 	@SubscribeEvent
-	public static void PlayerJump(LivingJumpEvent event)
-	{
+	public static void PlayerJump(LivingJumpEvent event) {
     	if(event.getEntityLiving() instanceof PlayerEntity) {
     		PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-    		if(!player.isSneaking()){
-				if (player.inventory.armorItemInSlot(2) != null)
-				{
-					if(player.inventory.armorItemInSlot(2).getItem()== ModItems.bat_mankini){
+    		if(!player.isSneaking()) {
+				if (player.inventory.armorItemInSlot(2) != null) {
+					if(player.inventory.armorItemInSlot(2).getItem()== ModRegistry.BAT_MANKINI.get()){
 						Vec3d motion = player.getMotion();
 						double motionY = motion.getY();
 						motionY += 1.1;
