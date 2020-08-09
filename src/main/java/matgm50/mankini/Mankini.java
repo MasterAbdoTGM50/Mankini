@@ -19,13 +19,9 @@ import org.apache.logging.log4j.Logger;
 
 @Mod(ModLib.MOD_ID)
 public class Mankini {
-    public static Mankini instance;
-
 	public static final Logger logger = LogManager.getLogger(ModLib.MOD_ID);
 
 	public Mankini() {
-		instance = this;
-
 		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, MankiniConfig.commonSpec);
@@ -33,6 +29,7 @@ public class Mankini {
 
 		ModRegistry.ITEMS.register(eventBus);
 		ModRegistry.ENTITIES.register(eventBus);
+		ModRegistry.EFFECTS.register(eventBus);
 
 		eventBus.addListener(this::setup);
 

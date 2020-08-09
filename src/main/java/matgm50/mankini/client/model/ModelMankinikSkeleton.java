@@ -1,10 +1,10 @@
 package matgm50.mankini.client.model;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import matgm50.mankini.entity.hostile.EntityMankiniSkeleton;
 import matgm50.mankini.init.ModRegistry;
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.entity.model.RendererModel;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.monster.AbstractSkeletonEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
@@ -22,19 +22,19 @@ public class ModelMankinikSkeleton<T extends EntityMankiniSkeleton> extends Bipe
     public ModelMankinikSkeleton(float modelSize, boolean p_i46303_2_) {
         super(modelSize, 0.0F, 64, 32);
         if (!p_i46303_2_) {
-            this.bipedRightArm = new RendererModel(this, 40, 16);
-            this.bipedRightArm.addBox(-1.0F, -2.0F, -1.0F, 2, 12, 2, modelSize);
+            this.bipedRightArm = new ModelRenderer(this, 40, 16);
+            this.bipedRightArm.addBox(-1.0F, -2.0F, -1.0F, 2.0F, 12.0F, 2.0F, modelSize);
             this.bipedRightArm.setRotationPoint(-5.0F, 2.0F, 0.0F);
-            this.bipedLeftArm = new RendererModel(this, 40, 16);
+            this.bipedLeftArm = new ModelRenderer(this, 40, 16);
             this.bipedLeftArm.mirror = true;
-            this.bipedLeftArm.addBox(-1.0F, -2.0F, -1.0F, 2, 12, 2, modelSize);
+            this.bipedLeftArm.addBox(-1.0F, -2.0F, -1.0F, 2.0F, 12.0F, 2.0F, modelSize);
             this.bipedLeftArm.setRotationPoint(5.0F, 2.0F, 0.0F);
-            this.bipedRightLeg = new RendererModel(this, 0, 16);
-            this.bipedRightLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 12, 2, modelSize);
+            this.bipedRightLeg = new ModelRenderer(this, 0, 16);
+            this.bipedRightLeg.addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F, modelSize);
             this.bipedRightLeg.setRotationPoint(-2.0F, 12.0F, 0.0F);
-            this.bipedLeftLeg = new RendererModel(this, 0, 16);
+            this.bipedLeftLeg = new ModelRenderer(this, 0, 16);
             this.bipedLeftLeg.mirror = true;
-            this.bipedLeftLeg.addBox(-1.0F, 0.0F, -1.0F, 2, 12, 2, modelSize);
+            this.bipedLeftLeg.addBox(-1.0F, 0.0F, -1.0F, 2.0F, 12.0F, 2.0F, modelSize);
             this.bipedLeftLeg.setRotationPoint(2.0F, 12.0F, 0.0F);
         }
 
@@ -64,11 +64,10 @@ public class ModelMankinikSkeleton<T extends EntityMankiniSkeleton> extends Bipe
      * and legs, where par1 represents the time(so that arms and legs swing back and forth) and par2 represents how "far"
      * arms and legs can swing at most.
      */
-    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor) {
-        super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor);
-        ItemStack itemstack = ((LivingEntity)entityIn).getHeldItemMainhand();
-        EntityMankiniSkeleton skeleton = (EntityMankiniSkeleton)entityIn;
-        if (skeleton.isAggressive() && (itemstack.isEmpty() || itemstack.getItem() != ModRegistry.MANKINI_CANNON.get())) {
+    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        ItemStack itemstack = entityIn.getHeldItemMainhand();
+        if (entityIn.isAggressive() && (itemstack.isEmpty() || !(itemstack.getItem() instanceof net.minecraft.item.BowItem))) {
             float f = MathHelper.sin(this.swingProgress * (float)Math.PI);
             float f1 = MathHelper.sin((1.0F - (1.0F - this.swingProgress) * (1.0F - this.swingProgress)) * (float)Math.PI);
             this.bipedRightArm.rotateAngleZ = 0.0F;
@@ -84,14 +83,13 @@ public class ModelMankinikSkeleton<T extends EntityMankiniSkeleton> extends Bipe
             this.bipedRightArm.rotateAngleX += MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
             this.bipedLeftArm.rotateAngleX -= MathHelper.sin(ageInTicks * 0.067F) * 0.05F;
         }
-
     }
 
-    public void postRenderArm(float scale, HandSide side) {
-        float f = side == HandSide.RIGHT ? 1.0F : -1.0F;
-        RendererModel RendererModel = this.getArmForSide(side);
-        RendererModel.rotationPointX += f;
-        RendererModel.postRender(scale);
-        RendererModel.rotationPointX -= f;
+    public void translateHand(HandSide sideIn, MatrixStack matrixStackIn) {
+        float f = sideIn == HandSide.RIGHT ? 1.0F : -1.0F;
+        ModelRenderer modelrenderer = this.getArmForSide(sideIn);
+        modelrenderer.rotationPointX += f;
+        modelrenderer.translateRotate(matrixStackIn);
+        modelrenderer.rotationPointX -= f;
     }
 }

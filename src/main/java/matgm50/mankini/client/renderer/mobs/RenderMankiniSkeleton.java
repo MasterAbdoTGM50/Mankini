@@ -23,7 +23,7 @@ public class RenderMankiniSkeleton extends BipedRenderer<EntityMankiniSkeleton, 
 	/**
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
-	protected ResourceLocation getEntityTexture(EntityMankiniSkeleton entity) {
+	public ResourceLocation getEntityTexture(EntityMankiniSkeleton entity) {
 		return SKELETON_TEXTURES;
 	}
 }

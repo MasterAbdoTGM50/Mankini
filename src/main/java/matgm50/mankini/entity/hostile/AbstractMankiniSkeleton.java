@@ -86,9 +86,9 @@ public abstract class AbstractMankiniSkeleton extends AbstractSkeletonEntity {
      */
     public void attackEntityWithRangedAttack(LivingEntity target, float distanceFactor) {
         EntityMankiniCapsule entityCapsule = this.getCapsule(distanceFactor);
-        double d0 = target.posX - this.posX;
-        double d1 = target.getBoundingBox().minY + (double)(target.getHeight() / 3.0F) - entityCapsule.posY;
-        double d2 = target.posZ - this.posZ;
+        double d0 = target.getPosX() - this.getPosX();
+        double d1 = target.getPosYHeight(0.3333333333333333D) - entityCapsule.getPosY();
+        double d2 = target.getPosZ() - this.getPosZ();
         double d3 = (double) MathHelper.sqrt(d0 * d0 + d2 * d2);
         entityCapsule.shoot(d0, d1 + d3 * (double)0.2F, d2, 1.6F, (float)(14 - this.world.getDifficulty().getId() * 4));
         this.playSound(SoundEvents.ENTITY_SKELETON_SHOOT, 1.0F, 1.0F / (this.getRNG().nextFloat() * 0.4F + 0.8F));

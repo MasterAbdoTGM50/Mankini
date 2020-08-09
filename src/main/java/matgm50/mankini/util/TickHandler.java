@@ -1,6 +1,5 @@
 package matgm50.mankini.util;
 
-import matgm50.mankini.init.ModEffects;
 import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.lib.ModLib;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,9 +25,9 @@ public class TickHandler {
 
         if(armor != null) {
             if (armor.getItem().equals(ModRegistry.WITHER_MANKINI.get())) {
-                if(player.getActivePotionEffects().contains(Effects.WITHER) || player.getActivePotionEffects().contains(ModEffects.MANKINI_WITHER)) {
+                if(player.getActivePotionEffects().contains(Effects.WITHER) || player.getActivePotionEffects().contains(ModRegistry.MANKINI_WITHER_EFFECT.get())) {
                     player.removePotionEffect(Effects.WITHER);
-                    player.removePotionEffect(ModEffects.MANKINI_WITHER);
+                    player.removePotionEffect(ModRegistry.MANKINI_WITHER_EFFECT.get());
                 }
             }
             if (armor.getItem().equals(ModRegistry.BAT_MANKINI.get())) {

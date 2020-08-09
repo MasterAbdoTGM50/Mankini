@@ -19,17 +19,20 @@ import matgm50.mankini.item.ItemMankiniCapsule;
 import matgm50.mankini.item.ItemMankiniHorseArmor;
 import matgm50.mankini.item.ItemWitherKini;
 import matgm50.mankini.lib.ModLib;
+import matgm50.mankini.potion.MankiniWitherPotion;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Item;
+import net.minecraft.potion.Effect;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModRegistry {
-    public static final DeferredRegister<Item> ITEMS = new DeferredRegister<>(ForgeRegistries.ITEMS, ModLib.MOD_ID);
-    public static final DeferredRegister<EntityType<?>> ENTITIES = new DeferredRegister<>(ForgeRegistries.ENTITIES, ModLib.MOD_ID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ModLib.MOD_ID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, ModLib.MOD_ID);
+    public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, ModLib.MOD_ID);
 
     public static final RegistryObject<EntityType<EntityMankiniCapsule>> MANKINI_CAPSULE = ENTITIES.register("mankini_capsule", () -> register("mankini_capsule", EntityType.Builder.<EntityMankiniCapsule>create(EntityMankiniCapsule::new, EntityClassification.MISC)
             .size(0.25F, 0.25F)
@@ -53,6 +56,7 @@ public class ModRegistry {
     public static final RegistryObject<EntityType<EntityMankiniEvoker>> MANKINI_EVOKER = ENTITIES.register("mankini_evoker", () -> register("mankini_evoker", EntityType.Builder.<EntityMankiniEvoker>create(EntityMankiniEvoker::new, EntityClassification.MONSTER)
             .size(0.6F, 1.95F)));
 
+    public static final RegistryObject<Effect> MANKINI_WITHER_EFFECT = EFFECTS.register("mankini_wither", () -> new MankiniWitherPotion());
 
     public static final RegistryObject<Item> DYEABLE_MANKINI = ITEMS.register("dyeable_mankini", () -> new ItemDyeableMankini(itemBuilder()));
     public static final RegistryObject<Item> KAWAII_MANKINI = ITEMS.register("kawaii_mankini", () -> new ItemKawaiiMankini(itemBuilder()));

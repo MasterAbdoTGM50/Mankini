@@ -1,182 +1,158 @@
 package matgm50.mankini.client.model;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.entity.model.RendererModel;
+import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 
 public class ModelAAMT<T extends LivingEntity> extends BipedModel<T> {
-    RendererModel f1p1;
-    RendererModel f1p2;
-    RendererModel f1p3;
-    RendererModel f2p1;
-    RendererModel f2p2;
-    RendererModel f2p3;
-    RendererModel sp1;
-    RendererModel sp1d1;
-    RendererModel sp1d2;
-    RendererModel sp2;
-    RendererModel sp2d1;
-    RendererModel sp2d2;
-    RendererModel sf;
-    RendererModel rj;
-    RendererModel rw1;
-    RendererModel rw2;
-    RendererModel lj;
-    RendererModel lw1;
-    RendererModel lw2;
+    private final ModelRenderer f1p2;
+    private final ModelRenderer f1p3;
+    private final ModelRenderer f2p1;
+    private final ModelRenderer f2p2;
+    private final ModelRenderer f2p3;
+    private final ModelRenderer sp1;
+    private final ModelRenderer sp1d1;
+    private final ModelRenderer sp1d2;
+    private final ModelRenderer sp2;
+    private final ModelRenderer sp2d1;
+    private final ModelRenderer sp2d2;
+    private final ModelRenderer sf;
+    private final ModelRenderer rj;
+    private final ModelRenderer rw1;
+    private final ModelRenderer rw2;
+    private final ModelRenderer lj;
+    private final ModelRenderer lw1;
+    private final ModelRenderer lw2;
+    private final ModelRenderer f1p1;
 
     public ModelAAMT(float f) {
         super(f, 0, 64, 64);
-
         textureWidth = 64;
         textureHeight = 64;
 
-        f1p1 = new RendererModel(this, 0, 32);
-        f1p1.addBox(-4F, 0F, -3F, 8, 4, 1);
-        f1p1.setRotationPoint(0F, 0F, 0F);
-        f1p1.setTextureSize(64, 32);
-        f1p1.mirror = true;
-        setRotation(f1p1, 0F, 0F, 0F);
-        f1p2 = new RendererModel(this, 0, 37);
-        f1p2.addBox(-3F, 4F, -3F, 6, 1, 1);
-        f1p2.setRotationPoint(0F, 0F, 0F);
-        f1p2.setTextureSize(64, 32);
-        f1p2.mirror = true;
-        setRotation(f1p2, 0F, 0F, 0F);
-        f1p3 = new RendererModel(this, 0, 39);
-        f1p3.addBox(-2F, 5F, -3F, 4, 1, 1);
-        f1p3.setRotationPoint(0F, 0F, 0F);
-        f1p3.setTextureSize(64, 32);
-        f1p3.mirror = true;
-        setRotation(f1p3, 0F, 0F, 0F);
-        f2p1 = new RendererModel(this, 0, 41);
-        f2p1.addBox(-3F, 0F, -4F, 6, 3, 1);
-        f2p1.setRotationPoint(0F, 0F, 0F);
-        f2p1.setTextureSize(64, 32);
-        f2p1.mirror = true;
-        setRotation(f2p1, 0F, 0F, 0F);
-        f2p2 = new RendererModel(this, 0, 45);
-        f2p2.addBox(-2F, 0F, -4F, 4, 1, 1);
-        f2p2.setRotationPoint(0F, 3F, 0F);
-        f2p2.setTextureSize(64, 32);
-        f2p2.mirror = true;
-        setRotation(f2p2, 0F, 0F, 0F);
-        f2p3 = new RendererModel(this, 0, 47);
-        f2p3.addBox(-1F, 4F, -4F, 2, 1, 1);
-        f2p3.setRotationPoint(0F, 0F, 0F);
-        f2p3.setTextureSize(64, 32);
-        f2p3.mirror = true;
-        setRotation(f2p3, 0F, 0F, 0F);
-        sp1 = new RendererModel(this, 18, 32);
-        sp1.addBox(-6F, -4F, -2.5F, 7, 1, 5);
-        sp1.setRotationPoint(0F, 0F, 0F);
-        sp1.setTextureSize(64, 32);
-        sp1.mirror = true;
-        setRotation(sp1, 0F, 0F, -0.6981317F);
-        sp1d1 = new RendererModel(this, 18, 38);
-        sp1d1.addBox(-7F, -4F, -2.5F, 1, 1, 1);
-        sp1d1.setRotationPoint(0F, 0F, 0F);
-        sp1d1.setTextureSize(64, 32);
-        sp1d1.mirror = true;
-        setRotation(sp1d1, 0F, 0F, -0.6981317F);
-        sp1d2 = new RendererModel(this, 18, 38);
-        sp1d2.addBox(-7F, -4F, 1.5F, 1, 1, 1);
-        sp1d2.setRotationPoint(0F, 0F, 0F);
-        sp1d2.setTextureSize(64, 32);
-        sp1d2.mirror = true;
-        setRotation(sp1d2, 0F, 0F, -0.6981317F);
-        sp2 = new RendererModel(this, 18, 40);
-        sp2.addBox(0F, -6F, -2.5F, 1, 2, 5);
-        sp2.setRotationPoint(0F, 0F, 0F);
-        sp2.setTextureSize(64, 32);
-        sp2.mirror = true;
-        setRotation(sp2, 0F, 0F, -0.6981317F);
-        sp2d1 = new RendererModel(this, 18, 47);
-        sp2d1.addBox(0F, -7F, -2.5F, 1, 1, 1);
-        sp2d1.setRotationPoint(0F, 0F, 0F);
-        sp2d1.setTextureSize(64, 32);
-        sp2d1.mirror = true;
-        setRotation(sp2d1, 0F, 0F, -0.6981317F);
-        sp2d2 = new RendererModel(this, 18, 47);
-        sp2d2.addBox(0F, -7F, 1.5F, 1, 1, 1);
-        sp2d2.setRotationPoint(0F, 0F, 0F);
-        sp2d2.setTextureSize(64, 32);
-        sp2d2.mirror = true;
-        setRotation(sp2d2, 0F, 0F, -0.6981317F);
-        sf = new RendererModel(this, 18, 49);
-        sf.addBox(-5F, -5F, -1.5F, 5, 1, 3);
-        sf.setRotationPoint(0F, 0F, 0F);
-        sf.setTextureSize(64, 32);
-        sf.mirror = true;
-        setRotation(sf, 0F, 0F, -0.6981317F);
-        rj = new RendererModel(this, 42, 32);
-        rj.addBox(-5F, 2F, 3F, 4, 8, 4);
-        rj.setRotationPoint(0F, 0F, 0F);
-        rj.setTextureSize(64, 32);
-        rj.mirror = true;
-        setRotation(rj, 0.2617994F, 0F, 0.2617994F);
-        rw1 = new RendererModel(this, 42, 44);
-        rw1.addBox(-2F, 2F, 7F, 1, 4, 3);
-        rw1.setRotationPoint(0F, 0F, 0F);
-        rw1.setTextureSize(64, 32);
-        rw1.mirror = true;
-        setRotation(rw1, 0.2617994F, 0F, 0.2617994F);
-        rw2 = new RendererModel(this, 42, 51);
-        rw2.addBox(-2F, 2F, 10F, 1, 3, 1);
-        rw2.setRotationPoint(0F, 0F, 0F);
-        rw2.setTextureSize(64, 32);
-        rw2.mirror = true;
-        setRotation(rw2, 0.2617994F, 0F, 0.2617994F);
-        lj = new RendererModel(this, 42, 32);
-        lj.addBox(1F, 2F, 3F, 4, 8, 4);
-        lj.setRotationPoint(0F, 0F, 0F);
-        lj.setTextureSize(64, 32);
-        lj.mirror = true;
-        setRotation(lj, 0.2617994F, 0F, -0.2617994F);
-        lw1 = new RendererModel(this, 42, 44);
-        lw1.addBox(1F, 2F, 7F, 1, 4, 3);
-        lw1.setRotationPoint(0F, 0F, 0F);
-        lw1.setTextureSize(64, 32);
-        lw1.mirror = true;
-        setRotation(lw1, 0.2617994F, 0F, -0.2617994F);
-        lw2 = new RendererModel(this, 42, 51);
-        lw2.addBox(1F, 2F, 10F, 1, 3, 1);
-        lw2.setRotationPoint(0F, 0F, 0F);
-        lw2.setTextureSize(64, 32);
-        lw2.mirror = true;
-        setRotation(lw2, 0.2617994F, 0F, -0.2617994F);
+        f1p2 = new ModelRenderer(this);
+        f1p2.setRotationPoint(0.0F, 0.0F, 0.0F);
+        f1p2.setTextureOffset(0, 37).addBox(-3.0F, 4.0F, -3.0F, 6.0F, 1.0F, 1.0F, 0.0F, true);
 
-        this.bipedBody.addChild(f1p1);
-        this.bipedBody.addChild(f1p2);
-        this.bipedBody.addChild(f1p3);
-        this.bipedBody.addChild(f2p1);
-        this.bipedBody.addChild(f2p2);
-        this.bipedBody.addChild(f2p3);
-        this.bipedBody.addChild(rj);
-        this.bipedBody.addChild(rw1);
-        this.bipedBody.addChild(rw2);
-        this.bipedBody.addChild(lj);
-        this.bipedBody.addChild(lw1);
-        this.bipedBody.addChild(lw2);
-        this.bipedRightArm.addChild(sp1);
-        this.bipedRightArm.addChild(sp1d1);
-        this.bipedRightArm.addChild(sp1d2);
-        this.bipedRightArm.addChild(sp2);
-        this.bipedRightArm.addChild(sp2d1);
-        this.bipedRightArm.addChild(sp2d2);
-        this.bipedRightArm.addChild(sf);
+        f1p3 = new ModelRenderer(this);
+        f1p3.setRotationPoint(0.0F, 0.0F, 0.0F);
+        f1p3.setTextureOffset(0, 39).addBox(-2.0F, 5.0F, -3.0F, 4.0F, 1.0F, 1.0F, 0.0F, true);
+
+        f2p1 = new ModelRenderer(this);
+        f2p1.setRotationPoint(0.0F, 0.0F, 0.0F);
+        f2p1.setTextureOffset(0, 41).addBox(-3.0F, 0.0F, -4.0F, 6.0F, 3.0F, 1.0F, 0.0F, true);
+
+        f2p2 = new ModelRenderer(this);
+        f2p2.setRotationPoint(0.0F, 3.0F, 0.0F);
+        f2p2.setTextureOffset(0, 45).addBox(-2.0F, 0.0F, -4.0F, 4.0F, 1.0F, 1.0F, 0.0F, true);
+
+        f2p3 = new ModelRenderer(this);
+        f2p3.setRotationPoint(0.0F, 0.0F, 0.0F);
+        f2p3.setTextureOffset(0, 47).addBox(-1.0F, 4.0F, -4.0F, 2.0F, 1.0F, 1.0F, 0.0F, true);
+
+        sp1 = new ModelRenderer(this);
+        sp1.setRotationPoint(0.0F, 0.0F, 0.0F);
+        setRotationAngle(sp1, 0.0F, 0.0F, -0.6981F);
+        sp1.setTextureOffset(18, 32).addBox(-6.0F, -4.0F, -2.5F, 7.0F, 1.0F, 5.0F, 0.0F, true);
+
+        sp1d1 = new ModelRenderer(this);
+        sp1d1.setRotationPoint(0.0F, 0.0F, 0.0F);
+        setRotationAngle(sp1d1, 0.0F, 0.0F, -0.6981F);
+        sp1d1.setTextureOffset(18, 38).addBox(-7.0F, -4.0F, -2.5F, 1.0F, 1.0F, 1.0F, 0.0F, true);
+
+        sp1d2 = new ModelRenderer(this);
+        sp1d2.setRotationPoint(0.0F, 0.0F, 0.0F);
+        setRotationAngle(sp1d2, 0.0F, 0.0F, -0.6981F);
+        sp1d2.setTextureOffset(18, 38).addBox(-7.0F, -4.0F, 1.5F, 1.0F, 1.0F, 1.0F, 0.0F, true);
+
+        sp2 = new ModelRenderer(this);
+        sp2.setRotationPoint(0.0F, 0.0F, 0.0F);
+        setRotationAngle(sp2, 0.0F, 0.0F, -0.6981F);
+        sp2.setTextureOffset(18, 40).addBox(0.0F, -6.0F, -2.5F, 1.0F, 2.0F, 5.0F, 0.0F, true);
+
+        sp2d1 = new ModelRenderer(this);
+        sp2d1.setRotationPoint(0.0F, 0.0F, 0.0F);
+        setRotationAngle(sp2d1, 0.0F, 0.0F, -0.6981F);
+        sp2d1.setTextureOffset(18, 47).addBox(0.0F, -7.0F, -2.5F, 1.0F, 1.0F, 1.0F, 0.0F, true);
+
+        sp2d2 = new ModelRenderer(this);
+        sp2d2.setRotationPoint(0.0F, 0.0F, 0.0F);
+        setRotationAngle(sp2d2, 0.0F, 0.0F, -0.6981F);
+        sp2d2.setTextureOffset(18, 47).addBox(0.0F, -7.0F, 1.5F, 1.0F, 1.0F, 1.0F, 0.0F, true);
+
+        sf = new ModelRenderer(this);
+        sf.setRotationPoint(0.0F, 0.0F, 0.0F);
+        setRotationAngle(sf, 0.0F, 0.0F, -0.6981F);
+        sf.setTextureOffset(18, 49).addBox(-5.0F, -5.0F, -1.5F, 5.0F, 1.0F, 3.0F, 0.0F, true);
+
+        rj = new ModelRenderer(this);
+        rj.setRotationPoint(0.0F, 0.0F, 0.0F);
+        setRotationAngle(rj, 0.2618F, 0.0F, 0.2618F);
+        rj.setTextureOffset(42, 32).addBox(-5.0F, 2.0F, 3.0F, 4.0F, 8.0F, 4.0F, 0.0F, true);
+
+        rw1 = new ModelRenderer(this);
+        rw1.setRotationPoint(0.0F, 0.0F, 0.0F);
+        setRotationAngle(rw1, 0.2618F, 0.0F, 0.2618F);
+        rw1.setTextureOffset(42, 44).addBox(-2.0F, 2.0F, 7.0F, 1.0F, 4.0F, 3.0F, 0.0F, true);
+
+        rw2 = new ModelRenderer(this);
+        rw2.setRotationPoint(0.0F, 0.0F, 0.0F);
+        setRotationAngle(rw2, 0.2618F, 0.0F, 0.2618F);
+        rw2.setTextureOffset(42, 51).addBox(-2.0F, 2.0F, 10.0F, 1.0F, 3.0F, 1.0F, 0.0F, true);
+
+        lj = new ModelRenderer(this);
+        lj.setRotationPoint(0.0F, 0.0F, 0.0F);
+        setRotationAngle(lj, 0.2618F, 0.0F, -0.2618F);
+        lj.setTextureOffset(42, 32).addBox(1.0F, 2.0F, 3.0F, 4.0F, 8.0F, 4.0F, 0.0F, true);
+
+        lw1 = new ModelRenderer(this);
+        lw1.setRotationPoint(0.0F, 0.0F, 0.0F);
+        setRotationAngle(lw1, 0.2618F, 0.0F, -0.2618F);
+        lw1.setTextureOffset(42, 44).addBox(1.0F, 2.0F, 7.0F, 1.0F, 4.0F, 3.0F, 0.0F, true);
+
+        lw2 = new ModelRenderer(this);
+        lw2.setRotationPoint(0.0F, 0.0F, 0.0F);
+        setRotationAngle(lw2, 0.2618F, 0.0F, -0.2618F);
+        lw2.setTextureOffset(42, 51).addBox(1.0F, 2.0F, 10.0F, 1.0F, 3.0F, 1.0F, 0.0F, true);
+
+        f1p1 = new ModelRenderer(this);
+        f1p1.setRotationPoint(0.0F, 0.0F, 0.0F);
+        f1p1.setTextureOffset(0, 32).addBox(-4.0F, 0.0F, -3.0F, 8.0F, 4.0F, 1.0F, 0.0F, true);
+    }
+
+    @Override
+    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
     }
 
     @Override
-    public void render(T entity, float f, float f1, float f2, float f3, float f4, float f5) {
-        super.render(entity, f, f1, f2, f3, f4, f5);
-        super.setRotationAngles(entity, f, f1, f2, f3, f4, f5);
+    public void render(MatrixStack matrixStackIn, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+        f1p2.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        f1p3.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        f2p1.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        f2p2.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        f2p3.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        sp1.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        sp1d1.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        sp1d2.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        sp2.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        sp2d1.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        sp2d2.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        sf.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        rj.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        rw1.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        rw2.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        lj.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        lw1.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        lw2.render(matrixStackIn, buffer, packedLight, packedOverlay);
+        f1p1.render(matrixStackIn, buffer, packedLight, packedOverlay);
     }
 
-    private void setRotation(RendererModel model, float x, float y, float z) {
-        model.rotateAngleX = x;
-        model.rotateAngleY = y;
-        model.rotateAngleZ = z;
+    public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
+        modelRenderer.rotateAngleX = x;
+        modelRenderer.rotateAngleY = y;
+        modelRenderer.rotateAngleZ = z;
     }
 }

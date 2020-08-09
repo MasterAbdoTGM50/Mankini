@@ -64,25 +64,25 @@ public class EntityMankiniSpider extends SpiderEntity {
         ItemStack creeperKini = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
 
         if (this.world.rand.nextInt(100) == 0) {
-            MobEntity entityskeleton = new SkeletonEntity(EntityType.SKELETON, this.world);
+            MobEntity entitySkeleton = new SkeletonEntity(EntityType.SKELETON, this.world);
 
             if(this.world.rand.nextInt(20) < 5) {
-                entityskeleton = new EntityMankiniSkeleton(this.world);
+                entitySkeleton = new EntityMankiniSkeleton(this.world);
             }
 
-            entityskeleton.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            entityskeleton.onInitialSpawn(worldIn, difficultyIn, reason, (ILivingEntityData)null, (CompoundNBT) null);
-            entityskeleton.setItemStackToSlot(EquipmentSlotType.CHEST, creeperKini);
-            this.world.addEntity(entityskeleton);
-            entityskeleton.startRiding(this);
+            entitySkeleton.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(), this.rotationYaw, 0.0F);
+            entitySkeleton.onInitialSpawn(worldIn, difficultyIn, reason, (ILivingEntityData)null, (CompoundNBT) null);
+            entitySkeleton.setItemStackToSlot(EquipmentSlotType.CHEST, creeperKini);
+            this.world.addEntity(entitySkeleton);
+            entitySkeleton.startRiding(this);
         } else if (this.world.rand.nextInt(100) < 10) {
 
-            EntityMankiniCreeper mankinicreeper = new EntityMankiniCreeper(this.world);
-            mankinicreeper.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, 0.0F);
-            mankinicreeper.onInitialSpawn(worldIn, difficultyIn, reason, (ILivingEntityData)null, (CompoundNBT) null);
-            mankinicreeper.setItemStackToSlot(EquipmentSlotType.CHEST, creeperKini);
-            this.world.addEntity(mankinicreeper);
-            mankinicreeper.startRiding(this);
+            EntityMankiniCreeper mankiniCreeper = new EntityMankiniCreeper(this.world);
+            mankiniCreeper.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(), this.rotationYaw, 0.0F);
+            mankiniCreeper.onInitialSpawn(worldIn, difficultyIn, reason, (ILivingEntityData)null, (CompoundNBT) null);
+            mankiniCreeper.setItemStackToSlot(EquipmentSlotType.CHEST, creeperKini);
+            this.world.addEntity(mankiniCreeper);
+            mankiniCreeper.startRiding(this);
         }
 
         if (spawnDataIn == null) {

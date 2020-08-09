@@ -100,7 +100,7 @@ public class EntityAIMankiniCannon<T extends MonsterEntity & IRangedAttackMob> e
     }
 
     public void doMankiniShooting(LivingEntity entitylivingbase) {
-        double d0 = this.entity.getDistanceSq(entitylivingbase.posX, entitylivingbase.getBoundingBox().minY, entitylivingbase.posZ);
+        double d0 = this.entity.getDistanceSq(entitylivingbase.getPosX(), entitylivingbase.getBoundingBox().minY, entitylivingbase.getPosZ());
         boolean flag = this.entity.getEntitySenses().canSee(entitylivingbase);
         boolean flag1 = this.seeTime > 0;
         if (flag != flag1) {

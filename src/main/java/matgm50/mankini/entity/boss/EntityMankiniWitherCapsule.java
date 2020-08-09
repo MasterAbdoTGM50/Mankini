@@ -1,6 +1,5 @@
 package matgm50.mankini.entity.boss;
 
-import matgm50.mankini.init.ModEffects;
 import matgm50.mankini.init.ModRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
@@ -103,7 +102,7 @@ public class EntityMankiniWitherCapsule extends DamagingProjectileEntity impleme
                     }
 
                     if (i > 0) {
-                        ((LivingEntity) entity).addPotionEffect(new EffectInstance(ModEffects.MANKINI_WITHER, 10 * i, 1));
+                        ((LivingEntity) entity).addPotionEffect(new EffectInstance(ModRegistry.MANKINI_WITHER_EFFECT.get(), 20 * i, 1));
                     }
 
                     if (!this.world.isRemote) {
@@ -126,7 +125,7 @@ public class EntityMankiniWitherCapsule extends DamagingProjectileEntity impleme
                 }
             }
             Explosion.Mode mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.world, this) ? Explosion.Mode.DESTROY : Explosion.Mode.NONE;
-            this.world.createExplosion(this, this.posX, this.posY, this.posZ, 1.0F, false, mode);
+            this.world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), 1.0F, false, mode);
             this.remove();
         }
 

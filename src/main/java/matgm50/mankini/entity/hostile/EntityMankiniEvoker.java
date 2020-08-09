@@ -55,7 +55,7 @@ public class EntityMankiniEvoker extends SpellcastingIllagerEntity {
     }
 
     @Override
-    public void func_213660_a(int p_213660_1_, boolean p_213660_2_) {
+    public void applyWaveBonus(int p_213660_1_, boolean p_213660_2_) {
     }
 
     @Override
@@ -103,12 +103,18 @@ public class EntityMankiniEvoker extends SpellcastingIllagerEntity {
     }
 
     public class AIWololoSpell extends SpellcastingIllagerEntity.UseSpellGoal {
-        private final Predicate<PlayerEntity> wololoSelector = (playerIn) -> {
-            return isWearing(playerIn);
-        };
+        private final Predicate<PlayerEntity> wololoSelector = this::hasMankini;
 
-        public boolean isWearing(PlayerEntity playerIn) {
-            return !(playerIn.inventory.armorInventory.get(2).getItem() instanceof IMankini);
+        public boolean hasMankini(PlayerEntity playerIn) {
+            PlayerInventory inventory = playerIn.inventory;
+            boolean hasMankini = false;
+            for(int i = 0; i < inventory.getSizeInventory(); i++) {
+                if(inventory.getStackInSlot(i).getItem() instanceof IMankini) {
+                    hasMankini = true;
+                    break;
+                }
+            }
+            return !hasMankini;
         }
         public AIWololoSpell() {
             super();
@@ -157,22 +163,14 @@ public class EntityMankiniEvoker extends SpellcastingIllagerEntity {
             if (targetPlayer != null && targetPlayer.isAlive()) {
                 PlayerInventory playerInv = targetPlayer.inventory;
                 ItemStack wornStack = playerInv.armorInventory.get(2);
-                boolean flag = wornStack.getItem() instanceof IMankini;
-                boolean flag2 = false;
+                boolean flag = !(wornStack.getItem() instanceof IMankini);
 
-                for(int i = 0; i < targetPlayer.inventory.getSizeInventory(); i++) {
-                    if(targetPlayer.inventory.getStackInSlot(i).getItem() instanceof IMankini) {
-                        flag2 = true;
-                        break;
-                    }
-                }
-
-                if(!flag && !flag2) {
+                if(flag) {
                     ItemStack kiniStack = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
 
-                    if(wornStack.getItem() == null) {
+                    if(wornStack.isEmpty()) {
                         playerInv.setInventorySlotContents(38, kiniStack);
-                    } else if(wornStack.getItem() != null && !(wornStack.getItem() instanceof IMankini)) {
+                    } else if(!wornStack.isEmpty() && !(wornStack.getItem() instanceof IMankini)) {
                         playerInv.setInventorySlotContents(38, kiniStack);
                         if(playerInv.getFirstEmptyStack() != -1) {
                             targetPlayer.entityDropItem(wornStack, 0.5F);

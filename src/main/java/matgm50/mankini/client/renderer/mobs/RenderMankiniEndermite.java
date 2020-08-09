@@ -1,6 +1,7 @@
 package matgm50.mankini.client.renderer.mobs;
 
 import matgm50.mankini.entity.hostile.EntityMankiniEndermite;
+import matgm50.mankini.lib.ModLib;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.model.EndermiteModel;
@@ -10,7 +11,7 @@ import javax.annotation.Nullable;
 
 public class RenderMankiniEndermite extends MobRenderer<EntityMankiniEndermite, EndermiteModel<EntityMankiniEndermite>> {
 
-	private static final ResourceLocation MANKINI_ENDERMITE = new ResourceLocation("mankini:textures/entity/mankini_endermite.png");
+	private static final ResourceLocation MANKINI_ENDERMITE = new ResourceLocation(ModLib.MOD_ID, "textures/entity/mankini_endermite.png");
 	
 	public RenderMankiniEndermite(EntityRendererManager renderManagerIn) {
 		super(renderManagerIn, new EndermiteModel(), 0.3F);
@@ -18,7 +19,7 @@ public class RenderMankiniEndermite extends MobRenderer<EntityMankiniEndermite, 
 
 	@Nullable
 	@Override
-	protected ResourceLocation getEntityTexture(EntityMankiniEndermite entity) {
+	public ResourceLocation getEntityTexture(EntityMankiniEndermite entity) {
 		return MANKINI_ENDERMITE;
 	}
 }

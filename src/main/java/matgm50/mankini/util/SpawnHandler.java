@@ -19,7 +19,7 @@ public class SpawnHandler {
         World worldIn = event.getWorld().getWorld();
         if(entity instanceof EndermiteEntity && !(entity instanceof EntityMankiniEndermite)) {
             EntityMankiniEndermite mankiniMite = new EntityMankiniEndermite(worldIn);
-            mankiniMite.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, entity.rotationYaw, 0.0F);
+            mankiniMite.setLocationAndAngles(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.rotationYaw, 0.0F);
             event.setCanceled(true);
             worldIn.addEntity(mankiniMite);
         }

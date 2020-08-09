@@ -29,15 +29,15 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 public class ClientHandler {
 
     public static void registerRenders(FMLClientSetupEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(EntityMankiniCapsule.class, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
-        RenderingRegistry.registerEntityRenderingHandler(EntityMankiniCreeper.class, RenderMankiniCreeper::new);
-        RenderingRegistry.registerEntityRenderingHandler(EntityMankiniEnderman.class, RenderMankiniEnderman::new);
-        RenderingRegistry.registerEntityRenderingHandler(EntityMankiniEndermite.class, RenderMankiniEndermite::new);
-        RenderingRegistry.registerEntityRenderingHandler(EntityMankiniSpider.class, RenderMankiniSpider::new);
-        RenderingRegistry.registerEntityRenderingHandler(EntityMankiniSkeleton.class, RenderMankiniSkeleton::new);
-        RenderingRegistry.registerEntityRenderingHandler(EntityMankiniWither.class, RenderMankiniWither::new);
-        RenderingRegistry.registerEntityRenderingHandler(EntityMankiniWitherCapsule.class, renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
-        RenderingRegistry.registerEntityRenderingHandler(EntityMankiniEvoker.class, RenderMankiniEvoker::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_CAPSULE.get(), renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
+        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_CREEPER.get(), RenderMankiniCreeper::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_ENDERMAN.get(), RenderMankiniEnderman::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_ENDERMITE.get(), RenderMankiniEndermite::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_SPIDER.get(), RenderMankiniSpider::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_SKELETON.get(), RenderMankiniSkeleton::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_WITHER.get(), RenderMankiniWither::new);
+        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
+        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_EVOKER.get(), RenderMankiniEvoker::new);
     }
 
     public static void registerItemColors(ColorHandlerEvent.Item event) {

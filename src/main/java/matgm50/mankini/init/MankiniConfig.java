@@ -87,7 +87,7 @@ public class MankiniConfig {
     }
 
     @SubscribeEvent
-    public static void onFileChange(final ModConfig.ConfigReloading configEvent) {
+    public static void onFileChange(final ModConfig.Reloading configEvent) {
         Mankini.logger.fatal("Mankini config just got changed on the file system!");
     }
 }

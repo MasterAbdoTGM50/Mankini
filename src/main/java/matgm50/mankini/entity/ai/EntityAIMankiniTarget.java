@@ -33,6 +33,6 @@ public class EntityAIMankiniTarget<T extends LivingEntity> extends NearestAttack
      * Returns whether an in-progress EntityAIBase should continue executing
      */
     public boolean shouldContinueExecuting() {
-        return this.targetEntitySelector != null ? this.targetEntitySelector.canTarget(this.goalOwner, this.target) : super.shouldContinueExecuting();
+        return this.targetEntitySelector != null ? goalOwner != null && target != null && this.targetEntitySelector.canTarget(this.goalOwner, this.target) : super.shouldContinueExecuting();
     }
 }

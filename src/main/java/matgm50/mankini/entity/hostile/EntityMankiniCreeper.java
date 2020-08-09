@@ -61,7 +61,7 @@ public class EntityMankiniCreeper extends CreeperEntity {
     	if(this.getAttackTarget() instanceof PlayerEntity) {
             PlayerEntity hitPlayer = (PlayerEntity) this.getAttackTarget();
     		
-    		float f = this.getPowered() ? 2.0F : 1.0F;
+    		float f = this.isCharged() ? 2.0F : 1.0F;
     		
         	Boolean full = true;
         	
@@ -70,11 +70,10 @@ public class EntityMankiniCreeper extends CreeperEntity {
         	ItemStack itemstack = hitPlayer.inventory.armorInventory.get(2);
             ItemStack creeperKini = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
 
-            this.world.createExplosion(this, this.posX, this.posY, this.posZ, (float)3 * f, Explosion.Mode.NONE);
-            
-            
-        	if (!this.world.isRemote) {
-				if(hitPlayer.posX == (int) this.posX || hitPlayer.posY == (int) this.posY || hitPlayer.posZ == this.posZ){
+			this.world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), (float)3 * f,Explosion.Mode.NONE);
+
+			if (!this.world.isRemote) {
+				if(hitPlayer.getPosX() == (int) this.getPosX() || hitPlayer.getPosY() == (int) this.getPosY() || hitPlayer.getPosZ() == this.getPosZ()){
 					if(itemstack.isEmpty()){
 						playerInv.setInventorySlotContents(38, creeperKini);
 						full = true;

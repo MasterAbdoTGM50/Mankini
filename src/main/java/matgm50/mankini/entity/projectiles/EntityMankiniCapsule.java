@@ -7,7 +7,6 @@ import matgm50.mankini.item.IMankini;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.monster.ZombieEntity;
@@ -18,7 +17,6 @@ import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.network.IPacket;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ItemParticleData;
@@ -42,12 +40,12 @@ public class EntityMankiniCapsule extends ProjectileItemEntity {
 	}
 
     public EntityMankiniCapsule(World worldIn, LivingEntity throwerIn, ItemStack foundMankini) {
-        super(ModRegistry.MANKINI_CAPSULE.get(), throwerIn.posX, throwerIn.posY + (double)throwerIn.getEyeHeight() - (double)0.1F, throwerIn.posZ, worldIn);
+        super(ModRegistry.MANKINI_CAPSULE.get(), throwerIn.getPosX(), throwerIn.getPosY() + (double)throwerIn.getEyeHeight() - (double)0.1F, throwerIn.getPosZ(), worldIn);
         this.foundMankini = foundMankini;
     }
 
 	public EntityMankiniCapsule(World worldIn, LivingEntity throwerIn, ItemStack foundMankini, boolean drop) {
-		super(ModRegistry.MANKINI_CAPSULE.get(), throwerIn.posX, throwerIn.posY + (double)throwerIn.getEyeHeight() - (double)0.1F, throwerIn.posZ, worldIn);
+		super(ModRegistry.MANKINI_CAPSULE.get(), throwerIn.getPosX(), throwerIn.getPosY() + (double)throwerIn.getEyeHeight() - (double)0.1F, throwerIn.getPosZ(), worldIn);
 		this.foundMankini = foundMankini;
 		this.dropItem = drop;
 	}
@@ -69,7 +67,7 @@ public class EntityMankiniCapsule extends ProjectileItemEntity {
 			IParticleData iparticledata = this.func_213887_n();
 
 			for(int i = 0; i < 8; ++i) {
-				this.world.addParticle(iparticledata, this.posX, this.posY, this.posZ, 0.0D, 0.0D, 0.0D);
+				this.world.addParticle(iparticledata, this.getPosX(), this.getPosY(), this.getPosZ(), 0.0D, 0.0D, 0.0D);
 			}
         }
     }
@@ -77,7 +75,9 @@ public class EntityMankiniCapsule extends ProjectileItemEntity {
 	@Override
     protected void onImpact(RayTraceResult result) {
 		if (!this.world.isRemote){
+			boolean flag = false;
 			if (result.getType() == RayTraceResult.Type.ENTITY) {
+				flag = true;
 				Entity hit = ((EntityRayTraceResult)result).getEntity();
 				if (hit != null) {
 					if (hit instanceof PlayerEntity) {
@@ -86,9 +86,9 @@ public class EntityMankiniCapsule extends ProjectileItemEntity {
 						ItemStack wornStack = hitPlayer.inventory.armorInventory.get(2);
 						PlayerInventory playerInv = hitPlayer.inventory;
 
-						if (wornStack.getItem() == null) {
+						if (wornStack.isEmpty()) {
 							playerInv.setInventorySlotContents(38, foundMankini);
-						} else if (wornStack.getItem() != null && !(wornStack.getItem() instanceof IMankini)) {
+						} else if (!wornStack.isEmpty() && !(wornStack.getItem() instanceof IMankini)) {
 							playerInv.setInventorySlotContents(38, foundMankini);
 							if (playerInv.getFirstEmptyStack() == -1) {
 								if (dropItem) {
@@ -100,10 +100,9 @@ public class EntityMankiniCapsule extends ProjectileItemEntity {
 						}
 					} else if (hit instanceof WitherEntity && !(hit instanceof EntityMankiniWither)) {
 						WitherEntity originalWither = (WitherEntity) hit;
-//						originalWither.setDropItemsWhenDead(false);
 
 						EntityMankiniWither mankiniWither = new EntityMankiniWither(ModRegistry.MANKINI_WITHER.get(), this.world);
-						mankiniWither.setLocationAndAngles(originalWither.posX, originalWither.posY, originalWither.posZ, originalWither.rotationYaw, 0.0F);
+						mankiniWither.setLocationAndAngles(originalWither.getPosX(), originalWither.getPosY(), originalWither.getPosZ(), originalWither.rotationYaw, 0.0F);
 						mankiniWither.ignite();
 						originalWither.remove();
 						this.world.addEntity(mankiniWither);
@@ -112,7 +111,7 @@ public class EntityMankiniCapsule extends ProjectileItemEntity {
 							ZombieEntity hitZombie = (ZombieEntity) hit;
 							ItemStack chestStack = hitZombie.getItemStackFromSlot(EquipmentSlotType.CHEST);
 
-							if (chestStack.getItem() == Items.AIR) {
+							if (chestStack.isEmpty()) {
 								hitZombie.setItemStackToSlot(EquipmentSlotType.CHEST, foundMankini);
 								hitZombie.setDropChance(EquipmentSlotType.CHEST, 1F);
 							} else {
@@ -122,9 +121,9 @@ public class EntityMankiniCapsule extends ProjectileItemEntity {
 							}
 						} else if (hit instanceof SkeletonEntity) {
 							SkeletonEntity hitSkeleton = (SkeletonEntity) hit;
-							ItemStack GetChest = hitSkeleton.getItemStackFromSlot(EquipmentSlotType.CHEST);
+							ItemStack chestStack = hitSkeleton.getItemStackFromSlot(EquipmentSlotType.CHEST);
 
-							if (GetChest.getItem() == Items.AIR) {
+							if (chestStack.isEmpty()) {
 								hitSkeleton.setItemStackToSlot(EquipmentSlotType.CHEST, foundMankini);
 								hitSkeleton.setDropChance(EquipmentSlotType.CHEST, 1F);
 							} else {
@@ -134,9 +133,9 @@ public class EntityMankiniCapsule extends ProjectileItemEntity {
 							}
 						} else if (hit instanceof ZombiePigmanEntity) {
 							ZombiePigmanEntity hitPigman = (ZombiePigmanEntity) hit;
-							ItemStack GetChest = hitPigman.getItemStackFromSlot(EquipmentSlotType.CHEST);
+							ItemStack chestStack = hitPigman.getItemStackFromSlot(EquipmentSlotType.CHEST);
 
-							if (GetChest.getItem() == Items.AIR) {
+							if (chestStack.isEmpty()) {
 								hitPigman.setItemStackToSlot(EquipmentSlotType.CHEST, foundMankini);
 								hitPigman.setDropChance(EquipmentSlotType.CHEST, 1F);
 							} else {
@@ -144,19 +143,16 @@ public class EntityMankiniCapsule extends ProjectileItemEntity {
 									this.entityDropItem(foundMankini, 0.5F);
 								}
 							}
-						} else if (hit instanceof MobEntity) {
-							MobEntity hitMob = (MobEntity) hit;
 						}
 					}
 				}
-			} else {
+			}
+
+			if(!flag) {
 				if(dropItem) {
 					this.entityDropItem(foundMankini, 1F);
 				}
-				this.world.setEntityState(this, (byte)3);
-				this.remove();
 			}
-		} else {
 			this.world.setEntityState(this, (byte) 3);
 			this.remove();
 		}
