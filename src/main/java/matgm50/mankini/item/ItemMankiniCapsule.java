@@ -20,6 +20,6 @@ public class ItemMankiniCapsule extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        return new ActionResult<ItemStack>(ActionResultType.PASS, playerIn.getHeldItem(handIn));
+        return new ActionResult<>(ActionResultType.PASS, playerIn.getHeldItem(handIn));
     }
 }

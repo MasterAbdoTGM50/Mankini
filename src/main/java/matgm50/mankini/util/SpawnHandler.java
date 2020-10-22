@@ -12,16 +12,16 @@ import net.minecraftforge.fml.common.Mod;
 @Mod.EventBusSubscriber(modid = ModLib.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class SpawnHandler {
     @SubscribeEvent
-    public static void EntitySpawnEvent(LivingSpawnEvent event)
-    {
+    public static void EntitySpawnEvent(LivingSpawnEvent event) {
         Entity entity = event.getEntity();
-
-        World worldIn = event.getWorld().getWorld();
+        World worldIn = entity.world;
         if(entity instanceof EndermiteEntity && !(entity instanceof EntityMankiniEndermite)) {
-            EntityMankiniEndermite mankiniMite = new EntityMankiniEndermite(worldIn);
-            mankiniMite.setLocationAndAngles(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.rotationYaw, 0.0F);
-            event.setCanceled(true);
-            worldIn.addEntity(mankiniMite);
+            if(((EndermiteEntity) entity).getRNG().nextBoolean()) {
+                EntityMankiniEndermite mankiniMite = new EntityMankiniEndermite(worldIn);
+                mankiniMite.setLocationAndAngles(entity.getPosX(), entity.getPosY(), entity.getPosZ(), entity.rotationYaw, 0.0F);
+                event.setCanceled(true);
+                worldIn.addEntity(mankiniMite);
+            }
         }
     }
 }

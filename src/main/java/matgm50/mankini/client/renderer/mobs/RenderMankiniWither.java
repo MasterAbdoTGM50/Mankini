@@ -1,7 +1,6 @@
 package matgm50.mankini.client.renderer.mobs;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import matgm50.mankini.client.layers.LayerMankiniWitherAura;
 import matgm50.mankini.client.model.ModelMankiniWither;
 import matgm50.mankini.entity.boss.EntityMankiniWither;

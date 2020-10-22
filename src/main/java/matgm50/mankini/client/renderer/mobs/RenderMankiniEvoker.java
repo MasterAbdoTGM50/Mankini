@@ -1,7 +1,6 @@
 package matgm50.mankini.client.renderer.mobs;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import matgm50.mankini.entity.hostile.EntityMankiniEvoker;
 import matgm50.mankini.lib.ModLib;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -38,6 +37,6 @@ public class RenderMankiniEvoker<T extends EntityMankiniEvoker> extends IllagerR
 	@Override
 	protected void preRenderCallback(T entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
 		float f = 0.9375F;
-		matrixStackIn.scale(0.9375F, 0.9375F, 0.9375F);
+		matrixStackIn.scale(f, f, f);
 	}
 }

@@ -19,7 +19,7 @@ public class TickHandler {
     @SubscribeEvent
     public static void playerTick(TickEvent.PlayerTickEvent event) {
         PlayerEntity player = event.player;
-        boolean allowFlying = false;
+        boolean allowFlying;
 
         ItemStack armor = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
 
@@ -34,13 +34,9 @@ public class TickHandler {
                 player.fallDistance = 0F;
             }
 
-            if(armor.getItem().equals(ModRegistry.AETHERIC_MANKINI.get())) {
-            	allowFlying = true;
-            } else {
-            	allowFlying = false;
-            }
-            
-            if (allowFlying && !player.isCreative()) { 
+            allowFlying = armor.getItem().equals(ModRegistry.AETHERIC_MANKINI.get());
+
+            if (allowFlying && !player.isCreative()) {
 				player.abilities.allowFlying = true;
 			} else {
             	if (player.abilities.allowFlying && !player.isCreative()) {

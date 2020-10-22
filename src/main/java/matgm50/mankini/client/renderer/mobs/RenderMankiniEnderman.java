@@ -9,8 +9,6 @@ import net.minecraft.client.renderer.entity.layers.EndermanEyesLayer;
 import net.minecraft.client.renderer.entity.model.EndermanModel;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.Random;
-
 public class RenderMankiniEnderman extends MobRenderer<EntityMankiniEnderman, EndermanModel<EntityMankiniEnderman>> {
 	
     private static final ResourceLocation MANKINI_ENDERMAN = new ResourceLocation(ModLib.MOD_ID, "textures/entity/mankini_enderman.png");

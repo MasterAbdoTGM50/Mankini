@@ -35,8 +35,4 @@ public class LayerMankiniHeldBlock extends LayerRenderer<EntityMankiniEnderman, 
             matrixStackIn.pop();
         }
     }
-
-    public boolean shouldCombineTextures() {
-        return false;
-    }
 }

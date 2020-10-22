@@ -4,8 +4,6 @@ import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.ModRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.monster.EndermiteEntity;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.IWorld;

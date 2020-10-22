@@ -16,7 +16,6 @@ import net.minecraft.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomWalkingGoal;
 import net.minecraft.entity.monster.CreeperEntity;
-import net.minecraft.entity.monster.EndermanEntity;
 import net.minecraft.entity.passive.CatEntity;
 import net.minecraft.entity.passive.OcelotEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -43,7 +42,7 @@ public class EntityMankiniCreeper extends CreeperEntity {
 	}
 
 	public static AttributeModifierMap.MutableAttribute registerAttributes() {
-		return CreeperEntity.func_234278_m_();
+		return CreeperEntity.registerAttributes();
 	}
 
 	@Override
