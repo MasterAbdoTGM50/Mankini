@@ -81,7 +81,7 @@ public class EntityMankiniWitherCapsule extends DamagingProjectileEntity impleme
         if (!this.world.isRemote) {
             if (result.getType() == RayTraceResult.Type.ENTITY) {
                 Entity entity = ((EntityRayTraceResult)result).getEntity();
-                Entity shooter = func_234616_v_();
+                Entity shooter = getShooter();
                 if (shooter != null && shooter instanceof LivingEntity) {
                     LivingEntity shootingEntity = (LivingEntity)shooter;
                     if (entity.attackEntityFrom(DamageSource.causeMobDamage(shootingEntity), 4.0F)) {

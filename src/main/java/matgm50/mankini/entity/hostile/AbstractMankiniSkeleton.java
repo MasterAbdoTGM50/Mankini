@@ -31,9 +31,7 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 import java.time.LocalDate;

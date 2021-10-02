@@ -44,7 +44,7 @@ public class ItemMankiniCannon extends Item {
                 if (!((double)f < 0.1D)) {
                     if (!worldIn.isRemote) {
                         EntityMankiniCapsule entityCapsule = createMankini(worldIn, itemstack.copy(), entityLiving);
-                        entityCapsule.func_234612_a_(playerEntity, playerEntity.rotationPitch, playerEntity.rotationYaw, 0.0F, f * 3.0F, 1.0F);
+                        entityCapsule.setDirectionAndMovement(playerEntity, playerEntity.rotationPitch, playerEntity.rotationYaw, 0.0F, f * 3.0F, 1.0F);
                         entityCapsule.setShooter(playerEntity);
 
                         worldIn.addEntity(entityCapsule);
