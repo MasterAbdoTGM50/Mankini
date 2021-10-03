@@ -1,47 +1,71 @@
 package matgm50.mankini.client;
 
-import matgm50.mankini.client.renderer.mobs.RenderMankiniCreeper;
-import matgm50.mankini.client.renderer.mobs.RenderMankiniEnderman;
-import matgm50.mankini.client.renderer.mobs.RenderMankiniEndermite;
-import matgm50.mankini.client.renderer.mobs.RenderMankiniEvoker;
-import matgm50.mankini.client.renderer.mobs.RenderMankiniSkeleton;
-import matgm50.mankini.client.renderer.mobs.RenderMankiniSpider;
-import matgm50.mankini.client.renderer.mobs.RenderMankiniWither;
+import matgm50.mankini.client.model.ModelAAMT;
+import matgm50.mankini.client.model.ModelMankiniSkeleton;
+import matgm50.mankini.client.model.ModelMankiniWither;
+import matgm50.mankini.client.renderer.AAMTRenderer;
+import matgm50.mankini.client.renderer.mobs.MankiniCreeperRenderer;
+import matgm50.mankini.client.renderer.mobs.MankiniEndermanRenderer;
+import matgm50.mankini.client.renderer.mobs.MankiniEndermiteRenderer;
+import matgm50.mankini.client.renderer.mobs.MankiniEvokerRenderer;
+import matgm50.mankini.client.renderer.mobs.MankiniSkeletonRenderer;
+import matgm50.mankini.client.renderer.mobs.MankiniSpiderRenderer;
+import matgm50.mankini.client.renderer.mobs.MankiniWitherRenderer;
 import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.item.CustomSpawnEggItem;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.color.ItemColors;
-import net.minecraft.client.renderer.entity.SpriteRenderer;
-import net.minecraft.item.DyeableArmorItem;
+import matgm50.mankini.lib.ModLib;
+import net.minecraft.client.color.item.ItemColors;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.client.model.geom.LayerDefinitions;
+import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.DyeableArmorItem;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.client.event.EntityRenderersEvent;
+import net.minecraftforge.fmllegacy.RegistryObject;
 
 public class ClientHandler {
+    public static final ModelLayerLocation MANKINI_WITHER = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "main"), "wither");
+    public static final ModelLayerLocation MANKINI_WITHER_ARMOR = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "armor"), "wither");
+    public static final ModelLayerLocation MANKINI_SKELETON = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "main"), "skeleton");
+    public static final ModelLayerLocation MANKINI_SKELETON_INNER_ARMOR = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "inner_armor"), "skeleton");
+    public static final ModelLayerLocation MANKINI_SKELETON_OUTER_ARMOR = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "outer_armor"), "skeleton");
+    public static final ModelLayerLocation AAMT = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "main"), "aamt");
 
-    public static void registerRenders(FMLClientSetupEvent event) {
-        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_CAPSULE.get(), renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
-        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_CREEPER.get(), RenderMankiniCreeper::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_ENDERMAN.get(), RenderMankiniEnderman::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_ENDERMITE.get(), RenderMankiniEndermite::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_SPIDER.get(), RenderMankiniSpider::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_SKELETON.get(), RenderMankiniSkeleton::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_WITHER.get(), RenderMankiniWither::new);
-        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), renderManager -> new SpriteRenderer<>(renderManager, Minecraft.getInstance().getItemRenderer()));
-        RenderingRegistry.registerEntityRenderingHandler(ModRegistry.MANKINI_EVOKER.get(), RenderMankiniEvoker::new);
+    public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(ModRegistry.MANKINI_CAPSULE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(ModRegistry.MANKINI_CREEPER.get(), MankiniCreeperRenderer::new);
+        event.registerEntityRenderer(ModRegistry.MANKINI_ENDERMAN.get(), MankiniEndermanRenderer::new);
+        event.registerEntityRenderer(ModRegistry.MANKINI_ENDERMITE.get(), MankiniEndermiteRenderer::new);
+        event.registerEntityRenderer(ModRegistry.MANKINI_SPIDER.get(), MankiniSpiderRenderer::new);
+        event.registerEntityRenderer(ModRegistry.MANKINI_SKELETON.get(), MankiniSkeletonRenderer::new);
+        event.registerEntityRenderer(ModRegistry.MANKINI_WITHER.get(), MankiniWitherRenderer::new);
+        event.registerEntityRenderer(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), ThrownItemRenderer::new);
+        event.registerEntityRenderer(ModRegistry.MANKINI_EVOKER.get(), MankiniEvokerRenderer::new);
+    }
+
+    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(MANKINI_WITHER, () -> ModelMankiniWither.createBodyLayer(CubeDeformation.NONE));
+        event.registerLayerDefinition(MANKINI_WITHER_ARMOR, () -> ModelMankiniWither.createBodyLayer(LayerDefinitions.INNER_ARMOR_DEFORMATION));
+        event.registerLayerDefinition(MANKINI_SKELETON, () -> ModelMankiniSkeleton.createBodyLayer());
+        event.registerLayerDefinition(MANKINI_SKELETON_INNER_ARMOR, () -> LayerDefinition.create(HumanoidModel.createMesh(LayerDefinitions.INNER_ARMOR_DEFORMATION, 0.0F), 64, 32));
+        event.registerLayerDefinition(MANKINI_SKELETON_OUTER_ARMOR, () -> LayerDefinition.create(HumanoidModel.createMesh(LayerDefinitions.OUTER_ARMOR_DEFORMATION, 0.0F), 64, 32));
+        event.registerLayerDefinition(AAMT, () -> ModelAAMT.createMesh());
     }
 
     public static void registerItemColors(ColorHandlerEvent.Item event) {
         ItemColors itemColors = event.getItemColors();
 
-        itemColors.register((p_getColor_1_, p_getColor_2_) -> {
-            return p_getColor_2_ > 0 ? -1 : ((DyeableArmorItem)p_getColor_1_.getItem()).getColor(p_getColor_1_);
-        }, ModRegistry.DYEABLE_MANKINI.get());
+        itemColors.register((stack, tintIndex) -> tintIndex > 0 ? -1 : ((DyeableArmorItem)stack.getItem()).getColor(stack), ModRegistry.DYEABLE_MANKINI.get());
 
-        for(CustomSpawnEggItem spawneggitem : CustomSpawnEggItem.getEggs()) {
-            itemColors.register((p_198141_1_, p_198141_2_) -> {
-                return spawneggitem.getColor(p_198141_2_);
-            }, spawneggitem);
+        for(RegistryObject<Item> itemObject : ModRegistry.ITEMS.getEntries()) {
+            if(itemObject.get() instanceof CustomSpawnEggItem spawnEggItem) {
+                itemColors.register((stack, tintIndex) -> spawnEggItem.getColor(tintIndex), spawnEggItem);
+            }
         }
     }
 }

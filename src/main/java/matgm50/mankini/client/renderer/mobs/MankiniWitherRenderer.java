@@ -1,34 +1,36 @@
 package matgm50.mankini.client.renderer.mobs;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.PoseStack;
+import matgm50.mankini.client.ClientHandler;
 import matgm50.mankini.client.layers.LayerMankiniWitherAura;
 import matgm50.mankini.client.model.ModelMankiniWither;
-import matgm50.mankini.entity.boss.EntityMankiniWither;
+import matgm50.mankini.entity.boss.MankiniWitherEntity;
 import matgm50.mankini.lib.ModLib;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.entity.layers.WitherArmorLayer;
+import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;
 
-public class RenderMankiniWither extends MobRenderer<EntityMankiniWither, ModelMankiniWither<EntityMankiniWither>> {
+public class MankiniWitherRenderer extends MobRenderer<MankiniWitherEntity, ModelMankiniWither<MankiniWitherEntity>> {
 	private static final ResourceLocation MANKINI_WITHER_TEXTURES = new ResourceLocation(ModLib.MOD_ID, "textures/entity/mankini_wither_invulnerable.png");
 	private static final ResourceLocation MANKINI_WITHER = new ResourceLocation(ModLib.MOD_ID, "textures/entity/mankini_wither.png");
 
-	public RenderMankiniWither(EntityRendererManager renderManagerIn) {
-		super(renderManagerIn, new ModelMankiniWither(0.0F), 1.0F);
-		this.addLayer(new LayerMankiniWitherAura(this));
+	public MankiniWitherRenderer(EntityRendererProvider.Context context) {
+		super(context, new ModelMankiniWither(context.bakeLayer(ClientHandler.MANKINI_WITHER)), 1.0F);
+		this.addLayer(new LayerMankiniWitherAura(this, context.getModelSet()));
 	}
 
 	@Nullable
 	@Override
-	public ResourceLocation getEntityTexture(EntityMankiniWither entity) {
+	public ResourceLocation getTextureLocation(MankiniWitherEntity entity) {
 		int i = entity.getInvulTime();
 		return i > 0 && (i > 80 || i / 5 % 2 != 1) ? MANKINI_WITHER_TEXTURES : MANKINI_WITHER;
 	}
 
 	@Override
-	protected void preRenderCallback(EntityMankiniWither entitylivingbaseIn, MatrixStack matrixStackIn, float partialTickTime) {
+	protected void scale(MankiniWitherEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
 		float f = 2.0F;
 		int i = entitylivingbaseIn.getInvulTime();
 		if (i > 0) {

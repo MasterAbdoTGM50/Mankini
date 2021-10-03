@@ -1,12 +1,12 @@
 package matgm50.mankini.item;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.DyeableArmorItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorMaterials;
+import net.minecraft.world.item.DyeableArmorItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.nbt.CompoundTag;
 
 import javax.annotation.Nullable;
 
@@ -20,7 +20,7 @@ public class ItemDyeableMankini extends DyeableArmorItem implements IMankini {
    // private IIcon iconOverlay;
 
     public ItemDyeableMankini(Item.Properties builder) {
-        super(ArmorMaterial.LEATHER, EquipmentSlotType.CHEST, builder.maxStackSize(1));
+        super(ArmorMaterials.LEATHER, EquipmentSlot.CHEST, builder.stacksTo(1));
     }
 
 //    @OnlyIn(Dist.CLIENT)
@@ -38,20 +38,20 @@ public class ItemDyeableMankini extends DyeableArmorItem implements IMankini {
 
 
     @Override
-    public boolean hasColor(ItemStack stack) {
-        CompoundNBT nbttagcompound = stack.getChildTag("display");
+    public boolean hasCustomColor(ItemStack stack) {
+        CompoundTag nbttagcompound = stack.getTagElement("display");
         return nbttagcompound != null && nbttagcompound.contains("color", 99);
     }
 
     @Override
     public int getColor(ItemStack stack) {
-        CompoundNBT nbttagcompound = stack.getChildTag("display");
+        CompoundTag nbttagcompound = stack.getTagElement("display");
         return nbttagcompound != null && nbttagcompound.contains("color", 99) ? nbttagcompound.getInt("color") : 10511680;
     }
 
     @Override
-    public void removeColor(ItemStack stack) {
-        CompoundNBT nbttagcompound = stack.getChildTag("display");
+    public void clearColor(ItemStack stack) {
+        CompoundTag nbttagcompound = stack.getTagElement("display");
         if (nbttagcompound != null && nbttagcompound.contains("color")) {
             nbttagcompound.remove("color");
         }
@@ -59,13 +59,13 @@ public class ItemDyeableMankini extends DyeableArmorItem implements IMankini {
 
     @Override
     public void setColor(ItemStack stack, int color) {
-        stack.getOrCreateChildTag("display").putInt("color", color);
+        stack.getOrCreateTagElement("display").putInt("color", color);
     }
 
 
     @Nullable
     @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
+    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
         if(type == null){return "mankini:textures/models/mankini.png";}
         else return "mankini:textures/models/mankini_over.png";
     }

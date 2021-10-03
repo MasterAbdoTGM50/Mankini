@@ -1,8 +1,8 @@
 package matgm50.mankini.init;
 
 import matgm50.mankini.lib.ModLib;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -11,9 +11,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
  */
 
 public class ModGroups {
-    public static final ItemGroup MANKINI_TAB = new ItemGroup(ModLib.MOD_ID) {
+    public static final CreativeModeTab MANKINI_TAB = new CreativeModeTab(ModLib.MOD_ID) {
         @OnlyIn(Dist.CLIENT)
-        public ItemStack createIcon() {
+        public ItemStack makeIcon() {
             return new ItemStack(ModRegistry.KAWAII_MANKINI.get());
         }
     };

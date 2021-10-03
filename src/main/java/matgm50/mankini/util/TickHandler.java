@@ -2,10 +2,10 @@ package matgm50.mankini.util;
 
 import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.lib.ModLib;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.Effects;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -18,16 +18,16 @@ public class TickHandler {
 
     @SubscribeEvent
     public static void playerTick(TickEvent.PlayerTickEvent event) {
-        PlayerEntity player = event.player;
+        Player player = event.player;
         boolean allowFlying;
 
-        ItemStack armor = player.getItemStackFromSlot(EquipmentSlotType.CHEST);
+        ItemStack armor = player.getItemBySlot(EquipmentSlot.CHEST);
 
         if(armor != null) {
             if (armor.getItem().equals(ModRegistry.WITHER_MANKINI.get())) {
-                if(player.getActivePotionEffects().contains(Effects.WITHER) || player.getActivePotionEffects().contains(ModRegistry.MANKINI_WITHER_EFFECT.get())) {
-                    player.removePotionEffect(Effects.WITHER);
-                    player.removePotionEffect(ModRegistry.MANKINI_WITHER_EFFECT.get());
+                if(player.getActiveEffects().contains(MobEffects.WITHER) || player.getActiveEffects().contains(ModRegistry.MANKINI_WITHER_EFFECT.get())) {
+                    player.removeEffect(MobEffects.WITHER);
+                    player.removeEffect(ModRegistry.MANKINI_WITHER_EFFECT.get());
                 }
             }
             if (armor.getItem().equals(ModRegistry.BAT_MANKINI.get())) {
@@ -37,11 +37,11 @@ public class TickHandler {
             allowFlying = armor.getItem().equals(ModRegistry.AETHERIC_MANKINI.get());
 
             if (allowFlying && !player.isCreative()) {
-				player.abilities.allowFlying = true;
+				player.getAbilities().mayfly = true;
 			} else {
-            	if (player.abilities.allowFlying && !player.isCreative()) {
-		        	player.abilities.isFlying = false;
-		        	player.abilities.allowFlying = false;
+            	if (player.getAbilities().mayfly && !player.isCreative()) {
+		        	player.getAbilities().flying = false;
+		        	player.getAbilities().mayfly = false;
             	}
             }
         }

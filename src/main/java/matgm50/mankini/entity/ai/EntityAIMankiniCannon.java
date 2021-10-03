@@ -3,16 +3,16 @@ package matgm50.mankini.entity.ai;
 import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.item.IMankini;
 import matgm50.mankini.item.ItemMankiniCannon;
-import net.minecraft.entity.IRangedAttackMob;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.Hand;
+import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.goal.Goal;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.InteractionHand;
 
 import java.util.EnumSet;
 
-public class EntityAIMankiniCannon<T extends MonsterEntity & IRangedAttackMob> extends Goal {
+public class EntityAIMankiniCannon<T extends Monster & RangedAttackMob> extends Goal {
     private final T entity;
     private final double moveSpeedAmp;
     private int attackCooldown;
@@ -28,7 +28,7 @@ public class EntityAIMankiniCannon<T extends MonsterEntity & IRangedAttackMob> e
         this.moveSpeedAmp = moveSpeedAmpIn;
         this.attackCooldown = attackCooldownIn;
         this.maxAttackDistance = maxAttackDistanceIn * maxAttackDistanceIn;
-        this.setMutexFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
+        this.setFlags(EnumSet.of(Goal.Flag.MOVE, Goal.Flag.LOOK));
     }
 
     public void setAttackCooldown(int p_189428_1_) {
@@ -38,53 +38,53 @@ public class EntityAIMankiniCannon<T extends MonsterEntity & IRangedAttackMob> e
     /**
      * Returns whether the EntityAIBase should begin execution.
      */
-    public boolean shouldExecute() {
-        return this.entity.getAttackTarget() == null ? false : this.isCannonInMainHand();
+    public boolean canUse() {
+        return this.entity.getTarget() == null ? false : this.isCannonInMainHand();
     }
 
     protected boolean isCannonInMainHand() {
-        return !this.entity.getHeldItemMainhand().isEmpty() && this.entity.getHeldItemMainhand().getItem() == ModRegistry.MANKINI_CANNON.get();
+        return !this.entity.getMainHandItem().isEmpty() && this.entity.getMainHandItem().getItem() == ModRegistry.MANKINI_CANNON.get();
     }
 
     /**
      * Returns whether an in-progress EntityAIBase should continue executing
      */
-    public boolean shouldContinueExecuting() {
-        return (this.shouldExecute() || !this.entity.getNavigator().noPath()) && this.isCannonInMainHand();
+    public boolean canContinueToUse() {
+        return (this.canUse() || !this.entity.getNavigation().isDone()) && this.isCannonInMainHand();
     }
 
     /**
      * Execute a one shot task or start executing a continuous task
      */
-    public void startExecuting() {
-        super.startExecuting();
-        this.entity.setAggroed(true);
+    public void start() {
+        super.start();
+        this.entity.setAggressive(true);
     }
 
     /**
      * Reset the task's internal state. Called when this task is interrupted by another one
      */
-    public void resetTask() {
-        super.resetTask();
-        this.entity.setAggroed(false);
+    public void stop() {
+        super.stop();
+        this.entity.setAggressive(false);
         this.seeTime = 0;
         this.attackTime = -1;
-        this.entity.resetActiveHand();
+        this.entity.stopUsingItem();
     }
 
     /**
      * Keep ticking a continuous task that has already been started
      */
     public void tick() {
-        LivingEntity livingBase = this.entity.getAttackTarget();
+        LivingEntity livingBase = this.entity.getTarget();
         if (livingBase != null) {
-            if(livingBase instanceof PlayerEntity) {
-                PlayerEntity player = (PlayerEntity)livingBase;
-                boolean flag = player.inventory.armorInventory.get(2).getItem() instanceof IMankini;
+            if(livingBase instanceof Player) {
+                Player player = (Player)livingBase;
+                boolean flag = player.getInventory().armor.get(2).getItem() instanceof IMankini;
                 boolean flag2 = false;
 
-                for(int i = 0; i < player.inventory.getSizeInventory(); i++) {
-                    if(player.inventory.getStackInSlot(i).getItem() instanceof IMankini) {
+                for(int i = 0; i < player.getInventory().getContainerSize(); i++) {
+                    if(player.getInventory().getItem(i).getItem() instanceof IMankini) {
                         flag2 = true;
                         break;
                     }
@@ -100,8 +100,8 @@ public class EntityAIMankiniCannon<T extends MonsterEntity & IRangedAttackMob> e
     }
 
     public void doMankiniShooting(LivingEntity entitylivingbase) {
-        double d0 = this.entity.getDistanceSq(entitylivingbase.getPosX(), entitylivingbase.getBoundingBox().minY, entitylivingbase.getPosZ());
-        boolean flag = this.entity.getEntitySenses().canSee(entitylivingbase);
+        double d0 = this.entity.distanceToSqr(entitylivingbase.getX(), entitylivingbase.getBoundingBox().minY, entitylivingbase.getZ());
+        boolean flag = this.entity.getSensing().hasLineOfSight(entitylivingbase);
         boolean flag1 = this.seeTime > 0;
         if (flag != flag1) {
             this.seeTime = 0;
@@ -114,19 +114,19 @@ public class EntityAIMankiniCannon<T extends MonsterEntity & IRangedAttackMob> e
         }
 
         if (!(d0 > (double) this.maxAttackDistance) && this.seeTime >= 20) {
-            this.entity.getNavigator().clearPath();
+            this.entity.getNavigation().stop();
             ++this.strafingTime;
         } else {
-            this.entity.getNavigator().tryMoveToEntityLiving(entitylivingbase, this.moveSpeedAmp);
+            this.entity.getNavigation().moveTo(entitylivingbase, this.moveSpeedAmp);
             this.strafingTime = -1;
         }
 
         if (this.strafingTime >= 20) {
-            if ((double) this.entity.getRNG().nextFloat() < 0.3D) {
+            if ((double) this.entity.getRandom().nextFloat() < 0.3D) {
                 this.strafingClockwise = !this.strafingClockwise;
             }
 
-            if ((double) this.entity.getRNG().nextFloat() < 0.3D) {
+            if ((double) this.entity.getRandom().nextFloat() < 0.3D) {
                 this.strafingBackwards = !this.strafingBackwards;
             }
 
@@ -140,25 +140,25 @@ public class EntityAIMankiniCannon<T extends MonsterEntity & IRangedAttackMob> e
                 this.strafingBackwards = true;
             }
 
-            this.entity.getMoveHelper().strafe(this.strafingBackwards ? -0.5F : 0.5F, this.strafingClockwise ? 0.5F : -0.5F);
-            this.entity.faceEntity(entitylivingbase, 30.0F, 30.0F);
+            this.entity.getMoveControl().strafe(this.strafingBackwards ? -0.5F : 0.5F, this.strafingClockwise ? 0.5F : -0.5F);
+            this.entity.lookAt(entitylivingbase, 30.0F, 30.0F);
         } else {
-            this.entity.getLookController().setLookPositionWithEntity(entitylivingbase, 30.0F, 30.0F);
+            this.entity.getLookControl().setLookAt(entitylivingbase, 30.0F, 30.0F);
         }
 
-        if (this.entity.isHandActive()) {
+        if (this.entity.isUsingItem()) {
             if (!flag && this.seeTime < -60) {
-                this.entity.resetActiveHand();
+                this.entity.stopUsingItem();
             } else if (flag) {
-                int i = this.entity.getItemInUseMaxCount();
+                int i = this.entity.getTicksUsingItem();
                 if (i >= 20) {
-                    this.entity.resetActiveHand();
-                    ((IRangedAttackMob) this.entity).attackEntityWithRangedAttack(entitylivingbase, ItemMankiniCannon.getMankiniVelocity(i));
+                    this.entity.stopUsingItem();
+                    ((RangedAttackMob) this.entity).performRangedAttack(entitylivingbase, ItemMankiniCannon.getMankiniVelocity(i));
                     this.attackTime = this.attackCooldown;
                 }
             }
         } else if (--this.attackTime <= 0 && this.seeTime >= -60) {
-            this.entity.setActiveHand(Hand.MAIN_HAND);
+            this.entity.startUsingItem(InteractionHand.MAIN_HAND);
         }
     }
 }

@@ -1,34 +1,37 @@
 package matgm50.mankini.client.layers;
 
+import matgm50.mankini.client.ClientHandler;
 import matgm50.mankini.client.model.ModelMankiniWither;
-import matgm50.mankini.entity.boss.EntityMankiniWither;
+import matgm50.mankini.entity.boss.MankiniWitherEntity;
 import matgm50.mankini.lib.ModLib;
-import net.minecraft.client.renderer.entity.IEntityRenderer;
-import net.minecraft.client.renderer.entity.layers.EnergyLayer;
-import net.minecraft.client.renderer.entity.model.EntityModel;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.client.model.EntityModel;
+import net.minecraft.client.model.geom.EntityModelSet;
+import net.minecraft.client.renderer.entity.RenderLayerParent;
+import net.minecraft.client.renderer.entity.layers.EnergySwirlLayer;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class LayerMankiniWitherAura extends EnergyLayer<EntityMankiniWither, ModelMankiniWither<EntityMankiniWither>> {
+public class LayerMankiniWitherAura extends EnergySwirlLayer<MankiniWitherEntity, ModelMankiniWither<MankiniWitherEntity>> {
     private static final ResourceLocation WITHER_ARMOR = new ResourceLocation(ModLib.MOD_ID, "textures/entity/mankini_wither_armor.png");
-    private final ModelMankiniWither<EntityMankiniWither> witherModel = new ModelMankiniWither(0.5F);
+    private final ModelMankiniWither<MankiniWitherEntity> model;
 
-    public LayerMankiniWitherAura(IEntityRenderer<EntityMankiniWither, ModelMankiniWither<EntityMankiniWither>> p_i50915_1_) {
-        super(p_i50915_1_);
+    public LayerMankiniWitherAura(RenderLayerParent<MankiniWitherEntity, ModelMankiniWither<MankiniWitherEntity>> p_174554_, EntityModelSet modelSet) {
+        super(p_174554_);
+        this.model = new ModelMankiniWither(modelSet.bakeLayer(ClientHandler.MANKINI_WITHER));
     }
 
-    protected float func_225634_a_(float p_225634_1_) {
-        return MathHelper.cos(p_225634_1_ * 0.02F) * 3.0F;
+    protected float xOffset(float offset) {
+        return Mth.cos(offset * 0.02F) * 3.0F;
     }
 
-    protected ResourceLocation func_225633_a_() {
+    protected ResourceLocation getTextureLocation() {
         return WITHER_ARMOR;
     }
 
-    protected EntityModel<EntityMankiniWither> func_225635_b_() {
-        return this.witherModel;
+    protected EntityModel<MankiniWitherEntity> model() {
+        return this.model;
     }
 }

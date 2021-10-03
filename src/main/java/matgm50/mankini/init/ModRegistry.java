@@ -1,14 +1,14 @@
 package matgm50.mankini.init;
 
-import matgm50.mankini.entity.boss.EntityMankiniWither;
-import matgm50.mankini.entity.boss.EntityMankiniWitherCapsule;
-import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
-import matgm50.mankini.entity.hostile.EntityMankiniEnderman;
-import matgm50.mankini.entity.hostile.EntityMankiniEndermite;
-import matgm50.mankini.entity.hostile.EntityMankiniEvoker;
-import matgm50.mankini.entity.hostile.EntityMankiniSkeleton;
-import matgm50.mankini.entity.hostile.EntityMankiniSpider;
-import matgm50.mankini.entity.projectiles.EntityMankiniCapsule;
+import matgm50.mankini.entity.boss.MankiniWitherEntity;
+import matgm50.mankini.entity.boss.MankiniWitherCapsuleEntity;
+import matgm50.mankini.entity.hostile.MankiniCreeperEntity;
+import matgm50.mankini.entity.hostile.MankiniEndermanEntity;
+import matgm50.mankini.entity.hostile.MankiniEndermiteEntity;
+import matgm50.mankini.entity.hostile.MankiniEvokerEntity;
+import matgm50.mankini.entity.hostile.MankiniSkeletonEntity;
+import matgm50.mankini.entity.hostile.MankiniSpiderEntity;
+import matgm50.mankini.entity.projectiles.MankiniCapsuleEntity;
 import matgm50.mankini.item.CustomSpawnEggItem;
 import matgm50.mankini.item.ItemAAMT;
 import matgm50.mankini.item.ItemBatMankini;
@@ -20,43 +20,43 @@ import matgm50.mankini.item.ItemMankiniHorseArmor;
 import matgm50.mankini.item.ItemWitherKini;
 import matgm50.mankini.lib.ModLib;
 import matgm50.mankini.potion.MankiniWitherPotion;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
-import net.minecraft.potion.Effect;
-import net.minecraftforge.fml.RegistryObject;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.Item;
+import net.minecraftforge.fmllegacy.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ModRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ModLib.MOD_ID);
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, ModLib.MOD_ID);
-    public static final DeferredRegister<Effect> EFFECTS = DeferredRegister.create(ForgeRegistries.POTIONS, ModLib.MOD_ID);
+    public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, ModLib.MOD_ID);
 
-    public static final RegistryObject<EntityType<EntityMankiniCapsule>> MANKINI_CAPSULE = ENTITIES.register("mankini_capsule", () -> register("mankini_capsule", EntityType.Builder.<EntityMankiniCapsule>create(EntityMankiniCapsule::new, EntityClassification.MISC)
-            .size(0.25F, 0.25F)
-            .setCustomClientFactory(EntityMankiniCapsule::new)));
-    public static final RegistryObject<EntityType<EntityMankiniCreeper>> MANKINI_CREEPER = ENTITIES.register("mankini_creeper", () -> register("mankini_creeper", EntityType.Builder.<EntityMankiniCreeper>create(EntityMankiniCreeper::new, EntityClassification.MONSTER)
-            .size(0.6F, 1.7F)));
-    public static final RegistryObject<EntityType<EntityMankiniEnderman>> MANKINI_ENDERMAN = ENTITIES.register("mankini_enderman", () -> register("mankini_enderman", EntityType.Builder.<EntityMankiniEnderman>create(EntityMankiniEnderman::new, EntityClassification.MONSTER)
-            .size(0.6F, 2.9F)));
-    public static final RegistryObject<EntityType<EntityMankiniEndermite>> MANKINI_ENDERMITE = ENTITIES.register("mankini_endermite", () -> register("mankini_endermite", EntityType.Builder.<EntityMankiniEndermite>create(EntityMankiniEndermite::new, EntityClassification.MONSTER)
-            .size(0.4F, 0.3F)));
-    public static final RegistryObject<EntityType<EntityMankiniSpider>> MANKINI_SPIDER = ENTITIES.register("mankini_spider", () -> register("mankini_spider", EntityType.Builder.<EntityMankiniSpider>create(EntityMankiniSpider::new, EntityClassification.MONSTER)
-            .size(1.4F, 0.9F)));
-    public static final RegistryObject<EntityType<EntityMankiniSkeleton>> MANKINI_SKELETON = ENTITIES.register("mankini_skeleton", () -> register("mankini_skeleton", EntityType.Builder.<EntityMankiniSkeleton>create(EntityMankiniSkeleton::new, EntityClassification.MONSTER)
-            .size(0.6F, 1.99F)));
-    public static final RegistryObject<EntityType<EntityMankiniWither>> MANKINI_WITHER = ENTITIES.register("mankini_wither", () -> register("mankini_wither", EntityType.Builder.<EntityMankiniWither>create(EntityMankiniWither::new, EntityClassification.MONSTER)
-            .immuneToFire()
-            .size(0.9F, 3.5F)));
-    public static final RegistryObject<EntityType<EntityMankiniWitherCapsule>> MANKINI_WITHER_PROJECTILE = ENTITIES.register("mankini_wither_projectile", () -> register("mankini_wither_projectile", EntityType.Builder.<EntityMankiniWitherCapsule>create(EntityMankiniWitherCapsule::new, EntityClassification.MISC)
-            .size(0.3125F, 0.3125F)
-            .setCustomClientFactory(EntityMankiniWitherCapsule::new)));
-    public static final RegistryObject<EntityType<EntityMankiniEvoker>> MANKINI_EVOKER = ENTITIES.register("mankini_evoker", () -> register("mankini_evoker", EntityType.Builder.<EntityMankiniEvoker>create(EntityMankiniEvoker::new, EntityClassification.MONSTER)
-            .size(0.6F, 1.95F)));
+    public static final RegistryObject<EntityType<MankiniCapsuleEntity>> MANKINI_CAPSULE = ENTITIES.register("mankini_capsule", () -> register("mankini_capsule", EntityType.Builder.<MankiniCapsuleEntity>of(MankiniCapsuleEntity::new, MobCategory.MISC)
+            .sized(0.25F, 0.25F)
+            .setCustomClientFactory(MankiniCapsuleEntity::new)));
+    public static final RegistryObject<EntityType<MankiniCreeperEntity>> MANKINI_CREEPER = ENTITIES.register("mankini_creeper", () -> register("mankini_creeper", EntityType.Builder.<MankiniCreeperEntity>of(MankiniCreeperEntity::new, MobCategory.MONSTER)
+            .sized(0.6F, 1.7F)));
+    public static final RegistryObject<EntityType<MankiniEndermanEntity>> MANKINI_ENDERMAN = ENTITIES.register("mankini_enderman", () -> register("mankini_enderman", EntityType.Builder.<MankiniEndermanEntity>of(MankiniEndermanEntity::new, MobCategory.MONSTER)
+            .sized(0.6F, 2.9F)));
+    public static final RegistryObject<EntityType<MankiniEndermiteEntity>> MANKINI_ENDERMITE = ENTITIES.register("mankini_endermite", () -> register("mankini_endermite", EntityType.Builder.<MankiniEndermiteEntity>of(MankiniEndermiteEntity::new, MobCategory.MONSTER)
+            .sized(0.4F, 0.3F)));
+    public static final RegistryObject<EntityType<MankiniSpiderEntity>> MANKINI_SPIDER = ENTITIES.register("mankini_spider", () -> register("mankini_spider", EntityType.Builder.<MankiniSpiderEntity>of(MankiniSpiderEntity::new, MobCategory.MONSTER)
+            .sized(1.4F, 0.9F)));
+    public static final RegistryObject<EntityType<MankiniSkeletonEntity>> MANKINI_SKELETON = ENTITIES.register("mankini_skeleton", () -> register("mankini_skeleton", EntityType.Builder.<MankiniSkeletonEntity>of(MankiniSkeletonEntity::new, MobCategory.MONSTER)
+            .sized(0.6F, 1.99F)));
+    public static final RegistryObject<EntityType<MankiniWitherEntity>> MANKINI_WITHER = ENTITIES.register("mankini_wither", () -> register("mankini_wither", EntityType.Builder.<MankiniWitherEntity>of(MankiniWitherEntity::new, MobCategory.MONSTER)
+            .fireImmune()
+            .sized(0.9F, 3.5F)));
+    public static final RegistryObject<EntityType<MankiniWitherCapsuleEntity>> MANKINI_WITHER_PROJECTILE = ENTITIES.register("mankini_wither_projectile", () -> register("mankini_wither_projectile", EntityType.Builder.<MankiniWitherCapsuleEntity>of(MankiniWitherCapsuleEntity::new, MobCategory.MISC)
+            .sized(0.3125F, 0.3125F)
+            .setCustomClientFactory(MankiniWitherCapsuleEntity::new)));
+    public static final RegistryObject<EntityType<MankiniEvokerEntity>> MANKINI_EVOKER = ENTITIES.register("mankini_evoker", () -> register("mankini_evoker", EntityType.Builder.<MankiniEvokerEntity>of(MankiniEvokerEntity::new, MobCategory.MONSTER)
+            .sized(0.6F, 1.95F)));
 
-    public static final RegistryObject<Effect> MANKINI_WITHER_EFFECT = EFFECTS.register("mankini_wither", () -> new MankiniWitherPotion());
+    public static final RegistryObject<MobEffect> MANKINI_WITHER_EFFECT = MOB_EFFECTS.register("mankini_wither", () -> new MankiniWitherPotion());
 
     public static final RegistryObject<Item> DYEABLE_MANKINI = ITEMS.register("dyeable_mankini", () -> new ItemDyeableMankini(itemBuilder()));
     public static final RegistryObject<Item> KAWAII_MANKINI = ITEMS.register("kawaii_mankini", () -> new ItemKawaiiMankini(itemBuilder()));
@@ -82,6 +82,6 @@ public class ModRegistry {
     }
 
     private static Item.Properties itemBuilder() {
-        return new Item.Properties().group(ModGroups.MANKINI_TAB);
+        return new Item.Properties().tab(ModGroups.MANKINI_TAB);
     }
 }

@@ -1,66 +1,73 @@
 package matgm50.mankini.client.model;
 
-import com.google.common.collect.ImmutableList;
-import com.google.common.collect.ImmutableList.Builder;
-import matgm50.mankini.entity.boss.EntityMankiniWither;
-import net.minecraft.client.renderer.entity.model.SegmentedModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.util.math.MathHelper;
+import matgm50.mankini.entity.boss.MankiniWitherEntity;
+import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.geom.ModelPart;
+import net.minecraft.client.model.geom.PartPose;
+import net.minecraft.client.model.geom.builders.CubeDeformation;
+import net.minecraft.client.model.geom.builders.CubeListBuilder;
+import net.minecraft.client.model.geom.builders.LayerDefinition;
+import net.minecraft.client.model.geom.builders.MeshDefinition;
+import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.util.Mth;
 
-import java.util.Arrays;
+public class ModelMankiniWither<T extends MankiniWitherEntity> extends HierarchicalModel<T> {
+    private static final String RIBCAGE = "ribcage";
+    private static final String CENTER_HEAD = "center_head";
+    private static final String RIGHT_HEAD = "right_head";
+    private static final String LEFT_HEAD = "left_head";
+    private static final float RIBCAGE_X_ROT_OFFSET = 0.065F;
+    private static final float TAIL_X_ROT_OFFSET = 0.265F;
+    private final ModelPart root;
+    private final ModelPart centerHead;
+    private final ModelPart rightHead;
+    private final ModelPart leftHead;
+    private final ModelPart ribcage;
+    private final ModelPart tail;
 
-public class ModelMankiniWither<T extends EntityMankiniWither> extends SegmentedModel<T> {
-    private final ModelRenderer[] upperBodyParts;
-    private final ModelRenderer[] heads;
-    private final ImmutableList<ModelRenderer> field_228297_f_;
-
-    public ModelMankiniWither(float p_i46302_1_) {
-        this.textureWidth = 64;
-        this.textureHeight = 64;
-        this.upperBodyParts = new ModelRenderer[3];
-        this.upperBodyParts[0] = new ModelRenderer(this, 0, 16);
-        this.upperBodyParts[0].addBox(-10.0F, 3.9F, -0.5F, 20.0F, 3.0F, 3.0F, p_i46302_1_);
-        this.upperBodyParts[1] = (new ModelRenderer(this)).setTextureSize(this.textureWidth, this.textureHeight);
-        this.upperBodyParts[1].setRotationPoint(-2.0F, 6.9F, -0.5F);
-        this.upperBodyParts[1].setTextureOffset(0, 22).addBox(0.0F, 0.0F, 0.0F, 3.0F, 10.0F, 3.0F, p_i46302_1_);
-        this.upperBodyParts[1].setTextureOffset(24, 22).addBox(-4.0F, 1.5F, 0.5F, 11.0F, 2.0F, 2.0F, p_i46302_1_);
-        this.upperBodyParts[1].setTextureOffset(24, 22).addBox(-4.0F, 4.0F, 0.5F, 11.0F, 2.0F, 2.0F, p_i46302_1_);
-        this.upperBodyParts[1].setTextureOffset(24, 22).addBox(-4.0F, 6.5F, 0.5F, 11.0F, 2.0F, 2.0F, p_i46302_1_);
-        this.upperBodyParts[2] = new ModelRenderer(this, 12, 22);
-        this.upperBodyParts[2].addBox(0.0F, 0.0F, 0.0F, 3.0F, 6.0F, 3.0F, p_i46302_1_);
-        this.heads = new ModelRenderer[3];
-        this.heads[0] = new ModelRenderer(this, 0, 0);
-        this.heads[0].addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F, p_i46302_1_);
-        this.heads[1] = new ModelRenderer(this, 32, 0);
-        this.heads[1].addBox(-4.0F, -4.0F, -4.0F, 6.0F, 6.0F, 6.0F, p_i46302_1_);
-        this.heads[1].rotationPointX = -8.0F;
-        this.heads[1].rotationPointY = 4.0F;
-        this.heads[2] = new ModelRenderer(this, 32, 0);
-        this.heads[2].addBox(-4.0F, -4.0F, -4.0F, 6.0F, 6.0F, 6.0F, p_i46302_1_);
-        this.heads[2].rotationPointX = 10.0F;
-        this.heads[2].rotationPointY = 4.0F;
-        Builder<ModelRenderer> builder = ImmutableList.builder();
-        builder.addAll(Arrays.asList(this.heads));
-        builder.addAll(Arrays.asList(this.upperBodyParts));
-        this.field_228297_f_ = builder.build();
-    }
-    public ImmutableList<ModelRenderer> getParts() {
-        return this.field_228297_f_;
+    public ModelMankiniWither(ModelPart part) {
+        this.root = part;
+        this.ribcage = part.getChild("ribcage");
+        this.tail = part.getChild("tail");
+        this.centerHead = part.getChild("center_head");
+        this.rightHead = part.getChild("right_head");
+        this.leftHead = part.getChild("left_head");
     }
 
-    public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        float f = MathHelper.cos(ageInTicks * 0.1F);
-        this.upperBodyParts[1].rotateAngleX = (0.065F + 0.05F * f) * (float)Math.PI;
-        this.upperBodyParts[2].setRotationPoint(-2.0F, 6.9F + MathHelper.cos(this.upperBodyParts[1].rotateAngleX) * 10.0F, -0.5F + MathHelper.sin(this.upperBodyParts[1].rotateAngleX) * 10.0F);
-        this.upperBodyParts[2].rotateAngleX = (0.265F + 0.1F * f) * (float)Math.PI;
-        this.heads[0].rotateAngleY = netHeadYaw * ((float)Math.PI / 180F);
-        this.heads[0].rotateAngleX = headPitch * ((float)Math.PI / 180F);
+    public static LayerDefinition createBodyLayer(CubeDeformation deformation) {
+        MeshDefinition meshdefinition = new MeshDefinition();
+        PartDefinition partdefinition = meshdefinition.getRoot();
+        partdefinition.addOrReplaceChild("shoulders", CubeListBuilder.create().texOffs(0, 16).addBox(-10.0F, 3.9F, -0.5F, 20.0F, 3.0F, 3.0F, deformation), PartPose.ZERO);
+        float f = 0.20420352F;
+        partdefinition.addOrReplaceChild("ribcage", CubeListBuilder.create().texOffs(0, 22).addBox(0.0F, 0.0F, 0.0F, 3.0F, 10.0F, 3.0F, deformation).texOffs(24, 22).addBox(-4.0F, 1.5F, 0.5F, 11.0F, 2.0F, 2.0F, deformation).texOffs(24, 22).addBox(-4.0F, 4.0F, 0.5F, 11.0F, 2.0F, 2.0F, deformation).texOffs(24, 22).addBox(-4.0F, 6.5F, 0.5F, 11.0F, 2.0F, 2.0F, deformation), PartPose.offsetAndRotation(-2.0F, 6.9F, -0.5F, 0.20420352F, 0.0F, 0.0F));
+        partdefinition.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(12, 22).addBox(0.0F, 0.0F, 0.0F, 3.0F, 6.0F, 3.0F, deformation), PartPose.offsetAndRotation(-2.0F, 6.9F + Mth.cos(f) * 10.0F, -0.5F + Mth.sin(f) * 10.0F, 0.83252203F, 0.0F, 0.0F));
+        partdefinition.addOrReplaceChild("center_head", CubeListBuilder.create().texOffs(0, 0).addBox(-4.0F, -4.0F, -4.0F, 8.0F, 8.0F, 8.0F, deformation), PartPose.ZERO);
+        CubeListBuilder cubelistbuilder = CubeListBuilder.create().texOffs(32, 0).addBox(-4.0F, -4.0F, -4.0F, 6.0F, 6.0F, 6.0F, deformation);
+        partdefinition.addOrReplaceChild("right_head", cubelistbuilder, PartPose.offset(-8.0F, 4.0F, 0.0F));
+        partdefinition.addOrReplaceChild("left_head", cubelistbuilder, PartPose.offset(10.0F, 4.0F, 0.0F));
+        return LayerDefinition.create(meshdefinition, 64, 64);
     }
 
-    public void setLivingAnimations(T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
-        for(int i = 1; i < 3; ++i) {
-            this.heads[i].rotateAngleY = (entityIn.getHeadYRotation(i - 1) - entityIn.renderYawOffset) * ((float)Math.PI / 180F);
-            this.heads[i].rotateAngleX = entityIn.getHeadXRotation(i - 1) * ((float)Math.PI / 180F);
-        }
+    public ModelPart root() {
+        return this.root;
+    }
+
+    public void setupAnim(T p_104100_, float p_104101_, float p_104102_, float p_104103_, float p_104104_, float p_104105_) {
+        float f = Mth.cos(p_104103_ * 0.1F);
+        this.ribcage.xRot = (0.065F + 0.05F * f) * (float)Math.PI;
+        this.tail.setPos(-2.0F, 6.9F + Mth.cos(this.ribcage.xRot) * 10.0F, -0.5F + Mth.sin(this.ribcage.xRot) * 10.0F);
+        this.tail.xRot = (0.265F + 0.1F * f) * (float)Math.PI;
+        this.centerHead.yRot = p_104104_ * ((float)Math.PI / 180F);
+        this.centerHead.xRot = p_104105_ * ((float)Math.PI / 180F);
+    }
+
+    public void prepareMobModel(T mankiniWither, float p_104096_, float p_104097_, float p_104098_) {
+        setupHeadRotation(mankiniWither, this.rightHead, 0);
+        setupHeadRotation(mankiniWither, this.leftHead, 1);
+    }
+
+    private static <T extends MankiniWitherEntity> void setupHeadRotation(T mankiniWither, ModelPart part, int p_171074_) {
+        part.yRot = (mankiniWither.getHeadYRot(p_171074_) - mankiniWither.yBodyRot) * ((float)Math.PI / 180F);
+        part.xRot = mankiniWither.getHeadXRot(p_171074_) * ((float)Math.PI / 180F);
     }
 }

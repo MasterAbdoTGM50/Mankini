@@ -1,12 +1,12 @@
 package matgm50.mankini.item;
 
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.level.Level;
 
 /**
  * Created by MasterAbdoTGM50 on 7/2/2014.
@@ -15,11 +15,11 @@ import net.minecraft.world.World;
 public class ItemMankiniCapsule extends Item {
 
     public ItemMankiniCapsule(Item.Properties builder) {
-        super(builder.maxStackSize(1));
+        super(builder.stacksTo(1));
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        return new ActionResult<>(ActionResultType.PASS, playerIn.getHeldItem(handIn));
+    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+        return new InteractionResultHolder<>(InteractionResult.PASS, playerIn.getItemInHand(handIn));
     }
 }

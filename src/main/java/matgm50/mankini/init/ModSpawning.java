@@ -1,24 +1,24 @@
 package matgm50.mankini.init;
 
 import matgm50.mankini.Mankini;
-import matgm50.mankini.entity.boss.EntityMankiniWither;
+import matgm50.mankini.entity.boss.MankiniWitherEntity;
 import matgm50.mankini.entity.hostile.AbstractMankiniSkeleton;
-import matgm50.mankini.entity.hostile.EntityMankiniCreeper;
-import matgm50.mankini.entity.hostile.EntityMankiniEnderman;
-import matgm50.mankini.entity.hostile.EntityMankiniEndermite;
-import matgm50.mankini.entity.hostile.EntityMankiniEvoker;
-import matgm50.mankini.entity.hostile.EntityMankiniSpider;
+import matgm50.mankini.entity.hostile.MankiniCreeperEntity;
+import matgm50.mankini.entity.hostile.MankiniEndermanEntity;
+import matgm50.mankini.entity.hostile.MankiniEndermiteEntity;
+import matgm50.mankini.entity.hostile.MankiniEvokerEntity;
+import matgm50.mankini.entity.hostile.MankiniSpiderEntity;
 import matgm50.mankini.lib.ModLib;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntitySpawnPlacementRegistry;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.GlobalEntityTypeAttributes;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.biome.MobSpawnInfo.Spawners;
-import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.SpawnPlacements;
+import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.MobSpawnSettings;
+import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
+import net.minecraft.world.level.levelgen.Heightmap;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -37,9 +37,9 @@ public class ModSpawning {
     public static void addSpawn(BiomeLoadingEvent event) {
         Biome biome = ForgeRegistries.BIOMES.getValue(event.getName());
         if(biome != null) {
-            MobSpawnInfo info = biome.getMobSpawnInfo();
-            List<MobSpawnInfo.Spawners> spawns = event.getSpawns().getSpawner(EntityClassification.MONSTER);
-            for(Spawners entry : info.getSpawners(EntityClassification.MONSTER)) {
+            MobSpawnSettings info = biome.getMobSettings();
+            List<MobSpawnSettings.SpawnerData> spawns = event.getSpawns().getSpawner(MobCategory.MONSTER);
+            for(SpawnerData entry : info.getMobs(MobCategory.MONSTER).unwrap()) {
                 registerSpawn(spawns, entry, EntityType.CREEPER, ModRegistry.MANKINI_CREEPER.get());
                 registerSpawn(spawns, entry, EntityType.ENDERMAN, ModRegistry.MANKINI_ENDERMAN.get());
                 registerSpawn(spawns, entry, EntityType.SPIDER, ModRegistry.MANKINI_SPIDER.get());
@@ -49,32 +49,32 @@ public class ModSpawning {
         }
     }
 
-    public static void registerSpawn(List<Spawners> spawns, Spawners entry, EntityType<? extends LivingEntity> oldEntity, EntityType<? extends LivingEntity> newEntity) {
+    public static void registerSpawn(List<SpawnerData> spawns, SpawnerData entry, EntityType<? extends LivingEntity> oldEntity, EntityType<? extends LivingEntity> newEntity) {
         if(entry.type == oldEntity) {
-            spawns.add(new MobSpawnInfo.Spawners(newEntity, entry.itemWeight / 4, entry.minCount, entry.maxCount));
+            spawns.add(new MobSpawnSettings.SpawnerData(newEntity, entry.getWeight().asInt() / 4, entry.minCount, entry.maxCount));
         }
     }
 
     public static void registerSpawnPlacement() {
         Mankini.logger.info("Registering Mankini Mob spawn placement");
         //Mobs that spawn on the ground
-        EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_CREEPER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_ENDERMAN.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_ENDERMITE.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_SPIDER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_SKELETON.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canSpawnOn);
-        EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_WITHER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canMonsterSpawnInLight);
-        EntitySpawnPlacementRegistry.register(ModRegistry.MANKINI_EVOKER.get(), EntitySpawnPlacementRegistry.PlacementType.ON_GROUND, Heightmap.Type.MOTION_BLOCKING_NO_LEAVES, MonsterEntity::canSpawnOn);
+        SpawnPlacements.register(ModRegistry.MANKINI_CREEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules);
+        SpawnPlacements.register(ModRegistry.MANKINI_ENDERMAN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules);
+        SpawnPlacements.register(ModRegistry.MANKINI_ENDERMITE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules);
+        SpawnPlacements.register(ModRegistry.MANKINI_SPIDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules);
+        SpawnPlacements.register(ModRegistry.MANKINI_SKELETON.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules);
+        SpawnPlacements.register(ModRegistry.MANKINI_WITHER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
+        SpawnPlacements.register(ModRegistry.MANKINI_EVOKER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules);
     }
 
-    public static void registerAttributes() {
+    public static void registerEntityAttributes(EntityAttributeCreationEvent event) {
         Mankini.logger.info("Registering Mankini Mob Attributes");
-        GlobalEntityTypeAttributes.put(ModRegistry.MANKINI_CREEPER.get(), EntityMankiniCreeper.registerAttributes().create());
-        GlobalEntityTypeAttributes.put(ModRegistry.MANKINI_ENDERMAN.get(), EntityMankiniEnderman.registerAttributes().create());
-        GlobalEntityTypeAttributes.put(ModRegistry.MANKINI_ENDERMITE.get(), EntityMankiniEndermite.registerAttributes().create());
-        GlobalEntityTypeAttributes.put(ModRegistry.MANKINI_SPIDER.get(), EntityMankiniSpider.registerAttributes().create());
-        GlobalEntityTypeAttributes.put(ModRegistry.MANKINI_SKELETON.get(), AbstractMankiniSkeleton.registerAttributes().create());
-        GlobalEntityTypeAttributes.put(ModRegistry.MANKINI_WITHER.get(), EntityMankiniWither.registerAttributes().create());
-        GlobalEntityTypeAttributes.put(ModRegistry.MANKINI_EVOKER.get(), EntityMankiniEvoker.registerAttributes().create());
+        event.put(ModRegistry.MANKINI_CREEPER.get(), MankiniCreeperEntity.registerAttributes().build());
+        event.put(ModRegistry.MANKINI_ENDERMAN.get(), MankiniEndermanEntity.registerAttributes().build());
+        event.put(ModRegistry.MANKINI_ENDERMITE.get(), MankiniEndermiteEntity.registerAttributes().build());
+        event.put(ModRegistry.MANKINI_SPIDER.get(), MankiniSpiderEntity.registerAttributes().build());
+        event.put(ModRegistry.MANKINI_SKELETON.get(), AbstractMankiniSkeleton.registerAttributes().build());
+        event.put(ModRegistry.MANKINI_WITHER.get(), MankiniWitherEntity.registerAttributes().build());
+        event.put(ModRegistry.MANKINI_EVOKER.get(), MankiniEvokerEntity.registerAttributes().build());
     }
 }

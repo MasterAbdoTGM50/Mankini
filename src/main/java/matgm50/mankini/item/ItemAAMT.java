@@ -1,18 +1,16 @@
 package matgm50.mankini.item;
 
-import matgm50.mankini.client.model.ModelAAMT;
-import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.ArmorMaterial;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import matgm50.mankini.client.renderer.AAMTRenderer;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterials;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.client.IItemRenderProperties;
 
 import javax.annotation.Nullable;
+import java.util.function.Consumer;
 
 /**
  * Created by MasterAbdoTGM50 on 5/30/2014.
@@ -21,28 +19,22 @@ import javax.annotation.Nullable;
 public class ItemAAMT extends ArmorItem implements IMankini {
 
     public ItemAAMT(Item.Properties builder) {
-        super(ArmorMaterial.DIAMOND, EquipmentSlotType.CHEST, builder.maxStackSize(1));
+        super(ArmorMaterials.DIAMOND, EquipmentSlot.CHEST, builder.stacksTo(1));
     }
 
 	@Nullable
 	@Override
-	public EquipmentSlotType getEquipmentSlot(ItemStack stack) {
-		return EquipmentSlotType.CHEST;
+	public EquipmentSlot getEquipmentSlot(ItemStack stack) {
+		return EquipmentSlot.CHEST;
 	}
 
-	@OnlyIn(Dist.CLIENT)
-	@Nullable
 	@Override
-	public <A extends BipedModel<?>> A getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlotType armorSlot, A _default) {
-		if (armorSlot == EquipmentSlotType.CHEST) {
-			return (A) new ModelAAMT(0.5F);
-		}
-
-		return null;
-	}
-    
-	@Override
-	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlotType slot, String type) {
+	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
 		return "mankini:textures/models/aetheric_mankini.png";
+	}
+
+	@Override
+	public void initializeClient(Consumer<IItemRenderProperties> consumer) {
+		consumer.accept(new AAMTRenderer());
 	}
 }
