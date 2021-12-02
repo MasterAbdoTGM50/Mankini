@@ -1,9 +1,9 @@
 package matgm50.mankini.util;
 
 import matgm50.mankini.item.IMankini;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.InteractionHand;
 
 /**
  * Created by MasterAbdoTGM50 on 7/3/2014.

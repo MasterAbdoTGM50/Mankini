@@ -8,7 +8,6 @@ import matgm50.mankini.entity.boss.MankiniWitherEntity;
 import matgm50.mankini.lib.ModLib;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.entity.layers.WitherArmorLayer;
 import net.minecraft.resources.ResourceLocation;
 
 import javax.annotation.Nullable;

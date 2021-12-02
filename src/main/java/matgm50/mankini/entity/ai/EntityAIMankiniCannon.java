@@ -3,12 +3,12 @@ package matgm50.mankini.entity.ai;
 import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.item.IMankini;
 import matgm50.mankini.item.ItemMankiniCannon;
-import net.minecraft.world.entity.monster.RangedAttackMob;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Monster;
+import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.InteractionHand;
 
 import java.util.EnumSet;
 
@@ -39,7 +39,7 @@ public class EntityAIMankiniCannon<T extends Monster & RangedAttackMob> extends 
      * Returns whether the EntityAIBase should begin execution.
      */
     public boolean canUse() {
-        return this.entity.getTarget() == null ? false : this.isCannonInMainHand();
+        return this.entity.getTarget() != null && this.isCannonInMainHand();
     }
 
     protected boolean isCannonInMainHand() {
@@ -78,8 +78,7 @@ public class EntityAIMankiniCannon<T extends Monster & RangedAttackMob> extends 
     public void tick() {
         LivingEntity livingBase = this.entity.getTarget();
         if (livingBase != null) {
-            if(livingBase instanceof Player) {
-                Player player = (Player)livingBase;
+            if(livingBase instanceof Player player) {
                 boolean flag = player.getInventory().armor.get(2).getItem() instanceof IMankini;
                 boolean flag2 = false;
 

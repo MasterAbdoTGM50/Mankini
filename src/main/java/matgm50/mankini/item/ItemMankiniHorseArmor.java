@@ -1,11 +1,11 @@
 package matgm50.mankini.item;
 
 import matgm50.mankini.lib.ModLib;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.item.HorseArmorItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 
 public class ItemMankiniHorseArmor extends HorseArmorItem {

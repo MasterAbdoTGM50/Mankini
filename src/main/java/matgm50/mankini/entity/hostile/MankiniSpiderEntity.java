@@ -174,7 +174,7 @@ public class MankiniSpiderEntity extends Spider {
          */
         public boolean canUse() {
             float f = this.mob.getBrightness();
-            return f >= 0.5F ? false : super.canUse();
+            return !(f >= 0.5F) && super.canUse();
         }
     }
 }

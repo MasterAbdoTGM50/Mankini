@@ -3,28 +3,28 @@ package matgm50.mankini.entity.hostile;
 import matgm50.mankini.entity.ai.EntityAIMankiniTarget;
 import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.ModRegistry;
-import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.goal.AvoidEntityGoal;
-import net.minecraft.world.entity.ai.goal.SwellGoal;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
-import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
-import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
-import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.FloatGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.SwellGoal;
 import net.minecraft.world.entity.ai.goal.WaterAvoidingRandomStrollGoal;
-import net.minecraft.world.entity.monster.Creeper;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.entity.animal.Ocelot;
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.damagesource.DamageSource;
+import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
 
 public class MankiniCreeperEntity extends Creeper {
 
@@ -64,10 +64,9 @@ public class MankiniCreeperEntity extends Creeper {
      */
 	@Override
     public void explodeCreeper() {
-    	if(this.getTarget() instanceof Player) {
-            Player hitPlayer = (Player) this.getTarget();
-    		
-    		float f = this.isPowered() ? 2.0F : 1.0F;
+    	if(this.getTarget() instanceof Player hitPlayer) {
+
+			float f = this.isPowered() ? 2.0F : 1.0F;
     		
         	Boolean full = true;
         	

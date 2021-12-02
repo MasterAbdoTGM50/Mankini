@@ -26,8 +26,8 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fmllegacy.network.FMLPlayMessages;
-import net.minecraftforge.fmllegacy.network.NetworkHooks;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.network.PlayMessages.SpawnEntity;
 
 public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implements ItemSupplier {
     private static final EntityDataAccessor<Boolean> INVULNERABLE = SynchedEntityData.defineId(MankiniWitherCapsuleEntity.class, EntityDataSerializers.BOOLEAN);
@@ -40,7 +40,7 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
         super(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), shooter, accelX, accelY, accelZ, worldIn);
     }
 
-    public MankiniWitherCapsuleEntity(FMLPlayMessages.SpawnEntity spawnEntity, Level worldIn) {
+    public MankiniWitherCapsuleEntity(SpawnEntity spawnEntity, Level worldIn) {
         this(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), worldIn);
     }
 
@@ -78,8 +78,7 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
             if (result.getType() == HitResult.Type.ENTITY) {
                 Entity entity = ((EntityHitResult)result).getEntity();
                 Entity shooter = getOwner();
-                if (shooter != null && shooter instanceof LivingEntity) {
-                    LivingEntity shootingEntity = (LivingEntity)shooter;
+                if (shooter != null && shooter instanceof LivingEntity shootingEntity) {
                     if (entity.hurt(DamageSource.mobAttack(shootingEntity), 4.0F)) {
                         if (entity.isAlive()) {
                             this.doEnchantDamageEffects(shootingEntity, entity);
@@ -104,8 +103,7 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
                     }
 
                     if (!this.level.isClientSide) {
-                        if (entity instanceof Player) {
-                            Player hitPlayer = (Player) entity;
+                        if (entity instanceof Player hitPlayer) {
                             Inventory playerInv = hitPlayer.getInventory();
 
                             ItemStack itemstack = hitPlayer.getInventory().armor.get(2);

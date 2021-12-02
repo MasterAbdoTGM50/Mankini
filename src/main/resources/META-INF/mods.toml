@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[37,)"
+loaderVersion="[38,)"
 issueTrackerURL="https://github.com/MasterAbdoTGM50/Mankini/issues"
 license="MIT"
 
@@ -8,7 +8,7 @@ modId="mankini"
 version="${file.jarVersion}"
 displayName="Mankini"
 displayURL="https://minecraft.curseforge.com/projects/mankini"
-authors="MasterAbdoTGM50, Kenny2810, Mrbysco"
+authors="MasterAbdoTGM50, Kara2810, Mrbysco"
 credits="Runew0lf, Geekasaurus"
 description='''
 A minecraft mod allowing you to become a mankini wearing star. What would you ask for more?
@@ -16,6 +16,6 @@ A minecraft mod allowing you to become a mankini wearing star. What would you as
 [[dependencies.mankini]]
 modId="minecraft"
 mandatory=true
-versionRange="[1.17.1,1.18)"
+versionRange="[1.18,1.19)"
 ordering="NONE"
 side="BOTH"

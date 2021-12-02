@@ -28,8 +28,7 @@ public class ItemMankiniCannon extends Item {
 
     @Override
     public void releaseUsing(ItemStack stack, Level worldIn, LivingEntity entityLiving, int timeLeft) {
-        if (entityLiving instanceof Player) {
-            Player playerEntity = (Player)entityLiving;
+        if (entityLiving instanceof Player playerEntity) {
             ItemStack itemstack = MankiniHelper.findMankini(playerEntity);
 
             int i = this.getUseDuration(stack) - timeLeft;

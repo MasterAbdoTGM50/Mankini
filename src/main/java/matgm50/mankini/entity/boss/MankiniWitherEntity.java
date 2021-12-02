@@ -548,7 +548,7 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
     }
 
     public boolean canBeAffected(MobEffectInstance potioneffectIn) {
-        return potioneffectIn.getEffect() == ModRegistry.MANKINI_WITHER_EFFECT.get() ? false : super.canBeAffected(potioneffectIn);
+        return potioneffectIn.getEffect() != ModRegistry.MANKINI_WITHER_EFFECT.get() && super.canBeAffected(potioneffectIn);
     }
 
     @Override

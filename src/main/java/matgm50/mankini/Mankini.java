@@ -4,10 +4,7 @@ import matgm50.mankini.client.ClientHandler;
 import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.init.ModSpawning;
-import matgm50.mankini.item.CustomSpawnEggItem;
 import matgm50.mankini.lib.ModLib;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SpawnEggItem;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.DistExecutor;
@@ -16,7 +13,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fmllegacy.RegistryObject;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -40,20 +36,10 @@ public class Mankini {
 		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
 			eventBus.addListener(ClientHandler::registerEntityRenders);
 			eventBus.addListener(ClientHandler::registerLayerDefinitions);
-			eventBus.addListener(ClientHandler::registerItemColors);
 		});
 	}
 
 	private void setup(final FMLCommonSetupEvent event) {
 		ModSpawning.registerSpawnPlacement();
-
-		event.enqueueWork(() -> {
-					for(RegistryObject<Item> registryObject : ModRegistry.ITEMS.getEntries()) {
-						if(registryObject.get() instanceof CustomSpawnEggItem spawnEgg) {
-							SpawnEggItem.BY_ID.put(spawnEgg.entityType.get(), spawnEgg);
-						}
-					}
-				}
-		);
     }
 }

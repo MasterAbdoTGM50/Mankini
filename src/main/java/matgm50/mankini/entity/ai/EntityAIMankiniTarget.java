@@ -1,8 +1,8 @@
 package matgm50.mankini.entity.ai;
 
 import matgm50.mankini.item.IMankini;
-import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.player.Player;
 
@@ -20,8 +20,7 @@ public class EntityAIMankiniTarget<T extends LivingEntity> extends NearestAttack
     }
 
     public boolean isFabulous() {
-        if(this.targetMob != null && this.targetMob instanceof Player) {
-            Player player = (Player)this.targetMob;
+        if(this.targetMob != null && this.targetMob instanceof Player player) {
             return player.getInventory().armor.get(2).getItem() instanceof IMankini;
         }
         else {

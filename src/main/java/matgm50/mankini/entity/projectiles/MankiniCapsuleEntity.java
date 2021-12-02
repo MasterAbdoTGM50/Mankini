@@ -26,8 +26,8 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fmllegacy.network.FMLPlayMessages;
-import net.minecraftforge.fmllegacy.network.NetworkHooks;
+import net.minecraftforge.network.NetworkHooks;
+import net.minecraftforge.network.PlayMessages.SpawnEntity;
 
 
 public class MankiniCapsuleEntity extends ThrowableItemProjectile {
@@ -50,7 +50,7 @@ public class MankiniCapsuleEntity extends ThrowableItemProjectile {
 		this.dropItem = drop;
 	}
 
-	public MankiniCapsuleEntity(FMLPlayMessages.SpawnEntity spawnEntity, Level worldIn) {
+	public MankiniCapsuleEntity(SpawnEntity spawnEntity, Level worldIn) {
 		this(ModRegistry.MANKINI_CAPSULE.get(), worldIn);
 	}
 
@@ -80,8 +80,7 @@ public class MankiniCapsuleEntity extends ThrowableItemProjectile {
 				flag = true;
 				Entity hit = ((EntityHitResult)result).getEntity();
 				if (hit != null) {
-					if (hit instanceof Player) {
-						Player hitPlayer = (Player) hit;
+					if (hit instanceof Player hitPlayer) {
 
 						ItemStack wornStack = hitPlayer.getInventory().armor.get(2);
 						Inventory playerInv = hitPlayer.getInventory();
@@ -98,8 +97,7 @@ public class MankiniCapsuleEntity extends ThrowableItemProjectile {
 								playerInv.setItem(playerInv.getFreeSlot(), wornStack);
 							}
 						}
-					} else if (hit instanceof WitherBoss && !(hit instanceof MankiniWitherEntity)) {
-						WitherBoss originalWither = (WitherBoss) hit;
+					} else if (hit instanceof WitherBoss originalWither && !(hit instanceof MankiniWitherEntity)) {
 
 						MankiniWitherEntity mankiniWither = new MankiniWitherEntity(ModRegistry.MANKINI_WITHER.get(), this.level);
 						mankiniWither.moveTo(originalWither.getX(), originalWither.getY(), originalWither.getZ(), originalWither.getYRot(), 0.0F);
@@ -107,8 +105,7 @@ public class MankiniCapsuleEntity extends ThrowableItemProjectile {
 						this.discard();
 						this.level.addFreshEntity(mankiniWither);
 					} else if (MankiniConfig.COMMON.ShootMankinisOntoMobs.get()) {
-						if (hit instanceof Zombie) {
-							Zombie hitZombie = (Zombie) hit;
+						if (hit instanceof Zombie hitZombie) {
 							ItemStack chestStack = hitZombie.getItemBySlot(EquipmentSlot.CHEST);
 
 							if (chestStack.isEmpty()) {
@@ -119,8 +116,7 @@ public class MankiniCapsuleEntity extends ThrowableItemProjectile {
 									this.spawnAtLocation(foundMankini, 0.5F);
 								}
 							}
-						} else if (hit instanceof Skeleton) {
-							Skeleton hitSkeleton = (Skeleton) hit;
+						} else if (hit instanceof Skeleton hitSkeleton) {
 							ItemStack chestStack = hitSkeleton.getItemBySlot(EquipmentSlot.CHEST);
 
 							if (chestStack.isEmpty()) {
@@ -131,8 +127,7 @@ public class MankiniCapsuleEntity extends ThrowableItemProjectile {
 									this.spawnAtLocation(foundMankini, 0.5F);
 								}
 							}
-						} else if (hit instanceof Piglin) {
-							Piglin hitPiglin = (Piglin) hit;
+						} else if (hit instanceof Piglin hitPiglin) {
 							ItemStack chestStack = hitPiglin.getItemBySlot(EquipmentSlot.CHEST);
 
 							if (chestStack.isEmpty()) {

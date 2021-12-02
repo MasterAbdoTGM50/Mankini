@@ -1,13 +1,21 @@
 package matgm50.mankini.item;
 
-import matgm50.mankini.client.renderer.AAMTRenderer;
+import matgm50.mankini.client.ClientHandler;
+import matgm50.mankini.client.model.ModelAAMT;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.fml.DistExecutor;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
@@ -17,9 +25,12 @@ import java.util.function.Consumer;
  */
 
 public class ItemAAMT extends ArmorItem implements IMankini {
+	private final LazyLoadedValue<HumanoidModel<?>> model;
 
     public ItemAAMT(Item.Properties builder) {
         super(ArmorMaterials.DIAMOND, EquipmentSlot.CHEST, builder.stacksTo(1));
+		this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyLoadedValue<>(() -> this.provideArmorModelForSlot(slot)),
+				() -> () -> null);
     }
 
 	@Nullable
@@ -33,8 +44,18 @@ public class ItemAAMT extends ArmorItem implements IMankini {
 		return "mankini:textures/models/aetheric_mankini.png";
 	}
 
+	@OnlyIn(Dist.CLIENT)
+	public HumanoidModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
+		return new ModelAAMT(Minecraft.getInstance().getEntityModels().bakeLayer(ClientHandler.AAMT));
+	}
+
 	@Override
 	public void initializeClient(Consumer<IItemRenderProperties> consumer) {
-		consumer.accept(new AAMTRenderer());
+		consumer.accept(new IItemRenderProperties() {
+			@Override
+			public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlot slot, A _default) {
+				return (A) model.get();
+			}
+		});
 	}
 }
