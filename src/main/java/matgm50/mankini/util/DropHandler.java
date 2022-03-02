@@ -7,9 +7,9 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = ModLib.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class DropHandler {
-	
+
 	@SubscribeEvent
 	public static void onLivingDrop(LivingDropsEvent event) {
-		
-    }
+
+	}
 }

@@ -16,12 +16,12 @@ import javax.annotation.Nullable;
 
 public class ItemDyeableMankini extends DyeableArmorItem implements IMankini {
 
-   // private IIcon iconNormal;
-   // private IIcon iconOverlay;
+	// private IIcon iconNormal;
+	// private IIcon iconOverlay;
 
-    public ItemDyeableMankini(Item.Properties builder) {
-        super(ArmorMaterials.LEATHER, EquipmentSlot.CHEST, builder.stacksTo(1));
-    }
+	public ItemDyeableMankini(Item.Properties builder) {
+		super(ArmorMaterials.LEATHER, EquipmentSlot.CHEST, builder.stacksTo(1));
+	}
 
 //    @OnlyIn(Dist.CLIENT)
 //    public int getColorFromItemStack(ItemStack par1ItemStack, int par2) {
@@ -37,36 +37,37 @@ public class ItemDyeableMankini extends DyeableArmorItem implements IMankini {
 //    }
 
 
-    @Override
-    public boolean hasCustomColor(ItemStack stack) {
-        CompoundTag nbttagcompound = stack.getTagElement("display");
-        return nbttagcompound != null && nbttagcompound.contains("color", 99);
-    }
+	@Override
+	public boolean hasCustomColor(ItemStack stack) {
+		CompoundTag nbttagcompound = stack.getTagElement("display");
+		return nbttagcompound != null && nbttagcompound.contains("color", 99);
+	}
 
-    @Override
-    public int getColor(ItemStack stack) {
-        CompoundTag nbttagcompound = stack.getTagElement("display");
-        return nbttagcompound != null && nbttagcompound.contains("color", 99) ? nbttagcompound.getInt("color") : 10511680;
-    }
+	@Override
+	public int getColor(ItemStack stack) {
+		CompoundTag nbttagcompound = stack.getTagElement("display");
+		return nbttagcompound != null && nbttagcompound.contains("color", 99) ? nbttagcompound.getInt("color") : 10511680;
+	}
 
-    @Override
-    public void clearColor(ItemStack stack) {
-        CompoundTag nbttagcompound = stack.getTagElement("display");
-        if (nbttagcompound != null && nbttagcompound.contains("color")) {
-            nbttagcompound.remove("color");
-        }
-    }
+	@Override
+	public void clearColor(ItemStack stack) {
+		CompoundTag nbttagcompound = stack.getTagElement("display");
+		if (nbttagcompound != null && nbttagcompound.contains("color")) {
+			nbttagcompound.remove("color");
+		}
+	}
 
-    @Override
-    public void setColor(ItemStack stack, int color) {
-        stack.getOrCreateTagElement("display").putInt("color", color);
-    }
+	@Override
+	public void setColor(ItemStack stack, int color) {
+		stack.getOrCreateTagElement("display").putInt("color", color);
+	}
 
 
-    @Nullable
-    @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-        if(type == null){return "mankini:textures/models/mankini.png";}
-        else return "mankini:textures/models/mankini_over.png";
-    }
+	@Nullable
+	@Override
+	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+		if (type == null) {
+			return "mankini:textures/models/mankini.png";
+		} else return "mankini:textures/models/mankini_over.png";
+	}
 }

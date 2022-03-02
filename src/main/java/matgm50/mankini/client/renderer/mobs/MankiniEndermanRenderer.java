@@ -7,7 +7,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.monster.EnderMan;
 
 public class MankiniEndermanRenderer extends EndermanRenderer {
-    private static final ResourceLocation MANKINI_ENDERMAN = new ResourceLocation(ModLib.MOD_ID, "textures/entity/mankini_enderman.png");
+	private static final ResourceLocation MANKINI_ENDERMAN = new ResourceLocation(ModLib.MOD_ID, "textures/entity/mankini_enderman.png");
 
 	public MankiniEndermanRenderer(Context context) {
 		super(context);

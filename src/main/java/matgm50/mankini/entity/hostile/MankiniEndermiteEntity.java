@@ -19,34 +19,34 @@ import net.minecraft.world.level.LevelAccessor;
 
 public class MankiniEndermiteEntity extends Endermite {
 
-    public MankiniEndermiteEntity(EntityType<? extends MankiniEndermiteEntity> type, Level worldIn) {
-        super(type, worldIn);
-    }
+	public MankiniEndermiteEntity(EntityType<? extends MankiniEndermiteEntity> type, Level worldIn) {
+		super(type, worldIn);
+	}
 
-    public MankiniEndermiteEntity(Level worldIn) {
-        super(ModRegistry.MANKINI_ENDERMITE.get(), worldIn);
-    }
+	public MankiniEndermiteEntity(Level worldIn) {
+		super(ModRegistry.MANKINI_ENDERMITE.get(), worldIn);
+	}
 
-    public static AttributeSupplier.Builder registerAttributes() {
-        return Endermite.createAttributes();
-    }
+	public static AttributeSupplier.Builder registerAttributes() {
+		return Endermite.createAttributes();
+	}
 
-    @Override
-    protected void registerGoals() {
-        this.goalSelector.addGoal(1, new FloatGoal(this));
-        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
-        this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
-        this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
-        this.targetSelector.addGoal(2, new EntityAIMankiniTarget<>(this, Player.class, true));
-    }
+	@Override
+	protected void registerGoals() {
+		this.goalSelector.addGoal(1, new FloatGoal(this));
+		this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, false));
+		this.goalSelector.addGoal(3, new WaterAvoidingRandomStrollGoal(this, 1.0D));
+		this.goalSelector.addGoal(7, new LookAtPlayerGoal(this, Player.class, 8.0F));
+		this.goalSelector.addGoal(8, new RandomLookAroundGoal(this));
+		this.targetSelector.addGoal(1, (new HurtByTargetGoal(this)).setAlertOthers());
+		this.targetSelector.addGoal(2, new EntityAIMankiniTarget<>(this, Player.class, true));
+	}
 
-    @Override
-    public boolean checkSpawnRules(LevelAccessor worldIn, MobSpawnType reason) {
-        if(MankiniConfig.COMMON.MankiniEndermiteSpawn.get())
-            return super.checkSpawnRules(worldIn, reason);
-        else
-            return false;
-    }
+	@Override
+	public boolean checkSpawnRules(LevelAccessor worldIn, MobSpawnType reason) {
+		if (MankiniConfig.COMMON.MankiniEndermiteSpawn.get())
+			return super.checkSpawnRules(worldIn, reason);
+		else
+			return false;
+	}
 }

@@ -11,10 +11,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
  */
 
 public class ModGroups {
-    public static final CreativeModeTab MANKINI_TAB = new CreativeModeTab(ModLib.MOD_ID) {
-        @OnlyIn(Dist.CLIENT)
-        public ItemStack makeIcon() {
-            return new ItemStack(ModRegistry.KAWAII_MANKINI.get());
-        }
-    };
+	public static final CreativeModeTab MANKINI_TAB = new CreativeModeTab(ModLib.MOD_ID) {
+		@OnlyIn(Dist.CLIENT)
+		public ItemStack makeIcon() {
+			return new ItemStack(ModRegistry.KAWAII_MANKINI.get());
+		}
+	};
 }

@@ -14,10 +14,10 @@ import net.minecraftforge.fml.common.Mod;
 public class BatMankiniJump {
 	@SubscribeEvent
 	public static void PlayerJump(LivingJumpEvent event) {
-    	if(event.getEntityLiving() instanceof Player player) {
-			if(!player.isShiftKeyDown()) {
+		if (event.getEntityLiving() instanceof Player player) {
+			if (!player.isShiftKeyDown()) {
 				if (player.getInventory().getArmor(2) != null) {
-					if(player.getInventory().getArmor(2).getItem()== ModRegistry.BAT_MANKINI.get()){
+					if (player.getInventory().getArmor(2).getItem() == ModRegistry.BAT_MANKINI.get()) {
 						Vec3 motion = player.getDeltaMovement();
 						double motionY = motion.y();
 						motionY += 1.1;
@@ -25,7 +25,7 @@ public class BatMankiniJump {
 						player.addEffect((new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 200, 1)));
 					}
 				}
-    		}
-    	}
+			}
+		}
 	}
 }

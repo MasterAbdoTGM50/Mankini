@@ -5,8 +5,8 @@ package matgm50.mankini.lib;
  */
 
 public class ModLib {
-    public static final String MOD_ID = "mankini";
-    public static final String MOD_PREFIX = MOD_ID + ":";
+	public static final String MOD_ID = "mankini";
+	public static final String MOD_PREFIX = MOD_ID + ":";
 
-    public static final String BAT_COUNT_TAG = MOD_PREFIX + "bat_count";
+	public static final String BAT_COUNT_TAG = MOD_PREFIX + "bat_count";
 }

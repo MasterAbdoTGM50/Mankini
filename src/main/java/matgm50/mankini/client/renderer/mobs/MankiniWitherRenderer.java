@@ -33,7 +33,7 @@ public class MankiniWitherRenderer extends MobRenderer<MankiniWitherEntity, Mode
 		float f = 2.0F;
 		int i = entitylivingbaseIn.getInvulTime();
 		if (i > 0) {
-			f -= ((float)i - partialTickTime) / 220.0F * 0.5F;
+			f -= ((float) i - partialTickTime) / 220.0F * 0.5F;
 		}
 
 		matrixStackIn.scale(f, f, f);

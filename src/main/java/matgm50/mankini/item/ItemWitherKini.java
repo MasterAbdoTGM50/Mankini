@@ -14,12 +14,12 @@ import net.minecraft.world.item.ItemStack;
 
 public class ItemWitherKini extends ArmorItem implements IMankini {
 
-    public ItemWitherKini(Item.Properties builder) {
-        super(ArmorMaterials.IRON, EquipmentSlot.CHEST, builder.stacksTo(1));
-    }
+	public ItemWitherKini(Item.Properties builder) {
+		super(ArmorMaterials.IRON, EquipmentSlot.CHEST, builder.stacksTo(1));
+	}
 
-    @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-   		return "mankini:textures/models/wither_kini.png";
-   	}
+	@Override
+	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+		return "mankini:textures/models/wither_kini.png";
+	}
 }

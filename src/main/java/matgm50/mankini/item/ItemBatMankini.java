@@ -10,10 +10,10 @@ import net.minecraft.world.item.ItemStack;
 import javax.annotation.Nullable;
 
 public class ItemBatMankini extends ArmorItem implements IMankini {
-	
-    public ItemBatMankini(Item.Properties builder) {
+
+	public ItemBatMankini(Item.Properties builder) {
 		super(ArmorMaterials.IRON, EquipmentSlot.CHEST, builder.stacksTo(1));
-    }
+	}
 
 	@Nullable
 	@Override

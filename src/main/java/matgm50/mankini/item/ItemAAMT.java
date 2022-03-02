@@ -27,11 +27,11 @@ import java.util.function.Consumer;
 public class ItemAAMT extends ArmorItem implements IMankini {
 	private final LazyLoadedValue<HumanoidModel<?>> model;
 
-    public ItemAAMT(Item.Properties builder) {
-        super(ArmorMaterials.DIAMOND, EquipmentSlot.CHEST, builder.stacksTo(1));
+	public ItemAAMT(Item.Properties builder) {
+		super(ArmorMaterials.DIAMOND, EquipmentSlot.CHEST, builder.stacksTo(1));
 		this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyLoadedValue<>(() -> this.provideArmorModelForSlot(slot)),
 				() -> () -> null);
-    }
+	}
 
 	@Nullable
 	@Override
@@ -53,8 +53,8 @@ public class ItemAAMT extends ArmorItem implements IMankini {
 	public void initializeClient(Consumer<IItemRenderProperties> consumer) {
 		consumer.accept(new IItemRenderProperties() {
 			@Override
-			public <A extends HumanoidModel<?>> A getArmorModel(LivingEntity living, ItemStack stack, EquipmentSlot slot, A _default) {
-				return (A) model.get();
+			public HumanoidModel<?> getArmorModel(LivingEntity entityLiving, ItemStack itemStack, EquipmentSlot armorSlot, HumanoidModel<?> _default) {
+				return model.get();
 			}
 		});
 	}

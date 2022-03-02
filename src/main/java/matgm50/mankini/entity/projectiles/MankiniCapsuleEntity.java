@@ -32,20 +32,20 @@ import net.minecraftforge.network.PlayMessages.SpawnEntity;
 
 public class MankiniCapsuleEntity extends ThrowableItemProjectile {
 
-    public ItemStack foundMankini;
-    public boolean dropItem = true;
+	public ItemStack foundMankini;
+	public boolean dropItem = true;
 
 	public MankiniCapsuleEntity(EntityType<? extends MankiniCapsuleEntity> type, Level worldIn) {
 		super(type, worldIn);
 	}
 
-    public MankiniCapsuleEntity(Level worldIn, LivingEntity throwerIn, ItemStack foundMankini) {
-        super(ModRegistry.MANKINI_CAPSULE.get(), throwerIn.getX(), throwerIn.getY() + (double)throwerIn.getEyeHeight() - (double)0.1F, throwerIn.getZ(), worldIn);
-        this.foundMankini = foundMankini;
-    }
+	public MankiniCapsuleEntity(Level worldIn, LivingEntity throwerIn, ItemStack foundMankini) {
+		super(ModRegistry.MANKINI_CAPSULE.get(), throwerIn.getX(), throwerIn.getY() + (double) throwerIn.getEyeHeight() - (double) 0.1F, throwerIn.getZ(), worldIn);
+		this.foundMankini = foundMankini;
+	}
 
 	public MankiniCapsuleEntity(Level worldIn, LivingEntity throwerIn, ItemStack foundMankini, boolean drop) {
-		super(ModRegistry.MANKINI_CAPSULE.get(), throwerIn.getX(), throwerIn.getY() + (double)throwerIn.getEyeHeight() - (double)0.1F, throwerIn.getZ(), worldIn);
+		super(ModRegistry.MANKINI_CAPSULE.get(), throwerIn.getX(), throwerIn.getY() + (double) throwerIn.getEyeHeight() - (double) 0.1F, throwerIn.getZ(), worldIn);
 		this.foundMankini = foundMankini;
 		this.dropItem = drop;
 	}
@@ -57,28 +57,27 @@ public class MankiniCapsuleEntity extends ThrowableItemProjectile {
 	@OnlyIn(Dist.CLIENT)
 	private ParticleOptions getParticle() {
 		ItemStack itemstack = this.getItemRaw();
-		return (ParticleOptions)(itemstack.isEmpty() ? ParticleTypes.CRIT : new ItemParticleOption(ParticleTypes.ITEM, itemstack));
+		return (ParticleOptions) (itemstack.isEmpty() ? ParticleTypes.CRIT : new ItemParticleOption(ParticleTypes.ITEM, itemstack));
 	}
 
 	@OnlyIn(Dist.CLIENT)
-    public void handleEntityEvent(byte id)
-    {
-        if (id == 3) {
+	public void handleEntityEvent(byte id) {
+		if (id == 3) {
 			ParticleOptions iparticledata = this.getParticle();
 
-			for(int i = 0; i < 8; ++i) {
+			for (int i = 0; i < 8; ++i) {
 				this.level.addParticle(iparticledata, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
 			}
-        }
-    }
+		}
+	}
 
 	@Override
-    protected void onHit(HitResult result) {
-		if (!this.level.isClientSide){
+	protected void onHit(HitResult result) {
+		if (!this.level.isClientSide) {
 			boolean flag = false;
 			if (result.getType() == HitResult.Type.ENTITY) {
 				flag = true;
-				Entity hit = ((EntityHitResult)result).getEntity();
+				Entity hit = ((EntityHitResult) result).getEntity();
 				if (hit != null) {
 					if (hit instanceof Player hitPlayer) {
 
@@ -143,15 +142,15 @@ public class MankiniCapsuleEntity extends ThrowableItemProjectile {
 				}
 			}
 
-			if(!flag) {
-				if(dropItem) {
+			if (!flag) {
+				if (dropItem) {
 					this.spawnAtLocation(foundMankini, 1F);
 				}
 			}
 			this.level.broadcastEntityEvent(this, (byte) 3);
 			this.discard();
 		}
-    }
+	}
 
 	@Override
 	protected Item getDefaultItem() {

@@ -22,31 +22,31 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.EntityRenderersEvent;
 
 public class ClientHandler {
-    public static final ModelLayerLocation MANKINI_WITHER = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "main"), "wither");
-    public static final ModelLayerLocation MANKINI_WITHER_ARMOR = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "armor"), "wither");
-    public static final ModelLayerLocation MANKINI_SKELETON = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "main"), "skeleton");
-    public static final ModelLayerLocation MANKINI_SKELETON_INNER_ARMOR = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "inner_armor"), "skeleton");
-    public static final ModelLayerLocation MANKINI_SKELETON_OUTER_ARMOR = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "outer_armor"), "skeleton");
-    public static final ModelLayerLocation AAMT = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "main"), "aamt");
+	public static final ModelLayerLocation MANKINI_WITHER = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "main"), "wither");
+	public static final ModelLayerLocation MANKINI_WITHER_ARMOR = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "armor"), "wither");
+	public static final ModelLayerLocation MANKINI_SKELETON = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "main"), "skeleton");
+	public static final ModelLayerLocation MANKINI_SKELETON_INNER_ARMOR = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "inner_armor"), "skeleton");
+	public static final ModelLayerLocation MANKINI_SKELETON_OUTER_ARMOR = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "outer_armor"), "skeleton");
+	public static final ModelLayerLocation AAMT = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "main"), "aamt");
 
-    public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(ModRegistry.MANKINI_CAPSULE.get(), ThrownItemRenderer::new);
-        event.registerEntityRenderer(ModRegistry.MANKINI_CREEPER.get(), MankiniCreeperRenderer::new);
-        event.registerEntityRenderer(ModRegistry.MANKINI_ENDERMAN.get(), MankiniEndermanRenderer::new);
-        event.registerEntityRenderer(ModRegistry.MANKINI_ENDERMITE.get(), MankiniEndermiteRenderer::new);
-        event.registerEntityRenderer(ModRegistry.MANKINI_SPIDER.get(), MankiniSpiderRenderer::new);
-        event.registerEntityRenderer(ModRegistry.MANKINI_SKELETON.get(), MankiniSkeletonRenderer::new);
-        event.registerEntityRenderer(ModRegistry.MANKINI_WITHER.get(), MankiniWitherRenderer::new);
-        event.registerEntityRenderer(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), ThrownItemRenderer::new);
-        event.registerEntityRenderer(ModRegistry.MANKINI_EVOKER.get(), MankiniEvokerRenderer::new);
-    }
+	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
+		event.registerEntityRenderer(ModRegistry.MANKINI_CAPSULE.get(), ThrownItemRenderer::new);
+		event.registerEntityRenderer(ModRegistry.MANKINI_CREEPER.get(), MankiniCreeperRenderer::new);
+		event.registerEntityRenderer(ModRegistry.MANKINI_ENDERMAN.get(), MankiniEndermanRenderer::new);
+		event.registerEntityRenderer(ModRegistry.MANKINI_ENDERMITE.get(), MankiniEndermiteRenderer::new);
+		event.registerEntityRenderer(ModRegistry.MANKINI_SPIDER.get(), MankiniSpiderRenderer::new);
+		event.registerEntityRenderer(ModRegistry.MANKINI_SKELETON.get(), MankiniSkeletonRenderer::new);
+		event.registerEntityRenderer(ModRegistry.MANKINI_WITHER.get(), MankiniWitherRenderer::new);
+		event.registerEntityRenderer(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), ThrownItemRenderer::new);
+		event.registerEntityRenderer(ModRegistry.MANKINI_EVOKER.get(), MankiniEvokerRenderer::new);
+	}
 
-    public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
-        event.registerLayerDefinition(MANKINI_WITHER, () -> ModelMankiniWither.createBodyLayer(CubeDeformation.NONE));
-        event.registerLayerDefinition(MANKINI_WITHER_ARMOR, () -> ModelMankiniWither.createBodyLayer(LayerDefinitions.INNER_ARMOR_DEFORMATION));
-        event.registerLayerDefinition(MANKINI_SKELETON, () -> ModelMankiniSkeleton.createBodyLayer());
-        event.registerLayerDefinition(MANKINI_SKELETON_INNER_ARMOR, () -> LayerDefinition.create(HumanoidModel.createMesh(LayerDefinitions.INNER_ARMOR_DEFORMATION, 0.0F), 64, 32));
-        event.registerLayerDefinition(MANKINI_SKELETON_OUTER_ARMOR, () -> LayerDefinition.create(HumanoidModel.createMesh(LayerDefinitions.OUTER_ARMOR_DEFORMATION, 0.0F), 64, 32));
-        event.registerLayerDefinition(AAMT, () -> ModelAAMT.createMesh());
-    }
+	public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
+		event.registerLayerDefinition(MANKINI_WITHER, () -> ModelMankiniWither.createBodyLayer(CubeDeformation.NONE));
+		event.registerLayerDefinition(MANKINI_WITHER_ARMOR, () -> ModelMankiniWither.createBodyLayer(LayerDefinitions.INNER_ARMOR_DEFORMATION));
+		event.registerLayerDefinition(MANKINI_SKELETON, () -> ModelMankiniSkeleton.createBodyLayer());
+		event.registerLayerDefinition(MANKINI_SKELETON_INNER_ARMOR, () -> LayerDefinition.create(HumanoidModel.createMesh(LayerDefinitions.INNER_ARMOR_DEFORMATION, 0.0F), 64, 32));
+		event.registerLayerDefinition(MANKINI_SKELETON_OUTER_ARMOR, () -> LayerDefinition.create(HumanoidModel.createMesh(LayerDefinitions.OUTER_ARMOR_DEFORMATION, 0.0F), 64, 32));
+		event.registerLayerDefinition(AAMT, () -> ModelAAMT.createMesh());
+	}
 }

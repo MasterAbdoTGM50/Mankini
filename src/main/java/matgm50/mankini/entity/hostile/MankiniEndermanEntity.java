@@ -12,29 +12,29 @@ import net.minecraft.world.level.LevelAccessor;
 
 public class MankiniEndermanEntity extends EnderMan {
 
-    public MankiniEndermanEntity(EntityType<? extends MankiniEndermanEntity> type, Level worldIn) {
-        super(type, worldIn);
-    }
+	public MankiniEndermanEntity(EntityType<? extends MankiniEndermanEntity> type, Level worldIn) {
+		super(type, worldIn);
+	}
 
-    public MankiniEndermanEntity(Level worldIn) {
-        super(ModRegistry.MANKINI_ENDERMAN.get(), worldIn);
-    }
+	public MankiniEndermanEntity(Level worldIn) {
+		super(ModRegistry.MANKINI_ENDERMAN.get(), worldIn);
+	}
 
-    public static AttributeSupplier.Builder registerAttributes() {
-        return EnderMan.createAttributes();
-    }
+	public static AttributeSupplier.Builder registerAttributes() {
+		return EnderMan.createAttributes();
+	}
 
-    @Override
-    protected void registerGoals() {
-        super.registerGoals();
-        this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, MankiniEndermiteEntity.class, true, false));
-    }
+	@Override
+	protected void registerGoals() {
+		super.registerGoals();
+		this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, MankiniEndermiteEntity.class, true, false));
+	}
 
-    @Override
-    public boolean checkSpawnRules(LevelAccessor worldIn, MobSpawnType reason) {
-        if(MankiniConfig.COMMON.MankiniEndermanSpawn.get())
-            return super.checkSpawnRules(worldIn, reason);
-        else
-            return false;
-    }
+	@Override
+	public boolean checkSpawnRules(LevelAccessor worldIn, MobSpawnType reason) {
+		if (MankiniConfig.COMMON.MankiniEndermanSpawn.get())
+			return super.checkSpawnRules(worldIn, reason);
+		else
+			return false;
+	}
 }

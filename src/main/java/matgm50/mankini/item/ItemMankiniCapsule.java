@@ -14,12 +14,12 @@ import net.minecraft.world.level.Level;
 
 public class ItemMankiniCapsule extends Item {
 
-    public ItemMankiniCapsule(Item.Properties builder) {
-        super(builder.stacksTo(1));
-    }
+	public ItemMankiniCapsule(Item.Properties builder) {
+		super(builder.stacksTo(1));
+	}
 
-    @Override
-    public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
-        return new InteractionResultHolder<>(InteractionResult.PASS, playerIn.getItemInHand(handIn));
-    }
+	@Override
+	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+		return new InteractionResultHolder<>(InteractionResult.PASS, playerIn.getItemInHand(handIn));
+	}
 }

@@ -10,25 +10,24 @@ import net.minecraft.world.item.ItemStack;
  */
 public class MankiniHelper {
 
-    public static ItemStack findMankini(Player player) {
-        if (isMankini(player.getItemInHand(InteractionHand.OFF_HAND))) {
-            return player.getItemInHand(InteractionHand.OFF_HAND);
-        } else if (isMankini(player.getItemInHand(InteractionHand.MAIN_HAND))) {
-            return player.getItemInHand(InteractionHand.MAIN_HAND);
-        } else {
-            for(int i = 0; i < player.getInventory().items.size(); ++i) {
-                ItemStack itemstack = player.getInventory().items.get(i);
-                if (isMankini(itemstack)) {
-                    return itemstack;
-                }
-            }
+	public static ItemStack findMankini(Player player) {
+		if (isMankini(player.getItemInHand(InteractionHand.OFF_HAND))) {
+			return player.getItemInHand(InteractionHand.OFF_HAND);
+		} else if (isMankini(player.getItemInHand(InteractionHand.MAIN_HAND))) {
+			return player.getItemInHand(InteractionHand.MAIN_HAND);
+		} else {
+			for (int i = 0; i < player.getInventory().items.size(); ++i) {
+				ItemStack itemstack = player.getInventory().items.get(i);
+				if (isMankini(itemstack)) {
+					return itemstack;
+				}
+			}
 
-            return ItemStack.EMPTY;
-        }
-    }
+			return ItemStack.EMPTY;
+		}
+	}
 
-    public static boolean isMankini(ItemStack stack)
-    {
-        return stack.getItem() instanceof IMankini;
-    }
+	public static boolean isMankini(ItemStack stack) {
+		return stack.getItem() instanceof IMankini;
+	}
 }

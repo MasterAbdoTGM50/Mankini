@@ -10,7 +10,7 @@ import javax.annotation.Nullable;
 
 public class MankiniEndermiteRenderer extends EndermiteRenderer {
 	private static final ResourceLocation MANKINI_ENDERMITE = new ResourceLocation(ModLib.MOD_ID, "textures/entity/mankini_endermite.png");
-	
+
 	public MankiniEndermiteRenderer(Context context) {
 		super(context);
 	}

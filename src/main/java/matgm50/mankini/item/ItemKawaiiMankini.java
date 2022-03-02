@@ -14,12 +14,12 @@ import net.minecraft.world.item.ItemStack;
 
 public class ItemKawaiiMankini extends ArmorItem implements IMankini {
 
-    public ItemKawaiiMankini(Item.Properties builder) {
-        super(ArmorMaterials.GOLD, EquipmentSlot.CHEST, builder.stacksTo(1));
-    }
+	public ItemKawaiiMankini(Item.Properties builder) {
+		super(ArmorMaterials.GOLD, EquipmentSlot.CHEST, builder.stacksTo(1));
+	}
 
-    @Override
-    public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-   		return "mankini:textures/models/kawaii_mankini.png";
-   	}
+	@Override
+	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
+		return "mankini:textures/models/kawaii_mankini.png";
+	}
 }

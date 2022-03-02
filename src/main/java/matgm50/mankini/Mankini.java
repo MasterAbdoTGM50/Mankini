@@ -1,5 +1,6 @@
 package matgm50.mankini;
 
+import com.mojang.logging.LogUtils;
 import matgm50.mankini.client.ClientHandler;
 import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.ModRegistry;
@@ -14,11 +15,11 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import org.slf4j.Logger;
 
 @Mod(ModLib.MOD_ID)
 public class Mankini {
-	public static final Logger logger = LogManager.getLogger(ModLib.MOD_ID);
+	public static final Logger logger = LogUtils.getLogger();
 
 	public Mankini() {
 		IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -41,5 +42,5 @@ public class Mankini {
 
 	private void setup(final FMLCommonSetupEvent event) {
 		ModSpawning.registerSpawnPlacement();
-    }
+	}
 }
