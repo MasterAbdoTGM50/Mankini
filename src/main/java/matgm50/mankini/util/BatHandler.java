@@ -2,9 +2,8 @@ package matgm50.mankini.util;
 
 import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.lib.ModLib;
-import net.minecraft.Util;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.ambient.Bat;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -31,7 +30,7 @@ public class BatHandler {
 			int batCount = data.getInt(ModLib.BAT_COUNT_TAG);
 
 			if (batCount == 8) {
-				player.sendMessage(new TranslatableComponent("mankini.bat.message"), Util.NIL_UUID);
+				player.sendSystemMessage(Component.translatable("mankini.bat.message"));
 				inv.removeItemNoUpdate(inv.findSlotMatchingItem(Mankini));
 				inv.add(BatMankini);
 				setBatTag(player);

@@ -1,0 +1,6 @@
+{
+  "type": "mankini:add_relative_mob_spawns",
+  "newType": "mankini:mankini_creeper",
+  "originalType": "minecraft:creeper",
+  "relativeWeight": 4
+}

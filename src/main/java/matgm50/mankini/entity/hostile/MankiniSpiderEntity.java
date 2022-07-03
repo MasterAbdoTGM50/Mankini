@@ -93,7 +93,7 @@ public class MankiniSpiderEntity extends Spider {
 		if (spawnDataIn == null) {
 			spawnDataIn = new Spider.SpiderEffectsGroupData();
 			if (this.level.getDifficulty() == Difficulty.HARD && this.level.random.nextFloat() < 0.1F * difficultyIn.getSpecialMultiplier()) {
-				((Spider.SpiderEffectsGroupData) spawnDataIn).setRandomEffect(this.level.random);
+				((MankiniSpiderEntity.SpiderEffectsGroupData) spawnDataIn).setRandomEffect(this.level.random);
 			}
 		}
 
@@ -131,7 +131,7 @@ public class MankiniSpiderEntity extends Spider {
 		 * Returns whether an in-progress EntityAIBase should continue executing
 		 */
 		public boolean canContinueToUse() {
-			float f = this.mob.getBrightness();
+			float f = this.mob.getLightLevelDependentMagicValue();
 			if (f >= 0.5F && this.mob.getRandom().nextInt(100) == 0) {
 				this.mob.setTarget((LivingEntity) null);
 				return false;
@@ -172,7 +172,7 @@ public class MankiniSpiderEntity extends Spider {
 		 * Returns whether the EntityAIBase should begin execution.
 		 */
 		public boolean canUse() {
-			float f = this.mob.getBrightness();
+			float f = this.mob.getLightLevelDependentMagicValue();
 			return !(f >= 0.5F) && super.canUse();
 		}
 	}

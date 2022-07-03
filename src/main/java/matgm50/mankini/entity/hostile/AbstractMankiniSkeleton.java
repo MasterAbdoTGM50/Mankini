@@ -6,6 +6,7 @@ import matgm50.mankini.entity.projectiles.MankiniCapsuleEntity;
 import matgm50.mankini.init.ModRegistry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -62,8 +63,7 @@ public abstract class AbstractMankiniSkeleton extends AbstractSkeleton {
 	/**
 	 * Gives armor or weapon for entity based on given DifficultyInstance
 	 */
-	protected void populateDefaultEquipmentSlots(DifficultyInstance difficulty) {
-		super.populateDefaultEquipmentSlots(difficulty);
+	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
 		this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(ModRegistry.DYEABLE_MANKINI.get()));
 		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModRegistry.MANKINI_CANNON.get()));
 	}
@@ -71,8 +71,8 @@ public abstract class AbstractMankiniSkeleton extends AbstractSkeleton {
 	@Nullable
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
 		spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
-		this.populateDefaultEquipmentSlots(difficultyIn);
-		this.populateDefaultEquipmentEnchantments(difficultyIn);
+		this.populateDefaultEquipmentSlots(random, difficultyIn);
+		this.populateDefaultEquipmentEnchantments(random, difficultyIn);
 		this.setCanPickUpLoot(this.random.nextFloat() < 0.55F * difficultyIn.getSpecialMultiplier());
 		if (this.getItemBySlot(EquipmentSlot.HEAD).isEmpty()) {
 			LocalDate localdate = LocalDate.now();
