@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.Mod;
 public class BatHandler {
 
 	public static void BatCapture(PlayerInteractEvent.EntityInteract event) {
-		Player player = event.getPlayer();
+		final Player player = event.getEntity();
 		Inventory inv = player.getInventory();
 		ItemStack currentItem = player.getInventory().getSelected();
 		ItemStack BatMankini = new ItemStack(ModRegistry.BAT_MANKINI.get());

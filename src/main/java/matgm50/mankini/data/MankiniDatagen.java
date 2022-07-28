@@ -29,9 +29,9 @@ import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.JsonCodecProvider;
 import net.minecraftforge.common.world.BiomeModifier;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
@@ -52,7 +52,6 @@ public class MankiniDatagen {
 		ExistingFileHelper helper = event.getExistingFileHelper();
 
 		if (event.includeServer()) {
-
 			Map<ResourceLocation, BiomeModifier> biomeModifiers = new LinkedHashMap<>();
 			biomeModifiers.putAll(addModifierForType(EntityType.CREEPER, ModRegistry.MANKINI_CREEPER.get(), 4));
 			biomeModifiers.putAll(addModifierForType(EntityType.ENDERMAN, ModRegistry.MANKINI_ENDERMAN.get(), 4));
@@ -69,7 +68,7 @@ public class MankiniDatagen {
 	}
 
 	private static Map<ResourceLocation, BiomeModifier> addModifierForType(EntityType<?> originalType, EntityType<?> newType, int relativeWeight) {
-		return Map.of(ForgeRegistries.ENTITIES.getKey(originalType), new AddRelativeSpawnBiomeModifier(
+		return Map.of(ForgeRegistries.ENTITY_TYPES.getKey(originalType), new AddRelativeSpawnBiomeModifier(
 				originalType, newType, relativeWeight));
 	}
 
@@ -118,7 +117,7 @@ public class MankiniDatagen {
 
 			@Override
 			protected Iterable<EntityType<?>> getKnownEntities() {
-				Stream<EntityType<?>> entityTypeStream = ModRegistry.ENTITIES.getEntries().stream().map(RegistryObject::get);
+				Stream<EntityType<?>> entityTypeStream = ModRegistry.ENTITY_TYPES.getEntries().stream().map(RegistryObject::get);
 				return entityTypeStream::iterator;
 			}
 		}

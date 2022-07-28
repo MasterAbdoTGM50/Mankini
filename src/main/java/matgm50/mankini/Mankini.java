@@ -28,7 +28,7 @@ public class Mankini {
 		eventBus.register(MankiniConfig.class);
 
 		ModRegistry.ITEMS.register(eventBus);
-		ModRegistry.ENTITIES.register(eventBus);
+		ModRegistry.ENTITY_TYPES.register(eventBus);
 		ModRegistry.MOB_EFFECTS.register(eventBus);
 		MankiniModifiers.BIOME_MODIFIER_SERIALIZERS.register(eventBus);
 

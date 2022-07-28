@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 public class SpawnHandler {
 	@SubscribeEvent
 	public static void EntitySpawnEvent(LivingSpawnEvent event) {
-		Entity entity = event.getEntity();
+		final Entity entity = event.getEntity();
 		Level worldIn = entity.level;
 		if (entity instanceof Endermite && !(entity instanceof MankiniEndermiteEntity)) {
 			if (((Endermite) entity).getRandom().nextBoolean()) {

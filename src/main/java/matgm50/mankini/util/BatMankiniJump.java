@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.Mod;
 public class BatMankiniJump {
 	@SubscribeEvent
 	public static void PlayerJump(LivingJumpEvent event) {
-		if (event.getEntityLiving() instanceof Player player) {
+		if (event.getEntity() instanceof Player player) {
 			if (!player.isShiftKeyDown()) {
 				if (player.getInventory().getArmor(2) != null) {
 					if (player.getInventory().getArmor(2).getItem() == ModRegistry.BAT_MANKINI.get()) {
