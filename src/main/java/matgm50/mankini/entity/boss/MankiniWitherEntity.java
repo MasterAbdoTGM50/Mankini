@@ -41,7 +41,6 @@ import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
@@ -215,7 +214,7 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 		if (this.getInvulTime() > 0) {
 			int j1 = this.getInvulTime() - 1;
 			if (j1 <= 0) {
-				Explosion.BlockInteraction explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
+				Level.ExplosionInteraction explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
 				this.level.explode(this, this.getX(), this.getEyeY(), this.getZ(), 7.0F, false, explosion$mode);
 				this.level.globalLevelEvent(1023, blockPosition(), 0);
 			}

@@ -22,7 +22,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 
@@ -75,7 +74,7 @@ public class MankiniCreeperEntity extends Creeper {
 			ItemStack itemstack = hitPlayer.getInventory().armor.get(2);
 			ItemStack creeperKini = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
 
-			this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float) 3 * f, Explosion.BlockInteraction.NONE);
+			this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float) 3 * f, Level.ExplosionInteraction.NONE);
 
 			if (!this.level.isClientSide) {
 				if (hitPlayer.getX() == (int) this.getX() || hitPlayer.getY() == (int) this.getY() || hitPlayer.getZ() == this.getZ()) {

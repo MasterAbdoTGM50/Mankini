@@ -58,20 +58,20 @@ public class ModRegistry {
 
 	public static final net.minecraftforge.registries.RegistryObject<MobEffect> MANKINI_WITHER_EFFECT = MOB_EFFECTS.register("mankini_wither", () -> new MankiniWitherPotion());
 
-	public static final RegistryObject<Item> DYEABLE_MANKINI = ITEMS.register("dyeable_mankini", () -> new ItemDyeableMankini(itemBuilder()));
-	public static final RegistryObject<Item> KAWAII_MANKINI = ITEMS.register("kawaii_mankini", () -> new ItemKawaiiMankini(itemBuilder()));
-	public static final RegistryObject<Item> AETHERIC_MANKINI = ITEMS.register("aetheric_mankini", () -> new ItemAAMT(itemBuilder()));
-	public static final net.minecraftforge.registries.RegistryObject<Item> MANKINI_CANNON = ITEMS.register("mankini_cannon", () -> new ItemMankiniCannon(itemBuilder()));
-	public static final net.minecraftforge.registries.RegistryObject<Item> MANKINI_CAPSULE_ITEM = ITEMS.register("mankini_capsule", () -> new ItemMankiniCapsule(itemBuilder()));
-	public static final RegistryObject<Item> BAT_MANKINI = ITEMS.register("mankini_bat", () -> new ItemBatMankini(itemBuilder()));
-	public static final net.minecraftforge.registries.RegistryObject<Item> WITHER_MANKINI = ITEMS.register("mankini_wither", () -> new ItemWitherKini(itemBuilder()));
-	public static final net.minecraftforge.registries.RegistryObject<Item> MANKINI_HORSE_ARMOR = ITEMS.register("mankini_horse_armor", () -> new ItemMankiniHorseArmor(itemBuilder()));
-	public static final RegistryObject<Item> MANKINI_CREEPER_SPAWN_EGG = ITEMS.register("mankini_creeper_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModRegistry.MANKINI_CREEPER.get(), 894731, 0, itemBuilder()));
-	public static final net.minecraftforge.registries.RegistryObject<Item> MANKINI_ENDERMAN_SPAWN_EGG = ITEMS.register("mankini_enderman_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModRegistry.MANKINI_ENDERMAN.get(), 1447446, 0, itemBuilder()));
-	public static final RegistryObject<Item> MANKINI_ENDERMITE_SPAWN_EGG = ITEMS.register("mankini_endermite_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModRegistry.MANKINI_ENDERMITE.get(), 1447446, 7237230, itemBuilder()));
-	public static final net.minecraftforge.registries.RegistryObject<Item> MANKINI_SPIDER_SPAWN_EGG = ITEMS.register("mankini_spider_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModRegistry.MANKINI_SPIDER.get(), 3419431, 11013646, itemBuilder()));
-	public static final net.minecraftforge.registries.RegistryObject<Item> MANKINI_SKELETON_SPAWN_EGG = ITEMS.register("mankini_skeleton_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModRegistry.MANKINI_SKELETON.get(), 12698049, 4802889, itemBuilder()));
-	public static final net.minecraftforge.registries.RegistryObject<Item> MANKINI_EVOKER_SPAWN_EGG = ITEMS.register("mankini_evoker_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModRegistry.MANKINI_EVOKER.get(), 9804699, 1973274, itemBuilder()));
+	public static final RegistryObject<Item> DYEABLE_MANKINI = ITEMS.register("dyeable_mankini", () -> new ItemDyeableMankini((new Item.Properties())));
+	public static final RegistryObject<Item> KAWAII_MANKINI = ITEMS.register("kawaii_mankini", () -> new ItemKawaiiMankini((new Item.Properties())));
+	public static final RegistryObject<Item> AETHERIC_MANKINI = ITEMS.register("aetheric_mankini", () -> new ItemAAMT((new Item.Properties())));
+	public static final net.minecraftforge.registries.RegistryObject<Item> MANKINI_CANNON = ITEMS.register("mankini_cannon", () -> new ItemMankiniCannon((new Item.Properties())));
+	public static final net.minecraftforge.registries.RegistryObject<Item> MANKINI_CAPSULE_ITEM = ITEMS.register("mankini_capsule", () -> new ItemMankiniCapsule((new Item.Properties())));
+	public static final RegistryObject<Item> BAT_MANKINI = ITEMS.register("mankini_bat", () -> new ItemBatMankini((new Item.Properties())));
+	public static final net.minecraftforge.registries.RegistryObject<Item> WITHER_MANKINI = ITEMS.register("mankini_wither", () -> new ItemWitherKini((new Item.Properties())));
+	public static final net.minecraftforge.registries.RegistryObject<Item> MANKINI_HORSE_ARMOR = ITEMS.register("mankini_horse_armor", () -> new ItemMankiniHorseArmor((new Item.Properties())));
+	public static final RegistryObject<Item> MANKINI_CREEPER_SPAWN_EGG = ITEMS.register("mankini_creeper_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModRegistry.MANKINI_CREEPER.get(), 894731, 0, (new Item.Properties())));
+	public static final net.minecraftforge.registries.RegistryObject<Item> MANKINI_ENDERMAN_SPAWN_EGG = ITEMS.register("mankini_enderman_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModRegistry.MANKINI_ENDERMAN.get(), 1447446, 0, (new Item.Properties())));
+	public static final RegistryObject<Item> MANKINI_ENDERMITE_SPAWN_EGG = ITEMS.register("mankini_endermite_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModRegistry.MANKINI_ENDERMITE.get(), 1447446, 7237230, (new Item.Properties())));
+	public static final net.minecraftforge.registries.RegistryObject<Item> MANKINI_SPIDER_SPAWN_EGG = ITEMS.register("mankini_spider_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModRegistry.MANKINI_SPIDER.get(), 3419431, 11013646, (new Item.Properties())));
+	public static final net.minecraftforge.registries.RegistryObject<Item> MANKINI_SKELETON_SPAWN_EGG = ITEMS.register("mankini_skeleton_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModRegistry.MANKINI_SKELETON.get(), 12698049, 4802889, (new Item.Properties())));
+	public static final net.minecraftforge.registries.RegistryObject<Item> MANKINI_EVOKER_SPAWN_EGG = ITEMS.register("mankini_evoker_spawn_egg", () -> new ForgeSpawnEggItem(() -> ModRegistry.MANKINI_EVOKER.get(), 9804699, 1973274, (new Item.Properties())));
 
 	public static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> builder, boolean sendVelocityUpdates) {
 		return builder.setTrackingRange(80).setUpdateInterval(3).setShouldReceiveVelocityUpdates(sendVelocityUpdates).build(id);
@@ -79,9 +79,5 @@ public class ModRegistry {
 
 	public static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> builder) {
 		return register(id, builder, true);
-	}
-
-	private static Item.Properties itemBuilder() {
-		return new Item.Properties().tab(ModGroups.MANKINI_TAB);
 	}
 }

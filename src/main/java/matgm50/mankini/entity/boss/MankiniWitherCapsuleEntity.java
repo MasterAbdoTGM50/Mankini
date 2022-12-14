@@ -3,6 +3,7 @@ package matgm50.mankini.entity.boss;
 import matgm50.mankini.init.ModRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.Packet;
+import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -120,8 +121,8 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 					}
 				}
 			}
-			Explosion.BlockInteraction mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Explosion.BlockInteraction.DESTROY : Explosion.BlockInteraction.NONE;
-			this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, mode);
+			Level.ExplosionInteraction explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
+			this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, explosion$mode);
 			this.discard();
 		}
 
@@ -169,7 +170,7 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 	}
 
 	@Override
-	public Packet<?> getAddEntityPacket() {
-		return NetworkHooks.getEntitySpawningPacket(this);
+	public Packet<ClientGamePacketListener> getAddEntityPacket() {
+		return (Packet<ClientGamePacketListener>) NetworkHooks.getEntitySpawningPacket(this);
 	}
 }

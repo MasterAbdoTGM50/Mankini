@@ -13,21 +13,22 @@ import net.minecraft.world.entity.SpawnPlacements;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.levelgen.Heightmap;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.event.entity.SpawnPlacementRegisterEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = ModLib.MOD_ID)
 public class ModSpawning {
 
-	public static void registerSpawnPlacement() {
+	public static void registerSpawnPlacements(SpawnPlacementRegisterEvent event) {
 		Mankini.logger.info("Registering Mankini Mob spawn placement");
 		//Mobs that spawn on the ground
-		SpawnPlacements.register(ModRegistry.MANKINI_CREEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules);
-		SpawnPlacements.register(ModRegistry.MANKINI_ENDERMAN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules);
-		SpawnPlacements.register(ModRegistry.MANKINI_ENDERMITE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules);
-		SpawnPlacements.register(ModRegistry.MANKINI_SPIDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules);
-		SpawnPlacements.register(ModRegistry.MANKINI_SKELETON.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules);
-		SpawnPlacements.register(ModRegistry.MANKINI_WITHER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules);
-		SpawnPlacements.register(ModRegistry.MANKINI_EVOKER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules);
+		event.register(ModRegistry.MANKINI_CREEPER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+		event.register(ModRegistry.MANKINI_ENDERMAN.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+		event.register(ModRegistry.MANKINI_ENDERMITE.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+		event.register(ModRegistry.MANKINI_SPIDER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+		event.register(ModRegistry.MANKINI_SKELETON.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+		event.register(ModRegistry.MANKINI_WITHER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMonsterSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
+		event.register(ModRegistry.MANKINI_EVOKER.get(), SpawnPlacements.Type.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES, Monster::checkMobSpawnRules, SpawnPlacementRegisterEvent.Operation.AND);
 	}
 
 	public static void registerEntityAttributes(EntityAttributeCreationEvent event) {
