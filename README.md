@@ -1,3 +1,5 @@
+[![](http://cf.way2muchnoise.eu/versions/220899.svg)](https://www.curseforge.com/minecraft/mc-mods/mankini)
+
 # Mankini #
 
 ## About ##
