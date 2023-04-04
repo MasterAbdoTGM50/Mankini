@@ -1,5 +1,6 @@
 package matgm50.mankini.entity.boss;
 
+import matgm50.mankini.init.MankiniDamageTypes;
 import matgm50.mankini.init.ModRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.protocol.Packet;
@@ -79,8 +80,8 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 			if (result.getType() == HitResult.Type.ENTITY) {
 				Entity entity = ((EntityHitResult) result).getEntity();
 				Entity shooter = getOwner();
-				if (shooter != null && shooter instanceof LivingEntity shootingEntity) {
-					if (entity.hurt(DamageSource.mobAttack(shootingEntity), 4.0F)) {
+				if (shooter instanceof LivingEntity shootingEntity) {
+					if (entity.hurt(shootingEntity.damageSources().source(MankiniDamageTypes.MANKINI_WITHER, this), 4.0F)) {
 						if (entity.isAlive()) {
 							this.doEnchantDamageEffects(shootingEntity, entity);
 						} else {
@@ -88,7 +89,7 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 						}
 					}
 				} else {
-					entity.hurt(DamageSource.MAGIC, 3.0F);
+					entity.hurt(entity.damageSources().magic(), 3.0F);
 				}
 
 				if (entity instanceof LivingEntity) {
@@ -125,7 +126,6 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 			this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, explosion$mode);
 			this.discard();
 		}
-
 	}
 
 	/**

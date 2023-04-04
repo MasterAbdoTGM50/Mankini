@@ -44,7 +44,8 @@ public class BatHandler {
 
 		if (data.contains(ModLib.BAT_COUNT_TAG)) {
 			int currentBat = data.getInt(ModLib.BAT_COUNT_TAG);
-			data.putInt(ModLib.BAT_COUNT_TAG, currentBat++);
+			currentBat++;
+			data.putInt(ModLib.BAT_COUNT_TAG, currentBat);
 		} else {
 			data.putInt(ModLib.BAT_COUNT_TAG, 1);
 		}

@@ -1,6 +1,6 @@
 package matgm50.mankini.potion;
 
-import net.minecraft.world.damagesource.DamageSource;
+import matgm50.mankini.init.MankiniDamageTypes;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,8 +13,8 @@ public class MankiniWitherPotion extends MobEffect {
 	}
 
 	@Override
-	public void applyEffectTick(LivingEntity entityLivingBaseIn, int amplifier) {
-		entityLivingBaseIn.hurt(new DamageSource("mankini_wither").bypassArmor(), 1.0F);
+	public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
+		livingEntity.hurt(livingEntity.damageSources().source(MankiniDamageTypes.MANKINI_WITHER), 1.0F);
 	}
 
 	@Override

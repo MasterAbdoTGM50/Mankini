@@ -67,7 +67,7 @@ public class MankiniCreeperEntity extends Creeper {
 
 			float f = this.isPowered() ? 2.0F : 1.0F;
 
-			Boolean full = true;
+			boolean full = true;
 
 			Inventory playerInv = hitPlayer.getInventory();
 

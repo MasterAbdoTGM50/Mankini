@@ -152,9 +152,9 @@ public class MankiniSpiderEntity extends Spider {
 			int i = rand.nextInt(5);
 			if (i <= 1) {
 				this.effect = MobEffects.MOVEMENT_SPEED;
-			} else if (i <= 2) {
+			} else if (i == 2) {
 				this.effect = MobEffects.DAMAGE_BOOST;
-			} else if (i <= 3) {
+			} else if (i == 3) {
 				this.effect = MobEffects.REGENERATION;
 			} else if (i <= 4) {
 				this.effect = MobEffects.INVISIBILITY;

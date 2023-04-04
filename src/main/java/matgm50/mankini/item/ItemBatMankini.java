@@ -12,7 +12,7 @@ import javax.annotation.Nullable;
 public class ItemBatMankini extends ArmorItem implements IMankini {
 
 	public ItemBatMankini(Item.Properties builder) {
-		super(ArmorMaterials.IRON, EquipmentSlot.CHEST, builder.stacksTo(1));
+		super(ArmorMaterials.IRON, Type.CHESTPLATE, builder.stacksTo(1));
 	}
 
 	@Nullable

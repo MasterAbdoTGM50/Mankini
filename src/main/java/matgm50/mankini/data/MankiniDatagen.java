@@ -1,8 +1,7 @@
 package matgm50.mankini.data;
 
 
-import com.google.gson.JsonElement;
-import com.mojang.serialization.JsonOps;
+import matgm50.mankini.init.MankiniDamageTypes;
 import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.lib.ModLib;
 import matgm50.mankini.modifier.AddRelativeSpawnBiomeModifier;
@@ -16,9 +15,9 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.data.registries.VanillaRegistries;
-import net.minecraft.resources.RegistryOps;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.level.storage.loot.LootPool;
@@ -31,7 +30,6 @@ import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
 import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.world.BiomeModifier;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -63,6 +61,9 @@ public class MankiniDatagen {
 
 	private static HolderLookup.Provider getProvider() {
 		final RegistrySetBuilder registryBuilder = new RegistrySetBuilder();
+		registryBuilder.add(Registries.DAMAGE_TYPE, context -> {
+			context.register(MankiniDamageTypes.MANKINI_WITHER, new DamageType("mankini_wither", 0.0F));
+		});
 		// We need the BIOME registry to be present so we can use a biome tag, doesn't matter that it's empty
 		registryBuilder.add(Registries.BIOME, context -> {
 		});

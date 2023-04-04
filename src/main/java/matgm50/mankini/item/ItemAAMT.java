@@ -29,8 +29,8 @@ public class ItemAAMT extends ArmorItem implements IMankini {
 	private final LazyLoadedValue<HumanoidModel<?>> model;
 
 	public ItemAAMT(Item.Properties builder) {
-		super(ArmorMaterials.DIAMOND, EquipmentSlot.CHEST, builder.stacksTo(1));
-		this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyLoadedValue<>(() -> this.provideArmorModelForSlot(slot)),
+		super(ArmorMaterials.DIAMOND, Type.CHESTPLATE, builder.stacksTo(1));
+		this.model = DistExecutor.unsafeRunForDist(() -> () -> new LazyLoadedValue<>(() -> this.provideArmorModelForSlot()),
 				() -> () -> null);
 	}
 
@@ -46,7 +46,7 @@ public class ItemAAMT extends ArmorItem implements IMankini {
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public HumanoidModel<?> provideArmorModelForSlot(EquipmentSlot slot) {
+	public HumanoidModel<?> provideArmorModelForSlot() {
 		return new ModelAAMT(Minecraft.getInstance().getEntityModels().bakeLayer(ClientHandler.AAMT));
 	}
 

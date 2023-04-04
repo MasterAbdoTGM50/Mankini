@@ -20,7 +20,7 @@ public class LayerMankiniWitherAura extends EnergySwirlLayer<MankiniWitherEntity
 
 	public LayerMankiniWitherAura(RenderLayerParent<MankiniWitherEntity, ModelMankiniWither<MankiniWitherEntity>> p_174554_, EntityModelSet modelSet) {
 		super(p_174554_);
-		this.model = new ModelMankiniWither(modelSet.bakeLayer(ClientHandler.MANKINI_WITHER));
+		this.model = new ModelMankiniWither<>(modelSet.bakeLayer(ClientHandler.MANKINI_WITHER));
 	}
 
 	protected float xOffset(float offset) {

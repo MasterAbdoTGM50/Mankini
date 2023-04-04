@@ -22,10 +22,10 @@ public record AddRelativeSpawnBiomeModifier(EntityType<?> originalType,
 			MobSpawnSettingsBuilder spawns = builder.getMobSpawnSettings();
 			MobSpawnSettings info = biome.get().getMobSettings();
 			final List<SpawnerData> spawnsList = spawns.getSpawner(MobCategory.MONSTER);
-			for (SpawnerData entry : info.getMobs(MobCategory.MONSTER).unwrap()) {
-				if (entry.type == originalType) {
-					spawnsList.add(new SpawnerData(newType, Math.min(1, entry.getWeight().asInt() / relativeWeight), entry.minCount, entry.maxCount));
-				}
+			List<SpawnerData> monsterList = info.getMobs(MobCategory.MONSTER).unwrap()
+					.stream().filter(entry -> entry.type == originalType).toList();
+			for (SpawnerData entry : monsterList) {
+				spawnsList.add(new SpawnerData(newType, Math.min(1, entry.getWeight().asInt() / relativeWeight), entry.minCount, entry.maxCount));
 			}
 		}
 	}

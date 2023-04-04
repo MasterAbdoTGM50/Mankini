@@ -20,7 +20,7 @@ public class ItemDyeableMankini extends DyeableArmorItem implements IMankini {
 	// private IIcon iconOverlay;
 
 	public ItemDyeableMankini(Item.Properties builder) {
-		super(ArmorMaterials.LEATHER, EquipmentSlot.CHEST, builder.stacksTo(1));
+		super(ArmorMaterials.LEATHER, Type.CHESTPLATE, builder.stacksTo(1));
 	}
 
 //    @OnlyIn(Dist.CLIENT)

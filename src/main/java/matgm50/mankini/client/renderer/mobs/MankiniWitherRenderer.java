@@ -17,7 +17,7 @@ public class MankiniWitherRenderer extends MobRenderer<MankiniWitherEntity, Mode
 	private static final ResourceLocation MANKINI_WITHER = new ResourceLocation(ModLib.MOD_ID, "textures/entity/mankini_wither.png");
 
 	public MankiniWitherRenderer(EntityRendererProvider.Context context) {
-		super(context, new ModelMankiniWither(context.bakeLayer(ClientHandler.MANKINI_WITHER)), 1.0F);
+		super(context, new ModelMankiniWither<>(context.bakeLayer(ClientHandler.MANKINI_WITHER)), 1.0F);
 		this.addLayer(new LayerMankiniWitherAura(this, context.getModelSet()));
 	}
 

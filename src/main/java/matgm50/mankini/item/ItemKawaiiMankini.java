@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 public class ItemKawaiiMankini extends ArmorItem implements IMankini {
 
 	public ItemKawaiiMankini(Item.Properties builder) {
-		super(ArmorMaterials.GOLD, EquipmentSlot.CHEST, builder.stacksTo(1));
+		super(ArmorMaterials.GOLD, Type.CHESTPLATE, builder.stacksTo(1));
 	}
 
 	@Override

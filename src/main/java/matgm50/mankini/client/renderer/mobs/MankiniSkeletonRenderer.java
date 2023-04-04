@@ -23,7 +23,7 @@ public class MankiniSkeletonRenderer extends HumanoidMobRenderer<MankiniSkeleton
 
 	public MankiniSkeletonRenderer(EntityRendererProvider.Context context, ModelLayerLocation layerLocation, ModelLayerLocation layerLocation1, ModelLayerLocation layerLocation2) {
 		super(context, new ModelMankiniSkeleton<>(context.bakeLayer(layerLocation)), 0.5F);
-		this.addLayer(new HumanoidArmorLayer<>(this, new SkeletonModel(context.bakeLayer(layerLocation1)), new SkeletonModel(context.bakeLayer(layerLocation2))));
+		this.addLayer(new HumanoidArmorLayer<>(this, new SkeletonModel(context.bakeLayer(layerLocation1)), new SkeletonModel(context.bakeLayer(layerLocation2)), context.getModelManager()));
 	}
 
 	/**

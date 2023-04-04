@@ -104,7 +104,6 @@ public abstract class AbstractMankiniSkeleton extends AbstractSkeleton {
 	protected MankiniCapsuleEntity getCapsule(float unusedFloat) {
 		ItemStack stack = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
 		stack.setDamageValue(this.random.nextInt(stack.getMaxDamage()));
-		MankiniCapsuleEntity mankiniCapsule = new MankiniCapsuleEntity(this.level, this, stack, false);
-		return mankiniCapsule;
+		return new MankiniCapsuleEntity(this.level, this, stack, false);
 	}
 }

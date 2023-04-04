@@ -15,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 public class ItemWitherKini extends ArmorItem implements IMankini {
 
 	public ItemWitherKini(Item.Properties builder) {
-		super(ArmorMaterials.IRON, EquipmentSlot.CHEST, builder.stacksTo(1));
+		super(ArmorMaterials.IRON, Type.CHESTPLATE, builder.stacksTo(1));
 	}
 
 	@Override
