@@ -31,6 +31,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -64,36 +65,35 @@ public class MankiniSpiderEntity extends Spider {
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor worldIn, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-		spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
+		spawnDataIn = super.finalizeSpawn(serverLevelAccessor, difficultyIn, reason, spawnDataIn, dataTag);
 		ItemStack creeperKini = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
 
-		if (this.level().random.nextInt(100) == 0) {
-			Mob entitySkeleton = new Skeleton(EntityType.SKELETON, this.level());
+		if (random.nextInt(100) == 0) {
+			Mob entitySkeleton = new Skeleton(EntityType.SKELETON, serverLevelAccessor.getLevel());
 
-			if (this.level().random.nextInt(20) < 5) {
-				entitySkeleton = new MankiniSkeletonEntity(this.level());
+			if (random.nextInt(20) < 5) {
+				entitySkeleton = new MankiniSkeletonEntity(serverLevelAccessor.getLevel());
 			}
 
 			entitySkeleton.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
-			entitySkeleton.finalizeSpawn(worldIn, difficultyIn, reason, (SpawnGroupData) null, (CompoundTag) null);
+			ForgeEventFactory.onFinalizeSpawn(entitySkeleton, serverLevelAccessor, difficultyIn, reason, (SpawnGroupData) null, (CompoundTag) null);
 			entitySkeleton.setItemSlot(EquipmentSlot.CHEST, creeperKini);
-			this.level().addFreshEntity(entitySkeleton);
+			serverLevelAccessor.addFreshEntity(entitySkeleton);
 			entitySkeleton.startRiding(this);
-		} else if (this.level().random.nextInt(100) < 10) {
-
-			MankiniCreeperEntity mankiniCreeper = new MankiniCreeperEntity(this.level());
+		} else if (random.nextInt(100) < 10) {
+			MankiniCreeperEntity mankiniCreeper = new MankiniCreeperEntity(serverLevelAccessor.getLevel());
 			mankiniCreeper.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
-			mankiniCreeper.finalizeSpawn(worldIn, difficultyIn, reason, (SpawnGroupData) null, (CompoundTag) null);
+			ForgeEventFactory.onFinalizeSpawn(mankiniCreeper, serverLevelAccessor, difficultyIn, reason, (SpawnGroupData) null, (CompoundTag) null);
 			mankiniCreeper.setItemSlot(EquipmentSlot.CHEST, creeperKini);
-			this.level().addFreshEntity(mankiniCreeper);
+			serverLevelAccessor.addFreshEntity(mankiniCreeper);
 			mankiniCreeper.startRiding(this);
 		}
 
 		if (spawnDataIn == null) {
 			spawnDataIn = new Spider.SpiderEffectsGroupData();
-			if (this.level().getDifficulty() == Difficulty.HARD && this.level().random.nextFloat() < 0.1F * difficultyIn.getSpecialMultiplier()) {
-				((MankiniSpiderEntity.SpiderEffectsGroupData) spawnDataIn).setRandomEffect(this.level().random);
+			if (serverLevelAccessor.getDifficulty() == Difficulty.HARD && random.nextFloat() < 0.1F * difficultyIn.getSpecialMultiplier()) {
+				((MankiniSpiderEntity.SpiderEffectsGroupData) spawnDataIn).setRandomEffect(random);
 			}
 		}
 
