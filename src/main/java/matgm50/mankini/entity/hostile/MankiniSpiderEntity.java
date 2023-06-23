@@ -92,7 +92,7 @@ public class MankiniSpiderEntity extends Spider {
 
 		if (spawnDataIn == null) {
 			spawnDataIn = new Spider.SpiderEffectsGroupData();
-			if (serverLevelAccessor.getDifficulty() == Difficulty.HARD && random.nextFloat() < 0.1F * difficultyIn.getSpecialMultiplier()) {
+			if (difficultyIn.getDifficulty() == Difficulty.HARD && random.nextFloat() < 0.1F * difficultyIn.getSpecialMultiplier()) {
 				((MankiniSpiderEntity.SpiderEffectsGroupData) spawnDataIn).setRandomEffect(random);
 			}
 		}
