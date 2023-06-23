@@ -4,7 +4,6 @@ import com.mojang.logging.LogUtils;
 import matgm50.mankini.client.ClientHandler;
 import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.MankiniModifiers;
-import matgm50.mankini.init.ModCreativeTabs;
 import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.init.ModSpawning;
 import matgm50.mankini.lib.ModLib;
@@ -28,11 +27,11 @@ public class Mankini {
 		eventBus.register(MankiniConfig.class);
 
 		ModRegistry.ITEMS.register(eventBus);
+		ModRegistry.CREATIVE_MODE_TABS.register(eventBus);
 		ModRegistry.ENTITY_TYPES.register(eventBus);
 		ModRegistry.MOB_EFFECTS.register(eventBus);
 		MankiniModifiers.BIOME_MODIFIER_SERIALIZERS.register(eventBus);
 
-		eventBus.register(new ModCreativeTabs());
 		eventBus.addListener(ModSpawning::registerSpawnPlacements);
 		eventBus.addListener(ModSpawning::registerEntityAttributes);
 

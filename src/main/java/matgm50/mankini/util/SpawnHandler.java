@@ -14,7 +14,7 @@ public class SpawnHandler {
 	@SubscribeEvent
 	public static void EntitySpawnEvent(MobSpawnEvent.FinalizeSpawn event) {
 		final Entity entity = event.getEntity();
-		Level worldIn = entity.level;
+		Level worldIn = entity.level();
 		if (entity instanceof Endermite && !(entity instanceof MankiniEndermiteEntity)) {
 			if (((Endermite) entity).getRandom().nextBoolean()) {
 				MankiniEndermiteEntity mankiniMite = new MankiniEndermiteEntity(worldIn);

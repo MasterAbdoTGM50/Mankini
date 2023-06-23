@@ -19,18 +19,25 @@ import matgm50.mankini.item.ItemMankiniHorseArmor;
 import matgm50.mankini.item.ItemWitherKini;
 import matgm50.mankini.lib.ModLib;
 import matgm50.mankini.potion.MankiniWitherPotion;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.List;
+
 public class ModRegistry {
 	public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ModLib.MOD_ID);
+	public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ModLib.MOD_ID);
 	public static final DeferredRegister<EntityType<?>> ENTITY_TYPES = DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, ModLib.MOD_ID);
 	public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, ModLib.MOD_ID);
 
@@ -72,6 +79,14 @@ public class ModRegistry {
 	public static final RegistryObject<Item> MANKINI_SPIDER_SPAWN_EGG = ITEMS.register("mankini_spider_spawn_egg", () -> new ForgeSpawnEggItem(ModRegistry.MANKINI_SPIDER, 3419431, 11013646, (new Item.Properties())));
 	public static final RegistryObject<Item> MANKINI_SKELETON_SPAWN_EGG = ITEMS.register("mankini_skeleton_spawn_egg", () -> new ForgeSpawnEggItem(ModRegistry.MANKINI_SKELETON, 12698049, 4802889, (new Item.Properties())));
 	public static final RegistryObject<Item> MANKINI_EVOKER_SPAWN_EGG = ITEMS.register("mankini_evoker_spawn_egg", () -> new ForgeSpawnEggItem(ModRegistry.MANKINI_EVOKER, 9804699, 1973274, (new Item.Properties())));
+
+	public static final RegistryObject<CreativeModeTab> MANKINI_TAB = CREATIVE_MODE_TABS.register("tab", () -> CreativeModeTab.builder()
+			.icon(() -> new ItemStack(ModRegistry.KAWAII_MANKINI.get()))
+			.title(Component.translatable("itemGroup.mankini"))
+			.displayItems((displayParameters, output) -> {
+				List<ItemStack> stacks = ModRegistry.ITEMS.getEntries().stream().map(reg -> new ItemStack(reg.get())).toList();
+				output.acceptAll(stacks);
+			}).build());
 
 	public static <T extends Entity> EntityType<T> register(String id, EntityType.Builder<T> builder, boolean sendVelocityUpdates) {
 		return builder.setTrackingRange(80).setUpdateInterval(3).setShouldReceiveVelocityUpdates(sendVelocityUpdates).build(id);

@@ -138,8 +138,8 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 	 */
 	public void aiStep() {
 		Vec3 vec3 = this.getDeltaMovement().multiply(1.0D, 0.6D, 1.0D);
-		if (!this.level.isClientSide && this.getWatchedTargetId(0) > 0) {
-			Entity entity = this.level.getEntity(this.getWatchedTargetId(0));
+		if (!this.level().isClientSide && this.getWatchedTargetId(0) > 0) {
+			Entity entity = this.level().getEntity(this.getWatchedTargetId(0));
 			if (entity != null) {
 				double d0 = vec3.y;
 				if (this.getY() < entity.getY() || !this.isArmored() && this.getY() < entity.getY() + 5.0D) {
@@ -172,7 +172,7 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 			int k = this.getWatchedTargetId(j + 1);
 			Entity entity1 = null;
 			if (k > 0) {
-				entity1 = this.level.getEntity(k);
+				entity1 = this.level().getEntity(k);
 			}
 
 			if (entity1 != null) {
@@ -198,15 +198,15 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 			double d8 = this.getHeadX(l);
 			double d10 = this.getHeadY(l);
 			double d2 = this.getHeadZ(l);
-			this.level.addParticle(ParticleTypes.SMOKE, d8 + this.random.nextGaussian() * (double) 0.3F, d10 + this.random.nextGaussian() * (double) 0.3F, d2 + this.random.nextGaussian() * (double) 0.3F, 0.0D, 0.0D, 0.0D);
-			if (flag && this.level.random.nextInt(4) == 0) {
-				this.level.addParticle(ParticleTypes.ENTITY_EFFECT, d8 + this.random.nextGaussian() * (double) 0.3F, d10 + this.random.nextGaussian() * (double) 0.3F, d2 + this.random.nextGaussian() * (double) 0.3F, (double) 0.7F, (double) 0.7F, 0.5D);
+			this.level().addParticle(ParticleTypes.SMOKE, d8 + this.random.nextGaussian() * (double) 0.3F, d10 + this.random.nextGaussian() * (double) 0.3F, d2 + this.random.nextGaussian() * (double) 0.3F, 0.0D, 0.0D, 0.0D);
+			if (flag && this.level().random.nextInt(4) == 0) {
+				this.level().addParticle(ParticleTypes.ENTITY_EFFECT, d8 + this.random.nextGaussian() * (double) 0.3F, d10 + this.random.nextGaussian() * (double) 0.3F, d2 + this.random.nextGaussian() * (double) 0.3F, (double) 0.7F, (double) 0.7F, 0.5D);
 			}
 		}
 
 		if (this.getInvulTime() > 0) {
 			for (int i1 = 0; i1 < 3; ++i1) {
-				this.level.addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() + this.random.nextGaussian(), this.getY() + (double) (this.random.nextFloat() * 3.3F), this.getZ() + this.random.nextGaussian(), (double) 0.7F, (double) 0.7F, (double) 0.9F);
+				this.level().addParticle(ParticleTypes.ENTITY_EFFECT, this.getX() + this.random.nextGaussian(), this.getY() + (double) (this.random.nextFloat() * 3.3F), this.getZ() + this.random.nextGaussian(), (double) 0.7F, (double) 0.7F, (double) 0.9F);
 			}
 		}
 
@@ -216,9 +216,9 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 		if (this.getInvulTime() > 0) {
 			int j1 = this.getInvulTime() - 1;
 			if (j1 <= 0) {
-				Level.ExplosionInteraction explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
-				this.level.explode(this, this.getX(), this.getEyeY(), this.getZ(), 7.0F, false, explosion$mode);
-				this.level.globalLevelEvent(1023, blockPosition(), 0);
+				Level.ExplosionInteraction explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
+				this.level().explode(this, this.getX(), this.getEyeY(), this.getZ(), 7.0F, false, explosion$mode);
+				this.level().globalLevelEvent(1023, blockPosition(), 0);
 			}
 
 			this.setInvulTime(j1);
@@ -232,7 +232,7 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 			for (int i = 1; i < 3; ++i) {
 				if (this.tickCount >= this.nextHeadUpdate[i - 1]) {
 					this.nextHeadUpdate[i - 1] = this.tickCount + 10 + this.random.nextInt(10);
-					if (this.level.getDifficulty() == Difficulty.NORMAL || this.level.getDifficulty() == Difficulty.HARD) {
+					if (this.level().getDifficulty() == Difficulty.NORMAL || this.level().getDifficulty() == Difficulty.HARD) {
 						int j3 = i - 1;
 						int k3 = this.idleHeadUpdates[i - 1];
 						this.idleHeadUpdates[j3] = this.idleHeadUpdates[i - 1] + 1;
@@ -249,7 +249,7 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 
 					int k1 = this.getWatchedTargetId(i);
 					if (k1 > 0) {
-						Entity entity = this.level.getEntity(k1);
+						Entity entity = this.level().getEntity(k1);
 						if (entity != null && entity.isAlive() && !(this.distanceToSqr(entity) > 900.0D) && this.hasLineOfSight(entity)) {
 							if (entity instanceof Player && ((Player) entity).getAbilities().invulnerable) {
 								this.updateWatchedTargetId(i, 0);
@@ -262,7 +262,7 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 							this.updateWatchedTargetId(i, 0);
 						}
 					} else {
-						List<LivingEntity> list = this.level.getNearbyEntities(LivingEntity.class, TARGETING_CONDITIONS, this, this.getBoundingBox().inflate(20.0D, 8.0D, 20.0D));
+						List<LivingEntity> list = this.level().getNearbyEntities(LivingEntity.class, TARGETING_CONDITIONS, this, this.getBoundingBox().inflate(20.0D, 8.0D, 20.0D));
 
 						for (int j2 = 0; j2 < 10 && !list.isEmpty(); ++j2) {
 							LivingEntity livingentity = list.get(this.random.nextInt(list.size()));
@@ -291,7 +291,7 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 
 			if (this.blockBreakCounter > 0) {
 				--this.blockBreakCounter;
-				if (this.blockBreakCounter == 0 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this)) {
+				if (this.blockBreakCounter == 0 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this)) {
 					int i1 = Mth.floor(this.getY());
 					int l1 = Mth.floor(this.getX());
 					int i2 = Mth.floor(this.getZ());
@@ -304,16 +304,16 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 								int k = i1 + j;
 								int l = i2 + l2;
 								BlockPos blockpos = new BlockPos(i3, k, l);
-								BlockState blockstate = this.level.getBlockState(blockpos);
-								if (blockstate.canEntityDestroy(this.level, blockpos, this) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
-									flag = this.level.destroyBlock(blockpos, true) || flag;
+								BlockState blockstate = this.level().getBlockState(blockpos);
+								if (blockstate.canEntityDestroy(this.level(), blockpos, this) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
+									flag = this.level().destroyBlock(blockpos, true) || flag;
 								}
 							}
 						}
 					}
 
 					if (flag) {
-						this.level.levelEvent((Player) null, 1022, blockPosition(), 0);
+						this.level().levelEvent((Player) null, 1022, blockPosition(), 0);
 					}
 				}
 			}
@@ -394,20 +394,20 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 	 * Launches a Wither skull toward (par2, par4, par6)
 	 */
 	private void launchWitherSkullToCoords(int p_82209_1_, double x, double y, double z, boolean invulnerable) {
-		this.level.levelEvent((Player) null, 1024, blockPosition(), 0);
+		this.level().levelEvent((Player) null, 1024, blockPosition(), 0);
 		double d0 = this.getHeadX(p_82209_1_);
 		double d1 = this.getHeadY(p_82209_1_);
 		double d2 = this.getHeadZ(p_82209_1_);
 		double d3 = x - d0;
 		double d4 = y - d1;
 		double d5 = z - d2;
-		MankiniWitherCapsuleEntity entityMankiniWitherCapsule = new MankiniWitherCapsuleEntity(this.level, this, d3, d4, d5);
+		MankiniWitherCapsuleEntity entityMankiniWitherCapsule = new MankiniWitherCapsuleEntity(this.level(), this, d3, d4, d5);
 		if (invulnerable) {
 			entityMankiniWitherCapsule.setMankiniInvulnerable(true);
 		}
 
 		entityMankiniWitherCapsule.setPosRaw(d0, d1, d2);
-		this.level.addFreshEntity(entityMankiniWitherCapsule);
+		this.level().addFreshEntity(entityMankiniWitherCapsule);
 	}
 
 	/**
@@ -467,7 +467,7 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 	 * Makes the entity despawn if requirements are reached
 	 */
 	public void checkDespawn() {
-		if (this.level.getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
+		if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
 			this.discard();
 		} else {
 			this.noActionTime = 0;

@@ -68,32 +68,32 @@ public class MankiniSpiderEntity extends Spider {
 		spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
 		ItemStack creeperKini = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
 
-		if (this.level.random.nextInt(100) == 0) {
-			Mob entitySkeleton = new Skeleton(EntityType.SKELETON, this.level);
+		if (this.level().random.nextInt(100) == 0) {
+			Mob entitySkeleton = new Skeleton(EntityType.SKELETON, this.level());
 
-			if (this.level.random.nextInt(20) < 5) {
-				entitySkeleton = new MankiniSkeletonEntity(this.level);
+			if (this.level().random.nextInt(20) < 5) {
+				entitySkeleton = new MankiniSkeletonEntity(this.level());
 			}
 
 			entitySkeleton.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
 			entitySkeleton.finalizeSpawn(worldIn, difficultyIn, reason, (SpawnGroupData) null, (CompoundTag) null);
 			entitySkeleton.setItemSlot(EquipmentSlot.CHEST, creeperKini);
-			this.level.addFreshEntity(entitySkeleton);
+			this.level().addFreshEntity(entitySkeleton);
 			entitySkeleton.startRiding(this);
-		} else if (this.level.random.nextInt(100) < 10) {
+		} else if (this.level().random.nextInt(100) < 10) {
 
-			MankiniCreeperEntity mankiniCreeper = new MankiniCreeperEntity(this.level);
+			MankiniCreeperEntity mankiniCreeper = new MankiniCreeperEntity(this.level());
 			mankiniCreeper.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
 			mankiniCreeper.finalizeSpawn(worldIn, difficultyIn, reason, (SpawnGroupData) null, (CompoundTag) null);
 			mankiniCreeper.setItemSlot(EquipmentSlot.CHEST, creeperKini);
-			this.level.addFreshEntity(mankiniCreeper);
+			this.level().addFreshEntity(mankiniCreeper);
 			mankiniCreeper.startRiding(this);
 		}
 
 		if (spawnDataIn == null) {
 			spawnDataIn = new Spider.SpiderEffectsGroupData();
-			if (this.level.getDifficulty() == Difficulty.HARD && this.level.random.nextFloat() < 0.1F * difficultyIn.getSpecialMultiplier()) {
-				((MankiniSpiderEntity.SpiderEffectsGroupData) spawnDataIn).setRandomEffect(this.level.random);
+			if (this.level().getDifficulty() == Difficulty.HARD && this.level().random.nextFloat() < 0.1F * difficultyIn.getSpecialMultiplier()) {
+				((MankiniSpiderEntity.SpiderEffectsGroupData) spawnDataIn).setRandomEffect(this.level().random);
 			}
 		}
 

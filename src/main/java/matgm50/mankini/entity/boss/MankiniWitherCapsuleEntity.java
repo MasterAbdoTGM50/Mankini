@@ -76,7 +76,7 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 	 * Called when this EntityFireball hits a block or entity.
 	 */
 	protected void onHit(HitResult result) {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			if (result.getType() == HitResult.Type.ENTITY) {
 				Entity entity = ((EntityHitResult) result).getEntity();
 				Entity shooter = getOwner();
@@ -94,9 +94,9 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 
 				if (entity instanceof LivingEntity) {
 					int i = 0;
-					if (this.level.getDifficulty() == Difficulty.NORMAL) {
+					if (this.level().getDifficulty() == Difficulty.NORMAL) {
 						i = 10;
-					} else if (this.level.getDifficulty() == Difficulty.HARD) {
+					} else if (this.level().getDifficulty() == Difficulty.HARD) {
 						i = 40;
 					}
 
@@ -104,15 +104,15 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 						((LivingEntity) entity).addEffect(new MobEffectInstance(ModRegistry.MANKINI_WITHER_EFFECT.get(), 20 * i, 1));
 					}
 
-					if (!this.level.isClientSide) {
+					if (!this.level().isClientSide) {
 						if (entity instanceof Player hitPlayer) {
 							Inventory playerInv = hitPlayer.getInventory();
 
 							ItemStack itemstack = hitPlayer.getInventory().armor.get(2);
 							ItemStack dyeableKini = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
-							dyeableKini.setDamageValue(dyeableKini.getMaxDamage() / this.level.random.nextInt(10));
+							dyeableKini.setDamageValue(dyeableKini.getMaxDamage() / this.level().random.nextInt(10));
 
-							if (this.level.random.nextInt(100) < 8) {
+							if (this.level().random.nextInt(100) < 8) {
 								if (!itemstack.isEmpty()) {
 									playerInv.removeItemNoUpdate(38);
 								}
@@ -122,8 +122,8 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 					}
 				}
 			}
-			Level.ExplosionInteraction explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level, this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
-			this.level.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, explosion$mode);
+			Level.ExplosionInteraction explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
+			this.level().explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, explosion$mode);
 			this.discard();
 		}
 	}

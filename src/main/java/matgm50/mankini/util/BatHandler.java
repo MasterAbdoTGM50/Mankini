@@ -18,10 +18,10 @@ public class BatHandler {
 		final Player player = event.getEntity();
 		Inventory inv = player.getInventory();
 		ItemStack currentItem = player.getInventory().getSelected();
-		ItemStack BatMankini = new ItemStack(ModRegistry.BAT_MANKINI.get());
-		ItemStack Mankini = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
+		ItemStack batMankiniStack = new ItemStack(ModRegistry.BAT_MANKINI.get());
+		ItemStack dyeableMankiniStack = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
 
-		if (event.getTarget() instanceof Bat && currentItem.sameItem(Mankini)) {
+		if (event.getTarget() instanceof Bat && ItemStack.isSameItem(currentItem, dyeableMankiniStack)) {
 			event.getTarget().discard();
 			CompoundTag playerData = player.getPersistentData();
 			CompoundTag data = getTag(playerData, Player.PERSISTED_NBT_TAG);
@@ -31,8 +31,8 @@ public class BatHandler {
 
 			if (batCount == 8) {
 				player.sendSystemMessage(Component.translatable("mankini.bat.message"));
-				inv.removeItemNoUpdate(inv.findSlotMatchingItem(Mankini));
-				inv.add(BatMankini);
+				inv.removeItemNoUpdate(inv.findSlotMatchingItem(dyeableMankiniStack));
+				inv.add(batMankiniStack);
 				setBatTag(player);
 			}
 		}

@@ -96,14 +96,14 @@ public abstract class AbstractMankiniSkeleton extends AbstractSkeleton {
 		double d1 = target.getY(0.3333333333333333D) - entityCapsule.getY();
 		double d2 = target.getZ() - this.getZ();
 		double d3 = Math.sqrt(d0 * d0 + d2 * d2);
-		entityCapsule.shoot(d0, d1 + d3 * (double) 0.2F, d2, 1.6F, (float) (14 - this.level.getDifficulty().getId() * 4));
+		entityCapsule.shoot(d0, d1 + d3 * (double) 0.2F, d2, 1.6F, (float) (14 - this.level().getDifficulty().getId() * 4));
 		this.playSound(SoundEvents.SKELETON_SHOOT, 1.0F, 1.0F / (this.getRandom().nextFloat() * 0.4F + 0.8F));
-		this.level.addFreshEntity(entityCapsule);
+		this.level().addFreshEntity(entityCapsule);
 	}
 
 	protected MankiniCapsuleEntity getCapsule(float unusedFloat) {
 		ItemStack stack = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
 		stack.setDamageValue(this.random.nextInt(stack.getMaxDamage()));
-		return new MankiniCapsuleEntity(this.level, this, stack, false);
+		return new MankiniCapsuleEntity(this.level(), this, stack, false);
 	}
 }

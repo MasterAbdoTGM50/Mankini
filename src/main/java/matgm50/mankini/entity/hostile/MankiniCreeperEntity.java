@@ -74,9 +74,9 @@ public class MankiniCreeperEntity extends Creeper {
 			ItemStack itemstack = hitPlayer.getInventory().armor.get(2);
 			ItemStack creeperKini = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
 
-			this.level.explode(this, this.getX(), this.getY(), this.getZ(), (float) 3 * f, Level.ExplosionInteraction.NONE);
+			this.level().explode(this, this.getX(), this.getY(), this.getZ(), (float) 3 * f, Level.ExplosionInteraction.NONE);
 
-			if (!this.level.isClientSide) {
+			if (!this.level().isClientSide) {
 				if (hitPlayer.getX() == (int) this.getX() || hitPlayer.getY() == (int) this.getY() || hitPlayer.getZ() == this.getZ()) {
 					if (itemstack.isEmpty()) {
 						playerInv.setItem(38, creeperKini);

@@ -67,14 +67,14 @@ public class MankiniCapsuleEntity extends ThrowableItemProjectile {
 			ParticleOptions iparticledata = this.getParticle();
 
 			for (int i = 0; i < 8; ++i) {
-				this.level.addParticle(iparticledata, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
+				this.level().addParticle(iparticledata, this.getX(), this.getY(), this.getZ(), 0.0D, 0.0D, 0.0D);
 			}
 		}
 	}
 
 	@Override
 	protected void onHit(HitResult result) {
-		if (!this.level.isClientSide) {
+		if (!this.level().isClientSide) {
 			boolean flag = false;
 			if (result.getType() == HitResult.Type.ENTITY) {
 				flag = true;
@@ -99,11 +99,11 @@ public class MankiniCapsuleEntity extends ThrowableItemProjectile {
 						}
 					} else if (hit instanceof WitherBoss originalWither && !(hit instanceof MankiniWitherEntity)) {
 
-						MankiniWitherEntity mankiniWither = new MankiniWitherEntity(ModRegistry.MANKINI_WITHER.get(), this.level);
+						MankiniWitherEntity mankiniWither = new MankiniWitherEntity(ModRegistry.MANKINI_WITHER.get(), this.level());
 						mankiniWither.moveTo(originalWither.getX(), originalWither.getY(), originalWither.getZ(), originalWither.getYRot(), 0.0F);
 						mankiniWither.ignite();
 						this.discard();
-						this.level.addFreshEntity(mankiniWither);
+						this.level().addFreshEntity(mankiniWither);
 					} else if (MankiniConfig.COMMON.ShootMankinisOntoMobs.get()) {
 						if (hit instanceof Zombie hitZombie) {
 							ItemStack chestStack = hitZombie.getItemBySlot(EquipmentSlot.CHEST);
@@ -148,7 +148,7 @@ public class MankiniCapsuleEntity extends ThrowableItemProjectile {
 					this.spawnAtLocation(foundMankini, 1F);
 				}
 			}
-			this.level.broadcastEntityEvent(this, (byte) 3);
+			this.level().broadcastEntityEvent(this, (byte) 3);
 			this.discard();
 		}
 	}
