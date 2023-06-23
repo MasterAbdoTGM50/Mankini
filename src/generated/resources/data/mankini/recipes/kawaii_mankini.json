@@ -1,13 +1,6 @@
 {
-  "result": {
-    "item": "mankini:kawaii_mankini"
-  },
-  "pattern": [
-    "1 7",
-    "2X6",
-    "345"
-  ],
   "type": "minecraft:crafting_shaped",
+  "category": "equipment",
   "key": {
     "1": {
       "tag": "forge:dyes/magenta"
@@ -31,7 +24,16 @@
       "tag": "forge:dyes/red"
     },
     "X": {
-      "item": "minecraft:leather"
+      "tag": "forge:leather"
     }
-  }
+  },
+  "pattern": [
+    "1 7",
+    "2X6",
+    "345"
+  ],
+  "result": {
+    "item": "mankini:kawaii_mankini"
+  },
+  "show_notification": true
 }

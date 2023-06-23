@@ -1,0 +1,36 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "B": {
+      "item": "minecraft:dragon_breath"
+    },
+    "C": {
+      "item": "minecraft:clay"
+    },
+    "D": {
+      "tag": "forge:storage_blocks/diamond"
+    },
+    "E": {
+      "item": "minecraft:elytra"
+    },
+    "K": {
+      "item": "mankini:mankini_bat"
+    },
+    "O": {
+      "tag": "forge:ores/emerald"
+    },
+    "W": {
+      "item": "mankini:mankini_wither"
+    }
+  },
+  "pattern": [
+    "BEB",
+    "DKD",
+    "CWO"
+  ],
+  "result": {
+    "item": "mankini:aetheric_mankini"
+  },
+  "show_notification": true
+}

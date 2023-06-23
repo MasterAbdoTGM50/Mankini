@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "X": {
+      "tag": "forge:leather"
+    }
+  },
+  "pattern": [
+    "X X",
+    "X X",
+    " X "
+  ],
+  "result": {
+    "item": "mankini:dyeable_mankini"
+  },
+  "show_notification": true
+}

@@ -1,8 +1,8 @@
-// 1.19.4	2023-04-04T16:37:25.9035136	Loot Tables
-95a81757bb6cda43936e3863a1b00af241c428d5 data/mankini/loot_tables/entities/mankini_creeper.json
-ab5005616717c248db9ed4d521b2fd09bc617114 data/mankini/loot_tables/entities/mankini_enderman.json
-9c385c13176f25e8a1c58d3a59db60282016b8dd data/mankini/loot_tables/entities/mankini_endermite.json
-f4c6c709388ea2f1a2f0b25db775116e6333d0b7 data/mankini/loot_tables/entities/mankini_evoker.json
-60ea78c0e77da6fdc10bc9b005c0f6225fa6aa91 data/mankini/loot_tables/entities/mankini_skeleton.json
-024c7ef5cedca37c16581270ad22f439476c14d3 data/mankini/loot_tables/entities/mankini_spider.json
-14315ce2e08404a39c534c28221810b2d88cf7fc data/mankini/loot_tables/entities/mankini_wither.json
+// 1.20.1	2023-06-23T20:01:34.4860122	Loot Tables
+d8124ed0c156fb0abe60d1f0e3f04085d2299d0f data/mankini/loot_tables/entities/mankini_creeper.json
+606d3fea84a3a28cf6b8a89ebc6483d6f806594e data/mankini/loot_tables/entities/mankini_enderman.json
+e8a8359a518d4bc254c402c8b112f358cc0cb3ea data/mankini/loot_tables/entities/mankini_endermite.json
+98823082f3c19e3447f6f4d52fc1548a0174b194 data/mankini/loot_tables/entities/mankini_evoker.json
+b3608da2b23290a45de9cc0c28985a40a3692142 data/mankini/loot_tables/entities/mankini_skeleton.json
+e041e72de42c6b16f04cd1bce765f3ac3194f82f data/mankini/loot_tables/entities/mankini_spider.json
+d3317695ddf4ee865a671c47156cbdeae3fe7c41 data/mankini/loot_tables/entities/mankini_wither.json
