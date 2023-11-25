@@ -26,10 +26,11 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.network.NetworkHooks;
-import net.minecraftforge.network.PlayMessages.SpawnEntity;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.event.EventHooks;
+import net.neoforged.neoforge.network.NetworkHooks;
+import net.neoforged.neoforge.network.PlayMessages.SpawnEntity;
 
 public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implements ItemSupplier {
 	private static final EntityDataAccessor<Boolean> INVULNERABLE = SynchedEntityData.defineId(MankiniWitherCapsuleEntity.class, EntityDataSerializers.BOOLEAN);
@@ -122,7 +123,7 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 					}
 				}
 			}
-			Level.ExplosionInteraction explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
+			Level.ExplosionInteraction explosion$mode = EventHooks.getMobGriefingEvent(this.level(), this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
 			this.level().explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, explosion$mode);
 			this.discard();
 		}

@@ -12,8 +12,8 @@ import net.minecraft.world.level.storage.loot.entries.LootTableReference;
 import net.minecraft.world.level.storage.loot.functions.SetItemCountFunction;
 import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
 import net.minecraft.world.level.storage.loot.providers.number.UniformGenerator;
-import net.minecraftforge.registries.RegistryObject;
 
+import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class MankiniEntityLootProvider extends EntityLootSubProvider {
@@ -52,6 +52,6 @@ public class MankiniEntityLootProvider extends EntityLootSubProvider {
 
 	@Override
 	protected Stream<EntityType<?>> getKnownEntityTypes() {
-		return ModRegistry.ENTITY_TYPES.getEntries().stream().map(RegistryObject::get);
+		return ModRegistry.ENTITY_TYPES.getEntries().stream().map(Supplier::get);
 	}
 }

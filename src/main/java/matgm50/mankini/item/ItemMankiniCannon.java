@@ -15,6 +15,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.event.EventHooks;
 
 /**
  * Created by MasterAbdoTGM50 on 7/2/2014.
@@ -68,7 +69,7 @@ public class ItemMankiniCannon extends Item {
 		ItemStack itemstack = player.getItemInHand(handIn);
 		boolean flag = !MankiniHelper.findMankini(player).isEmpty();
 
-		InteractionResultHolder<ItemStack> ret = net.minecraftforge.event.ForgeEventFactory.onArrowNock(itemstack, level, player, handIn, flag);
+		InteractionResultHolder<ItemStack> ret = EventHooks.onArrowNock(itemstack, level, player, handIn, flag);
 		if (ret != null) return ret;
 
 		if (!player.getAbilities().instabuild && !flag) {

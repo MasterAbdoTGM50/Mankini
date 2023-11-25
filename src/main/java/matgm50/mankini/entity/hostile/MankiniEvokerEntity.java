@@ -23,6 +23,7 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -133,7 +134,7 @@ public class MankiniEvokerEntity extends SpellcasterIllager {
 				return false;
 			} else if (MankiniEvokerEntity.this.tickCount < this.nextAttackTickCount) {
 				return false;
-			} else if (!net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(MankiniEvokerEntity.this.level(), MankiniEvokerEntity.this)) {
+			} else if (!EventHooks.getMobGriefingEvent(MankiniEvokerEntity.this.level(), MankiniEvokerEntity.this)) {
 				return false;
 			} else {
 				List<Player> list = MankiniEvokerEntity.this.level().getEntitiesOfClass(Player.class, MankiniEvokerEntity.this.getBoundingBox().inflate(16.0D, 4.0D, 16.0D), this.wololoSelector);

@@ -3,7 +3,7 @@ package matgm50.mankini.data.client;
 import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.lib.ModLib;
 import net.minecraft.data.PackOutput;
-import net.minecraftforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.common.data.LanguageProvider;
 
 public class MankiniLanguageProvider extends LanguageProvider {
 	public MankiniLanguageProvider(PackOutput packOutput) {

@@ -46,8 +46,9 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
@@ -216,7 +217,7 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 		if (this.getInvulTime() > 0) {
 			int j1 = this.getInvulTime() - 1;
 			if (j1 <= 0) {
-				Level.ExplosionInteraction explosion$mode = net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
+				Level.ExplosionInteraction explosion$mode = EventHooks.getMobGriefingEvent(this.level(), this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
 				this.level().explode(this, this.getX(), this.getEyeY(), this.getZ(), 7.0F, false, explosion$mode);
 				this.level().globalLevelEvent(1023, blockPosition(), 0);
 			}
@@ -291,7 +292,7 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 
 			if (this.blockBreakCounter > 0) {
 				--this.blockBreakCounter;
-				if (this.blockBreakCounter == 0 && net.minecraftforge.event.ForgeEventFactory.getMobGriefingEvent(this.level(), this)) {
+				if (this.blockBreakCounter == 0 && EventHooks.getMobGriefingEvent(this.level(), this)) {
 					int i1 = Mth.floor(this.getY());
 					int l1 = Mth.floor(this.getX());
 					int i2 = Mth.floor(this.getZ());
@@ -305,7 +306,7 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 								int l = i2 + l2;
 								BlockPos blockpos = new BlockPos(i3, k, l);
 								BlockState blockstate = this.level().getBlockState(blockpos);
-								if (blockstate.canEntityDestroy(this.level(), blockpos, this) && net.minecraftforge.event.ForgeEventFactory.onEntityDestroyBlock(this, blockpos, blockstate)) {
+								if (blockstate.canEntityDestroy(this.level(), blockpos, this) && EventHooks.onEntityDestroyBlock(this, blockpos, blockstate)) {
 									flag = this.level().destroyBlock(blockpos, true) || flag;
 								}
 							}

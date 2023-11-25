@@ -31,7 +31,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.ServerLevelAccessor;
-import net.minecraftforge.event.ForgeEventFactory;
+import net.neoforged.neoforge.event.EventHooks;
 
 import javax.annotation.Nullable;
 import java.util.Random;
@@ -77,14 +77,14 @@ public class MankiniSpiderEntity extends Spider {
 			}
 
 			entitySkeleton.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
-			ForgeEventFactory.onFinalizeSpawn(entitySkeleton, serverLevelAccessor, difficultyIn, reason, (SpawnGroupData) null, (CompoundTag) null);
+			EventHooks.onFinalizeSpawn(entitySkeleton, serverLevelAccessor, difficultyIn, reason, (SpawnGroupData) null, (CompoundTag) null);
 			entitySkeleton.setItemSlot(EquipmentSlot.CHEST, creeperKini);
 			serverLevelAccessor.addFreshEntity(entitySkeleton);
 			entitySkeleton.startRiding(this);
 		} else if (random.nextInt(100) < 10) {
 			MankiniCreeperEntity mankiniCreeper = new MankiniCreeperEntity(serverLevelAccessor.getLevel());
 			mankiniCreeper.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
-			ForgeEventFactory.onFinalizeSpawn(mankiniCreeper, serverLevelAccessor, difficultyIn, reason, (SpawnGroupData) null, (CompoundTag) null);
+			EventHooks.onFinalizeSpawn(mankiniCreeper, serverLevelAccessor, difficultyIn, reason, (SpawnGroupData) null, (CompoundTag) null);
 			mankiniCreeper.setItemSlot(EquipmentSlot.CHEST, creeperKini);
 			serverLevelAccessor.addFreshEntity(mankiniCreeper);
 			mankiniCreeper.startRiding(this);

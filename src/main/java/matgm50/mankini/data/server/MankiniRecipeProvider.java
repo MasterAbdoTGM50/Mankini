@@ -1,23 +1,24 @@
 package matgm50.mankini.data.server;
 
 import matgm50.mankini.init.ModRegistry;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 
-import java.util.function.Consumer;
+import java.util.concurrent.CompletableFuture;
 
 public class MankiniRecipeProvider extends RecipeProvider {
-	public MankiniRecipeProvider(PackOutput packOutput) {
-		super(packOutput);
+	public MankiniRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider);
 	}
 
 	@Override
-	protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+	protected void buildRecipes(RecipeOutput recipeOutput) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModRegistry.AETHERIC_MANKINI.get())
 				.pattern("BEB")
 				.pattern("DKD")
@@ -30,7 +31,7 @@ public class MankiniRecipeProvider extends RecipeProvider {
 				.define('C', Items.CLAY)
 				.define('O', Tags.Items.ORES_EMERALD)
 				.unlockedBy("has_elytra", has(Items.ELYTRA))
-				.save(consumer);
+				.save(recipeOutput);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModRegistry.DYEABLE_MANKINI.get())
 				.pattern("X X")
@@ -38,7 +39,7 @@ public class MankiniRecipeProvider extends RecipeProvider {
 				.pattern(" X ")
 				.define('X', Tags.Items.LEATHER)
 				.unlockedBy("has_leather", has(Tags.Items.LEATHER))
-				.save(consumer);
+				.save(recipeOutput);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModRegistry.KAWAII_MANKINI.get())
 				.pattern("1 7")
@@ -53,7 +54,7 @@ public class MankiniRecipeProvider extends RecipeProvider {
 				.define('7', Tags.Items.DYES_RED)
 				.define('X', Tags.Items.LEATHER)
 				.unlockedBy("has_leather", has(Tags.Items.LEATHER))
-				.save(consumer);
+				.save(recipeOutput);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModRegistry.MANKINI_CANNON.get())
 				.pattern(" R ")
@@ -65,6 +66,6 @@ public class MankiniRecipeProvider extends RecipeProvider {
 				.define('I', Tags.Items.INGOTS_IRON)
 				.unlockedBy("has_dispenser", has(Items.DISPENSER))
 				.unlockedBy("has_iron_ingot", has(Tags.Items.INGOTS_IRON))
-				.save(consumer);
+				.save(recipeOutput);
 	}
 }

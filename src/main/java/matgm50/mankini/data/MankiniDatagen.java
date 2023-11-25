@@ -24,12 +24,12 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
-import net.minecraftforge.common.data.DatapackBuiltinEntriesProvider;
-import net.minecraftforge.common.world.BiomeModifier;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
+import net.neoforged.neoforge.common.world.BiomeModifier;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.registries.NeoForgeRegistries;
 
 import java.util.List;
 import java.util.Map;
@@ -58,7 +58,7 @@ public class MankiniDatagen {
 					//super.validate(map, validationcontext);
 				}
 			});
-			generator.addProvider(event.includeServer(), new MankiniRecipeProvider(packOutput));
+			generator.addProvider(event.includeServer(), new MankiniRecipeProvider(packOutput, event.getLookupProvider()));
 		}
 		if (event.includeClient()) {
 			generator.addProvider(event.includeClient(), new MankiniLanguageProvider(packOutput));
@@ -73,7 +73,7 @@ public class MankiniDatagen {
 		// We need the BIOME registry to be present so we can use a biome tag, doesn't matter that it's empty
 		registryBuilder.add(Registries.BIOME, context -> {
 		});
-		registryBuilder.add(ForgeRegistries.Keys.BIOME_MODIFIERS, context -> {
+		registryBuilder.add(NeoForgeRegistries.Keys.BIOME_MODIFIERS, context -> {
 			context.register(createModifierKey("creeper"), new AddRelativeSpawnBiomeModifier(EntityType.CREEPER, ModRegistry.MANKINI_CREEPER.get(), 4));
 			context.register(createModifierKey("enderman"), new AddRelativeSpawnBiomeModifier(EntityType.ENDERMAN, ModRegistry.MANKINI_ENDERMAN.get(), 4));
 			context.register(createModifierKey("spider"), new AddRelativeSpawnBiomeModifier(EntityType.SPIDER, ModRegistry.MANKINI_SPIDER.get(), 4));
@@ -85,6 +85,6 @@ public class MankiniDatagen {
 	}
 
 	private static ResourceKey<BiomeModifier> createModifierKey(String name) {
-		return ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(ModLib.MOD_ID, name));
+		return ResourceKey.create(NeoForgeRegistries.Keys.BIOME_MODIFIERS, new ResourceLocation(ModLib.MOD_ID, name));
 	}
 }

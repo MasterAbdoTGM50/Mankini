@@ -7,13 +7,12 @@ import matgm50.mankini.init.MankiniModifiers;
 import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.init.ModSpawning;
 import matgm50.mankini.lib.ModLib;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.fml.loading.FMLEnvironment;
 import org.slf4j.Logger;
 
 @Mod(ModLib.MOD_ID)
@@ -32,12 +31,9 @@ public class Mankini {
 		ModRegistry.MOB_EFFECTS.register(eventBus);
 		MankiniModifiers.BIOME_MODIFIER_SERIALIZERS.register(eventBus);
 
-		eventBus.addListener(ModSpawning::registerSpawnPlacements);
-		eventBus.addListener(ModSpawning::registerEntityAttributes);
-
-		DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+		if (FMLEnvironment.dist.isClient()) {
 			eventBus.addListener(ClientHandler::registerEntityRenders);
 			eventBus.addListener(ClientHandler::registerLayerDefinitions);
-		});
+		}
 	}
 }

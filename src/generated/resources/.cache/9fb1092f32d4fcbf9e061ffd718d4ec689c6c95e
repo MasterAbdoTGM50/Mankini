@@ -1,8 +1,8 @@
-// 1.20.1	2023-06-23T20:01:34.4880107	Recipes
-f36b1425bc7c68b21a0f9aa2074c733b273dbe9a data/mankini/advancements/recipes/combat/aetheric_mankini.json
-672d553e803291b6839af0d7be697e8c87b89201 data/mankini/advancements/recipes/combat/dyeable_mankini.json
-f09279c34f2c9b6959146e505c928f1075b199fc data/mankini/advancements/recipes/combat/kawaii_mankini.json
-be3a42516c181885e748a0689162f293aa3b228d data/mankini/advancements/recipes/combat/mankini_cannon.json
+// 1.20.2	2023-11-25T19:47:05.1178013	Recipes
+626cd86c411119cae12c2d44e54fab423d1fac71 data/mankini/advancements/recipes/combat/aetheric_mankini.json
+22159ed2e6605c81d254c82355627d2c2d344027 data/mankini/advancements/recipes/combat/dyeable_mankini.json
+5bde6da20ebaba76927b62ff6b9e63262605fc11 data/mankini/advancements/recipes/combat/kawaii_mankini.json
+c6215a8910a64a6fbf3e7556df2aa213cbae091a data/mankini/advancements/recipes/combat/mankini_cannon.json
 f2db13fed40cb3b69832e3c164820aa50199ccec data/mankini/recipes/aetheric_mankini.json
 1912aee7e32106c535e010c324631a2854281417 data/mankini/recipes/dyeable_mankini.json
 87956c6fa311c03b49845a1ae3be141301d62f05 data/mankini/recipes/kawaii_mankini.json

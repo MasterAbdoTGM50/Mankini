@@ -18,7 +18,7 @@ public class MankiniWitherPotion extends MobEffect {
 	}
 
 	@Override
-	public boolean isDurationEffectTick(int duration, int amplifier) {
+	public boolean shouldApplyEffectTickThisTick(int duration, int amplifier) {
 		int i = 40 >> amplifier;
 		if (i > 0) {
 			return duration % i == 0;

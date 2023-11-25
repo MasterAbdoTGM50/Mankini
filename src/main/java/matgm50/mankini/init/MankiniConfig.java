@@ -1,29 +1,29 @@
 package matgm50.mankini.init;
 
 import matgm50.mankini.Mankini;
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.event.config.ModConfigEvent;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
 public class MankiniConfig {
 	public static class Common {
 		//General
-		public final ForgeConfigSpec.BooleanValue ShootMankinisOntoMobs;
+		public final ModConfigSpec.BooleanValue ShootMankinisOntoMobs;
 
 		//Mobs
-		public final ForgeConfigSpec.BooleanValue MankiniCreeperSpawn;
-		public final ForgeConfigSpec.BooleanValue MankiniEndermanSpawn;
-		public final ForgeConfigSpec.BooleanValue MankiniEndermiteSpawn;
-		public final ForgeConfigSpec.BooleanValue MankiniSpiderSpawn;
-		public final ForgeConfigSpec.BooleanValue MankiniSkeletonSpawn;
+		public final ModConfigSpec.BooleanValue MankiniCreeperSpawn;
+		public final ModConfigSpec.BooleanValue MankiniEndermanSpawn;
+		public final ModConfigSpec.BooleanValue MankiniEndermiteSpawn;
+		public final ModConfigSpec.BooleanValue MankiniSpiderSpawn;
+		public final ModConfigSpec.BooleanValue MankiniSkeletonSpawn;
 
 		//Mob Behavior
-		public final ForgeConfigSpec.BooleanValue CreeperOverride;
-		public final ForgeConfigSpec.BooleanValue EvilCreepers;
+		public final ModConfigSpec.BooleanValue CreeperOverride;
+		public final ModConfigSpec.BooleanValue EvilCreepers;
 
 
-		Common(ForgeConfigSpec.Builder builder) {
+		Common(ModConfigSpec.Builder builder) {
 			builder.comment("General settings")
 					.push("general");
 
@@ -73,11 +73,11 @@ public class MankiniConfig {
 		}
 	}
 
-	public static final ForgeConfigSpec commonSpec;
+	public static final ModConfigSpec commonSpec;
 	public static final Common COMMON;
 
 	static {
-		final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
+		final Pair<Common, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(Common::new);
 		commonSpec = specPair.getRight();
 		COMMON = specPair.getLeft();
 	}
