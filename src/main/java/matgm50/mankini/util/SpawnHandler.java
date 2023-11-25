@@ -14,13 +14,13 @@ public class SpawnHandler {
 	@SubscribeEvent
 	public static void EntitySpawnEvent(MobSpawnEvent.FinalizeSpawn event) {
 		final Entity entity = event.getEntity();
-		Level worldIn = entity.level();
+		Level level = entity.level();
 		if (entity instanceof Endermite && !(entity instanceof MankiniEndermiteEntity)) {
 			if (((Endermite) entity).getRandom().nextBoolean()) {
-				MankiniEndermiteEntity mankiniMite = new MankiniEndermiteEntity(worldIn);
+				MankiniEndermiteEntity mankiniMite = new MankiniEndermiteEntity(level);
 				mankiniMite.moveTo(entity.getX(), entity.getY(), entity.getZ(), entity.getYRot(), 0.0F);
 				event.setSpawnCancelled(true);
-				worldIn.addFreshEntity(mankiniMite);
+				level.addFreshEntity(mankiniMite);
 			}
 		}
 	}

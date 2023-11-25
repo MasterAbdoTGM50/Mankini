@@ -39,21 +39,21 @@ public class ItemDyeableMankini extends DyeableArmorItem implements IMankini {
 
 	@Override
 	public boolean hasCustomColor(ItemStack stack) {
-		CompoundTag nbttagcompound = stack.getTagElement("display");
-		return nbttagcompound != null && nbttagcompound.contains("color", 99);
+		CompoundTag tag = stack.getTagElement("display");
+		return tag != null && tag.contains("color", 99);
 	}
 
 	@Override
 	public int getColor(ItemStack stack) {
-		CompoundTag nbttagcompound = stack.getTagElement("display");
-		return nbttagcompound != null && nbttagcompound.contains("color", 99) ? nbttagcompound.getInt("color") : 10511680;
+		CompoundTag tag = stack.getTagElement("display");
+		return tag != null && tag.contains("color", 99) ? tag.getInt("color") : 10511680;
 	}
 
 	@Override
 	public void clearColor(ItemStack stack) {
-		CompoundTag nbttagcompound = stack.getTagElement("display");
-		if (nbttagcompound != null && nbttagcompound.contains("color")) {
-			nbttagcompound.remove("color");
+		CompoundTag tag = stack.getTagElement("display");
+		if (tag != null && tag.contains("color")) {
+			tag.remove("color");
 		}
 	}
 

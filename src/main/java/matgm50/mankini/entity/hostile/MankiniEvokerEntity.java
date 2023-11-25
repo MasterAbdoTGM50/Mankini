@@ -31,12 +31,12 @@ import java.util.function.Predicate;
 public class MankiniEvokerEntity extends SpellcasterIllager {
 	private Player wololoTarget;
 
-	public MankiniEvokerEntity(EntityType<? extends MankiniEvokerEntity> type, Level worldIn) {
-		super(type, worldIn);
+	public MankiniEvokerEntity(EntityType<? extends MankiniEvokerEntity> type, Level level) {
+		super(type, level);
 	}
 
-	public MankiniEvokerEntity(Level worldIn) {
-		super(ModRegistry.MANKINI_EVOKER.get(), worldIn);
+	public MankiniEvokerEntity(Level level) {
+		super(ModRegistry.MANKINI_EVOKER.get(), level);
 		this.xpReward = 6;
 	}
 

@@ -11,18 +11,18 @@ import net.minecraft.world.level.LevelAccessor;
 
 public class MankiniSkeletonEntity extends AbstractMankiniSkeleton {
 
-	public MankiniSkeletonEntity(EntityType<? extends MankiniSkeletonEntity> type, Level worldIn) {
-		super(type, worldIn);
+	public MankiniSkeletonEntity(EntityType<? extends MankiniSkeletonEntity> type, Level level) {
+		super(type, level);
 	}
 
-	public MankiniSkeletonEntity(Level worldIn) {
-		super(ModRegistry.MANKINI_SKELETON.get(), worldIn);
+	public MankiniSkeletonEntity(Level level) {
+		super(ModRegistry.MANKINI_SKELETON.get(), level);
 	}
 
 	@Override
-	public boolean checkSpawnRules(LevelAccessor worldIn, MobSpawnType reason) {
+	public boolean checkSpawnRules(LevelAccessor level, MobSpawnType reason) {
 		if (MankiniConfig.COMMON.MankiniCreeperSpawn.get())
-			return super.checkSpawnRules(worldIn, reason);
+			return super.checkSpawnRules(level, reason);
 		else
 			return false;
 	}

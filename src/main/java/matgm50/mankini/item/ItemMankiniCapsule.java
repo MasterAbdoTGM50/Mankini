@@ -19,7 +19,7 @@ public class ItemMankiniCapsule extends Item {
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level worldIn, Player playerIn, InteractionHand handIn) {
+	public InteractionResultHolder<ItemStack> use(Level level, Player playerIn, InteractionHand handIn) {
 		return new InteractionResultHolder<>(InteractionResult.PASS, playerIn.getItemInHand(handIn));
 	}
 }

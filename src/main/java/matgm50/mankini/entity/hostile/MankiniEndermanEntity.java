@@ -12,12 +12,12 @@ import net.minecraft.world.level.LevelAccessor;
 
 public class MankiniEndermanEntity extends EnderMan {
 
-	public MankiniEndermanEntity(EntityType<? extends MankiniEndermanEntity> type, Level worldIn) {
-		super(type, worldIn);
+	public MankiniEndermanEntity(EntityType<? extends MankiniEndermanEntity> type, Level level) {
+		super(type, level);
 	}
 
-	public MankiniEndermanEntity(Level worldIn) {
-		super(ModRegistry.MANKINI_ENDERMAN.get(), worldIn);
+	public MankiniEndermanEntity(Level level) {
+		super(ModRegistry.MANKINI_ENDERMAN.get(), level);
 	}
 
 	public static AttributeSupplier.Builder registerAttributes() {
@@ -31,9 +31,9 @@ public class MankiniEndermanEntity extends EnderMan {
 	}
 
 	@Override
-	public boolean checkSpawnRules(LevelAccessor worldIn, MobSpawnType reason) {
+	public boolean checkSpawnRules(LevelAccessor level, MobSpawnType reason) {
 		if (MankiniConfig.COMMON.MankiniEndermanSpawn.get())
-			return super.checkSpawnRules(worldIn, reason);
+			return super.checkSpawnRules(level, reason);
 		else
 			return false;
 	}

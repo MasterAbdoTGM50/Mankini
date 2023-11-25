@@ -36,23 +36,23 @@ public class MankiniCapsuleEntity extends ThrowableItemProjectile {
 	public ItemStack foundMankini;
 	public boolean dropItem = true;
 
-	public MankiniCapsuleEntity(EntityType<? extends MankiniCapsuleEntity> type, Level worldIn) {
-		super(type, worldIn);
+	public MankiniCapsuleEntity(EntityType<? extends MankiniCapsuleEntity> type, Level level) {
+		super(type, level);
 	}
 
-	public MankiniCapsuleEntity(Level worldIn, LivingEntity throwerIn, ItemStack foundMankini) {
-		super(ModRegistry.MANKINI_CAPSULE.get(), throwerIn.getX(), throwerIn.getY() + (double) throwerIn.getEyeHeight() - (double) 0.1F, throwerIn.getZ(), worldIn);
+	public MankiniCapsuleEntity(Level level, LivingEntity throwerIn, ItemStack foundMankini) {
+		super(ModRegistry.MANKINI_CAPSULE.get(), throwerIn.getX(), throwerIn.getY() + (double) throwerIn.getEyeHeight() - (double) 0.1F, throwerIn.getZ(), level);
 		this.foundMankini = foundMankini;
 	}
 
-	public MankiniCapsuleEntity(Level worldIn, LivingEntity throwerIn, ItemStack foundMankini, boolean drop) {
-		super(ModRegistry.MANKINI_CAPSULE.get(), throwerIn.getX(), throwerIn.getY() + (double) throwerIn.getEyeHeight() - (double) 0.1F, throwerIn.getZ(), worldIn);
+	public MankiniCapsuleEntity(Level level, LivingEntity throwerIn, ItemStack foundMankini, boolean drop) {
+		super(ModRegistry.MANKINI_CAPSULE.get(), throwerIn.getX(), throwerIn.getY() + (double) throwerIn.getEyeHeight() - (double) 0.1F, throwerIn.getZ(), level);
 		this.foundMankini = foundMankini;
 		this.dropItem = drop;
 	}
 
-	public MankiniCapsuleEntity(SpawnEntity spawnEntity, Level worldIn) {
-		this(ModRegistry.MANKINI_CAPSULE.get(), worldIn);
+	public MankiniCapsuleEntity(SpawnEntity spawnEntity, Level level) {
+		this(ModRegistry.MANKINI_CAPSULE.get(), level);
 	}
 
 	@OnlyIn(Dist.CLIENT)

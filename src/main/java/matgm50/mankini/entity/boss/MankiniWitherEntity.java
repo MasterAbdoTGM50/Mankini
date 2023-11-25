@@ -73,8 +73,8 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 	};
 	private static final TargetingConditions TARGETING_CONDITIONS = TargetingConditions.forCombat().range(20.0D).selector(NOT_UNDEAD);
 
-	public MankiniWitherEntity(EntityType<? extends MankiniWitherEntity> type, Level worldIn) {
-		super(type, worldIn);
+	public MankiniWitherEntity(EntityType<? extends MankiniWitherEntity> type, Level level) {
+		super(type, level);
 		this.setHealth(this.getMaxHealth());
 		this.getNavigation().setCanFloat(true);
 		this.xpReward = 50;

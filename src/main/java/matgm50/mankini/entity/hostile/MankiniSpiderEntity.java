@@ -38,12 +38,12 @@ import java.util.Random;
 
 public class MankiniSpiderEntity extends Spider {
 
-	public MankiniSpiderEntity(EntityType<? extends MankiniSpiderEntity> type, Level worldIn) {
-		super(type, worldIn);
+	public MankiniSpiderEntity(EntityType<? extends MankiniSpiderEntity> type, Level level) {
+		super(type, level);
 	}
 
-	public MankiniSpiderEntity(Level worldIn) {
-		super(ModRegistry.MANKINI_SPIDER.get(), worldIn);
+	public MankiniSpiderEntity(Level level) {
+		super(ModRegistry.MANKINI_SPIDER.get(), level);
 	}
 
 	@Override
@@ -108,9 +108,9 @@ public class MankiniSpiderEntity extends Spider {
 	}
 
 	@Override
-	public boolean checkSpawnRules(LevelAccessor worldIn, MobSpawnType reason) {
+	public boolean checkSpawnRules(LevelAccessor level, MobSpawnType reason) {
 		if (MankiniConfig.COMMON.MankiniSpiderSpawn.get())
-			return super.checkSpawnRules(worldIn, reason);
+			return super.checkSpawnRules(level, reason);
 		else
 			return false;
 	}

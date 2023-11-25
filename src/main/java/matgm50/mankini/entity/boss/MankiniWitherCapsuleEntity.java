@@ -34,21 +34,21 @@ import net.minecraftforge.network.PlayMessages.SpawnEntity;
 public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implements ItemSupplier {
 	private static final EntityDataAccessor<Boolean> INVULNERABLE = SynchedEntityData.defineId(MankiniWitherCapsuleEntity.class, EntityDataSerializers.BOOLEAN);
 
-	public MankiniWitherCapsuleEntity(EntityType<? extends MankiniWitherCapsuleEntity> type, Level worldIn) {
-		super(type, worldIn);
+	public MankiniWitherCapsuleEntity(EntityType<? extends MankiniWitherCapsuleEntity> type, Level level) {
+		super(type, level);
 	}
 
-	public MankiniWitherCapsuleEntity(Level worldIn, LivingEntity shooter, double accelX, double accelY, double accelZ) {
-		super(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), shooter, accelX, accelY, accelZ, worldIn);
+	public MankiniWitherCapsuleEntity(Level level, LivingEntity shooter, double accelX, double accelY, double accelZ) {
+		super(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), shooter, accelX, accelY, accelZ, level);
 	}
 
-	public MankiniWitherCapsuleEntity(SpawnEntity spawnEntity, Level worldIn) {
-		this(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), worldIn);
+	public MankiniWitherCapsuleEntity(SpawnEntity spawnEntity, Level level) {
+		this(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), level);
 	}
 
 	@OnlyIn(Dist.CLIENT)
-	public MankiniWitherCapsuleEntity(Level worldIn, double x, double y, double z, double accelX, double accelY, double accelZ) {
-		super(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), x, y, z, accelX, accelY, accelZ, worldIn);
+	public MankiniWitherCapsuleEntity(Level level, double x, double y, double z, double accelX, double accelY, double accelZ) {
+		super(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), x, y, z, accelX, accelY, accelZ, level);
 	}
 
 	/**
@@ -68,8 +68,8 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 	/**
 	 * Explosion resistance of a block relative to this entity
 	 */
-	public float getBlockExplosionResistance(Explosion explosionIn, BlockGetter worldIn, BlockPos pos, BlockState blockStateIn, FluidState p_180428_5_, float p_180428_6_) {
-		return this.isMankiniInvulnerable() && blockStateIn.canEntityDestroy(worldIn, pos, this) ? Math.min(0.8F, p_180428_6_) : p_180428_6_;
+	public float getBlockExplosionResistance(Explosion explosionIn, BlockGetter level, BlockPos pos, BlockState blockStateIn, FluidState p_180428_5_, float p_180428_6_) {
+		return this.isMankiniInvulnerable() && blockStateIn.canEntityDestroy(level, pos, this) ? Math.min(0.8F, p_180428_6_) : p_180428_6_;
 	}
 
 	/**

@@ -17,10 +17,10 @@ import java.util.List;
 public record AddRelativeSpawnBiomeModifier(EntityType<?> originalType,
 											EntityType<?> newType, int relativeWeight) implements BiomeModifier {
 	@Override
-	public void modify(Holder<Biome> biome, Phase phase, Builder builder) {
+	public void modify(Holder<Biome> biomeHolder, Phase phase, Builder builder) {
 		if (phase == Phase.ADD) {
 			MobSpawnSettingsBuilder spawns = builder.getMobSpawnSettings();
-			MobSpawnSettings info = biome.get().getMobSettings();
+			MobSpawnSettings info = biomeHolder.get().getMobSettings();
 			final List<SpawnerData> spawnsList = spawns.getSpawner(MobCategory.MONSTER);
 			List<SpawnerData> monsterList = info.getMobs(MobCategory.MONSTER).unwrap()
 					.stream().filter(entry -> entry.type == originalType).toList();

@@ -27,12 +27,12 @@ import net.minecraft.world.level.LevelAccessor;
 
 public class MankiniCreeperEntity extends Creeper {
 
-	public MankiniCreeperEntity(EntityType<? extends MankiniCreeperEntity> type, Level worldIn) {
-		super(type, worldIn);
+	public MankiniCreeperEntity(EntityType<? extends MankiniCreeperEntity> type, Level level) {
+		super(type, level);
 	}
 
-	public MankiniCreeperEntity(Level worldIn) {
-		super(ModRegistry.MANKINI_CREEPER.get(), worldIn);
+	public MankiniCreeperEntity(Level level) {
+		super(ModRegistry.MANKINI_CREEPER.get(), level);
 	}
 
 	@Override
@@ -132,9 +132,9 @@ public class MankiniCreeperEntity extends Creeper {
 	}
 
 	@Override
-	public boolean checkSpawnRules(LevelAccessor worldIn, MobSpawnType spawnReasonIn) {
+	public boolean checkSpawnRules(LevelAccessor level, MobSpawnType spawnReasonIn) {
 		if (MankiniConfig.COMMON.MankiniCreeperSpawn.get())
-			return super.checkSpawnRules(worldIn, spawnReasonIn);
+			return super.checkSpawnRules(level, spawnReasonIn);
 		else
 			return false;
 	}
