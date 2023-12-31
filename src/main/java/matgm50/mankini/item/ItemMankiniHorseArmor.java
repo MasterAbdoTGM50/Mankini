@@ -14,7 +14,7 @@ public class ItemMankiniHorseArmor extends HorseArmorItem {
 	}
 
 	@Override
-	public void onHorseArmorTick(ItemStack stack, Level world, Mob horse) {
+	public void onHorseArmorTick(ItemStack stack, Level level, Mob horse) {
 
 	}
 }

@@ -28,6 +28,5 @@
     "recipes": [
       "mankini:dyeable_mankini"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

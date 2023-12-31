@@ -80,11 +80,11 @@ public class ModelMankiniSkeleton<T extends MankiniSkeletonEntity> extends Human
 		}
 	}
 
-	public void translateToHand(HumanoidArm sideIn, PoseStack matrixStackIn) {
+	public void translateToHand(HumanoidArm sideIn, PoseStack poseStack) {
 		float f = sideIn == HumanoidArm.RIGHT ? 1.0F : -1.0F;
-		ModelPart modelrenderer = this.getArm(sideIn);
-		modelrenderer.x += f;
-		modelrenderer.translateAndRotate(matrixStackIn);
-		modelrenderer.x -= f;
+		ModelPart modelPart = this.getArm(sideIn);
+		modelPart.x += f;
+		modelPart.translateAndRotate(poseStack);
+		modelPart.x -= f;
 	}
 }

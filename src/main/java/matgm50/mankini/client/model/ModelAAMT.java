@@ -179,9 +179,9 @@ public class ModelAAMT<T extends LivingEntity> extends HumanoidModel<T> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack matrixStackIn, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
 		this.AAMTParts().forEach((part) -> {
-			part.render(matrixStackIn, buffer, packedLight, packedOverlay);
+			part.render(poseStack, buffer, packedLight, packedOverlay);
 		});
 	}
 }

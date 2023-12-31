@@ -1,6 +1,5 @@
 package matgm50.mankini.init;
 
-import com.google.common.eventbus.Subscribe;
 import matgm50.mankini.Mankini;
 import matgm50.mankini.entity.boss.MankiniWitherEntity;
 import matgm50.mankini.entity.hostile.AbstractMankiniSkeleton;

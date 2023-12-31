@@ -23,19 +23,19 @@ public class MankiniWitherRenderer extends MobRenderer<MankiniWitherEntity, Mode
 
 	@Nullable
 	@Override
-	public ResourceLocation getTextureLocation(MankiniWitherEntity entity) {
-		int i = entity.getInvulTime();
+	public ResourceLocation getTextureLocation(MankiniWitherEntity mankiniWither) {
+		int i = mankiniWither.getInvulTime();
 		return i > 0 && (i > 80 || i / 5 % 2 != 1) ? MANKINI_WITHER_TEXTURES : MANKINI_WITHER;
 	}
 
 	@Override
-	protected void scale(MankiniWitherEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+	protected void scale(MankiniWitherEntity mankiniWither, PoseStack poseStack, float partialTickTime) {
 		float f = 2.0F;
-		int i = entitylivingbaseIn.getInvulTime();
+		int i = mankiniWither.getInvulTime();
 		if (i > 0) {
 			f -= ((float) i - partialTickTime) / 220.0F * 0.5F;
 		}
 
-		matrixStackIn.scale(f, f, f);
+		poseStack.scale(f, f, f);
 	}
 }

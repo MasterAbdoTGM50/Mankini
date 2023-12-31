@@ -21,13 +21,13 @@ public class MankiniEvokerRenderer extends EvokerRenderer<MankiniEvokerEntity> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	@Override
-	public ResourceLocation getTextureLocation(MankiniEvokerEntity entity) {
+	public ResourceLocation getTextureLocation(MankiniEvokerEntity mankiniEvoker) {
 		return MANKINI_EVOKER_ILLAGER;
 	}
 
 	@Override
-	protected void scale(MankiniEvokerEntity entitylivingbaseIn, PoseStack matrixStackIn, float partialTickTime) {
+	protected void scale(MankiniEvokerEntity mankiniEvoker, PoseStack poseStack, float partialTickTime) {
 		float f = 0.9375F;
-		matrixStackIn.scale(f, f, f);
+		poseStack.scale(f, f, f);
 	}
 }

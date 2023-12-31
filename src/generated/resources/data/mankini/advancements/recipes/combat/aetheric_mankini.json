@@ -30,6 +30,5 @@
     "recipes": [
       "mankini:aetheric_mankini"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }
