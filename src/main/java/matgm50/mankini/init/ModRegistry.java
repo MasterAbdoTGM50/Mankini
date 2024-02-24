@@ -42,8 +42,7 @@ public class ModRegistry {
 	public static final DeferredRegister<MobEffect> MOB_EFFECTS = DeferredRegister.create(Registries.MOB_EFFECT, ModLib.MOD_ID);
 
 	public static final Supplier<EntityType<MankiniCapsuleEntity>> MANKINI_CAPSULE = ENTITY_TYPES.register("mankini_capsule", () -> register("mankini_capsule", EntityType.Builder.<MankiniCapsuleEntity>of(MankiniCapsuleEntity::new, MobCategory.MISC)
-			.sized(0.25F, 0.25F)
-			.setCustomClientFactory(MankiniCapsuleEntity::new)));
+			.sized(0.25F, 0.25F)));
 	public static final Supplier<EntityType<MankiniCreeperEntity>> MANKINI_CREEPER = ENTITY_TYPES.register("mankini_creeper", () -> register("mankini_creeper", EntityType.Builder.<MankiniCreeperEntity>of(MankiniCreeperEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.7F)));
 	public static final Supplier<EntityType<MankiniEndermanEntity>> MANKINI_ENDERMAN = ENTITY_TYPES.register("mankini_enderman", () -> register("mankini_enderman", EntityType.Builder.<MankiniEndermanEntity>of(MankiniEndermanEntity::new, MobCategory.MONSTER)
@@ -58,8 +57,7 @@ public class ModRegistry {
 			.fireImmune()
 			.sized(0.9F, 3.5F)));
 	public static final Supplier<EntityType<MankiniWitherCapsuleEntity>> MANKINI_WITHER_PROJECTILE = ENTITY_TYPES.register("mankini_wither_projectile", () -> register("mankini_wither_projectile", EntityType.Builder.<MankiniWitherCapsuleEntity>of(MankiniWitherCapsuleEntity::new, MobCategory.MISC)
-			.sized(0.3125F, 0.3125F)
-			.setCustomClientFactory(MankiniWitherCapsuleEntity::new)));
+			.sized(0.3125F, 0.3125F)));
 	public static final Supplier<EntityType<MankiniEvokerEntity>> MANKINI_EVOKER = ENTITY_TYPES.register("mankini_evoker", () -> register("mankini_evoker", EntityType.Builder.<MankiniEvokerEntity>of(MankiniEvokerEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.95F)));
 

@@ -7,8 +7,6 @@ import matgm50.mankini.item.IMankini;
 import net.minecraft.core.particles.ItemParticleOption;
 import net.minecraft.core.particles.ParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -27,8 +25,6 @@ import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.network.NetworkHooks;
-import net.neoforged.neoforge.network.PlayMessages.SpawnEntity;
 
 
 public class MankiniCapsuleEntity extends ThrowableItemProjectile {
@@ -49,10 +45,6 @@ public class MankiniCapsuleEntity extends ThrowableItemProjectile {
 		super(ModRegistry.MANKINI_CAPSULE.get(), throwerIn.getX(), throwerIn.getY() + (double) throwerIn.getEyeHeight() - (double) 0.1F, throwerIn.getZ(), level);
 		this.foundMankini = foundMankini;
 		this.dropItem = drop;
-	}
-
-	public MankiniCapsuleEntity(SpawnEntity spawnEntity, Level level) {
-		this(ModRegistry.MANKINI_CAPSULE.get(), level);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -161,10 +153,5 @@ public class MankiniCapsuleEntity extends ThrowableItemProjectile {
 	@Override
 	public ItemStack getItem() {
 		return new ItemStack(ModRegistry.MANKINI_CAPSULE_ITEM.get());
-	}
-
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return (Packet<ClientGamePacketListener>) NetworkHooks.getEntitySpawningPacket(this);
 	}
 }

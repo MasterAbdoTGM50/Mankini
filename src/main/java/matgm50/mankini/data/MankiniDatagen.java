@@ -57,7 +57,7 @@ public class MankiniDatagen {
 					//super.validate(map, validationcontext);
 				}
 			});
-			generator.addProvider(event.includeServer(), new MankiniRecipeProvider(packOutput, event.getLookupProvider()));
+			generator.addProvider(event.includeServer(), new MankiniRecipeProvider(packOutput));
 		}
 		if (event.includeClient()) {
 			generator.addProvider(event.includeClient(), new MankiniLanguageProvider(packOutput));

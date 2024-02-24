@@ -22,6 +22,6 @@ side="BOTH"
 [[dependencies.mankini]]
 modId="neoforge"
 type="REQUIRED"
-versionRange="[20.4.60-beta,)"
+versionRange="[20.4.167,)"
 ordering="NONE"
 side="BOTH"

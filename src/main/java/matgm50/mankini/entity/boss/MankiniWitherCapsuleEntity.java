@@ -3,8 +3,6 @@ package matgm50.mankini.entity.boss;
 import matgm50.mankini.init.MankiniDamageTypes;
 import matgm50.mankini.init.ModRegistry;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.protocol.Packet;
-import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
@@ -29,8 +27,6 @@ import net.minecraft.world.phys.HitResult;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.event.EventHooks;
-import net.neoforged.neoforge.network.NetworkHooks;
-import net.neoforged.neoforge.network.PlayMessages.SpawnEntity;
 
 public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implements ItemSupplier {
 	private static final EntityDataAccessor<Boolean> INVULNERABLE = SynchedEntityData.defineId(MankiniWitherCapsuleEntity.class, EntityDataSerializers.BOOLEAN);
@@ -41,10 +37,6 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 
 	public MankiniWitherCapsuleEntity(Level level, LivingEntity shooter, double accelX, double accelY, double accelZ) {
 		super(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), shooter, accelX, accelY, accelZ, level);
-	}
-
-	public MankiniWitherCapsuleEntity(SpawnEntity spawnEntity, Level level) {
-		this(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), level);
 	}
 
 	@OnlyIn(Dist.CLIENT)
@@ -168,10 +160,5 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 	@Override
 	public ItemStack getItem() {
 		return new ItemStack(ModRegistry.MANKINI_CAPSULE_ITEM.get());
-	}
-
-	@Override
-	public Packet<ClientGamePacketListener> getAddEntityPacket() {
-		return (Packet<ClientGamePacketListener>) NetworkHooks.getEntitySpawningPacket(this);
 	}
 }
