@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -17,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.AbstractHurtingProjectile;
 import net.minecraft.world.entity.projectile.ItemSupplier;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
@@ -24,29 +26,24 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.phys.EntityHitResult;
 import net.minecraft.world.phys.HitResult;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import net.minecraft.world.phys.Vec3;
 import net.neoforged.neoforge.event.EventHooks;
 
 public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implements ItemSupplier {
 	private static final EntityDataAccessor<Boolean> INVULNERABLE = SynchedEntityData.defineId(MankiniWitherCapsuleEntity.class, EntityDataSerializers.BOOLEAN);
 
-	public MankiniWitherCapsuleEntity(EntityType<? extends MankiniWitherCapsuleEntity> type, Level level) {
-		super(type, level);
+	public MankiniWitherCapsuleEntity(EntityType<? extends MankiniWitherCapsuleEntity> entityType, Level level) {
+		super(entityType, level);
 	}
 
-	public MankiniWitherCapsuleEntity(Level level, LivingEntity shooter, double accelX, double accelY, double accelZ) {
-		super(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), shooter, accelX, accelY, accelZ, level);
-	}
-
-	@OnlyIn(Dist.CLIENT)
-	public MankiniWitherCapsuleEntity(Level level, double x, double y, double z, double accelX, double accelY, double accelZ) {
-		super(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), x, y, z, accelX, accelY, accelZ, level);
+	public MankiniWitherCapsuleEntity(Level level, LivingEntity owner, Vec3 movement) {
+		super(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), owner, movement, level);
 	}
 
 	/**
 	 * Return the motion factor for this projectile. The factor is multiplied by the original motion.
 	 */
+	@Override
 	protected float getInertia() {
 		return this.isMankiniInvulnerable() ? 0.73F : super.getInertia();
 	}
@@ -54,6 +51,7 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 	/**
 	 * Returns true if the entity is on fire. Used by render to add the fire effect on rendering.
 	 */
+	@Override
 	public boolean isOnFire() {
 		return false;
 	}
@@ -61,6 +59,7 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 	/**
 	 * Explosion resistance of a block relative to this entity
 	 */
+	@Override
 	public float getBlockExplosionResistance(Explosion explosionIn, BlockGetter level, BlockPos pos, BlockState blockStateIn, FluidState p_180428_5_, float p_180428_6_) {
 		return this.isMankiniInvulnerable() && blockStateIn.canEntityDestroy(level, pos, this) ? Math.min(0.8F, p_180428_6_) : p_180428_6_;
 	}
@@ -68,15 +67,17 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 	/**
 	 * Called when this EntityFireball hits a block or entity.
 	 */
+	@Override
 	protected void onHit(HitResult result) {
-		if (!this.level().isClientSide) {
+		if (this.level() instanceof ServerLevel serverlevel) {
 			if (result.getType() == HitResult.Type.ENTITY) {
 				Entity entity = ((EntityHitResult) result).getEntity();
 				Entity shooter = getOwner();
 				if (shooter instanceof LivingEntity shootingEntity) {
-					if (entity.hurt(shootingEntity.damageSources().source(MankiniDamageTypes.MANKINI_WITHER, this), 4.0F)) {
+					DamageSource source = shootingEntity.damageSources().source(MankiniDamageTypes.MANKINI_WITHER, this);
+					if (entity.hurt(source, 4.0F)) {
 						if (entity.isAlive()) {
-							this.doEnchantDamageEffects(shootingEntity, entity);
+							EnchantmentHelper.doPostAttackEffects(serverlevel, entity, source);
 						} else {
 							shootingEntity.heal(5.0F);
 						}

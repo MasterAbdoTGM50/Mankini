@@ -16,7 +16,7 @@ public class MankiniSkeletonEntity extends AbstractMankiniSkeleton {
 
 	@Override
 	public boolean checkSpawnRules(LevelAccessor level, MobSpawnType reason) {
-		if (MankiniConfig.COMMON.MankiniCreeperSpawn.get())
+		if (MankiniConfig.COMMON.MankiniSkeletonSpawn.get())
 			return super.checkSpawnRules(level, reason);
 		else
 			return false;

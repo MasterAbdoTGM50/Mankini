@@ -11,6 +11,7 @@ import net.minecraft.network.syncher.EntityDataAccessor;
 import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
@@ -220,9 +221,9 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 			if (flag && this.level().random.nextInt(4) == 0) {
 				this.level().addParticle(
 						ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, 0.7F, 0.7F, 0.5F),
-						headX + this.random.nextGaussian() * (double)f,
-						headY + this.random.nextGaussian() * (double)f,
-						headZ + this.random.nextGaussian() * (double)f,
+						headX + this.random.nextGaussian() * (double) f,
+						headY + this.random.nextGaussian() * (double) f,
+						headZ + this.random.nextGaussian() * (double) f,
 						0.0,
 						0.0,
 						0.0
@@ -237,12 +238,13 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 						.addParticle(
 								ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, 0.7F, 0.7F, 0.9F),
 								this.getX() + this.random.nextGaussian(),
-								this.getY() + (double)(this.random.nextFloat() * f3),
+								this.getY() + (double) (this.random.nextFloat() * f3),
 								this.getZ() + this.random.nextGaussian(),
 								0.0,
 								0.0,
 								0.0
-						);;
+						);
+				;
 			}
 		}
 
@@ -432,21 +434,22 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 	/**
 	 * Launches a Wither skull toward (par2, par4, par6)
 	 */
-	private void launchWitherSkullToCoords(int p_82209_1_, double x, double y, double z, boolean invulnerable) {
+	private void launchWitherSkullToCoords(int head, double x, double y, double z, boolean invulnerable) {
 		this.level().levelEvent((Player) null, 1024, blockPosition(), 0);
-		double d0 = this.getHeadX(p_82209_1_);
-		double d1 = this.getHeadY(p_82209_1_);
-		double d2 = this.getHeadZ(p_82209_1_);
+		double d0 = this.getHeadX(head);
+		double d1 = this.getHeadY(head);
+		double d2 = this.getHeadZ(head);
 		double d3 = x - d0;
 		double d4 = y - d1;
 		double d5 = z - d2;
-		MankiniWitherCapsuleEntity entityMankiniWitherCapsule = new MankiniWitherCapsuleEntity(this.level(), this, d3, d4, d5);
+		Vec3 vec3 = new Vec3(d3, d4, d5);
+		MankiniWitherCapsuleEntity witherCapsuleEntity = new MankiniWitherCapsuleEntity(this.level(), this, vec3.normalize());
 		if (invulnerable) {
-			entityMankiniWitherCapsule.setMankiniInvulnerable(true);
+			witherCapsuleEntity.setMankiniInvulnerable(true);
 		}
 
-		entityMankiniWitherCapsule.setPosRaw(d0, d1, d2);
-		this.level().addFreshEntity(entityMankiniWitherCapsule);
+		witherCapsuleEntity.setPosRaw(d0, d1, d2);
+		this.level().addFreshEntity(witherCapsuleEntity);
 	}
 
 	/**
@@ -497,13 +500,12 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 	}
 
 	@Override
-	protected void dropCustomDeathLoot(DamageSource source, int looting, boolean recentlyHitIn) {
-		super.dropCustomDeathLoot(source, looting, recentlyHitIn);
+	protected void dropCustomDeathLoot(ServerLevel level, DamageSource damageSource, boolean recentlyHit) {
+		super.dropCustomDeathLoot(level, damageSource, recentlyHit);
 		ItemEntity itementity = this.spawnAtLocation(Items.NETHER_STAR);
 		if (itementity != null) {
 			itementity.setExtendedLifetime();
 		}
-
 	}
 
 	/**
@@ -584,7 +586,7 @@ public class MankiniWitherEntity extends Monster implements PowerableMob, Ranged
 	 * Returns false if this Entity is a boss, true otherwise.
 	 */
 	@Override
-	public boolean canChangeDimensions() {
+	public boolean canChangeDimensions(Level oldLevel, Level newLevel) {
 		return false;
 	}
 

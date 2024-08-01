@@ -10,7 +10,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class MankiniCreeperRenderer extends CreeperRenderer {
-	private static final ResourceLocation MANKINI_CREEPER = new ResourceLocation(ModLib.MOD_ID, "textures/entity/mankini_creeper.png");
+	private static final ResourceLocation MANKINI_CREEPER = ModLib.modLoc("textures/entity/mankini_creeper.png");
 
 	public MankiniCreeperRenderer(Context context) {
 		super(context);

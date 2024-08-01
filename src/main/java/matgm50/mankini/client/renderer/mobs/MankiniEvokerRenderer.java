@@ -11,7 +11,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class MankiniEvokerRenderer extends EvokerRenderer<MankiniEvokerEntity> {
-	private static final ResourceLocation MANKINI_EVOKER_ILLAGER = new ResourceLocation(ModLib.MOD_ID, "textures/entity/mankini_evoker.png");
+	private static final ResourceLocation MANKINI_EVOKER_ILLAGER = ModLib.modLoc("textures/entity/mankini_evoker.png");
 
 	public MankiniEvokerRenderer(Context context) {
 		super(context);

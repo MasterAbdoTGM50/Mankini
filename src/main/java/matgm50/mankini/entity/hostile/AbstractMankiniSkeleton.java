@@ -75,7 +75,7 @@ public abstract class AbstractMankiniSkeleton extends AbstractSkeleton {
 	                                    MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn) {
 		spawnDataIn = super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn);
 		this.populateDefaultEquipmentSlots(random, difficultyIn);
-		this.populateDefaultEquipmentEnchantments(random, difficultyIn);
+		this.populateDefaultEquipmentEnchantments(level, random, difficultyIn);
 		this.setCanPickUpLoot(this.random.nextFloat() < 0.55F * difficultyIn.getSpecialMultiplier());
 		if (this.getItemBySlot(EquipmentSlot.HEAD).isEmpty()) {
 			LocalDate localdate = LocalDate.now();

@@ -15,7 +15,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class LayerMankiniWitherAura extends EnergySwirlLayer<MankiniWitherEntity, ModelMankiniWither<MankiniWitherEntity>> {
-	private static final ResourceLocation WITHER_ARMOR = new ResourceLocation(ModLib.MOD_ID, "textures/entity/mankini_wither_armor.png");
+	private static final ResourceLocation WITHER_ARMOR = ModLib.modLoc("textures/entity/mankini_wither_armor.png");
 	private final ModelMankiniWither<MankiniWitherEntity> model;
 
 	public LayerMankiniWitherAura(RenderLayerParent<MankiniWitherEntity, ModelMankiniWither<MankiniWitherEntity>> p_174554_, EntityModelSet modelSet) {

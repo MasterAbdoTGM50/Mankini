@@ -14,8 +14,8 @@ import net.minecraft.resources.ResourceLocation;
 import javax.annotation.Nullable;
 
 public class MankiniWitherRenderer extends MobRenderer<MankiniWitherEntity, ModelMankiniWither<MankiniWitherEntity>> {
-	private static final ResourceLocation MANKINI_WITHER_TEXTURES = new ResourceLocation(ModLib.MOD_ID, "textures/entity/mankini_wither_invulnerable.png");
-	private static final ResourceLocation MANKINI_WITHER = new ResourceLocation(ModLib.MOD_ID, "textures/entity/mankini_wither.png");
+	private static final ResourceLocation MANKINI_WITHER_TEXTURES = ModLib.modLoc("textures/entity/mankini_wither_invulnerable.png");
+	private static final ResourceLocation MANKINI_WITHER = ModLib.modLoc("textures/entity/mankini_wither.png");
 
 	public MankiniWitherRenderer(EntityRendererProvider.Context context) {
 		super(context, new ModelMankiniWither<>(context.bakeLayer(ClientHandler.MANKINI_WITHER)), 1.0F);

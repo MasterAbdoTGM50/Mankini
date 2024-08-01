@@ -14,9 +14,4 @@ public class ItemWitherKini extends ArmorItem implements IMankini {
 	public ItemWitherKini(Item.Properties builder) {
 		super(ModArmorMaterials.WITHER_KINI, Type.CHESTPLATE, builder.stacksTo(1));
 	}
-
-//	@Override
-//	public @Nullable ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-//		return new ResourceLocation(ModLib.MOD_ID, "textures/models/wither_kini_layer_1.png");
-//	}
 }

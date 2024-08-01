@@ -4,7 +4,6 @@ import matgm50.mankini.lib.ModLib;
 import net.minecraft.Util;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.item.ArmorItem;
@@ -34,7 +33,7 @@ public class ModArmorMaterials {
 			0.0F,
 			0.0F,
 			() -> Ingredient.of(),
-			List.of(new ArmorMaterial.Layer(new ResourceLocation(ModLib.MOD_ID, "mankini"), "", true))
+			List.of(new ArmorMaterial.Layer(ModLib.modLoc("mankini"), "", true))
 	);
 
 	public static final DeferredHolder<ArmorMaterial, ArmorMaterial> KAWAII_MANKINI = register(
@@ -51,7 +50,7 @@ public class ModArmorMaterials {
 			0.0F,
 			0.0F,
 			() -> Ingredient.of(),
-			List.of(new ArmorMaterial.Layer(new ResourceLocation(ModLib.MOD_ID, "kawaii_mankini"), "", true))
+			List.of(new ArmorMaterial.Layer(ModLib.modLoc("kawaii_mankini"), "", true))
 	);
 
 	public static final DeferredHolder<ArmorMaterial, ArmorMaterial> BATTY_MANKINI = register(
@@ -68,7 +67,7 @@ public class ModArmorMaterials {
 			0.0F,
 			0.0F,
 			() -> Ingredient.of(),
-			List.of(new ArmorMaterial.Layer(new ResourceLocation(ModLib.MOD_ID, "batty_mankini"), "", true))
+			List.of(new ArmorMaterial.Layer(ModLib.modLoc("batty_mankini"), "", true))
 	);
 
 	public static final DeferredHolder<ArmorMaterial, ArmorMaterial> WITHER_KINI = register(
@@ -85,7 +84,7 @@ public class ModArmorMaterials {
 			0.0F,
 			0.0F,
 			() -> Ingredient.of(),
-			List.of(new ArmorMaterial.Layer(new ResourceLocation(ModLib.MOD_ID, "wither_kini"), "", true))
+			List.of(new ArmorMaterial.Layer(ModLib.modLoc("wither_kini"), "", true))
 	);
 
 	private static DeferredHolder<ArmorMaterial, ArmorMaterial> register(

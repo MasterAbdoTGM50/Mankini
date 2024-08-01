@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="[3,)"
+loaderVersion="[4,)"
 issueTrackerURL="https://github.com/MasterAbdoTGM50/Mankini/issues"
 license="MIT"
 
@@ -16,12 +16,12 @@ A minecraft mod allowing you to become a mankini wearing star. What would you as
 [[dependencies.mankini]]
 modId="minecraft"
 type="required"
-versionRange="[1.20.6,1.21)"
+versionRange="[1.21,1.22)"
 ordering="NONE"
 side="BOTH"
 [[dependencies.mankini]]
 modId="neoforge"
 type="required"
-versionRange="[20.6.115,)"
+versionRange="[21.0.143,)"
 ordering="NONE"
 side="BOTH"

@@ -1,6 +1,7 @@
 package matgm50.mankini.data.server;
 
 import matgm50.mankini.init.ModRegistry;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.loot.EntityLootSubProvider;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlags;
@@ -16,8 +17,8 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 public class MankiniEntityLootProvider extends EntityLootSubProvider {
-	public MankiniEntityLootProvider() {
-		super(FeatureFlags.REGISTRY.allFlags());
+	public MankiniEntityLootProvider(HolderLookup.Provider provider) {
+		super(FeatureFlags.REGISTRY.allFlags(), provider);
 	}
 
 	@Override

@@ -32,7 +32,7 @@ public class ItemMankiniCannon extends Item {
 		if (livingEntity instanceof Player player) {
 			ItemStack mankiniStack = MankiniHelper.findMankini(player);
 
-			int i = this.getUseDuration(stack) - timeLeft;
+			int i = this.getUseDuration(stack, livingEntity) - timeLeft;
 			if (i < 0) return;
 
 			if (!mankiniStack.isEmpty() || player.getAbilities().instabuild) {
@@ -81,7 +81,7 @@ public class ItemMankiniCannon extends Item {
 	}
 
 	@Override
-	public int getUseDuration(ItemStack stack) {
+	public int getUseDuration(ItemStack stack, LivingEntity livingEntity) {
 		return 24000;
 	}
 

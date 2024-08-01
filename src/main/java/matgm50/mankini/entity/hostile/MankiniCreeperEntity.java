@@ -84,8 +84,8 @@ public class MankiniCreeperEntity extends Creeper {
 							if (MankiniConfig.COMMON.EvilCreepers.get()) {
 								playerInv.removeItemNoUpdate(38);
 								playerInv.setItem(38, creeperKini);
-								creeperKini.enchant(Enchantments.BINDING_CURSE, 1);
-								creeperKini.enchant(Enchantments.VANISHING_CURSE, 1);
+								creeperKini.enchant(level().holderOrThrow(Enchantments.BINDING_CURSE), 1);
+								creeperKini.enchant(level().holderOrThrow(Enchantments.VANISHING_CURSE), 1);
 							} else {
 								playerInv.removeItemNoUpdate(38);
 								playerInv.setItem(38, creeperKini);
@@ -95,8 +95,8 @@ public class MankiniCreeperEntity extends Creeper {
 								ItemStack oldArmour = itemstack.copy();
 								playerInv.removeItemNoUpdate(38);
 								playerInv.setItem(38, creeperKini);
-								creeperKini.enchant(Enchantments.BINDING_CURSE, 1);
-								creeperKini.enchant(Enchantments.VANISHING_CURSE, 1);
+								creeperKini.enchant(level().holderOrThrow(Enchantments.BINDING_CURSE), 1);
+								creeperKini.enchant(level().holderOrThrow(Enchantments.VANISHING_CURSE), 1);
 								if (hitPlayer.getInventory().getFreeSlot() == -1) {
 									hitPlayer.spawnAtLocation(oldArmour, 0.5F);
 								} else {

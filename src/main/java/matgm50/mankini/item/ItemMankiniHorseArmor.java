@@ -12,6 +12,6 @@ public class ItemMankiniHorseArmor extends AnimalArmorItem {
 
 	@Override
 	public ResourceLocation getTexture() {
-		return new ResourceLocation(ModLib.MOD_ID, "textures/entity/horse_armor/mankini_horse_armor.png");
+		return ModLib.modLoc("textures/entity/horse_armor/mankini_horse_armor.png");
 	}
 }

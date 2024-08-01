@@ -14,7 +14,7 @@ import net.neoforged.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class MankiniSkeletonRenderer extends HumanoidMobRenderer<MankiniSkeletonEntity, ModelMankiniSkeleton<MankiniSkeletonEntity>> {
-	private static final ResourceLocation SKELETON_TEXTURES = new ResourceLocation("textures/entity/skeleton/skeleton.png");
+	private static final ResourceLocation SKELETON_TEXTURES = ResourceLocation.withDefaultNamespace("textures/entity/skeleton/skeleton.png");
 
 	public MankiniSkeletonRenderer(EntityRendererProvider.Context context) {
 		this(context, ClientHandler.MANKINI_SKELETON, ClientHandler.MANKINI_SKELETON_INNER_ARMOR, ClientHandler.MANKINI_SKELETON_OUTER_ARMOR);
