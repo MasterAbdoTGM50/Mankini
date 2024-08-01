@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:entities/endermite"
+          "value": "minecraft:entities/endermite"
         }
       ],
       "rolls": 1.0

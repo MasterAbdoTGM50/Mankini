@@ -94,7 +94,7 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 					}
 
 					if (i > 0) {
-						((LivingEntity) entity).addEffect(new MobEffectInstance(ModRegistry.MANKINI_WITHER_EFFECT.get(), 20 * i, 1));
+						((LivingEntity) entity).addEffect(new MobEffectInstance(ModRegistry.MANKINI_WITHER_EFFECT, 20 * i, 1));
 					}
 
 					if (!this.level().isClientSide) {
@@ -115,7 +115,7 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 					}
 				}
 			}
-			Level.ExplosionInteraction explosion$mode = EventHooks.getMobGriefingEvent(this.level(), this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
+			Level.ExplosionInteraction explosion$mode = EventHooks.canEntityGrief(this.level(), this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
 			this.level().explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, explosion$mode);
 			this.discard();
 		}
@@ -135,8 +135,10 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 		return false;
 	}
 
-	protected void defineSynchedData() {
-		this.entityData.define(INVULNERABLE, false);
+	@Override
+	protected void defineSynchedData(SynchedEntityData.Builder builder) {
+		super.defineSynchedData(builder);
+		builder.define(INVULNERABLE, false);
 	}
 
 	/**

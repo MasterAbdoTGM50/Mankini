@@ -7,10 +7,10 @@ import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.living.LivingEvent.LivingJumpEvent;
 
-@Mod.EventBusSubscriber(modid = ModLib.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = ModLib.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class BatMankiniJump {
 	@SubscribeEvent
 	public static void PlayerJump(LivingJumpEvent event) {

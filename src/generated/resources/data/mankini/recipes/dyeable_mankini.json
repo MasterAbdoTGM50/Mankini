@@ -3,7 +3,7 @@
   "category": "equipment",
   "key": {
     "X": {
-      "tag": "forge:leather"
+      "tag": "c:leathers"
     }
   },
   "pattern": [
@@ -12,6 +12,7 @@
     " X "
   ],
   "result": {
-    "item": "mankini:dyeable_mankini"
+    "count": 1,
+    "id": "mankini:dyeable_mankini"
   }
 }

@@ -3,28 +3,28 @@
   "category": "equipment",
   "key": {
     "1": {
-      "tag": "forge:dyes/magenta"
+      "tag": "c:dyes/magenta"
     },
     "2": {
-      "tag": "forge:dyes/purple"
+      "tag": "c:dyes/purple"
     },
     "3": {
-      "tag": "forge:dyes/blue"
+      "tag": "c:dyes/blue"
     },
     "4": {
-      "tag": "forge:dyes/green"
+      "tag": "c:dyes/green"
     },
     "5": {
-      "tag": "forge:dyes/yellow"
+      "tag": "c:dyes/yellow"
     },
     "6": {
-      "tag": "forge:dyes/orange"
+      "tag": "c:dyes/orange"
     },
     "7": {
-      "tag": "forge:dyes/red"
+      "tag": "c:dyes/red"
     },
     "X": {
-      "tag": "forge:leather"
+      "tag": "c:leathers"
     }
   },
   "pattern": [
@@ -33,6 +33,7 @@
     "345"
   ],
   "result": {
-    "item": "mankini:kawaii_mankini"
+    "count": 1,
+    "id": "mankini:kawaii_mankini"
   }
 }

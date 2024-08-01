@@ -3,7 +3,7 @@ package matgm50.mankini.entity.hostile;
 import matgm50.mankini.entity.ai.EntityAIMankiniTarget;
 import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.ModRegistry;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.Holder;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.effect.MobEffect;
@@ -42,10 +42,6 @@ public class MankiniSpiderEntity extends Spider {
 		super(type, level);
 	}
 
-	public MankiniSpiderEntity(Level level) {
-		super(ModRegistry.MANKINI_SPIDER.get(), level);
-	}
-
 	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(1, new FloatGoal(this));
@@ -65,26 +61,27 @@ public class MankiniSpiderEntity extends Spider {
 
 	@Nullable
 	@Override
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-		spawnDataIn = super.finalizeSpawn(serverLevelAccessor, difficultyIn, reason, spawnDataIn, dataTag);
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor serverLevelAccessor, DifficultyInstance difficultyIn,
+	                                    MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn) {
+		spawnDataIn = super.finalizeSpawn(serverLevelAccessor, difficultyIn, reason, spawnDataIn);
 		ItemStack creeperKini = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
 
 		if (random.nextInt(100) == 0) {
 			Mob entitySkeleton = new Skeleton(EntityType.SKELETON, serverLevelAccessor.getLevel());
 
 			if (random.nextInt(20) < 5) {
-				entitySkeleton = new MankiniSkeletonEntity(serverLevelAccessor.getLevel());
+				entitySkeleton = new MankiniSkeletonEntity(ModRegistry.MANKINI_SKELETON.get(), serverLevelAccessor.getLevel());
 			}
 
 			entitySkeleton.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
-			EventHooks.onFinalizeSpawn(entitySkeleton, serverLevelAccessor, difficultyIn, reason, (SpawnGroupData) null, (CompoundTag) null);
+			EventHooks.finalizeMobSpawn(entitySkeleton, serverLevelAccessor, difficultyIn, reason, (SpawnGroupData) null);
 			entitySkeleton.setItemSlot(EquipmentSlot.CHEST, creeperKini);
 			serverLevelAccessor.addFreshEntity(entitySkeleton);
 			entitySkeleton.startRiding(this);
 		} else if (random.nextInt(100) < 10) {
-			MankiniCreeperEntity mankiniCreeper = new MankiniCreeperEntity(serverLevelAccessor.getLevel());
+			MankiniCreeperEntity mankiniCreeper = new MankiniCreeperEntity(ModRegistry.MANKINI_CREEPER.get(), serverLevelAccessor.getLevel());
 			mankiniCreeper.moveTo(this.getX(), this.getY(), this.getZ(), this.getYRot(), 0.0F);
-			EventHooks.onFinalizeSpawn(mankiniCreeper, serverLevelAccessor, difficultyIn, reason, (SpawnGroupData) null, (CompoundTag) null);
+			EventHooks.finalizeMobSpawn(mankiniCreeper, serverLevelAccessor, difficultyIn, reason, (SpawnGroupData) null);
 			mankiniCreeper.setItemSlot(EquipmentSlot.CHEST, creeperKini);
 			serverLevelAccessor.addFreshEntity(mankiniCreeper);
 			mankiniCreeper.startRiding(this);
@@ -97,8 +94,8 @@ public class MankiniSpiderEntity extends Spider {
 			}
 		}
 
-		if (spawnDataIn instanceof Spider.SpiderEffectsGroupData) {
-			MobEffect potion = ((Spider.SpiderEffectsGroupData) spawnDataIn).effect;
+		if (spawnDataIn instanceof MankiniSpiderEntity.GroupData) {
+			Holder<MobEffect> potion = ((MankiniSpiderEntity.GroupData) spawnDataIn).effect;
 			if (potion != null) {
 				this.addEffect(new MobEffectInstance(potion, Integer.MAX_VALUE));
 			}
@@ -146,7 +143,7 @@ public class MankiniSpiderEntity extends Spider {
 	}
 
 	public static class GroupData implements SpawnGroupData {
-		public MobEffect effect;
+		public Holder<MobEffect> effect;
 
 		public void setRandomEffect(Random rand) {
 			int i = rand.nextInt(5);

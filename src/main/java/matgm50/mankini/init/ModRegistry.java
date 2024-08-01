@@ -29,6 +29,7 @@ import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.common.DeferredSpawnEggItem;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -61,7 +62,7 @@ public class ModRegistry {
 	public static final Supplier<EntityType<MankiniEvokerEntity>> MANKINI_EVOKER = ENTITY_TYPES.register("mankini_evoker", () -> register("mankini_evoker", EntityType.Builder.<MankiniEvokerEntity>of(MankiniEvokerEntity::new, MobCategory.MONSTER)
 			.sized(0.6F, 1.95F)));
 
-	public static final Supplier<MankiniWitherPotion> MANKINI_WITHER_EFFECT = MOB_EFFECTS.register("mankini_wither", () -> new MankiniWitherPotion());
+	public static final DeferredHolder<MobEffect, MankiniWitherPotion> MANKINI_WITHER_EFFECT = MOB_EFFECTS.register("mankini_wither", () -> new MankiniWitherPotion());
 
 	public static final DeferredItem<ItemDyeableMankini> DYEABLE_MANKINI = ITEMS.register("dyeable_mankini", () -> new ItemDyeableMankini((new Item.Properties())));
 	public static final DeferredItem<ItemKawaiiMankini> KAWAII_MANKINI = ITEMS.register("kawaii_mankini", () -> new ItemKawaiiMankini((new Item.Properties())));

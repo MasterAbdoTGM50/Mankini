@@ -6,6 +6,7 @@ import matgm50.mankini.client.layers.LayerMankiniWitherAura;
 import matgm50.mankini.client.model.ModelMankiniWither;
 import matgm50.mankini.entity.boss.MankiniWitherEntity;
 import matgm50.mankini.lib.ModLib;
+import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.resources.ResourceLocation;
@@ -37,5 +38,10 @@ public class MankiniWitherRenderer extends MobRenderer<MankiniWitherEntity, Mode
 		}
 
 		poseStack.scale(f, f, f);
+	}
+
+	@Override
+	public void render(MankiniWitherEntity p_entity, float entityYaw, float partialTicks, PoseStack poseStack, MultiBufferSource buffer, int packedLight) {
+		super.render(p_entity, entityYaw, partialTicks, poseStack, buffer, 15728880);
 	}
 }

@@ -27,7 +27,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:entities/evoker"
+          "value": "minecraft:entities/evoker"
         }
       ],
       "rolls": 1.0

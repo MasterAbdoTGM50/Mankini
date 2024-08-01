@@ -2,13 +2,16 @@ package matgm50.mankini.item;
 
 import matgm50.mankini.client.ClientHandler;
 import matgm50.mankini.client.model.ModelAAMT;
+import matgm50.mankini.lib.ModLib;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.LazyLoadedValue;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -40,14 +43,15 @@ public class ItemAAMT extends ArmorItem implements IMankini {
 		return EquipmentSlot.CHEST;
 	}
 
+	@Nullable
 	@Override
-	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-		return "mankini:textures/models/aetheric_mankini.png";
+	public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
+		return new ResourceLocation(ModLib.MOD_ID, "textures/models/aetheric_mankini.png");
 	}
 
 	@OnlyIn(Dist.CLIENT)
 	public HumanoidModel<?> provideArmorModelForSlot() {
-		return new ModelAAMT(Minecraft.getInstance().getEntityModels().bakeLayer(ClientHandler.AAMT));
+		return new ModelAAMT<>(Minecraft.getInstance().getEntityModels().bakeLayer(ClientHandler.AAMT));
 	}
 
 	@Override

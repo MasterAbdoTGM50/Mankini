@@ -3,16 +3,16 @@
   "category": "equipment",
   "key": {
     "B": {
-      "tag": "forge:dyes/blue"
+      "tag": "c:dyes/blue"
     },
     "D": {
       "item": "minecraft:dispenser"
     },
     "I": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "R": {
-      "tag": "forge:dyes/red"
+      "tag": "c:dyes/red"
     }
   },
   "pattern": [
@@ -21,6 +21,7 @@
     "IID"
   ],
   "result": {
-    "item": "mankini:mankini_cannon"
+    "count": 1,
+    "id": "mankini:mankini_cannon"
   }
 }

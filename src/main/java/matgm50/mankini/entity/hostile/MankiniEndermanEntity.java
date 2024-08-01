@@ -1,7 +1,6 @@
 package matgm50.mankini.entity.hostile;
 
 import matgm50.mankini.init.MankiniConfig;
-import matgm50.mankini.init.ModRegistry;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -14,10 +13,6 @@ public class MankiniEndermanEntity extends EnderMan {
 
 	public MankiniEndermanEntity(EntityType<? extends MankiniEndermanEntity> type, Level level) {
 		super(type, level);
-	}
-
-	public MankiniEndermanEntity(Level level) {
-		super(ModRegistry.MANKINI_ENDERMAN.get(), level);
 	}
 
 	public static AttributeSupplier.Builder registerAttributes() {

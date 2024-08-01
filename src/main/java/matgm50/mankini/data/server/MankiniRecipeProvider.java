@@ -1,6 +1,7 @@
 package matgm50.mankini.data.server;
 
 import matgm50.mankini.init.ModRegistry;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
@@ -9,9 +10,11 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 
+import java.util.concurrent.CompletableFuture;
+
 public class MankiniRecipeProvider extends RecipeProvider {
-	public MankiniRecipeProvider(PackOutput packOutput) {
-		super(packOutput);
+	public MankiniRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+		super(packOutput, lookupProvider);
 	}
 
 	@Override
@@ -34,8 +37,8 @@ public class MankiniRecipeProvider extends RecipeProvider {
 				.pattern("X X")
 				.pattern("X X")
 				.pattern(" X ")
-				.define('X', Tags.Items.LEATHER)
-				.unlockedBy("has_leather", has(Tags.Items.LEATHER))
+				.define('X', Tags.Items.LEATHERS)
+				.unlockedBy("has_leather", has(Tags.Items.LEATHERS))
 				.save(recipeOutput);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModRegistry.KAWAII_MANKINI.get())
@@ -49,8 +52,8 @@ public class MankiniRecipeProvider extends RecipeProvider {
 				.define('5', Tags.Items.DYES_YELLOW)
 				.define('6', Tags.Items.DYES_ORANGE)
 				.define('7', Tags.Items.DYES_RED)
-				.define('X', Tags.Items.LEATHER)
-				.unlockedBy("has_leather", has(Tags.Items.LEATHER))
+				.define('X', Tags.Items.LEATHERS)
+				.unlockedBy("has_leather", has(Tags.Items.LEATHERS))
 				.save(recipeOutput);
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModRegistry.MANKINI_CANNON.get())

@@ -49,7 +49,7 @@ public class MankiniCapsuleEntity extends ThrowableItemProjectile {
 
 	@OnlyIn(Dist.CLIENT)
 	private ParticleOptions getParticle() {
-		ItemStack itemstack = this.getItemRaw();
+		ItemStack itemstack = this.getItem();
 		return (ParticleOptions) (itemstack.isEmpty() ? ParticleTypes.CRIT : new ItemParticleOption(ParticleTypes.ITEM, itemstack));
 	}
 
@@ -97,38 +97,44 @@ public class MankiniCapsuleEntity extends ThrowableItemProjectile {
 						this.discard();
 						this.level().addFreshEntity(mankiniWither);
 					} else if (MankiniConfig.COMMON.ShootMankinisOntoMobs.get()) {
-						if (hit instanceof Zombie hitZombie) {
-							ItemStack chestStack = hitZombie.getItemBySlot(EquipmentSlot.CHEST);
+						switch (hit) {
+							case Zombie hitZombie -> {
+								ItemStack chestStack = hitZombie.getItemBySlot(EquipmentSlot.CHEST);
 
-							if (chestStack.isEmpty()) {
-								hitZombie.setItemSlot(EquipmentSlot.CHEST, foundMankini);
-								hitZombie.setDropChance(EquipmentSlot.CHEST, 1F);
-							} else {
-								if (dropItem) {
-									this.spawnAtLocation(foundMankini, 0.5F);
+								if (chestStack.isEmpty()) {
+									hitZombie.setItemSlot(EquipmentSlot.CHEST, foundMankini);
+									hitZombie.setDropChance(EquipmentSlot.CHEST, 1F);
+								} else {
+									if (dropItem) {
+										this.spawnAtLocation(foundMankini, 0.5F);
+									}
 								}
 							}
-						} else if (hit instanceof Skeleton hitSkeleton) {
-							ItemStack chestStack = hitSkeleton.getItemBySlot(EquipmentSlot.CHEST);
+							case Skeleton hitSkeleton -> {
+								ItemStack chestStack = hitSkeleton.getItemBySlot(EquipmentSlot.CHEST);
 
-							if (chestStack.isEmpty()) {
-								hitSkeleton.setItemSlot(EquipmentSlot.CHEST, foundMankini);
-								hitSkeleton.setDropChance(EquipmentSlot.CHEST, 1F);
-							} else {
-								if (dropItem) {
-									this.spawnAtLocation(foundMankini, 0.5F);
+								if (chestStack.isEmpty()) {
+									hitSkeleton.setItemSlot(EquipmentSlot.CHEST, foundMankini);
+									hitSkeleton.setDropChance(EquipmentSlot.CHEST, 1F);
+								} else {
+									if (dropItem) {
+										this.spawnAtLocation(foundMankini, 0.5F);
+									}
 								}
 							}
-						} else if (hit instanceof Piglin hitPiglin) {
-							ItemStack chestStack = hitPiglin.getItemBySlot(EquipmentSlot.CHEST);
+							case Piglin hitPiglin -> {
+								ItemStack chestStack = hitPiglin.getItemBySlot(EquipmentSlot.CHEST);
 
-							if (chestStack.isEmpty()) {
-								hitPiglin.setItemSlot(EquipmentSlot.CHEST, foundMankini);
-								hitPiglin.setDropChance(EquipmentSlot.CHEST, 1F);
-							} else {
-								if (dropItem) {
-									this.spawnAtLocation(foundMankini, 0.5F);
+								if (chestStack.isEmpty()) {
+									hitPiglin.setItemSlot(EquipmentSlot.CHEST, foundMankini);
+									hitPiglin.setDropChance(EquipmentSlot.CHEST, 1F);
+								} else {
+									if (dropItem) {
+										this.spawnAtLocation(foundMankini, 0.5F);
+									}
 								}
+							}
+							default -> {
 							}
 						}
 					}

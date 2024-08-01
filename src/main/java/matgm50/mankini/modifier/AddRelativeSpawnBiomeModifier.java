@@ -1,6 +1,6 @@
 package matgm50.mankini.modifier;
 
-import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import matgm50.mankini.init.MankiniModifiers;
 import net.minecraft.core.Holder;
 import net.minecraft.world.entity.EntityType;
@@ -31,7 +31,7 @@ public record AddRelativeSpawnBiomeModifier(EntityType<?> originalType,
 	}
 
 	@Override
-	public Codec<? extends BiomeModifier> codec() {
+	public MapCodec<? extends BiomeModifier> codec() {
 		return MankiniModifiers.ADD_RELATIVE_MOB_SPAWNS.get();
 	}
 }

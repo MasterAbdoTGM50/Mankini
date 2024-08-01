@@ -9,7 +9,7 @@
       "item": "minecraft:clay"
     },
     "D": {
-      "tag": "forge:storage_blocks/diamond"
+      "tag": "c:storage_blocks/diamond"
     },
     "E": {
       "item": "minecraft:elytra"
@@ -18,7 +18,7 @@
       "item": "mankini:mankini_bat"
     },
     "O": {
-      "tag": "forge:ores/emerald"
+      "tag": "c:ores/emerald"
     },
     "W": {
       "item": "mankini:mankini_wither"
@@ -30,6 +30,7 @@
     "CWO"
   ],
   "result": {
-    "item": "mankini:aetheric_mankini"
+    "count": 1,
+    "id": "mankini:aetheric_mankini"
   }
 }

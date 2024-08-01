@@ -13,8 +13,8 @@ public class MankiniWitherPotion extends MobEffect {
 	}
 
 	@Override
-	public void applyEffectTick(LivingEntity livingEntity, int amplifier) {
-		livingEntity.hurt(livingEntity.damageSources().source(MankiniDamageTypes.MANKINI_WITHER), 1.0F);
+	public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
+		return livingEntity.hurt(livingEntity.damageSources().source(MankiniDamageTypes.MANKINI_WITHER), 1.0F);
 	}
 
 	@Override

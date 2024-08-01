@@ -9,7 +9,6 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
@@ -23,7 +22,7 @@ public class MankiniSkeletonRenderer extends HumanoidMobRenderer<MankiniSkeleton
 
 	public MankiniSkeletonRenderer(EntityRendererProvider.Context context, ModelLayerLocation layerLocation, ModelLayerLocation layerLocation1, ModelLayerLocation layerLocation2) {
 		super(context, new ModelMankiniSkeleton<>(context.bakeLayer(layerLocation)), 0.5F);
-		this.addLayer(new HumanoidArmorLayer<>(this, new SkeletonModel(context.bakeLayer(layerLocation1)), new SkeletonModel(context.bakeLayer(layerLocation2)), context.getModelManager()));
+		this.addLayer(new HumanoidArmorLayer<>(this, new SkeletonModel<>(context.bakeLayer(layerLocation1)), new SkeletonModel<>(context.bakeLayer(layerLocation2)), context.getModelManager()));
 	}
 
 	/**
@@ -34,7 +33,8 @@ public class MankiniSkeletonRenderer extends HumanoidMobRenderer<MankiniSkeleton
 		return SKELETON_TEXTURES;
 	}
 
-	protected boolean isShaking(AbstractSkeleton p_174389_) {
-		return p_174389_.isShaking();
+	@Override
+	protected boolean isShaking(MankiniSkeletonEntity entity) {
+		return super.isShaking(entity);
 	}
 }

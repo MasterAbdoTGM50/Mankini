@@ -19,7 +19,9 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.component.DyedItemColor;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
+import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 
 public class ClientHandler {
 	public static final ModelLayerLocation MANKINI_WITHER = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "main"), "wither");
@@ -28,6 +30,13 @@ public class ClientHandler {
 	public static final ModelLayerLocation MANKINI_SKELETON_INNER_ARMOR = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "inner_armor"), "skeleton");
 	public static final ModelLayerLocation MANKINI_SKELETON_OUTER_ARMOR = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "outer_armor"), "skeleton");
 	public static final ModelLayerLocation AAMT = new ModelLayerLocation(new ResourceLocation(ModLib.MOD_ID, "main"), "aamt");
+
+	public static void onColorHandler(RegisterColorHandlersEvent.Item event) {
+		event.register(
+				(stack, tintIndex) -> tintIndex > 0 ? -1 : DyedItemColor.getOrDefault(stack, -6265536),
+				ModRegistry.DYEABLE_MANKINI
+		);
+	}
 
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
 		event.registerEntityRenderer(ModRegistry.MANKINI_CAPSULE.get(), ThrownItemRenderer::new);
@@ -44,9 +53,9 @@ public class ClientHandler {
 	public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
 		event.registerLayerDefinition(MANKINI_WITHER, () -> ModelMankiniWither.createBodyLayer(CubeDeformation.NONE));
 		event.registerLayerDefinition(MANKINI_WITHER_ARMOR, () -> ModelMankiniWither.createBodyLayer(LayerDefinitions.INNER_ARMOR_DEFORMATION));
-		event.registerLayerDefinition(MANKINI_SKELETON, () -> ModelMankiniSkeleton.createBodyLayer());
+		event.registerLayerDefinition(MANKINI_SKELETON, ModelMankiniSkeleton::createBodyLayer);
 		event.registerLayerDefinition(MANKINI_SKELETON_INNER_ARMOR, () -> LayerDefinition.create(HumanoidModel.createMesh(LayerDefinitions.INNER_ARMOR_DEFORMATION, 0.0F), 64, 32));
 		event.registerLayerDefinition(MANKINI_SKELETON_OUTER_ARMOR, () -> LayerDefinition.create(HumanoidModel.createMesh(LayerDefinitions.OUTER_ARMOR_DEFORMATION, 0.0F), 64, 32));
-		event.registerLayerDefinition(AAMT, () -> ModelAAMT.createMesh());
+		event.registerLayerDefinition(AAMT, ModelAAMT::createMesh);
 	}
 }

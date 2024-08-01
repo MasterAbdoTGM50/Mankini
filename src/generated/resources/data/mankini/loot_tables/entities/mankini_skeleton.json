@@ -27,7 +27,7 @@
       "entries": [
         {
           "type": "minecraft:loot_table",
-          "name": "minecraft:entities/skeleton"
+          "value": "minecraft:entities/skeleton"
         }
       ],
       "rolls": 1.0

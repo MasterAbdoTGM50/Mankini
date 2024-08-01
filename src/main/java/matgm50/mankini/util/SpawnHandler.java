@@ -6,13 +6,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.monster.Endermite;
 import net.minecraft.world.level.Level;
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.event.entity.living.MobSpawnEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.living.FinalizeSpawnEvent;
 
-@Mod.EventBusSubscriber(modid = ModLib.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@EventBusSubscriber(modid = ModLib.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
 public class SpawnHandler {
 	@SubscribeEvent
-	public static void EntitySpawnEvent(MobSpawnEvent.FinalizeSpawn event) {
+	public static void EntitySpawnEvent(FinalizeSpawnEvent event) {
 		final Entity entity = event.getEntity();
 		Level level = entity.level();
 		if (entity instanceof Endermite && !(entity instanceof MankiniEndermiteEntity)) {

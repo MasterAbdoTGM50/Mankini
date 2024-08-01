@@ -34,13 +34,10 @@ public class MankiniEvokerEntity extends SpellcasterIllager {
 
 	public MankiniEvokerEntity(EntityType<? extends MankiniEvokerEntity> type, Level level) {
 		super(type, level);
-	}
-
-	public MankiniEvokerEntity(Level level) {
-		super(ModRegistry.MANKINI_EVOKER.get(), level);
 		this.xpReward = 6;
 	}
 
+	@Override
 	protected void registerGoals() {
 		super.registerGoals();
 		this.goalSelector.addGoal(0, new FloatGoal(this));
@@ -127,6 +124,7 @@ public class MankiniEvokerEntity extends SpellcasterIllager {
 		/**
 		 * Returns whether the EntityAIBase should begin execution.
 		 */
+		@Override
 		public boolean canUse() {
 			if (MankiniEvokerEntity.this.getTarget() != null) {
 				return false;
@@ -134,7 +132,7 @@ public class MankiniEvokerEntity extends SpellcasterIllager {
 				return false;
 			} else if (MankiniEvokerEntity.this.tickCount < this.nextAttackTickCount) {
 				return false;
-			} else if (!EventHooks.getMobGriefingEvent(MankiniEvokerEntity.this.level(), MankiniEvokerEntity.this)) {
+			} else if (!EventHooks.canEntityGrief(MankiniEvokerEntity.this.level(), MankiniEvokerEntity.this)) {
 				return false;
 			} else {
 				List<Player> list = MankiniEvokerEntity.this.level().getEntitiesOfClass(Player.class, MankiniEvokerEntity.this.getBoundingBox().inflate(16.0D, 4.0D, 16.0D), this.wololoSelector);
@@ -150,6 +148,7 @@ public class MankiniEvokerEntity extends SpellcasterIllager {
 		/**
 		 * Returns whether an in-progress EntityAIBase should continue executing
 		 */
+		@Override
 		public boolean canContinueToUse() {
 			return MankiniEvokerEntity.this.getWololoTarget() != null && this.attackWarmupDelay > 0;
 		}
@@ -157,11 +156,13 @@ public class MankiniEvokerEntity extends SpellcasterIllager {
 		/**
 		 * Reset the task's internal state. Called when this task is interrupted by another one
 		 */
+		@Override
 		public void stop() {
 			super.stop();
 			MankiniEvokerEntity.this.setWololoTarget((Player) null);
 		}
 
+		@Override
 		protected void performSpellCasting() {
 			Player targetPlayer = MankiniEvokerEntity.this.getWololoTarget();
 			if (targetPlayer != null && targetPlayer.isAlive()) {
@@ -187,22 +188,27 @@ public class MankiniEvokerEntity extends SpellcasterIllager {
 
 		}
 
+		@Override
 		protected int getCastWarmupTime() {
 			return 40;
 		}
 
+		@Override
 		protected int getCastingTime() {
 			return 60;
 		}
 
+		@Override
 		protected int getCastingInterval() {
 			return 140;
 		}
 
+		@Override
 		protected SoundEvent getSpellPrepareSound() {
 			return SoundEvents.EVOKER_PREPARE_WOLOLO;
 		}
 
+		@Override
 		protected SpellcasterIllager.IllagerSpell getSpell() {
 			return SpellcasterIllager.IllagerSpell.WOLOLO;
 		}

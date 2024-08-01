@@ -4,7 +4,6 @@ import matgm50.mankini.entity.ai.EntityAIMankiniCannon;
 import matgm50.mankini.entity.ai.EntityAIMankiniTarget;
 import matgm50.mankini.entity.projectiles.MankiniCapsuleEntity;
 import matgm50.mankini.init.ModRegistry;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
@@ -39,15 +38,16 @@ import java.time.temporal.ChronoField;
 
 public abstract class AbstractMankiniSkeleton extends AbstractSkeleton {
 
-	protected AbstractMankiniSkeleton(EntityType<? extends AbstractMankiniSkeleton> type, Level p_i48555_2_) {
-		super(type, p_i48555_2_);
+	protected AbstractMankiniSkeleton(EntityType<? extends AbstractMankiniSkeleton> type, Level level) {
+		super(type, level);
 	}
 
+	@Override
 	protected void registerGoals() {
 		this.goalSelector.addGoal(2, new RestrictSunGoal(this));
 		this.goalSelector.addGoal(3, new FleeSunGoal(this, 1.0D));
 		this.goalSelector.addGoal(3, new AvoidEntityGoal<>(this, Wolf.class, 6.0F, 1.0D, 1.2D));
-		this.goalSelector.addGoal(4, new EntityAIMankiniCannon<AbstractMankiniSkeleton>(this, 1.0D, 40, 15.0F));
+		this.goalSelector.addGoal(4, new EntityAIMankiniCannon<>(this, 1.0D, 40, 15.0F));
 		this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
 		this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
 		this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
@@ -63,14 +63,17 @@ public abstract class AbstractMankiniSkeleton extends AbstractSkeleton {
 	/**
 	 * Gives armor or weapon for entity based on given DifficultyInstance
 	 */
+	@Override
 	protected void populateDefaultEquipmentSlots(RandomSource random, DifficultyInstance difficulty) {
 		this.setItemSlot(EquipmentSlot.CHEST, new ItemStack(ModRegistry.DYEABLE_MANKINI.get()));
 		this.setItemSlot(EquipmentSlot.MAINHAND, new ItemStack(ModRegistry.MANKINI_CANNON.get()));
 	}
 
+	@Override
 	@Nullable
-	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn, MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn, @Nullable CompoundTag dataTag) {
-		spawnDataIn = super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn, dataTag);
+	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn,
+	                                    MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn) {
+		spawnDataIn = super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn);
 		this.populateDefaultEquipmentSlots(random, difficultyIn);
 		this.populateDefaultEquipmentEnchantments(random, difficultyIn);
 		this.setCanPickUpLoot(this.random.nextFloat() < 0.55F * difficultyIn.getSpecialMultiplier());
@@ -90,8 +93,9 @@ public abstract class AbstractMankiniSkeleton extends AbstractSkeleton {
 	/**
 	 * Attack the specified entity using a ranged attack.
 	 */
+	@Override
 	public void performRangedAttack(LivingEntity target, float distanceFactor) {
-		MankiniCapsuleEntity entityCapsule = this.getCapsule(distanceFactor);
+		MankiniCapsuleEntity entityCapsule = this.getCapsule();
 		double d0 = target.getX() - this.getX();
 		double d1 = target.getY(0.3333333333333333D) - entityCapsule.getY();
 		double d2 = target.getZ() - this.getZ();
@@ -101,7 +105,7 @@ public abstract class AbstractMankiniSkeleton extends AbstractSkeleton {
 		this.level().addFreshEntity(entityCapsule);
 	}
 
-	protected MankiniCapsuleEntity getCapsule(float unusedFloat) {
+	protected MankiniCapsuleEntity getCapsule() {
 		ItemStack stack = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
 		stack.setDamageValue(this.random.nextInt(stack.getMaxDamage()));
 		return new MankiniCapsuleEntity(this.level(), this, stack, false);

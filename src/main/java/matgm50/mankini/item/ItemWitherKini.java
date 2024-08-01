@@ -1,11 +1,8 @@
 package matgm50.mankini.item;
 
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EquipmentSlot;
+import matgm50.mankini.init.ModArmorMaterials;
 import net.minecraft.world.item.ArmorItem;
-import net.minecraft.world.item.ArmorMaterials;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 
 
 /**
@@ -15,11 +12,11 @@ import net.minecraft.world.item.ItemStack;
 public class ItemWitherKini extends ArmorItem implements IMankini {
 
 	public ItemWitherKini(Item.Properties builder) {
-		super(ArmorMaterials.IRON, Type.CHESTPLATE, builder.stacksTo(1));
+		super(ModArmorMaterials.WITHER_KINI, Type.CHESTPLATE, builder.stacksTo(1));
 	}
 
-	@Override
-	public String getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, String type) {
-		return "mankini:textures/models/wither_kini.png";
-	}
+//	@Override
+//	public @Nullable ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
+//		return new ResourceLocation(ModLib.MOD_ID, "textures/models/wither_kini_layer_1.png");
+//	}
 }

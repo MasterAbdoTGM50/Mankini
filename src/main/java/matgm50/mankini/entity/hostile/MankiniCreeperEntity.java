@@ -31,10 +31,6 @@ public class MankiniCreeperEntity extends Creeper {
 		super(type, level);
 	}
 
-	public MankiniCreeperEntity(Level level) {
-		super(ModRegistry.MANKINI_CREEPER.get(), level);
-	}
-
 	@Override
 	public EntityType<?> getType() {
 		return ModRegistry.MANKINI_CREEPER.get();

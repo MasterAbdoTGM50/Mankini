@@ -1,7 +1,6 @@
 package matgm50.mankini.entity.hostile;
 
 import matgm50.mankini.init.MankiniConfig;
-import matgm50.mankini.init.ModRegistry;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EntityType;
@@ -13,10 +12,6 @@ public class MankiniSkeletonEntity extends AbstractMankiniSkeleton {
 
 	public MankiniSkeletonEntity(EntityType<? extends MankiniSkeletonEntity> type, Level level) {
 		super(type, level);
-	}
-
-	public MankiniSkeletonEntity(Level level) {
-		super(ModRegistry.MANKINI_SKELETON.get(), level);
 	}
 
 	@Override
