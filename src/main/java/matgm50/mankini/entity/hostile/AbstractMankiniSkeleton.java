@@ -2,15 +2,15 @@ package matgm50.mankini.entity.hostile;
 
 import matgm50.mankini.entity.ai.EntityAIMankiniCannon;
 import matgm50.mankini.entity.ai.EntityAIMankiniTarget;
-import matgm50.mankini.entity.projectiles.MankiniCapsuleEntity;
+import matgm50.mankini.entity.projectiles.MankiniCapsule;
 import matgm50.mankini.init.ModRegistry;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.entity.EntitySpawnReason;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.MobSpawnType;
 import net.minecraft.world.entity.SpawnGroupData;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
@@ -22,7 +22,7 @@ import net.minecraft.world.entity.ai.goal.RestrictSunGoal;
 import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.animal.IronGolem;
-import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.animal.wolf.Wolf;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.monster.AbstractSkeleton;
 import net.minecraft.world.entity.monster.Monster;
@@ -72,7 +72,7 @@ public abstract class AbstractMankiniSkeleton extends AbstractSkeleton {
 	@Override
 	@Nullable
 	public SpawnGroupData finalizeSpawn(ServerLevelAccessor level, DifficultyInstance difficultyIn,
-	                                    MobSpawnType reason, @Nullable SpawnGroupData spawnDataIn) {
+	                                    EntitySpawnReason reason, @Nullable SpawnGroupData spawnDataIn) {
 		spawnDataIn = super.finalizeSpawn(level, difficultyIn, reason, spawnDataIn);
 		this.populateDefaultEquipmentSlots(random, difficultyIn);
 		this.populateDefaultEquipmentEnchantments(level, random, difficultyIn);
@@ -83,7 +83,7 @@ public abstract class AbstractMankiniSkeleton extends AbstractSkeleton {
 			int j = localdate.get(ChronoField.MONTH_OF_YEAR);
 			if (j == 10 && i == 31 && this.random.nextFloat() < 0.25F) {
 				this.setItemSlot(EquipmentSlot.HEAD, new ItemStack(this.random.nextFloat() < 0.1F ? Blocks.JACK_O_LANTERN : Blocks.CARVED_PUMPKIN));
-				this.armorDropChances[EquipmentSlot.HEAD.getIndex()] = 0.0F;
+				this.setDropChance(EquipmentSlot.HEAD, 0.0F);
 			}
 		}
 
@@ -95,7 +95,7 @@ public abstract class AbstractMankiniSkeleton extends AbstractSkeleton {
 	 */
 	@Override
 	public void performRangedAttack(LivingEntity target, float distanceFactor) {
-		MankiniCapsuleEntity entityCapsule = this.getCapsule();
+		MankiniCapsule entityCapsule = this.getCapsule();
 		double d0 = target.getX() - this.getX();
 		double d1 = target.getY(0.3333333333333333D) - entityCapsule.getY();
 		double d2 = target.getZ() - this.getZ();
@@ -105,9 +105,9 @@ public abstract class AbstractMankiniSkeleton extends AbstractSkeleton {
 		this.level().addFreshEntity(entityCapsule);
 	}
 
-	protected MankiniCapsuleEntity getCapsule() {
+	protected MankiniCapsule getCapsule() {
 		ItemStack stack = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
 		stack.setDamageValue(this.random.nextInt(stack.getMaxDamage()));
-		return new MankiniCapsuleEntity(this.level(), this, stack, false);
+		return new MankiniCapsule(this.level(), this, stack, false);
 	}
 }

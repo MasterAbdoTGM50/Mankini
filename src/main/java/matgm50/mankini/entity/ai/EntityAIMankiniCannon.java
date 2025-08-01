@@ -4,6 +4,7 @@ import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.item.IMankini;
 import matgm50.mankini.item.ItemMankiniCannon;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.goal.Goal;
 import net.minecraft.world.entity.monster.Monster;
@@ -79,7 +80,7 @@ public class EntityAIMankiniCannon<T extends Monster & RangedAttackMob> extends 
 		LivingEntity livingBase = this.entity.getTarget();
 		if (livingBase != null) {
 			if (livingBase instanceof Player player) {
-				boolean flag = player.getInventory().armor.get(2).getItem() instanceof IMankini;
+				boolean flag = player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof IMankini;
 				boolean flag2 = false;
 
 				for (int i = 0; i < player.getInventory().getContainerSize(); i++) {

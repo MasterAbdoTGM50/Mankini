@@ -2,30 +2,14 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "1": {
-      "tag": "c:dyes/magenta"
-    },
-    "2": {
-      "tag": "c:dyes/purple"
-    },
-    "3": {
-      "tag": "c:dyes/blue"
-    },
-    "4": {
-      "tag": "c:dyes/green"
-    },
-    "5": {
-      "tag": "c:dyes/yellow"
-    },
-    "6": {
-      "tag": "c:dyes/orange"
-    },
-    "7": {
-      "tag": "c:dyes/red"
-    },
-    "X": {
-      "tag": "c:leathers"
-    }
+    "1": "#c:dyes/magenta",
+    "2": "#c:dyes/purple",
+    "3": "#c:dyes/blue",
+    "4": "#c:dyes/green",
+    "5": "#c:dyes/yellow",
+    "6": "#c:dyes/orange",
+    "7": "#c:dyes/red",
+    "X": "#c:leathers"
   },
   "pattern": [
     "1 7",

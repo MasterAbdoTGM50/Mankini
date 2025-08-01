@@ -1,14 +1,13 @@
 package matgm50.mankini.init;
 
 import matgm50.mankini.Mankini;
-import matgm50.mankini.entity.boss.MankiniWitherEntity;
+import matgm50.mankini.entity.boss.MankiniWither;
 import matgm50.mankini.entity.hostile.AbstractMankiniSkeleton;
-import matgm50.mankini.entity.hostile.MankiniCreeperEntity;
-import matgm50.mankini.entity.hostile.MankiniEndermanEntity;
-import matgm50.mankini.entity.hostile.MankiniEndermiteEntity;
-import matgm50.mankini.entity.hostile.MankiniEvokerEntity;
-import matgm50.mankini.entity.hostile.MankiniSpiderEntity;
-import matgm50.mankini.lib.ModLib;
+import matgm50.mankini.entity.hostile.MankiniCreeper;
+import matgm50.mankini.entity.hostile.MankiniEnderman;
+import matgm50.mankini.entity.hostile.MankiniEndermite;
+import matgm50.mankini.entity.hostile.MankiniEvoker;
+import matgm50.mankini.entity.hostile.MankiniSpider;
 import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.levelgen.Heightmap;
@@ -17,7 +16,7 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
 
-@EventBusSubscriber(modid = ModLib.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber
 public class ModSpawning {
 
 	@SubscribeEvent
@@ -36,12 +35,12 @@ public class ModSpawning {
 	@SubscribeEvent
 	public static void registerEntityAttributes(EntityAttributeCreationEvent event) {
 		Mankini.logger.info("Registering Mankini Mob Attributes");
-		event.put(ModRegistry.MANKINI_CREEPER.get(), MankiniCreeperEntity.registerAttributes().build());
-		event.put(ModRegistry.MANKINI_ENDERMAN.get(), MankiniEndermanEntity.registerAttributes().build());
-		event.put(ModRegistry.MANKINI_ENDERMITE.get(), MankiniEndermiteEntity.registerAttributes().build());
-		event.put(ModRegistry.MANKINI_SPIDER.get(), MankiniSpiderEntity.registerAttributes().build());
+		event.put(ModRegistry.MANKINI_CREEPER.get(), MankiniCreeper.registerAttributes().build());
+		event.put(ModRegistry.MANKINI_ENDERMAN.get(), MankiniEnderman.registerAttributes().build());
+		event.put(ModRegistry.MANKINI_ENDERMITE.get(), MankiniEndermite.registerAttributes().build());
+		event.put(ModRegistry.MANKINI_SPIDER.get(), MankiniSpider.registerAttributes().build());
 		event.put(ModRegistry.MANKINI_SKELETON.get(), AbstractMankiniSkeleton.registerAttributes().build());
-		event.put(ModRegistry.MANKINI_WITHER.get(), MankiniWitherEntity.registerAttributes().build());
-		event.put(ModRegistry.MANKINI_EVOKER.get(), MankiniEvokerEntity.registerAttributes().build());
+		event.put(ModRegistry.MANKINI_WITHER.get(), MankiniWither.registerAttributes().build());
+		event.put(ModRegistry.MANKINI_EVOKER.get(), MankiniEvoker.registerAttributes().build());
 	}
 }

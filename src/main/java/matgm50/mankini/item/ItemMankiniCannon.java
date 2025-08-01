@@ -1,19 +1,19 @@
 package matgm50.mankini.item;
 
-import matgm50.mankini.entity.hostile.MankiniSkeletonEntity;
-import matgm50.mankini.entity.projectiles.MankiniCapsuleEntity;
+import matgm50.mankini.entity.hostile.MankiniSkeleton;
+import matgm50.mankini.entity.projectiles.MankiniCapsule;
 import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.util.MankiniHelper;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.UseAnim;
+import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.event.EventHooks;
 
@@ -28,12 +28,12 @@ public class ItemMankiniCannon extends Item {
 	}
 
 	@Override
-	public void releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeLeft) {
+	public boolean releaseUsing(ItemStack stack, Level level, LivingEntity livingEntity, int timeLeft) {
 		if (livingEntity instanceof Player player) {
 			ItemStack mankiniStack = MankiniHelper.findMankini(player);
 
 			int i = this.getUseDuration(stack, livingEntity) - timeLeft;
-			if (i < 0) return;
+			if (i < 0) return false;
 
 			if (!mankiniStack.isEmpty() || player.getAbilities().instabuild) {
 				if (mankiniStack.isEmpty()) {
@@ -43,7 +43,7 @@ public class ItemMankiniCannon extends Item {
 				float f = getMankiniVelocity(i);
 				if (!((double) f < 0.1D)) {
 					if (!level.isClientSide) {
-						MankiniCapsuleEntity entityCapsule = createMankini(level, mankiniStack.copy(), livingEntity);
+						MankiniCapsule entityCapsule = createMankini(level, mankiniStack.copy(), livingEntity);
 						entityCapsule.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, f * 3.0F, 1.0F);
 						entityCapsule.setOwner(player);
 
@@ -59,24 +59,26 @@ public class ItemMankiniCannon extends Item {
 					}
 
 					player.awardStat(Stats.ITEM_USED.get(this));
+					return true;
 				}
 			}
 		}
+		return false;
 	}
 
 	@Override
-	public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand handIn) {
-		ItemStack itemstack = player.getItemInHand(handIn);
+	public InteractionResult use(Level level, Player player, InteractionHand hand) {
+		ItemStack itemstack = player.getItemInHand(hand);
 		boolean flag = !MankiniHelper.findMankini(player).isEmpty();
 
-		InteractionResultHolder<ItemStack> ret = EventHooks.onArrowNock(itemstack, level, player, handIn, flag);
+		InteractionResult ret = EventHooks.onArrowNock(itemstack, level, player, hand, flag);
 		if (ret != null) return ret;
 
 		if (!player.getAbilities().instabuild && !flag) {
-			return flag ? InteractionResultHolder.pass(itemstack) : InteractionResultHolder.fail(itemstack);
+			return flag ? InteractionResult.PASS : InteractionResult.FAIL;
 		} else {
-			player.startUsingItem(handIn);
-			return InteractionResultHolder.success(itemstack);
+			player.startUsingItem(hand);
+			return InteractionResult.SUCCESS;
 		}
 	}
 
@@ -86,8 +88,8 @@ public class ItemMankiniCannon extends Item {
 	}
 
 	@Override
-	public UseAnim getUseAnimation(ItemStack stack) {
-		return UseAnim.BOW;
+	public ItemUseAnimation getUseAnimation(ItemStack stack) {
+		return ItemUseAnimation.BOW;
 	}
 
 	//This is for the skeleton
@@ -101,11 +103,11 @@ public class ItemMankiniCannon extends Item {
 		return f;
 	}
 
-	public MankiniCapsuleEntity createMankini(Level level, ItemStack stack, LivingEntity livingBase) {
-		MankiniCapsuleEntity capsule = new MankiniCapsuleEntity(level, livingBase, stack);
-		if (livingBase instanceof MankiniSkeletonEntity) {
+	public MankiniCapsule createMankini(Level level, ItemStack stack, LivingEntity livingBase) {
+		MankiniCapsule capsule = new MankiniCapsule(level, livingBase, stack);
+		if (livingBase instanceof MankiniSkeleton) {
 			stack.setDamageValue(level.random.nextInt(stack.getMaxDamage()));
-			capsule = new MankiniCapsuleEntity(level, livingBase, stack, false);
+			capsule = new MankiniCapsule(level, livingBase, stack, false);
 		}
 		return capsule;
 	}

@@ -1,7 +1,9 @@
 package matgm50.mankini.data;
 
 
+import matgm50.mankini.data.client.MankiniEquipmentProvider;
 import matgm50.mankini.data.client.MankiniLanguageProvider;
+import matgm50.mankini.data.client.MankiniModelProvider;
 import matgm50.mankini.data.server.MankiniEntityLootProvider;
 import matgm50.mankini.data.server.MankiniEntityTypeTagProvider;
 import matgm50.mankini.data.server.MankiniItemTagsProvider;
@@ -30,9 +32,7 @@ import net.minecraft.world.level.storage.loot.ValidationContext;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
-import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.registries.NeoForgeRegistries;
@@ -41,45 +41,35 @@ import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
-@EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber
 public class MankiniDatagen {
 	@SubscribeEvent
-	public static void gatherData(GatherDataEvent event) {
+	public static void gatherData(GatherDataEvent.Client event) {
 		DataGenerator generator = event.getGenerator();
 		PackOutput packOutput = generator.getPackOutput();
 		CompletableFuture<HolderLookup.Provider> lookupProvider = event.getLookupProvider();
-		ExistingFileHelper fileHelper = event.getExistingFileHelper();
 
-		if (event.includeServer()) {
-			generator.addProvider(event.includeServer(), new DatapackBuiltinEntriesProvider(
-					packOutput, CompletableFuture.supplyAsync(MankiniDatagen::getProvider), Set.of(ModLib.MOD_ID)));
+		generator.addProvider(true, new DatapackBuiltinEntriesProvider(
+				packOutput, CompletableFuture.supplyAsync(MankiniDatagen::getProvider), Set.of(ModLib.MOD_ID)));
 
-			BlockTagsProvider blockTagProvider = new BlockTagsProvider(packOutput, lookupProvider, ModLib.MOD_ID, fileHelper) {
-				@Override
-				protected void addTags(HolderLookup.Provider provider) {
+		generator.addProvider(true, new MankiniItemTagsProvider(packOutput, lookupProvider));
+		generator.addProvider(true, new MankiniEntityTypeTagProvider(packOutput, lookupProvider));
 
-				}
-			};
-			generator.addProvider(event.includeServer(), blockTagProvider);
-			generator.addProvider(event.includeServer(), new MankiniItemTagsProvider(packOutput, lookupProvider,
-					blockTagProvider, fileHelper));
-			generator.addProvider(event.includeServer(), new MankiniEntityTypeTagProvider(packOutput, lookupProvider, fileHelper));
-
-			generator.addProvider(event.includeServer(), new LootTableProvider(packOutput, Set.of(),
-					List.of(
-							new LootTableProvider.SubProviderEntry(MankiniEntityLootProvider::new, LootContextParamSets.ENTITY)
-					), lookupProvider
-			) {
-				@Override
-				protected void validate(WritableRegistry<LootTable> writableregistry, ValidationContext validationcontext, ProblemReporter.Collector problemreporter$collector) {
+		generator.addProvider(true, new LootTableProvider(packOutput, Set.of(),
+				List.of(
+						new LootTableProvider.SubProviderEntry(MankiniEntityLootProvider::new, LootContextParamSets.ENTITY)
+				), lookupProvider
+		) {
+			@Override
+			protected void validate(WritableRegistry<LootTable> writableregistry, ValidationContext validationcontext, ProblemReporter.Collector problemreporter$collector) {
 //					super.validate(writableregistry, validationcontext, problemreporter$collector);
-				}
-			});
-			generator.addProvider(event.includeServer(), new MankiniRecipeProvider(packOutput, lookupProvider));
-		}
-		if (event.includeClient()) {
-			generator.addProvider(event.includeClient(), new MankiniLanguageProvider(packOutput));
-		}
+			}
+		});
+		generator.addProvider(true, new MankiniRecipeProvider.Runner(packOutput, lookupProvider));
+
+		generator.addProvider(true, new MankiniLanguageProvider(packOutput));
+		generator.addProvider(true, new MankiniEquipmentProvider(packOutput));
+		generator.addProvider(true, new MankiniModelProvider(packOutput));
 	}
 
 	private static RegistrySetBuilder.PatchedRegistries getProvider() {

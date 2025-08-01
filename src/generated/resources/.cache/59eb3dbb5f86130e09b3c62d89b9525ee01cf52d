@@ -1,4 +1,5 @@
-// 1.21	2024-08-01T21:12:03.598508	Loot Tables
+// 1.21.8	2025-08-01T20:23:51.9642835	Loot Tables
+35280212300a52415137558c008aae6f8e334e58 data/mankini/loot_table/entities/mankini_capsule.json
 d8124ed0c156fb0abe60d1f0e3f04085d2299d0f data/mankini/loot_table/entities/mankini_creeper.json
 4959a3a067a0d6e32f7021565cd3c7f76e3b8326 data/mankini/loot_table/entities/mankini_enderman.json
 c7e7faf51a5b818c100b15dbda99983609dd09dc data/mankini/loot_table/entities/mankini_endermite.json
@@ -6,3 +7,4 @@ cdfc54688e87f43e890d0abc3e6fc56252fdc3e2 data/mankini/loot_table/entities/mankin
 6507987a8e90f71582af715a43d3a12edeac51c9 data/mankini/loot_table/entities/mankini_skeleton.json
 8c036e008181d4d879490dbe75ddc3224827a787 data/mankini/loot_table/entities/mankini_spider.json
 1bdc1bc02cd30675bff51b48f64f538ce10709b3 data/mankini/loot_table/entities/mankini_wither.json
+a2eda32cee6b3e601ecad07ef5dd29ed9ca4ba81 data/mankini/loot_table/entities/mankini_wither_projectile.json

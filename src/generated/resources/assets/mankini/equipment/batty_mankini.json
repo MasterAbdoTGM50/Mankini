@@ -1,0 +1,14 @@
+{
+  "layers": {
+    "humanoid": [
+      {
+        "texture": "mankini:batty_mankini"
+      }
+    ],
+    "humanoid_leggings": [
+      {
+        "texture": "mankini:batty_mankini"
+      }
+    ]
+  }
+}

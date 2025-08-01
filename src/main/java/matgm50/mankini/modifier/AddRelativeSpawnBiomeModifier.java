@@ -3,8 +3,9 @@ package matgm50.mankini.modifier;
 import com.mojang.serialization.MapCodec;
 import matgm50.mankini.init.MankiniModifiers;
 import net.minecraft.core.Holder;
+import net.minecraft.util.random.Weighted;
+import net.minecraft.util.random.WeightedList;
 import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.MobSpawnSettings;
 import net.minecraft.world.level.biome.MobSpawnSettings.SpawnerData;
@@ -12,6 +13,7 @@ import net.neoforged.neoforge.common.world.BiomeModifier;
 import net.neoforged.neoforge.common.world.MobSpawnSettingsBuilder;
 import net.neoforged.neoforge.common.world.ModifiableBiomeInfo.BiomeInfo.Builder;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public record AddRelativeSpawnBiomeModifier(EntityType<?> originalType,
@@ -20,12 +22,18 @@ public record AddRelativeSpawnBiomeModifier(EntityType<?> originalType,
 	public void modify(Holder<Biome> biomeHolder, Phase phase, Builder builder) {
 		if (phase == Phase.ADD) {
 			MobSpawnSettingsBuilder spawns = builder.getMobSpawnSettings();
-			MobSpawnSettings info = biomeHolder.value().getMobSettings();
-			final List<SpawnerData> spawnsList = spawns.getSpawner(MobCategory.MONSTER);
-			List<SpawnerData> monsterList = info.getMobs(MobCategory.MONSTER).unwrap()
-					.stream().filter(entry -> entry.type == originalType).toList();
-			for (SpawnerData entry : monsterList) {
-				spawnsList.add(new SpawnerData(newType, Math.min(1, entry.getWeight().asInt() / relativeWeight), entry.minCount, entry.maxCount));
+			WeightedList.Builder<MobSpawnSettings.SpawnerData> spawner = spawns.getSpawner(originalType.getCategory());
+			List<Weighted<SpawnerData>> addedSpawns = new ArrayList<>(); //Add the spawns to this list to avoid modifying the original list
+			final List<Weighted<SpawnerData>> spawnsList = spawner.getList();
+			for (Weighted<SpawnerData> entry : spawnsList) {
+				EntityType<?> type = entry.value().type();
+				if (type == originalType) {
+					addedSpawns.add(new Weighted<>(new SpawnerData(newType, entry.value().minCount(), entry.value().maxCount()),
+							Math.min(1, entry.weight() / relativeWeight)));
+				}
+			}
+			if (!addedSpawns.isEmpty()) {
+				spawner.addAll(addedSpawns);
 			}
 		}
 	}

@@ -12,14 +12,14 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
-@EventBusSubscriber(modid = ModLib.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber
 public class BatHandler {
 
 	@SubscribeEvent
 	public static void BatCapture(PlayerInteractEvent.EntityInteract event) {
 		final Player player = event.getEntity();
 		Inventory inv = player.getInventory();
-		ItemStack currentItem = player.getInventory().getSelected();
+		ItemStack currentItem = player.getInventory().getSelectedItem();
 		ItemStack batMankiniStack = new ItemStack(ModRegistry.BAT_MANKINI.get());
 		ItemStack dyeableMankiniStack = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
 
@@ -29,10 +29,10 @@ public class BatHandler {
 			CompoundTag data = getTag(playerData, Player.PERSISTED_NBT_TAG);
 
 			incrementBatTag(player);
-			int batCount = data.getInt(ModLib.BAT_COUNT_TAG);
+			int batCount = data.getIntOr(ModLib.BAT_COUNT_TAG, 0);
 
 			if (batCount == 8) {
-				player.sendSystemMessage(Component.translatable("mankini.bat.message"));
+				player.displayClientMessage(Component.translatable("mankini.bat.message"), false);
 				inv.removeItemNoUpdate(inv.findSlotMatchingItem(dyeableMankiniStack));
 				inv.add(batMankiniStack);
 				setBatTag(player);
@@ -45,7 +45,7 @@ public class BatHandler {
 		CompoundTag data = getTag(playerData, Player.PERSISTED_NBT_TAG);
 
 		if (data.contains(ModLib.BAT_COUNT_TAG)) {
-			int currentBat = data.getInt(ModLib.BAT_COUNT_TAG);
+			int currentBat = data.getIntOr(ModLib.BAT_COUNT_TAG, 0);
 			currentBat++;
 			data.putInt(ModLib.BAT_COUNT_TAG, currentBat);
 		} else {
@@ -68,6 +68,6 @@ public class BatHandler {
 		if (tag == null || !tag.contains(key)) {
 			return new CompoundTag();
 		}
-		return tag.getCompound(key);
+		return tag.getCompoundOrEmpty(key);
 	}
 }

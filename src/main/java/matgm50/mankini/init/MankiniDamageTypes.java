@@ -8,7 +8,7 @@ import net.minecraft.world.damagesource.DamageType;
 public class MankiniDamageTypes {
 	public static final ResourceKey<DamageType> MANKINI_WITHER = register("mankini_wither");
 
-	private static ResourceKey<DamageType> register(String name) {
-		return ResourceKey.create(Registries.DAMAGE_TYPE, ModLib.modLoc(name));
+	private static ResourceKey<DamageType> register(String path) {
+		return ResourceKey.create(Registries.DAMAGE_TYPE, ModLib.modLoc(path));
 	}
 }

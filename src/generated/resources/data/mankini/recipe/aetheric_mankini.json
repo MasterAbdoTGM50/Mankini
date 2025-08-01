@@ -2,27 +2,13 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "B": {
-      "item": "minecraft:dragon_breath"
-    },
-    "C": {
-      "item": "minecraft:clay"
-    },
-    "D": {
-      "tag": "c:storage_blocks/diamond"
-    },
-    "E": {
-      "item": "minecraft:elytra"
-    },
-    "K": {
-      "item": "mankini:mankini_bat"
-    },
-    "O": {
-      "tag": "c:ores/emerald"
-    },
-    "W": {
-      "item": "mankini:mankini_wither"
-    }
+    "B": "minecraft:dragon_breath",
+    "C": "minecraft:clay",
+    "D": "#c:storage_blocks/diamond",
+    "E": "minecraft:elytra",
+    "K": "mankini:mankini_bat",
+    "O": "#c:ores/emerald",
+    "W": "mankini:mankini_wither"
   },
   "pattern": [
     "BEB",

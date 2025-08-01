@@ -4,7 +4,6 @@ import com.mojang.logging.LogUtils;
 import matgm50.mankini.client.ClientHandler;
 import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.MankiniModifiers;
-import matgm50.mankini.init.ModArmorMaterials;
 import matgm50.mankini.init.ModRegistry;
 import matgm50.mankini.lib.ModLib;
 import net.neoforged.api.distmarker.Dist;
@@ -28,12 +27,10 @@ public class Mankini {
 		ModRegistry.CREATIVE_MODE_TABS.register(eventBus);
 		ModRegistry.ENTITY_TYPES.register(eventBus);
 		ModRegistry.MOB_EFFECTS.register(eventBus);
-		ModArmorMaterials.ARMOR_MATERIALS.register(eventBus);
 		MankiniModifiers.BIOME_MODIFIER_SERIALIZERS.register(eventBus);
 
 		if (dist.isClient()) {
 			container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-			eventBus.addListener(ClientHandler::onColorHandler);
 			eventBus.addListener(ClientHandler::onRegisterClientExtensions);
 			eventBus.addListener(ClientHandler::registerEntityRenders);
 			eventBus.addListener(ClientHandler::registerLayerDefinitions);

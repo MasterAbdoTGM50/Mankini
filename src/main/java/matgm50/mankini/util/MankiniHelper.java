@@ -16,8 +16,8 @@ public class MankiniHelper {
 		} else if (isMankini(player.getItemInHand(InteractionHand.MAIN_HAND))) {
 			return player.getItemInHand(InteractionHand.MAIN_HAND);
 		} else {
-			for (int i = 0; i < player.getInventory().items.size(); ++i) {
-				ItemStack itemstack = player.getInventory().items.get(i);
+			for (int i = 0; i < player.getInventory().getNonEquipmentItems().size(); ++i) {
+				ItemStack itemstack = player.getInventory().getNonEquipmentItems().get(i);
 				if (isMankini(itemstack)) {
 					return itemstack;
 				}

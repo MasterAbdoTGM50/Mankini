@@ -28,26 +28,28 @@ public class MankiniEntityLootProvider extends EntityLootSubProvider {
 						.add(LootItem.lootTableItem(ModRegistry.DYEABLE_MANKINI.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F))))));
 		this.add(ModRegistry.MANKINI_ENDERMAN.get(), LootTable.lootTable()
 				.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-						.add(NestedLootTable.lootTableReference(EntityType.ENDERMAN.getDefaultLootTable()))));
+						.add(NestedLootTable.lootTableReference(EntityType.ENDERMAN.getDefaultLootTable().get()))));
 		this.add(ModRegistry.MANKINI_ENDERMITE.get(), LootTable.lootTable()
 				.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-						.add(NestedLootTable.lootTableReference(EntityType.ENDERMITE.getDefaultLootTable()))));
+						.add(NestedLootTable.lootTableReference(EntityType.ENDERMITE.getDefaultLootTable().get()))));
 		this.add(ModRegistry.MANKINI_EVOKER.get(), LootTable.lootTable()
 				.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 						.add(LootItem.lootTableItem(ModRegistry.DYEABLE_MANKINI.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F)))))
 				.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-						.add(NestedLootTable.lootTableReference(EntityType.EVOKER.getDefaultLootTable()))));
+						.add(NestedLootTable.lootTableReference(EntityType.EVOKER.getDefaultLootTable().get()))));
 		this.add(ModRegistry.MANKINI_SKELETON.get(), LootTable.lootTable()
 				.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
 						.add(LootItem.lootTableItem(ModRegistry.DYEABLE_MANKINI.get()).apply(SetItemCountFunction.setCount(UniformGenerator.between(1.0F, 1.0F)))))
 				.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-						.add(NestedLootTable.lootTableReference(EntityType.SKELETON.getDefaultLootTable()))));
+						.add(NestedLootTable.lootTableReference(EntityType.SKELETON.getDefaultLootTable().get()))));
 		this.add(ModRegistry.MANKINI_SPIDER.get(), LootTable.lootTable()
 				.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-						.add(NestedLootTable.lootTableReference(EntityType.SPIDER.getDefaultLootTable()))));
+						.add(NestedLootTable.lootTableReference(EntityType.SPIDER.getDefaultLootTable().get()))));
 		this.add(ModRegistry.MANKINI_WITHER.get(), LootTable.lootTable()
 				.withPool(LootPool.lootPool().setRolls(ConstantValue.exactly(1.0F))
-						.add(NestedLootTable.lootTableReference(EntityType.WITHER.getDefaultLootTable()))));
+						.add(NestedLootTable.lootTableReference(EntityType.WITHER.getDefaultLootTable().get()))));
+		this.add(ModRegistry.MANKINI_CAPSULE.get(), LootTable.lootTable());
+		this.add(ModRegistry.MANKINI_WITHER_PROJECTILE.get(), LootTable.lootTable());
 	}
 
 	@Override

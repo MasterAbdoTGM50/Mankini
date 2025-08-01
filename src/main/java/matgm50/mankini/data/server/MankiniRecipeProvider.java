@@ -6,20 +6,19 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.concurrent.CompletableFuture;
 
 public class MankiniRecipeProvider extends RecipeProvider {
-	public MankiniRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-		super(packOutput, lookupProvider);
+	public MankiniRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput) {
+		super(provider, recipeOutput);
 	}
 
 	@Override
-	protected void buildRecipes(RecipeOutput recipeOutput) {
-		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModRegistry.AETHERIC_MANKINI.get())
+	protected void buildRecipes() {
+		shaped(RecipeCategory.COMBAT, ModRegistry.AETHERIC_MANKINI.get())
 				.pattern("BEB")
 				.pattern("DKD")
 				.pattern("CWO")
@@ -31,17 +30,17 @@ public class MankiniRecipeProvider extends RecipeProvider {
 				.define('C', Items.CLAY)
 				.define('O', Tags.Items.ORES_EMERALD)
 				.unlockedBy("has_elytra", has(Items.ELYTRA))
-				.save(recipeOutput);
+				.save(output);
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModRegistry.DYEABLE_MANKINI.get())
+		shaped(RecipeCategory.COMBAT, ModRegistry.DYEABLE_MANKINI.get())
 				.pattern("X X")
 				.pattern("X X")
 				.pattern(" X ")
 				.define('X', Tags.Items.LEATHERS)
 				.unlockedBy("has_leather", has(Tags.Items.LEATHERS))
-				.save(recipeOutput);
+				.save(output);
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModRegistry.KAWAII_MANKINI.get())
+		shaped(RecipeCategory.COMBAT, ModRegistry.KAWAII_MANKINI.get())
 				.pattern("1 7")
 				.pattern("2X6")
 				.pattern("345")
@@ -54,9 +53,9 @@ public class MankiniRecipeProvider extends RecipeProvider {
 				.define('7', Tags.Items.DYES_RED)
 				.define('X', Tags.Items.LEATHERS)
 				.unlockedBy("has_leather", has(Tags.Items.LEATHERS))
-				.save(recipeOutput);
+				.save(output);
 
-		ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModRegistry.MANKINI_CANNON.get())
+		shaped(RecipeCategory.COMBAT, ModRegistry.MANKINI_CANNON.get())
 				.pattern(" R ")
 				.pattern(" B ")
 				.pattern("IID")
@@ -66,6 +65,22 @@ public class MankiniRecipeProvider extends RecipeProvider {
 				.define('I', Tags.Items.INGOTS_IRON)
 				.unlockedBy("has_dispenser", has(Items.DISPENSER))
 				.unlockedBy("has_iron_ingot", has(Tags.Items.INGOTS_IRON))
-				.save(recipeOutput);
+				.save(output);
+	}
+
+	public static class Runner extends RecipeProvider.Runner {
+		public Runner(PackOutput output, CompletableFuture<HolderLookup.Provider> future) {
+			super(output, future);
+		}
+
+		@Override
+		protected RecipeProvider createRecipeProvider(HolderLookup.Provider provider, RecipeOutput recipeOutput) {
+			return new MankiniRecipeProvider(provider, recipeOutput);
+		}
+
+		@Override
+		public String getName() {
+			return "Mankini recipes";
+		}
 	}
 }

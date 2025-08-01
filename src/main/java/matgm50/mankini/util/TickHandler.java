@@ -1,7 +1,6 @@
 package matgm50.mankini.util;
 
 import matgm50.mankini.init.ModRegistry;
-import matgm50.mankini.lib.ModLib;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -14,7 +13,7 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent;
 /**
  * Created by MasterAbdoTGM50 on 5/30/2014.
  */
-@EventBusSubscriber(modid = ModLib.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
+@EventBusSubscriber
 public class TickHandler {
 
 	@SubscribeEvent
@@ -30,7 +29,7 @@ public class TickHandler {
 						player.getActiveEffects().stream().anyMatch(effect -> effect.getEffect().
 								is(ModRegistry.MANKINI_WITHER_EFFECT.getKey()))) {
 					player.removeEffect(MobEffects.WITHER);
-					player.removeEffect(BuiltInRegistries.MOB_EFFECT.getHolderOrThrow(ModRegistry.MANKINI_WITHER_EFFECT.getKey()));
+					player.removeEffect(BuiltInRegistries.MOB_EFFECT.getOrThrow(ModRegistry.MANKINI_WITHER_EFFECT.getKey()));
 				}
 			}
 			if (armor.getItem().equals(ModRegistry.BAT_MANKINI.get())) {

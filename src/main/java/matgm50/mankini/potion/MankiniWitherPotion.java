@@ -1,6 +1,7 @@
 package matgm50.mankini.potion;
 
 import matgm50.mankini.init.MankiniDamageTypes;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
@@ -13,8 +14,8 @@ public class MankiniWitherPotion extends MobEffect {
 	}
 
 	@Override
-	public boolean applyEffectTick(LivingEntity livingEntity, int amplifier) {
-		return livingEntity.hurt(livingEntity.damageSources().source(MankiniDamageTypes.MANKINI_WITHER), 1.0F);
+	public boolean applyEffectTick(ServerLevel level, LivingEntity entity, int amplifier) {
+		return entity.hurtServer(level, entity.damageSources().source(MankiniDamageTypes.MANKINI_WITHER), 1.0F);
 	}
 
 	@Override

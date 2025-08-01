@@ -1,7 +1,6 @@
 package matgm50.mankini.client.model;
 
-import matgm50.mankini.entity.boss.MankiniWitherEntity;
-import net.minecraft.client.model.HierarchicalModel;
+import net.minecraft.client.model.EntityModel;
 import net.minecraft.client.model.geom.ModelPart;
 import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
@@ -9,9 +8,10 @@ import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
+import net.minecraft.client.renderer.entity.state.WitherRenderState;
 import net.minecraft.util.Mth;
 
-public class ModelMankiniWither<T extends MankiniWitherEntity> extends HierarchicalModel<T> {
+public class ModelMankiniWither<S extends WitherRenderState> extends EntityModel<S> {
 	private static final String RIBCAGE = "ribcage";
 	private static final String CENTER_HEAD = "center_head";
 	private static final String RIGHT_HEAD = "right_head";
@@ -26,6 +26,7 @@ public class ModelMankiniWither<T extends MankiniWitherEntity> extends Hierarchi
 	private final ModelPart tail;
 
 	public ModelMankiniWither(ModelPart part) {
+		super(part);
 		this.root = part;
 		this.ribcage = part.getChild("ribcage");
 		this.tail = part.getChild("tail");
@@ -48,26 +49,20 @@ public class ModelMankiniWither<T extends MankiniWitherEntity> extends Hierarchi
 		return LayerDefinition.create(meshdefinition, 64, 64);
 	}
 
-	public ModelPart root() {
-		return this.root;
-	}
-
-	public void setupAnim(T p_104100_, float p_104101_, float p_104102_, float p_104103_, float p_104104_, float p_104105_) {
-		float f = Mth.cos(p_104103_ * 0.1F);
+	public void setupAnim(S state) {
+		super.setupAnim(state);
+		setupHeadRotation(state, this.rightHead, 0);
+		setupHeadRotation(state, this.leftHead, 1);
+		float f = Mth.cos(state.ageInTicks * 0.1F);
 		this.ribcage.xRot = (0.065F + 0.05F * f) * (float) Math.PI;
 		this.tail.setPos(-2.0F, 6.9F + Mth.cos(this.ribcage.xRot) * 10.0F, -0.5F + Mth.sin(this.ribcage.xRot) * 10.0F);
 		this.tail.xRot = (0.265F + 0.1F * f) * (float) Math.PI;
-		this.centerHead.yRot = p_104104_ * ((float) Math.PI / 180F);
-		this.centerHead.xRot = p_104105_ * ((float) Math.PI / 180F);
+		this.centerHead.yRot = state.yRot * (float) (Math.PI / 180.0);
+		this.centerHead.xRot = state.xRot * (float) (Math.PI / 180.0);
 	}
 
-	public void prepareMobModel(T mankiniWither, float p_104096_, float p_104097_, float p_104098_) {
-		setupHeadRotation(mankiniWither, this.rightHead, 0);
-		setupHeadRotation(mankiniWither, this.leftHead, 1);
-	}
-
-	private static <T extends MankiniWitherEntity> void setupHeadRotation(T mankiniWither, ModelPart part, int p_171074_) {
-		part.yRot = (mankiniWither.getHeadYRot(p_171074_) - mankiniWither.yBodyRot) * ((float) Math.PI / 180F);
-		part.xRot = mankiniWither.getHeadXRot(p_171074_) * ((float) Math.PI / 180F);
+	private static void setupHeadRotation(WitherRenderState renderState, ModelPart head, int headIndex) {
+		head.yRot = (renderState.yHeadRots[headIndex] - renderState.bodyRot) * (float) (Math.PI / 180.0);
+		head.xRot = renderState.xHeadRots[headIndex] * (float) (Math.PI / 180.0);
 	}
 }

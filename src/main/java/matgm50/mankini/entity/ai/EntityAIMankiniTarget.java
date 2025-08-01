@@ -1,6 +1,7 @@
 package matgm50.mankini.entity.ai;
 
 import matgm50.mankini.item.IMankini;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
@@ -21,7 +22,7 @@ public class EntityAIMankiniTarget<T extends LivingEntity> extends NearestAttack
 
 	public boolean isFabulous() {
 		if (this.targetMob != null && this.targetMob instanceof Player player) {
-			return player.getInventory().armor.get(2).getItem() instanceof IMankini;
+			return player.getItemBySlot(EquipmentSlot.CHEST).getItem() instanceof IMankini;
 		} else {
 			return false;
 		}
@@ -32,6 +33,6 @@ public class EntityAIMankiniTarget<T extends LivingEntity> extends NearestAttack
 	 */
 	public boolean canContinueToUse() {
 		return this.targetConditions != null ? mob != null && targetMob != null &&
-				this.targetConditions.test(this.mob, this.targetMob) : super.canContinueToUse();
+				this.targetConditions.test(getServerLevel(this.mob), this.mob, this.targetMob) : super.canContinueToUse();
 	}
 }

@@ -12,6 +12,7 @@ import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
@@ -75,7 +76,7 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 				Entity shooter = getOwner();
 				if (shooter instanceof LivingEntity shootingEntity) {
 					DamageSource source = shootingEntity.damageSources().source(MankiniDamageTypes.MANKINI_WITHER, this);
-					if (entity.hurt(source, 4.0F)) {
+					if (entity.hurtServer(serverlevel, source, 4.0F)) {
 						if (entity.isAlive()) {
 							EnchantmentHelper.doPostAttackEffects(serverlevel, entity, source);
 						} else {
@@ -88,9 +89,9 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 
 				if (entity instanceof LivingEntity) {
 					int i = 0;
-					if (this.level().getDifficulty() == Difficulty.NORMAL) {
+					if (serverlevel.getDifficulty() == Difficulty.NORMAL) {
 						i = 10;
-					} else if (this.level().getDifficulty() == Difficulty.HARD) {
+					} else if (serverlevel.getDifficulty() == Difficulty.HARD) {
 						i = 40;
 					}
 
@@ -98,26 +99,24 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 						((LivingEntity) entity).addEffect(new MobEffectInstance(ModRegistry.MANKINI_WITHER_EFFECT, 20 * i, 1));
 					}
 
-					if (!this.level().isClientSide) {
-						if (entity instanceof Player hitPlayer) {
-							Inventory playerInv = hitPlayer.getInventory();
+					if (entity instanceof Player hitPlayer) {
+						Inventory playerInv = hitPlayer.getInventory();
 
-							ItemStack itemstack = hitPlayer.getInventory().armor.get(2);
-							ItemStack dyeableKini = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
-							dyeableKini.setDamageValue(dyeableKini.getMaxDamage() / this.level().random.nextInt(10));
+						ItemStack itemstack = hitPlayer.getItemBySlot(EquipmentSlot.CHEST);
+						ItemStack dyeableKini = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
+						dyeableKini.setDamageValue(dyeableKini.getMaxDamage() / serverlevel.random.nextInt(10));
 
-							if (this.level().random.nextInt(100) < 8) {
-								if (!itemstack.isEmpty()) {
-									playerInv.removeItemNoUpdate(38);
-								}
-								playerInv.setItem(38, dyeableKini);
+						if (serverlevel.random.nextInt(100) < 8) {
+							if (!itemstack.isEmpty()) {
+								playerInv.removeItemNoUpdate(38);
 							}
+							playerInv.setItem(38, dyeableKini);
 						}
 					}
 				}
 			}
-			Level.ExplosionInteraction explosion$mode = EventHooks.canEntityGrief(this.level(), this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
-			this.level().explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, explosion$mode);
+			Level.ExplosionInteraction explosion$mode = EventHooks.canEntityGrief(serverlevel, this) ? Level.ExplosionInteraction.MOB : Level.ExplosionInteraction.NONE;
+			serverlevel.explode(this, this.getX(), this.getY(), this.getZ(), 1.0F, false, explosion$mode);
 			this.discard();
 		}
 	}
@@ -132,7 +131,13 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 	/**
 	 * Called when the entity is attacked.
 	 */
-	public boolean hurt(DamageSource source, float amount) {
+	@Override
+	public boolean hurtClient(DamageSource damageSource) {
+		return false;
+	}
+
+	@Override
+	public boolean hurtServer(ServerLevel p_376467_, DamageSource p_376509_, float p_376502_) {
 		return false;
 	}
 

@@ -1,8 +1,0 @@
-{
-	"parent": "item/generated",
-	"textures": {
-		"layer0": "mankini:item/mankini",
-		"layer1": "mankini:item/mankiniover"
-	}
-	
-}
