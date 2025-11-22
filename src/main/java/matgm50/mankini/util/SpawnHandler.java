@@ -15,7 +15,7 @@ public class SpawnHandler {
 		final Entity entity = event.getEntity();
 		Level level = entity.level();
 		if (entity instanceof Endermite && !(entity instanceof MankiniEndermite)) {
-			if (((Endermite) entity).getRandom().nextBoolean()) {
+			if (entity.getRandom().nextBoolean()) {
 				MankiniEndermite mankiniMite = new MankiniEndermite(level);
 				mankiniMite.snapTo(entity.getX(), entity.getY(), entity.getZ(), entity.getYRot(), 0.0F);
 				event.setSpawnCancelled(true);

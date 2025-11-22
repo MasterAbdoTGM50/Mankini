@@ -6,14 +6,12 @@ import matgm50.mankini.client.layers.LayerMankiniWitherAura;
 import matgm50.mankini.client.model.ModelMankiniWither;
 import matgm50.mankini.entity.boss.MankiniWither;
 import matgm50.mankini.lib.ModLib;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.WitherRenderState;
+import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
-
-import javax.annotation.Nullable;
 
 public class MankiniWitherRenderer extends MobRenderer<MankiniWither, WitherRenderState, ModelMankiniWither<WitherRenderState>> {
 	private static final ResourceLocation MANKINI_WITHER_TEXTURES = ModLib.modLoc("textures/entity/mankini_wither_invulnerable.png");
@@ -24,7 +22,6 @@ public class MankiniWitherRenderer extends MobRenderer<MankiniWither, WitherRend
 		this.addLayer(new LayerMankiniWitherAura(this, context.getModelSet()));
 	}
 
-	@Nullable
 	@Override
 	public ResourceLocation getTextureLocation(WitherRenderState state) {
 		int i = Mth.floor(state.invulnerableTicks);
@@ -43,8 +40,8 @@ public class MankiniWitherRenderer extends MobRenderer<MankiniWither, WitherRend
 	}
 
 	@Override
-	public void render(WitherRenderState state, PoseStack poseStack, MultiBufferSource bufferSource, int light) {
-		super.render(state, poseStack, bufferSource, 15728880);
+	protected int getBlockLightLevel(MankiniWither entity, BlockPos pos) {
+		return 15;
 	}
 
 	@Override

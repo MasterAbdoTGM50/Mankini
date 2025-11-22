@@ -42,7 +42,7 @@ public class ItemMankiniCannon extends Item {
 
 				float f = getMankiniVelocity(i);
 				if (!((double) f < 0.1D)) {
-					if (!level.isClientSide) {
+					if (!level.isClientSide()) {
 						MankiniCapsule entityCapsule = createMankini(level, mankiniStack.copy(), livingEntity);
 						entityCapsule.shootFromRotation(player, player.getXRot(), player.getYRot(), 0.0F, f * 3.0F, 1.0F);
 						entityCapsule.setOwner(player);

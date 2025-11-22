@@ -5,6 +5,7 @@ import matgm50.mankini.client.model.ModelMankiniSkeleton;
 import matgm50.mankini.client.renderer.state.MankiniSkeletonRenderState;
 import matgm50.mankini.entity.hostile.MankiniSkeleton;
 import net.minecraft.client.model.geom.ModelLayerLocation;
+import net.minecraft.client.renderer.entity.ArmorModelSet;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
@@ -15,18 +16,15 @@ public class MankiniSkeletonRenderer extends HumanoidMobRenderer<MankiniSkeleton
 	private static final ResourceLocation SKELETON_TEXTURES = ResourceLocation.withDefaultNamespace("textures/entity/skeleton/skeleton.png");
 
 	public MankiniSkeletonRenderer(EntityRendererProvider.Context context) {
-		this(context, ClientHandler.MANKINI_SKELETON, ClientHandler.MANKINI_SKELETON_INNER_ARMOR);
+		this(context, ClientHandler.MANKINI_SKELETON, ClientHandler.MANKINI_SKELETON_ARMOR);
 	}
 
-	public MankiniSkeletonRenderer(EntityRendererProvider.Context context, ModelLayerLocation layer, ModelLayerLocation innerArmor) {
-		super(context, new ModelMankiniSkeleton<>(context.bakeLayer(layer)), 0.5F);
+	public MankiniSkeletonRenderer(EntityRendererProvider.Context context, ModelLayerLocation skeletonLayer, ArmorModelSet<ModelLayerLocation> armorModelSet) {
+		super(context, new ModelMankiniSkeleton<>(context.bakeLayer(skeletonLayer)), 0.5F);
 		this.addLayer(
-				new HumanoidArmorLayer<>(
-						this,
-						new ModelMankiniSkeleton<>(context.bakeLayer(layer)),
-						new ModelMankiniSkeleton<>(context.bakeLayer(innerArmor)),
-						context.getEquipmentRenderer()
-				)
+				new HumanoidArmorLayer<>(this,
+						ArmorModelSet.bake(armorModelSet, context.getModelSet(), ModelMankiniSkeleton::new),
+						context.getEquipmentRenderer())
 		);
 	}
 
