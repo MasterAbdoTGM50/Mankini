@@ -148,7 +148,7 @@ public class MankiniWither extends Monster implements RangedAttackMob {
 	@Override
 	public void aiStep() {
 		Vec3 vec3 = this.getDeltaMovement().multiply(1.0D, 0.6D, 1.0D);
-		if (!this.level().isClientSide() && this.getWatchedTargetId(0) > 0) {
+		if (!this.level().isClientSide && this.getWatchedTargetId(0) > 0) {
 			Entity entity = this.level().getEntity(this.getWatchedTargetId(0));
 			if (entity != null) {
 				double d0 = vec3.y;
@@ -510,8 +510,7 @@ public class MankiniWither extends Monster implements RangedAttackMob {
 	 */
 	@Override
 	public void checkDespawn() {
-		if (net.neoforged.neoforge.event.EventHooks.checkMobDespawn(this)) return;
-		if (this.level().getDifficulty() == Difficulty.PEACEFUL && !this.getType().isAllowedInPeaceful()) {
+		if (this.level().getDifficulty() == Difficulty.PEACEFUL && this.shouldDespawnInPeaceful()) {
 			this.discard();
 		} else {
 			this.noActionTime = 0;

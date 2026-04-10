@@ -19,7 +19,6 @@ import net.minecraft.client.model.geom.LayerDefinitions;
 import net.minecraft.client.model.geom.ModelLayerLocation;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
-import net.minecraft.client.renderer.entity.ArmorModelSet;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.resources.model.EquipmentClientInfo.Layer;
 import net.minecraft.client.resources.model.EquipmentClientInfo.LayerType;
@@ -31,21 +30,12 @@ import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 
 public class ClientHandler {
-	public static final ModelLayerLocation MANKINI_WITHER = createLocation("wither", "main");
-	public static final ModelLayerLocation MANKINI_WITHER_ARMOR = createLocation("wither", "armor");
+	public static final ModelLayerLocation MANKINI_WITHER = new ModelLayerLocation(ModLib.modLoc("main"), "wither");
+	public static final ModelLayerLocation MANKINI_WITHER_ARMOR = new ModelLayerLocation(ModLib.modLoc("armor"), "wither");
 	public static final ModelLayerLocation MANKINI_SKELETON = new ModelLayerLocation(ModLib.modLoc("main"), "skeleton");
-	public static final ArmorModelSet<ModelLayerLocation> MANKINI_SKELETON_ARMOR = createArmorSet("skeleton");
+	public static final ModelLayerLocation MANKINI_SKELETON_INNER_ARMOR = new ModelLayerLocation(ModLib.modLoc("inner_armor"), "skeleton");
+	public static final ModelLayerLocation MANKINI_SKELETON_OUTER_ARMOR = new ModelLayerLocation(ModLib.modLoc("outer_armor"), "skeleton");
 	public static final ModelLayerLocation AAMT = new ModelLayerLocation(ModLib.modLoc("main"), "aamt");
-
-	private static ArmorModelSet<ModelLayerLocation> createArmorSet(String path) {
-		return new ArmorModelSet<>(
-				createLocation(path, "helmet"), createLocation(path, "chestplate"), createLocation(path, "leggings"), createLocation(path, "boots")
-		);
-	}
-
-	private static ModelLayerLocation createLocation(String path, String model) {
-		return new ModelLayerLocation(ModLib.modLoc(path), model);
-	}
 
 	public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
 		event.registerItem(new IClientItemExtensions() {
@@ -84,15 +74,10 @@ public class ClientHandler {
 
 	public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
 		event.registerLayerDefinition(MANKINI_WITHER, () -> ModelMankiniWither.createBodyLayer(CubeDeformation.NONE));
-
 		event.registerLayerDefinition(MANKINI_WITHER_ARMOR, () -> ModelMankiniWither.createBodyLayer(LayerDefinitions.INNER_ARMOR_DEFORMATION));
 		event.registerLayerDefinition(MANKINI_SKELETON, ModelMankiniSkeleton::createBodyLayer);
-		ArmorModelSet<LayerDefinition> armormodelset = HumanoidModel.createArmorMeshSet(LayerDefinitions.INNER_ARMOR_DEFORMATION, LayerDefinitions.OUTER_ARMOR_DEFORMATION)
-				.map(definition -> LayerDefinition.create(definition, 64, 32));
-		event.registerLayerDefinition(MANKINI_SKELETON_ARMOR.head(), armormodelset::head);
-		event.registerLayerDefinition(MANKINI_SKELETON_ARMOR.chest(), armormodelset::chest);
-		event.registerLayerDefinition(MANKINI_SKELETON_ARMOR.legs(), armormodelset::legs);
-		event.registerLayerDefinition(MANKINI_SKELETON_ARMOR.feet(), armormodelset::feet);
+		event.registerLayerDefinition(MANKINI_SKELETON_INNER_ARMOR, () -> LayerDefinition.create(HumanoidModel.createMesh(LayerDefinitions.INNER_ARMOR_DEFORMATION, 0.0F), 64, 32));
+		event.registerLayerDefinition(MANKINI_SKELETON_OUTER_ARMOR, () -> LayerDefinition.create(HumanoidModel.createMesh(LayerDefinitions.OUTER_ARMOR_DEFORMATION, 0.0F), 64, 32));
 		event.registerLayerDefinition(AAMT, ModelAAMT::createMesh);
 	}
 }

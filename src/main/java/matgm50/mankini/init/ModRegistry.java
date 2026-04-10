@@ -69,12 +69,12 @@ public class ModRegistry {
 	public static final DeferredItem<ItemBatMankini> BAT_MANKINI = ITEMS.registerItem("mankini_bat", ItemBatMankini::new);
 	public static final DeferredItem<ItemWitherKini> WITHER_MANKINI = ITEMS.registerItem("mankini_wither", ItemWitherKini::new);
 	public static final DeferredItem<ItemMankiniHorseArmor> MANKINI_HORSE_ARMOR = ITEMS.registerItem("mankini_horse_armor", ItemMankiniHorseArmor::new);
-	public static final DeferredItem<SpawnEggItem> MANKINI_CREEPER_SPAWN_EGG = ITEMS.registerItem("mankini_creeper_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(ModRegistry.MANKINI_CREEPER.get())));
-	public static final DeferredItem<SpawnEggItem> MANKINI_ENDERMAN_SPAWN_EGG = ITEMS.registerItem("mankini_enderman_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(ModRegistry.MANKINI_ENDERMAN.get())));
-	public static final DeferredItem<SpawnEggItem> MANKINI_ENDERMITE_SPAWN_EGG = ITEMS.registerItem("mankini_endermite_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(ModRegistry.MANKINI_ENDERMITE.get())));
-	public static final DeferredItem<SpawnEggItem> MANKINI_SPIDER_SPAWN_EGG = ITEMS.registerItem("mankini_spider_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(ModRegistry.MANKINI_SPIDER.get())));
-	public static final DeferredItem<SpawnEggItem> MANKINI_SKELETON_SPAWN_EGG = ITEMS.registerItem("mankini_skeleton_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(ModRegistry.MANKINI_SKELETON.get())));
-	public static final DeferredItem<SpawnEggItem> MANKINI_EVOKER_SPAWN_EGG = ITEMS.registerItem("mankini_evoker_spawn_egg", (properties) -> new SpawnEggItem(properties.spawnEgg(ModRegistry.MANKINI_EVOKER.get())));
+	public static final DeferredItem<SpawnEggItem> MANKINI_CREEPER_SPAWN_EGG = ITEMS.registerItem("mankini_creeper_spawn_egg", (properties) -> new SpawnEggItem(ModRegistry.MANKINI_CREEPER.get(), properties));
+	public static final DeferredItem<SpawnEggItem> MANKINI_ENDERMAN_SPAWN_EGG = ITEMS.registerItem("mankini_enderman_spawn_egg", (properties) -> new SpawnEggItem(ModRegistry.MANKINI_ENDERMAN.get(), properties));
+	public static final DeferredItem<SpawnEggItem> MANKINI_ENDERMITE_SPAWN_EGG = ITEMS.registerItem("mankini_endermite_spawn_egg", (properties) -> new SpawnEggItem(ModRegistry.MANKINI_ENDERMITE.get(), properties));
+	public static final DeferredItem<SpawnEggItem> MANKINI_SPIDER_SPAWN_EGG = ITEMS.registerItem("mankini_spider_spawn_egg", (properties) -> new SpawnEggItem(ModRegistry.MANKINI_SPIDER.get(), properties));
+	public static final DeferredItem<SpawnEggItem> MANKINI_SKELETON_SPAWN_EGG = ITEMS.registerItem("mankini_skeleton_spawn_egg", (properties) -> new SpawnEggItem(ModRegistry.MANKINI_SKELETON.get(), properties));
+	public static final DeferredItem<SpawnEggItem> MANKINI_EVOKER_SPAWN_EGG = ITEMS.registerItem("mankini_evoker_spawn_egg", (properties) -> new SpawnEggItem(ModRegistry.MANKINI_EVOKER.get(), properties));
 
 	public static final Supplier<CreativeModeTab> MANKINI_TAB = CREATIVE_MODE_TABS.register("tab", () -> CreativeModeTab.builder()
 			.icon(() -> new ItemStack(ModRegistry.KAWAII_MANKINI.get()))
