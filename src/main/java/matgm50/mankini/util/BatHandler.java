@@ -32,7 +32,7 @@ public class BatHandler {
 			int batCount = data.getIntOr(ModLib.BAT_COUNT_TAG, 0);
 
 			if (batCount == 8) {
-				player.displayClientMessage(Component.translatable("mankini.bat.message"), false);
+				player.sendSystemMessage(Component.translatable("mankini.bat.message"));
 				inv.removeItemNoUpdate(inv.findSlotMatchingItem(dyeableMankiniStack));
 				inv.add(batMankiniStack);
 				setBatTag(player);

@@ -18,6 +18,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.EntityTypeTags;
 import net.minecraft.util.Mth;
+import net.minecraft.util.Util;
 import net.minecraft.world.BossEvent;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.damagesource.DamageSource;
@@ -67,9 +68,11 @@ public class MankiniWither extends Monster implements RangedAttackMob {
 	private final int[] nextHeadUpdate = new int[2];
 	private final int[] idleHeadUpdates = new int[2];
 	private int blockBreakCounter;
-	private final ServerBossEvent bossInfo = (ServerBossEvent) (new ServerBossEvent(
-			this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true);
-	private static final TargetingConditions.Selector LIVING_ENTITY_SELECTOR = (livingEntity, serverLevel) -> !livingEntity.getType().is(EntityTypeTags.WITHER_FRIENDS)
+	private final ServerBossEvent bossInfo = Util.make(
+			new ServerBossEvent(Mth.createInsecureUUID(this.random), this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS),
+			e -> e.setDarkenScreen(true)
+	);
+	private static final TargetingConditions.Selector LIVING_ENTITY_SELECTOR = (livingEntity, serverLevel) -> !livingEntity.is(EntityTypeTags.WITHER_FRIENDS)
 			&& livingEntity.attackable();
 	private static final TargetingConditions TARGETING_CONDITIONS = TargetingConditions.forCombat()
 			.range(20.0D).selector(LIVING_ENTITY_SELECTOR);
@@ -214,7 +217,7 @@ public class MankiniWither extends Monster implements RangedAttackMob {
 					headY + this.random.nextGaussian() * (double) 0.3F,
 					headZ + this.random.nextGaussian() * (double) 0.3F, 0.0D, 0.0D, 0.0D
 			);
-			if (flag && this.level().random.nextInt(4) == 0) {
+			if (flag && this.level().getRandom().nextInt(4) == 0) {
 				this.level().addParticle(
 						ColorParticleOption.create(ParticleTypes.ENTITY_EFFECT, 0.7F, 0.7F, 0.5F),
 						headX + this.random.nextGaussian() * (double) f,
@@ -477,7 +480,7 @@ public class MankiniWither extends Monster implements RangedAttackMob {
 
 				Entity entity1 = source.getEntity();
 				if (!(entity1 instanceof Player) && entity1 instanceof LivingEntity &&
-						((LivingEntity) entity1).getType().is(EntityTypeTags.UNDEAD)) {
+						((LivingEntity) entity1).is(EntityTypeTags.UNDEAD)) {
 					return false;
 				} else {
 					if (this.blockBreakCounter <= 0) {

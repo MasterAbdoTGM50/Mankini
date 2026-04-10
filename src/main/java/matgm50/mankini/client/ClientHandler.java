@@ -20,9 +20,13 @@ import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.LayerDefinition;
 import net.minecraft.client.renderer.entity.ArmorModelSet;
 import net.minecraft.client.renderer.entity.ThrownItemRenderer;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 
+@EventBusSubscriber(Dist.CLIENT)
 public class ClientHandler {
 	public static final ModelLayerLocation MANKINI_WITHER = createLocation("wither", "main");
 	public static final ModelLayerLocation MANKINI_WITHER_ARMOR = createLocation("wither", "armor");
@@ -40,10 +44,12 @@ public class ClientHandler {
 		return new ModelLayerLocation(ModLib.modLoc(path), model);
 	}
 
+	@SubscribeEvent
 	public static void onRegisterClientExtensions(RegisterClientExtensionsEvent event) {
 		event.registerItem(new AAMTItemExtension(), ModRegistry.AETHERIC_MANKINI.get());
 	}
 
+	@SubscribeEvent
 	public static void registerEntityRenders(EntityRenderersEvent.RegisterRenderers event) {
 		event.registerEntityRenderer(ModRegistry.MANKINI_CAPSULE.get(), ThrownItemRenderer::new);
 		event.registerEntityRenderer(ModRegistry.MANKINI_CREEPER.get(), MankiniCreeperRenderer::new);
@@ -56,6 +62,7 @@ public class ClientHandler {
 		event.registerEntityRenderer(ModRegistry.MANKINI_EVOKER.get(), MankiniEvokerRenderer::new);
 	}
 
+	@SubscribeEvent
 	public static void registerLayerDefinitions(EntityRenderersEvent.RegisterLayerDefinitions event) {
 		event.registerLayerDefinition(MANKINI_WITHER, () -> ModelMankiniWither.createBodyLayer(CubeDeformation.NONE));
 

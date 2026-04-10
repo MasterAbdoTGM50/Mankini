@@ -1,7 +1,6 @@
 package matgm50.mankini;
 
 import com.mojang.logging.LogUtils;
-import matgm50.mankini.client.ClientHandler;
 import matgm50.mankini.init.MankiniConfig;
 import matgm50.mankini.init.MankiniModifiers;
 import matgm50.mankini.init.ModRegistry;
@@ -31,9 +30,6 @@ public class Mankini {
 
 		if (dist.isClient()) {
 			container.registerExtensionPoint(IConfigScreenFactory.class, ConfigurationScreen::new);
-			eventBus.addListener(ClientHandler::onRegisterClientExtensions);
-			eventBus.addListener(ClientHandler::registerEntityRenders);
-			eventBus.addListener(ClientHandler::registerLayerDefinitions);
 		}
 	}
 }

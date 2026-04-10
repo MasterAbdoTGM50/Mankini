@@ -5,6 +5,11 @@
         "texture": "mankini:batty_mankini"
       }
     ],
+    "humanoid_baby": [
+      {
+        "texture": "mankini:batty_mankini"
+      }
+    ],
     "humanoid_leggings": [
       {
         "texture": "mankini:batty_mankini"

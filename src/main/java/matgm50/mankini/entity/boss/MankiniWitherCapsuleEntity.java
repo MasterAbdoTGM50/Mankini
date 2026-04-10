@@ -104,9 +104,9 @@ public class MankiniWitherCapsuleEntity extends AbstractHurtingProjectile implem
 
 						ItemStack itemstack = hitPlayer.getItemBySlot(EquipmentSlot.CHEST);
 						ItemStack dyeableKini = new ItemStack(ModRegistry.DYEABLE_MANKINI.get());
-						dyeableKini.setDamageValue(dyeableKini.getMaxDamage() / serverlevel.random.nextInt(10));
+						dyeableKini.setDamageValue(dyeableKini.getMaxDamage() / serverlevel.getRandom().nextInt(10));
 
-						if (serverlevel.random.nextInt(100) < 8) {
+						if (serverlevel.getRandom().nextInt(100) < 8) {
 							if (!itemstack.isEmpty()) {
 								playerInv.removeItemNoUpdate(38);
 							}

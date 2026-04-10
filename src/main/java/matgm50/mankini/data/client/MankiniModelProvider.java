@@ -30,7 +30,7 @@ public class MankiniModelProvider extends ModelProvider {
 	}
 
 	public void generateDyedItem(ItemModelGenerators itemModels, Item item, int color) {
-		Identifier resourcelocation = itemModels.createFlatItemModel(item, ModelTemplates.FLAT_ITEM);
-		itemModels.itemModelOutput.accept(item, ItemModelUtils.tintedModel(resourcelocation, new Dye(color)));
+		Identifier model = itemModels.createFlatItemModel(item, ModelTemplates.FLAT_ITEM);
+		itemModels.itemModelOutput.accept(item, ItemModelUtils.tintedModel(model, new Dye(color)));
 	}
 }

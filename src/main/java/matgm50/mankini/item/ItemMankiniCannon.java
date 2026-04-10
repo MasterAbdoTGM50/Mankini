@@ -50,7 +50,7 @@ public class ItemMankiniCannon extends Item {
 						level.addFreshEntity(entityCapsule);
 					}
 
-					level.playSound((Player) null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (level.random.nextFloat() * 0.4F + 1.2F) + f * 0.5F);
+					level.playSound((Player) null, player.getX(), player.getY(), player.getZ(), SoundEvents.ARROW_SHOOT, SoundSource.PLAYERS, 1.0F, 1.0F / (level.getRandom().nextFloat() * 0.4F + 1.2F) + f * 0.5F);
 					if (MankiniHelper.isMankini(mankiniStack) && !player.getAbilities().instabuild) {
 						mankiniStack.shrink(1);
 						if (mankiniStack.isEmpty()) {
@@ -106,7 +106,7 @@ public class ItemMankiniCannon extends Item {
 	public MankiniCapsule createMankini(Level level, ItemStack stack, LivingEntity livingBase) {
 		MankiniCapsule capsule = new MankiniCapsule(level, livingBase, stack);
 		if (livingBase instanceof MankiniSkeleton) {
-			stack.setDamageValue(level.random.nextInt(stack.getMaxDamage()));
+			stack.setDamageValue(level.getRandom().nextInt(stack.getMaxDamage()));
 			capsule = new MankiniCapsule(level, livingBase, stack, false);
 		}
 		return capsule;
