@@ -9,7 +9,7 @@ import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.client.data.models.model.ItemModelUtils;
 import net.minecraft.client.data.models.model.ModelTemplates;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.neoforged.neoforge.registries.DeferredHolder;
 
@@ -30,7 +30,7 @@ public class MankiniModelProvider extends ModelProvider {
 	}
 
 	public void generateDyedItem(ItemModelGenerators itemModels, Item item, int color) {
-		ResourceLocation resourcelocation = itemModels.createFlatItemModel(item, ModelTemplates.FLAT_ITEM);
+		Identifier resourcelocation = itemModels.createFlatItemModel(item, ModelTemplates.FLAT_ITEM);
 		itemModels.itemModelOutput.accept(item, ItemModelUtils.tintedModel(resourcelocation, new Dye(color)));
 	}
 }

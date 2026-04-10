@@ -7,11 +7,11 @@ import net.minecraft.client.model.geom.EntityModelSet;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.layers.EnergySwirlLayer;
 import net.minecraft.client.renderer.entity.state.WitherRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
 public class LayerMankiniWitherAura extends EnergySwirlLayer<WitherRenderState, ModelMankiniWither<WitherRenderState>> {
-	private static final ResourceLocation WITHER_ARMOR = ModLib.modLoc("textures/entity/mankini_wither_armor.png");
+	private static final Identifier WITHER_ARMOR = ModLib.modLoc("textures/entity/mankini_wither_armor.png");
 	private final ModelMankiniWither<WitherRenderState> model;
 
 	public LayerMankiniWitherAura(RenderLayerParent<WitherRenderState, ModelMankiniWither<WitherRenderState>> parent, EntityModelSet modelSet) {
@@ -28,7 +28,7 @@ public class LayerMankiniWitherAura extends EnergySwirlLayer<WitherRenderState, 
 		return Mth.cos(offset * 0.02F) * 3.0F;
 	}
 
-	protected ResourceLocation getTextureLocation() {
+	protected Identifier getTextureLocation() {
 		return WITHER_ARMOR;
 	}
 

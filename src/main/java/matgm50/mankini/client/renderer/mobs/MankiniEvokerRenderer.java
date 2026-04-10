@@ -6,10 +6,10 @@ import matgm50.mankini.lib.ModLib;
 import net.minecraft.client.renderer.entity.EntityRendererProvider.Context;
 import net.minecraft.client.renderer.entity.EvokerRenderer;
 import net.minecraft.client.renderer.entity.state.EvokerRenderState;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public class MankiniEvokerRenderer extends EvokerRenderer<MankiniEvoker> {
-	private static final ResourceLocation MANKINI_EVOKER_ILLAGER = ModLib.modLoc("textures/entity/mankini_evoker.png");
+	private static final Identifier MANKINI_EVOKER_ILLAGER = ModLib.modLoc("textures/entity/mankini_evoker.png");
 
 	public MankiniEvokerRenderer(Context context) {
 		super(context);
@@ -19,7 +19,7 @@ public class MankiniEvokerRenderer extends EvokerRenderer<MankiniEvoker> {
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	@Override
-	public ResourceLocation getTextureLocation(EvokerRenderState state) {
+	public Identifier getTextureLocation(EvokerRenderState state) {
 		return MANKINI_EVOKER_ILLAGER;
 	}
 

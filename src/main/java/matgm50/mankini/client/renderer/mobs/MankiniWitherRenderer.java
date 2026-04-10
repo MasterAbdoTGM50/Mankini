@@ -10,12 +10,12 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.state.WitherRenderState;
 import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.util.Mth;
 
 public class MankiniWitherRenderer extends MobRenderer<MankiniWither, WitherRenderState, ModelMankiniWither<WitherRenderState>> {
-	private static final ResourceLocation MANKINI_WITHER_TEXTURES = ModLib.modLoc("textures/entity/mankini_wither_invulnerable.png");
-	private static final ResourceLocation MANKINI_WITHER = ModLib.modLoc("textures/entity/mankini_wither.png");
+	private static final Identifier MANKINI_WITHER_TEXTURES = ModLib.modLoc("textures/entity/mankini_wither_invulnerable.png");
+	private static final Identifier MANKINI_WITHER = ModLib.modLoc("textures/entity/mankini_wither.png");
 
 	public MankiniWitherRenderer(EntityRendererProvider.Context context) {
 		super(context, new ModelMankiniWither<>(context.bakeLayer(ClientHandler.MANKINI_WITHER)), 1.0F);
@@ -23,7 +23,7 @@ public class MankiniWitherRenderer extends MobRenderer<MankiniWither, WitherRend
 	}
 
 	@Override
-	public ResourceLocation getTextureLocation(WitherRenderState state) {
+	public Identifier getTextureLocation(WitherRenderState state) {
 		int i = Mth.floor(state.invulnerableTicks);
 		return i > 0 && (i > 80 || i / 5 % 2 != 1) ? MANKINI_WITHER_TEXTURES : MANKINI_WITHER;
 	}

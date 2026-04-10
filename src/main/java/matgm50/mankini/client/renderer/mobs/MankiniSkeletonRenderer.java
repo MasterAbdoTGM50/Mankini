@@ -9,11 +9,11 @@ import net.minecraft.client.renderer.entity.ArmorModelSet;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.client.renderer.entity.HumanoidMobRenderer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Items;
 
 public class MankiniSkeletonRenderer extends HumanoidMobRenderer<MankiniSkeleton, MankiniSkeletonRenderState, ModelMankiniSkeleton<MankiniSkeletonRenderState>> {
-	private static final ResourceLocation SKELETON_TEXTURES = ResourceLocation.withDefaultNamespace("textures/entity/skeleton/skeleton.png");
+	private static final Identifier SKELETON_TEXTURES = Identifier.withDefaultNamespace("textures/entity/skeleton/skeleton.png");
 
 	public MankiniSkeletonRenderer(EntityRendererProvider.Context context) {
 		this(context, ClientHandler.MANKINI_SKELETON, ClientHandler.MANKINI_SKELETON_ARMOR);
@@ -44,7 +44,7 @@ public class MankiniSkeletonRenderer extends HumanoidMobRenderer<MankiniSkeleton
 	 * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
 	 */
 	@Override
-	public ResourceLocation getTextureLocation(MankiniSkeletonRenderState renderState) {
+	public Identifier getTextureLocation(MankiniSkeletonRenderState renderState) {
 		return SKELETON_TEXTURES;
 	}
 }
